@@ -1,0 +1,572 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.4  (Win32)">
+	<META NAME="AUTHOR" CONTENT="Manuele Finocchiaro">
+	<META NAME="CREATED" CONTENT="20130203;18163332">
+	<META NAME="CHANGEDBY" CONTENT="Manuele Finocchiaro">
+	<META NAME="CHANGED" CONTENT="20130208;12143512">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+		H1 { margin-bottom: 0.21cm }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt }
+		H1.cjk { font-family: "Microsoft YaHei"; font-size: 16pt }
+		H1.ctl { font-family: "Mangal"; font-size: 16pt }
+		H2 { margin-bottom: 0.21cm }
+		H2.western { font-family: "Arial", sans-serif; font-size: 14pt; font-style: italic }
+		H2.cjk { font-family: "Microsoft YaHei"; font-size: 14pt; font-style: italic }
+		H2.ctl { font-family: "Mangal"; font-size: 14pt; font-style: italic }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1 CLASS="western" ALIGN=CENTER></H1>
+<H1 CLASS="western" ALIGN=CENTER></H1>
+<H1 CLASS="western" ALIGN=CENTER></H1>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; page-break-after: avoid"><FONT FACE="Arial, sans-serif"><FONT SIZE=4>ExtendedMirror
+-<BR>add reflection to your C++ classes<BR>Guide</FONT></FONT></P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; page-break-after: avoid"><FONT FACE="Arial, sans-serif"><FONT SIZE=4>Version
+1.0</FONT></FONT></P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0cm; page-break-after: avoid"><FONT FACE="Arial, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Index</B></FONT></FONT></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.1.Introduction|outline">Introduction</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.2.Basic Concepts|outline">Basic
+Concepts</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.3.Getting Started|outline">Getting
+Started</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.4.Enabling Classes|outline">Enabling
+Classes</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.5.Building Classes|outline">Building
+Classes</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.6.Enabling and Building Template Classes|outline">Enabling
+and Building Template Classes</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.7.Setting a Call Back Function|outline">Setting
+a Call Back Function</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.8.Retrieving Classes|outline">Retrieving
+Classes</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.8.Retrieving Classes|outline">Retrieving
+Members</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.10.Accessing Members|outline">Accessing
+Members</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.11.Variant Objects|outline">Variant
+Objects</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.12.Limitations|outline">Limitations</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.13.Reflection and Serialization|outline">Reflection
+and Serialization</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.14.Alternatives|outline">Alternatives</A></P>
+<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm"><A HREF="#3.15.Credits and References|outline">Credits
+and References</A></P>
+<H2 CLASS="western"><A NAME="3.1.Introduction|outline"></A>Introduction</H2>
+<P>Most of the modern languages, like Java or C# have a built in
+reflection system. However the C++ language only provide a very
+limited support to run time type information (RTTI). This language is
+still very popular to develop application that are performance
+critical and because it provide a wide range of libraries and 
+platform portability. The standard C++ RTTI system can only be used
+to retrieve an unique object that &ldquo;describe&rdquo; a type. It
+actually only contains an unique, implementation dependent, string
+for that type. The most useful feature of this system is perhaps the
+ability to retrieve the actual type of the object pointed by a
+pointer to a polymorphic class.<BR>A full, exhaustive reflection
+system is useful to automate some software development such as an
+editor, and I wonder why such a system is not provided by the
+standard C++ yet in 2013. Sometimes I really can't sleep thinking to
+it. I've found some points about this like these <A HREF="http://stackoverflow.com/questions/359237/why-does-c-not-have-reflection">here</A>,
+but I still think there are solutions to all them.<BR>Since I
+realized I really need this reflection capability for my project (a
+game framework) and since I want to keep working with C++ I ended up
+writing it my own (Yes, so diverging from my original purpose).<BR>What
+I come up with is the ExtendedMirror framework.<BR>Of course there
+are reasons why I didn't use an existing library. You can find them
+in the <A HREF="#1.14.Alternatives|outline">Alternatives</A> chapter.</P>
+<H2 CLASS="western"><A NAME="3.2.Basic Concepts|outline"></A>Basic
+Concepts</H2>
+<P>The very basic concept of the framework is of course the <B>Type</B>
+one. The class Type exhaustively describe a type. However the most
+interesting information for a class type are stored into the <B>Class</B>
+object. A class is of course a special kind of type so the Class
+class inherits from the Type one.<BR>Another very important class is
+the TypeRegister since it is the &ldquo;database&rdquo; where all the
+Type and Class objects that describe the <B>registered types</B>
+within your program are stored.<BR>You may notice I wrote &ldquo;registered
+types&rdquo;. In fact you need to register such types (and we will
+see later how). However you cannot simply register a type. First you
+have to <B>enable</B> that type. When you enable a type other types
+are automatically enabled. These are:</P>
+<UL>
+	<LI><P>Pointer to an enabled type.</P>
+	<LI><P>Enabled templates of an enabled type.</P>
+	<LI><P>Arrays of an enabled type.</P>
+</UL>
+<P>You can apply this definition recursively, so that if a type A is
+enabled, the type A**** is enabled as well. Sometimes enabled types
+are automatically registered, for instance when a member of a class 
+<B>uses</B> that type and is registered. By use the type I mean that
+in the member definition appear that type, whatever is role is
+(attribute type, return type or parameter type).<BR>The class
+members' information is stored into the <B>Property</B> and <B>Method</B>
+objects. Each Class has a set of methods and a set of properties.
+Note however that these Properties and Methods store no information
+about any given instance of the class they are related to, so you
+need to pass a pointer to an instance of this class to the methods
+that operate on instances data.<BR>This design is really similar to
+that one of the Java reflection API, and since (believe me or not) I
+happened to look at it only after the first version of this framework
+was almost complete, I assume that this is the most intuitive way to
+implement reflection.<BR>However this framework is not only a
+reflection system, but it works as a property system as well. By this
+I mean that we don't register attributes or fields, but properties. A
+Property can be constructed both from a field or from a a getter and
+setter couple, and we can then access the property at the same way
+regardless form what is constructed.<BR>The last think I want to
+mention here is the <B>Variant</B> class. This class can hold
+arbitrary data of any registered type, and it is used all across the
+interface to keep it type independent.</P>
+<H2 CLASS="western"><A NAME="3.3.Getting Started|outline"></A>Getting
+Started</H2>
+<P>Since the framework has no external dependencies, it only require
+to be compiled to a static library and linked. The library is very
+tiny in terms of binary code, there is no need to use a shared object
+(or a shared library if you prefer).<BR>In each compile unit you have
+to put the ExtendedMirror.hpp header. There is no other requirement
+to use the framework.</P>
+<P>Now I start to write some code to give examples on how the API
+works. Throughout the guide I will assume that we are dealing with a
+class with the following public interface:<BR><BR><BR>
+</P>
+<P><FONT FACE="Arial, sans-serif"><SPAN STYLE="font-weight: normal">class
+Dummy : public Base<BR>{<BR>public:<BR>	int someInt;<BR>	std::string
+getSomeString();<BR>	void setSomeString(const std::string&amp;
+string);<BR>	int someMethod(int i, const std::string&amp; s);<BR>};</SPAN></FONT><B><BR></B><BR><BR>
+</P>
+<P STYLE="font-weight: normal">Where the Base class is an enabled
+class. I will also assume that you are using the <FONT FACE="Arial, sans-serif">extmr</FONT>
+namespace and thus there is no need to specify it every time.<BR>If
+you want to compile the proposed code you have to put this macro in a
+compile unit (I will explain this macro in the <A HREF="#1.7.Setting a Call Back Function|outline">Setting
+a Call Back Function</A> chapter):<BR><FONT FACE="Arial, sans-serif">EXTMR_SETCALLBACK(NULL)	</FONT></P>
+<H2 CLASS="western"><A NAME="3.4.Enabling Classes|outline"></A>Enabling
+Classes</H2>
+<P>To enable a class you should specialize some template classes. To
+help you automate this work some useful macro are provided.<BR>Our
+Dummy class can be enabled by putting this macro into an header file,
+after the class declaration:</P>
+<P><FONT FACE="Arial, sans-serif">EXTMR_ENABLE_CLASS(Dummy)</FONT></P>
+<P><FONT FACE="Times New Roman, serif">But it's not over jet. If you
+try to compile your program now you will end up with some undefined
+reference linking errors. In fact you have to implement the function
+that fills up the Class with all the Properties, base Classes and
+Methods. To do so, you can use another macro:<BR></FONT><BR><BR>
+</P>
+<P><FONT FACE="Arial, sans-serif">EXTMR_BUILD_CLASS(Dummy)<BR>{<BR>	//
+building code goes here<BR>}</FONT></P>
+<P><FONT FACE="Times New Roman, serif">We will talk later about what
+to put inside this function body. Remember to put this macro inside a
+single compile unit (i.e. inside a .cpp file) to avoid multiple
+reference linking errors.<BR>The last thing to do is to put this
+macro into a compile unit, possibly just after the previous one:</FONT></P>
+<P><FONT FACE="Arial, sans-serif">EXTMR_AUTOREG(Dummy)</FONT></P>
+<P><FONT FACE="Times New Roman, serif">This macro ensure that the
+class is registered automatically at the program start up without you
+to write anything into you main() function.</FONT></P>
+<H2 CLASS="western"><A NAME="3.5.Building Classes|outline"></A>Building
+Classes</H2>
+<P>Now we have to specify what are the member of the Dummy class and
+what are its base classes. All the code written in this chapter goes
+inside the function body you have defined after the
+<FONT FACE="Arial, sans-serif">EXTMR_BUILD_CLASS(Dummy)</FONT>
+macro.<BR>The function we are writing the body of, has been declared
+inside the macros with the two parameters <FONT FACE="Arial, sans-serif">Class&amp;
+clazz</FONT> and <FONT FACE="Arial, sans-serif">TypeRegister&amp;
+typeReg</FONT>. To register a base class we write:</P>
+<P><FONT FACE="Arial, sans-serif">clazz &lt;&lt;
+typeReg.registerClass&lt;Base&gt;();</FONT></P>
+<P><FONT FACE="Times New Roman, serif">This will ensure the class
+Base is registered before this one. Remember that the Base class must
+be an enabled class too. If it is not the case, you first have to
+enable it, or your code won't compile.<BR>Now let's see how to
+register a Property. A Property can be registered form a field like
+this:</FONT></P>
+<P><FONT FACE="Arial, sans-serif">clazz &lt;&lt;
+EXTMR_PROPERTY_FLD(Dummy::someInt);</FONT></P>
+<P><FONT FACE="Times New Roman, serif">The property will be
+registered with the someInt name.<BR>A property can also be
+registered form a getter or a getter and setter couple. To do this
+you have to write:</FONT></P>
+<P><FONT FACE="Arial, sans-serif">clazz &lt;&lt;
+buildProperty(&ldquo;someString&rdquo;, &amp;Dummy::getSomeString,
+&amp;Dummy::setSomeString);</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT FACE="Times New Roman, serif">Note
+that you can set some flags for each Property by its
+</FONT><FONT FACE="Arial, sans-serif">Property::setFlags()</FONT><FONT FACE="Times New Roman, serif">
+method. This method returns the Property itself so can be chained
+after the Property building function or macro:</FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif">clazz &lt;&lt;
+buildProperty(&ldquo;someString&rdquo;, &amp;Dummy::getSomeString,
+&amp;Dummy::setSomeString).setFlags(flags);<BR></FONT><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Times New Roman, serif">Look
+at the documentation for the list of available flags.</FONT></P>
+<P><FONT FACE="Times New Roman, serif">To register a method the
+process is similar:</FONT></P>
+<P><FONT FACE="Arial, sans-serif">clazz &lt;&lt;
+EXTMR_METHOD(Dummy::someMethod);</FONT></P>
+<P><FONT FACE="Times New Roman, serif">Note however that this won't
+work for an overloaded method.<BR>If your method is overloaded you
+have to specify some additional information to help resolve the
+overload. You can do like this:</FONT></P>
+<P><FONT FACE="Arial, sans-serif">clazz &lt;&lt; buildMethod&lt;Dummy,
+int, int, const std::string&amp;&gt;(&ldquo;someMethod,
+&amp;Dummy::someMethod);</FONT></P>
+<P><FONT FACE="Times New Roman, serif">Or you can cast the method to
+the right signature before passing it to the buildMethod() function:</FONT></P>
+<P><FONT FACE="Arial, sans-serif">clazz &lt;&lt;
+buildMethod(&ldquo;someMethod&rdquo;, (int (Dummy::*)(int, const
+std::string&amp;))(&amp;Dummy::someMethod));</FONT></P>
+<H2 CLASS="western"><A NAME="3.6.Enabling and Building Template Classes|outline"></A>
+Enabling and Building Template Classes</H2>
+<P>Template classes are also supported by this framework. Suppose you
+have a template class with this public interface:<BR><BR><BR>
+</P>
+<P><FONT FACE="Arial, sans-serif">template&lt;typename T, typename
+C&gt;<BR>class TClass: public Tbase&lt;T, C&gt;<BR>{<BR>public:<BR>	T
+someField;<BR>	const C&amp; getSomeObj();<BR>	void setSomeObj(const
+C&amp;);<BR>	T someMethod(int I, C obj);<BR>};</FONT></P>
+<P><FONT FACE="Times New Roman, serif">To enable such a class you
+have to use this macro:</FONT></P>
+<P><FONT FACE="Arial, sans-serif">EXTMR_ENABLE_N_BUILD_TCLASS_2(TClass)<BR>{<BR>	<FONT FACE="Arial, sans-serif">//
+building code goes here</FONT><BR>}</FONT></P>
+<P><FONT FACE="Times New Roman, serif">The major difference here is
+that a single macro is provided to both enable and build the template
+Class. This is because you need the building code to be in a header
+as well as the enabling code and to be visible to all the compile
+units that may attempt to register an instance of this class,
+otherwise, as usual, compile errors!<BR>The number at the end of the
+macro must match the number of template arguments of you
+class.<BR>Building a template class is analogous to building an
+ordinary class. You just have to remember that the type parameters
+are named by the macro as T1, T2, &hellip;, TN. So to register two
+properties and a method you can write this code inside the function
+body:<BR></FONT><BR><BR>
+</P>
+<P><FONT FACE="Arial, sans-serif">clazz &lt;&lt;
+typeReg.registerClass&lt;TBase&lt;T1, T2&gt; &gt;()<BR>	&lt;&lt;
+EXTMR_PROPERTY_FLD(TClass&lt;T1, T2&gt;::someField) <BR>	&lt;&lt;
+buildProperty(&ldquo;someObj&rdquo;, &amp;TClass&lt;T1,
+T2&gt;::getSomeObj, &amp;TClass&lt;T1, T2&gt;::setSomeObj)<BR>	&lt;&lt;
+EXTMR_METHOD(TClass&lt;T1, T2&gt;::someMethod);</FONT></P>
+<H2 CLASS="western"><A NAME="3.7.Setting a Call Back Function|outline"></A><A NAME="1.7.Setting a Call Back Function|outline"></A>
+Setting a Call Back Function</H2>
+<P>You can set a function to be called whenever a Type is registered
+within the TypeRegister. Such a call back function can be useful to
+automatically bind your types to the types of a scripting language in
+a dynamic fashion. This can also be useful when using dynamic linking
+because, if linking an object containing an enabled class, specified
+for autoregistration, then the class will be registered and this
+function called, allowing you to execute the code to manage this
+situation.<BR>The function to be registered must return no value and
+take a reference to a constant Type:</P>
+<P><FONT FACE="Arial, sans-serif">void func (const Type&amp; type);</FONT></P>
+<P><FONT FACE="Times New Roman, serif">To register such a function
+for call back you have to use the following macro:</FONT></P>
+<P><FONT FACE="Arial, sans-serif">EXTMR_SETCALLBACK(func)</FONT></P>
+<P><FONT FACE="Times New Roman, serif">This macro must be placed
+somewhere into one and only one compile unit of you program,
+otherwise you will end up with a multiple definitions liking error.
+You must always specify such a macro even if you don't want to use a
+call back function, otherwise the linking error will be an undefined
+reference one. In this case just pass NULL as argument of the macro,
+like we have done in the previous example.</FONT></P>
+<H2 CLASS="western"><A NAME="3.8.Retrieving Classes|outline"></A><A NAME="3.8.Retrieving Classes|outline"></A>
+<B>Retrieving Classes</B></H2>
+<P STYLE="font-weight: normal">To use the reflection API at runtime
+the first step is to retrieve the TypeRegister singleton. You can
+doit like this:</P>
+<P STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">TypeRegister&amp;
+typeReg = TypeRegister::GetTypeReg();</FONT></P>
+<P STYLE="font-weight: normal">Now, to retrieve a Class from the
+TypeRegister you can use several methods:<BR><BR><BR>
+</P>
+<UL>
+	<LI><P STYLE="font-weight: normal">by typename:<BR><BR><FONT FACE="Arial, sans-serif">const
+	Class&amp; clazz = typeReg.getClass&lt;Dummy&gt;();</FONT></P>
+	<LI><P STYLE="font-weight: normal">by a string containing the
+	name:<BR><BR><FONT FACE="Arial, sans-serif">const Class&amp; clazz =
+	typeReg.getClass(&ldquo;Dummy&rdquo;);</FONT></P>
+	<LI><P STYLE="font-weight: normal">by type_info:<BR><BR><FONT FACE="Arial, sans-serif">const
+	type_info&amp; dummy_type_info = typeid(Dummy);<BR>const Class&amp;
+	clazz = typeReg.getClass(dummy_type_info);</FONT></P>
+</UL>
+<P STYLE="font-weight: normal">Note that the <FONT FACE="Arial, sans-serif">TypeRegister::getClass()</FONT>
+method doesn't work for non class types. To retrieve a non class type
+use the analogous <FONT FACE="Arial, sans-serif">TypeRegister::getType()</FONT>
+method.<BR>You may want to iterate all over the Type or Class objects
+of all the registered types and classes in you program. To allow this
+the <FONT FACE="Arial, sans-serif"><B>TypeRegister::getTypes()</B></FONT>
+and <FONT FACE="Arial, sans-serif"><B>TypeRegister::getClasses()</B></FONT><FONT FACE="Arial, sans-serif">
+</FONT>methods return an std::set containing the pointers to all
+them.<BR>Now that you have a Class you may want to access its
+members.</P>
+<H2 CLASS="western">Retrieving Members</H2>
+<P>The class members are properties and methods and are described
+respectively by the <B>Property</B> and <B>Method </B><SPAN STYLE="font-weight: normal">classes</SPAN>.
+Given a Class you can retrieve a Property by its registered name:</P>
+<P STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">const
+Property&amp; property = clazz.getProperty(&ldquo;someInt&rdquo;);</FONT></P>
+<P>the same applies for non overloaded methods:</P>
+<P STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">const
+Method&amp; method = clazz.getMethod(&ldquo;someMethod&rdquo;);</FONT></P>
+<P>If your method is overloaded you need to retrieve the Method by
+its entire signature. To do this you can pass a Method built with the
+right signature to <FONT FACE="Arial, sans-serif">Class::getMethod()</FONT>,
+and it will be used as a key to look up the right Method:</P>
+<P STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">const
+Method&amp; method = clazz.getMethod(Method(&ldquo;someMethod&rdquo;,
+typeReg.getType&lt;int&gt;(), typeReg.getType&lt;int&gt;(),
+typeReg.getType&lt;std::string&gt;()));</FONT></P>
+<P><SPAN STYLE="font-weight: normal">You can also retrieve an
+std::set containing pointers to all the Property objects of a class
+with the </SPAN><FONT FACE="Arial, sans-serif"><B>Class::getProperties()</B></FONT><SPAN STYLE="font-weight: normal">
+method, and an std::set containing pointers to all the Method objects
+with the </SPAN><FONT FACE="Arial, sans-serif"><B>Class::getMethods()</B></FONT><SPAN STYLE="font-weight: normal">
+method.</SPAN></P>
+<H2 CLASS="western"><A NAME="3.10.Accessing Members|outline"></A>Accessing
+Members</H2>
+<P ALIGN=LEFT>Property and Method objects can be used to access an
+instance. Suppose you have an instance of our example class called
+dummy. To get the property data you can do like this:</P>
+<P ALIGN=LEFT STYLE="font-weight: normal"><FONT FACE="Ariak">int i =
+property.getData(&amp;dummy);</FONT></P>
+<P ALIGN=LEFT STYLE="font-weight: normal">Instead to set the property
+data you can do like this:</P>
+<P ALIGN=LEFT STYLE="font-weight: normal"><FONT FACE="Ariak">property.setData(&amp;dummy,
+5);</FONT></P>
+<P ALIGN=LEFT STYLE="font-weight: normal">Note however that if your
+property has been registered from a field, or if the getter for that
+property returns a non constant reference, this will work too:</P>
+<P ALIGN=LEFT STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">property.getData(&amp;dummy)
+= 5;</FONT></P>
+<P ALIGN=LEFT STYLE="font-weight: normal">Pretty fancy, isn't it?
+This is because the value is returned as a reference Variant. See the
+chapter on the <A HREF="#1.11.Variant Objects|outline">Variant
+Objects</A> to better understand this behavior.<BR>To call a method
+you can just write:</P>
+<P ALIGN=LEFT STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">int
+retVal = method.call(&amp;dummy, 5, &ldquo;so simple&rdquo;);</FONT></P>
+<P ALIGN=LEFT STYLE="font-weight: normal">As with properties, if the
+method returns a non constant reference to a variable, the return
+value of call() is a reference Variant to that variable.</P>
+<P ALIGN=LEFT STYLE="font-weight: normal">Note that if you pass a
+pointer to a constant instance, as instance pointer, and try to call
+a non constant method, to set a property, or to get a property that
+has been registered through a non constant getter, you will rise an
+exception. If you access to a property registered from a field
+passing a constant instance pointer your data will be returned as a
+constant reference Variant (this does not mean the variant returned
+is const-qualified).</P>
+<H2 CLASS="western"><A NAME="3.11.Variant Objects|outline"></A><A NAME="1.11.Variant Objects|outline"></A>
+Variant Objects</H2>
+<P ALIGN=LEFT>One of the key concept of this framework is the Variant
+one. A Variant object can hold data of any registered type. A Variant
+object can be constructed from any object through its template
+constructor, but constructing a variant from an object of a non
+enabled type will cause compile time errors. Although constructing a
+Variant from a non registered but enabled type is permitted and will
+cause the  type to be registered.<BR>By default a variant constructed
+from an object contains a copy of the object data obtained through 
+the object type's copy constructor.<BR>A variant object can be cast
+to any type through its template casting operator, but, like in
+construction, casting to a non enable type will cause compile time
+errors.<BR>You can also use the <B>Variant::to()</B> template method
+to get the content of the variant as the specified type. You should
+however remember the following rule:<BR><BR><I><SPAN STYLE="text-decoration: none">When
+a Variant holds data of a certain type and an attempt is made to
+retrieve this data as another type by the casting operator or by the
+Variant::to() method, a </SPAN></I><I><SPAN STYLE="text-decoration: none"><B>BadType</B></SPAN></I><I><SPAN STYLE="text-decoration: none">
+exception will be thrown, no matter if a cast operator is defined
+between those types.<BR></SPAN></I><BR>The only exception at this
+rule are classes and classes pointers, that can be retrieved as a
+base class or a base class pointer respectively.<BR>To make it more
+clear, if you want the value of a Variant holding an int to be
+assigned to a float variable you should write something like this:</P>
+<P ALIGN=LEFT STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">float
+f = static_cast&lt;int&gt;(v);</FONT></P>
+<P ALIGN=LEFT STYLE="font-weight: normal">This is due to the fact
+that the content of a variant is returned by the cast operator or the
+Variant::to() method as a reference to the internal data, so casting
+directly to a different type would return a reference of a type,
+&ldquo;pointing&rdquo; to data of a different type.<BR>You may wonder
+why the cast operator returns a reference. This is to allow to access
+the variant content directly, and because a variant can actually
+&ldquo;reference&rdquo; external data. By this I mean that the
+internal pointer of that Variant points to an object that existed
+before the Variant. If we had and object obj of any enabled type, we
+can create a variant referencing its data like this:</P>
+<P ALIGN=LEFT STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">Variant
+v(obj, Variant::Reference);</FONT></P>
+<P ALIGN=LEFT><SPAN STYLE="font-weight: normal">We will call such a
+Variant object, a </SPAN><B>reference Variant</B><SPAN STYLE="font-weight: normal">.
+You can check if a Variant is a reference Variant through its
+</SPAN><B>Variant::isReference()</B><SPAN STYLE="font-weight: normal">
+method.<BR>A variant constructed from an array (even multidimensional
+ones) will contain the pointer to the first element so the following
+Variant:<BR><BR></SPAN><FONT FACE="Arial, sans-serif"><SPAN STYLE="font-weight: normal">int
+mat[10][10][10];<BR>Variant var(mat);</SPAN></FONT></P>
+<P ALIGN=LEFT><FONT FACE="Times New Roman, serif"><SPAN STYLE="font-weight: normal">Will
+be of type int* and the value will be &amp;mat[0][0][0]. </SPAN></FONT><SPAN STYLE="font-weight: normal"><BR>A
+variant can also be set to be constant with the </SPAN><B>Variant::setConst()</B><SPAN STYLE="font-weight: normal">
+method, or by specifying the </SPAN><B>Variant::Const</B><SPAN STYLE="font-weight: normal">
+flag in its constructor. A Variant that has been set to be constant
+cannot be reset to be non constant. We will call such a Variant
+object a Const Variant. Pay attention that a Const Variant itself is
+not said to be a constant object; its only the contained data that is
+marked to be constant. A Const Varariant can only be cast to a
+constant type, otherwise a </SPAN><B>ConstnessBreak</B><SPAN STYLE="font-weight: normal">
+exception will be thrown.<BR>Finally, you may want to return a
+Variant from a function that references external data, but you don't
+want to return a reference to a Variant. Since copying a variant by
+default copies its content too, you have to change this behavior, and
+mark the variant you return to have its data referenced in the copied
+Variant. You can achieve this by calling the </SPAN><B>Variant::setCopyByRef()</B><SPAN STYLE="font-weight: normal">
+method on that variant or by passing the </SPAN><B>Variant::CopyByRef</B><SPAN STYLE="font-weight: normal">
+when the variant is constructed.<BR>Note that variant objects
+&ldquo;remember&rdquo; the consteness of their content only for the
+first two indirection levels. So, for instance, if I build a variant
+from a </SPAN><FONT FACE="Arial, sans-serif"><SPAN STYLE="font-weight: normal">const
+char*</SPAN></FONT><SPAN STYLE="font-weight: normal"> and try to cast
+it to a </SPAN><FONT FACE="Arial, sans-serif"><SPAN STYLE="font-weight: normal">char*</SPAN></FONT><SPAN STYLE="font-weight: normal">
+I will get an exception, but if I build a variant from a </SPAN><FONT FACE="Arial, sans-serif"><SPAN STYLE="font-weight: normal">const
+char**</SPAN></FONT><SPAN STYLE="font-weight: normal"> and cast it to
+a </SPAN><FONT FACE="Arial, sans-serif"><SPAN STYLE="font-weight: normal">char**</SPAN></FONT><SPAN STYLE="font-weight: normal">
+I will get no exception. However constant with such an indirection
+level are of very rare use, if any.</SPAN></P>
+<H2 CLASS="western"><A NAME="3.12.Limitations|outline"></A>Limitations</H2>
+<P>Because of the nature of the C++ language, this framework comes
+with some limitations:</P>
+<UL>
+	<LI><P>Supported method are limited to those with no more than
+	<FONT FACE="Arial, sans-serif">EXTMR_METHOD_PARAM_MAX</FONT>
+	parameters. If your method exceed this limit you can either wrap it
+	into another method and use containers to reduce the number of the
+	parameters, or extend the framework itself.</P>
+	<LI><P>Template with non type arguments are not supported and they
+	can't be supported. If you have to register such a template you have
+	to make a registration for each used value of the non type arguments
+	using C++11 aliases.</P>
+	<LI><P>Template with more than <FONT FACE="Arial, sans-serif">EXTMR_TCLASS_PARAM_MAX</FONT>
+	parameters are not supported. If you want to register a template
+	with more parameters you have no choice but to extend the framework,
+	although this is quite simple I won't cover it in this guide.</P>
+</UL>
+<H2 CLASS="western"><A NAME="3.13.Reflection and Serialization|outline"></A>
+Reflection and Serialization</H2>
+<P>Reflection is usually used along with serialization, but they are
+two well distinct things. In the first place I was trying to develop
+both of them in the same framework to minimize code repetition.<BR>In
+fact using an external serialization framework, such as the good
+Boost one, requires to specify manually what fields should be
+serialized in a &ldquo;serialize&rdquo; function.<BR>However I soon
+realized that this is not the case, since the reflection is used to
+expose at run time the <I>public </I><SPAN STYLE="font-style: normal">interface,
+while serialization is used to stream the state of an object, and
+this state is </SPAN><SPAN STYLE="font-style: normal">usually defined
+by its </SPAN><I>private</I><SPAN STYLE="font-style: normal"> fields.
+So its very rare that you would specify a field in both the serialize
+function an the reflection building function.</SPAN></P>
+<H2 CLASS="western" STYLE="font-style: normal"><A NAME="3.14.Alternatives|outline"></A><A NAME="1.14.Alternatives|outline"></A>
+Alternatives</H2>
+<P STYLE="font-style: normal">The main purpose to develop this
+framework was maybe the chance to deepen my knowledge of the C++
+language. The second one was that of having a very simple framework
+for reflection that just suits my needs. So I didn't had a deep
+search for alternatives.<BR>The most of the existing reflection
+libraries make use of some sort of parser to generate the needed
+code. While this avoid the need to manually specify classes and
+members to reflect, it require to maintain external files, and add
+time to the building pipeline. However here I mention some really
+good alternatives I found that you should take into consideration:</P>
+<UL>
+	<LI><P><SPAN STYLE="font-style: normal">The </SPAN><A HREF="http://sourceforge.net/projects/mirror-lib/"><SPAN STYLE="font-style: normal">Mirror
+	C++ reflection library</SPAN></A><SPAN STYLE="font-style: normal">
+	is a &ldquo;Boostified&rdquo; library that doesn't make a mandatory
+	use of an external parser. It is not part of the official Boost
+	library yet.</SPAN></P>
+	<LI><P><SPAN STYLE="font-style: normal">The </SPAN><A HREF="http://root.cern.ch/drupal/content/reflex"><SPAN STYLE="font-style: normal">Reflex
+	library</SPAN></A><SPAN STYLE="font-style: normal"> seem also good
+	and exhaustive, but makes use of an external parser.</SPAN></P>
+</UL>
+<P STYLE="font-style: normal">Note that I never used these libraries.
+So I encourage you to try them and to search for others.</P>
+<H2 CLASS="western" STYLE="font-style: normal"><A NAME="3.15.Credits and References|outline"></A>
+Credits and References</H2>
+<P STYLE="font-style: normal">To be honest I should mention the whole
+web in here, since I continuously looked for project hints and for
+C++ issues in general. However the two articles that got me started
+with this project are:</P>
+<UL>
+	<LI><P><A HREF="http://www.gamasutra.com/view/feature/6379/sponsored_feature_behind_the_.php"><SPAN STYLE="font-style: normal">http://www.gamasutra.com/view/feature/6379/sponsored_feature_behind_the_.php</SPAN></A></P>
+	<LI><P><A HREF="http://www.gamasutra.com/view/news/39500/Reflection_in_C_The_simple_implementation_of_Splinter_Cell.php"><SPAN STYLE="font-style: normal">http://www.gamasutra.com/view/news/39500/Reflection_in_C_The_simple_implementation_of_Splinter_Cell.php</SPAN></A></P>
+	<LI><P><A HREF="http://www.gamasutra.com/view/feature/132080/a_templated_c_attribute_library_.php">http://www.gamasutra.com/view/feature/132080/a_templated_c_attribute_library_.php</A></P>
+</UL>
+<P STYLE="font-style: normal">Even though I really diverged from the
+concept described in these articles.</P>
+</BODY>
+</HTML>
