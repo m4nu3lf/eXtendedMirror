@@ -2,7 +2,7 @@
  * File:   TypeTraits.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 20 August 2012, 15.30
+ * Created on August 20, 2012, 15.30
  */
 
 #ifndef EXTMR_TYPETRAITS_HPP
@@ -88,7 +88,13 @@ struct RemoveConst
 template<typename T>
 struct RemoveConst<const T>
 {
-    typedef typename RemoveConst<T>::Type Type;
+    typedef T Type;
+};
+
+template<typename T>
+struct RemoveConst<const T&>
+{
+    typedef T Type;
 };
 
 /**

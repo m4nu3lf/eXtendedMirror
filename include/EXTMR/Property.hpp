@@ -102,18 +102,18 @@ public:
     virtual Property& setMaxValue(double maxValue);
     
     /**
-     * Ask whether the property data is retrived by a non const reference.
+     * Ask whether the property data is retrieved by a non constant reference.
      * 
-     * @return True if the property data is retrieved by a non const reference.
+     * @return True if the property data is retrieved by a non constant reference.
      */
-    virtual bool getGetByNcRef();
+    virtual bool getGetByNonConstRef();
     
     /**
-     * Ask whether the property data is set by a non const reference.
+     * Ask whether the property data is set by a non constant reference.
      * 
      * @return True if the property data is set by reference.
      */
-    virtual bool getSetByNcRef();
+    virtual bool getSetByNonConstRef();
     
     /**
      * Get the data through variant objects.

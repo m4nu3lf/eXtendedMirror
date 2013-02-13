@@ -2,14 +2,14 @@
  * File:   MethodImpl.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 20 October 2012, 22.11
+ * Created on October 20, 2012, 22.11
  */
 
 #ifndef EXTMR_METHODIMPL_HPP
 #define	EXTMR_METHODIMPL_HPP
 
 #include <EXTMR/MemberWrappers.hpp>
-#include <EXTMR/Exceptions/ConstnessBreak.hpp>
+#include <EXTMR/Exceptions/VariantCostnessException.hpp>
 
 namespace extmr{
 
@@ -340,22 +340,23 @@ public:
      * @param arg8 Argument 8.
      * @return A Variant object containing the return value.
      */
-    Variant call(
-                    const Variant& objPtr,
-                    const Variant& arg1 = Variant(),
-                    const Variant& arg2 = Variant(),
-                    const Variant& arg3 = Variant(),
-                    const Variant& arg4 = Variant(),
-                    const Variant& arg5 = Variant(),
-                    const Variant& arg6 = Variant(),
-                    const Variant& arg7 = Variant(),
-                    const Variant& arg8 = Variant()
-                ) const
+    Variant call
+    (
+        const Variant& objPtr,
+        const Variant& arg1 = Variant(),
+        const Variant& arg2 = Variant(),
+        const Variant& arg3 = Variant(),
+        const Variant& arg4 = Variant(),
+        const Variant& arg5 = Variant(),
+        const Variant& arg6 = Variant(),
+        const Variant& arg7 = Variant(),
+        const Variant& arg8 = Variant()
+     ) const
     {        
         ClassT& objRef = *objPtr.to<ClassT*>();
         
         // cannot call a non constant method of a constant instance
-        if (objPtr.isPointedConst() && !constant) throw ConstnessBreak(objPtr.getType());
+        if (objPtr.isPointedConst() && !constant) throw VariantCostnessException(objPtr.getType());
         
         Variant var = methodWrapper(objRef, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
         var.setCopyByRef(IsReference<RetT>::value);

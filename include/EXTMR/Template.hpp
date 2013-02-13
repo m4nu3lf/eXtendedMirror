@@ -2,7 +2,7 @@
  * File:   Template.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 2 January 2013, 13.23
+ * Created on January 2, 2013, 13.23
  */
 
 #ifndef EXTMR_TEMPLATE_HPP

@@ -2,7 +2,7 @@
  * File:   PropertyGetterNSetter.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 2 February 2013, 20.14
+ * Created on February 2, 2013, 20.14
  */
 
 #ifndef EXTMR_PROPERTYGETTERNSETTER_HPP
@@ -11,8 +11,8 @@
 #include <limits>
 
 #include <EXTMR/BoundsCheck.hpp>
-#include <EXTMR/Exceptions/SetNotAllowed.hpp>
-#include <EXTMR/Exceptions/OutOfRange.hpp>
+#include <EXTMR/Exceptions/PropertySetException.hpp>
+#include <EXTMR/Exceptions/PropertyRangeException.hpp>
 #include <EXTMR/MemberWrappers.hpp>
 
 #include "Variant.hpp"
@@ -80,8 +80,8 @@ public:
     {
          type = &TypeRegister::getTypeReg().getType<PropT>();
         
-        // If the setter pointer is NULL no way we can set the property.
-        if (!setter) flags = flags & ~Settable;
+        // if the setter is not null we can set the property
+        if (setter) flags |= Settable;
          
         // initialize bounds
          getTypeBounds<PropT>(minValue, maxValue);
@@ -112,8 +112,8 @@ public:
     {
         type = &TypeRegister::getTypeReg().getType<PropT>();
                 
-        // If the setter pointer is NULL no way we can set the property.
-        if (!setter) flags = flags & ~Settable;
+        // if the setter is not null we can set the property
+        if (setter) flags |= Settable;
         
         // initialize bounds
         getTypeBounds<PropT>(minValue, maxValue);
@@ -147,8 +147,8 @@ public:
     {
         type = &TypeRegister::getTypeReg().getType<PropT>();
         
-        // If the setter pointer is NULL no way we can set the property.
-        if (!setter) flags = flags & ~Settable;
+        // if the setter is not null we can set the property
+        if (setter) flags |= Settable;
         
         // initialize bounds
         getTypeBounds<PropT>(minValue, maxValue);
@@ -190,12 +190,12 @@ public:
         return *this;
     }
     
-    bool getGetByNcRef()
+    bool getGetByNonConstRef()
     {
         return IsReference<RetT>::value && !IsConst<RetT>::value;
     }
     
-    bool getSetByNcRef()
+    bool getSetByNonConstRef()
     {
         return IsReference<ParamT>::value && !IsConst<RetT>::value;
     }
@@ -206,7 +206,7 @@ public:
         ClassT& objRef = *objPtr.to<ClassT*>();
         
         // we cannot call a non constant getter of a constant instance
-        if (objPtr.isPointedConst() && !constGetter) throw ConstnessBreak(objPtr.getType());
+        if (objPtr.isPointedConst() && !constGetter) throw VariantCostnessException(objPtr.getType());
                 
         const PropT& data = getterWrapper(objRef, extrArg1, extrArg2);
         return Variant(const_cast<PropT&>(data), ReturnVariantFlags<RetT>::flags);
@@ -215,7 +215,7 @@ public:
     void setData(const Variant& objPtr, const Variant& data) const
     {
         // check whether the property is settable
-        if (!setterWrapper.setter) throw SetNotAllowed(*this);
+        if (!setterWrapper.setter) throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
         ClassT& objRef = *objPtr.to<ClassT*>();
@@ -231,7 +231,7 @@ public:
     }
     
 private:
-    
+
     /// The getter method wrapper
     GetterWrapper<ClassT, RetT, ExtrParamT1, ExtrParamT2> getterWrapper;
     

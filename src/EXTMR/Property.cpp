@@ -8,6 +8,7 @@ Property::Property(const std::string& name)
 {
     this->name = name;
     this->type = NULL;
+    flags = 0;
 }
 
 const string& Property::getName() const
@@ -50,12 +51,12 @@ Property& Property::setMaxValue(double maxValue)
     return *this;
 }
 
-bool Property::getGetByNcRef()
+bool Property::getGetByNonConstRef()
 {
     return false;
 }
 
-bool Property::getSetByNcRef()
+bool Property::getSetByNonConstRef()
 {
     return false;
 }

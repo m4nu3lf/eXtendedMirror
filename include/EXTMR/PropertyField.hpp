@@ -2,7 +2,7 @@
  * File:   PropertyField.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 2 February 2013, 20.11
+ * Created on February 2, 2013, 20.11
  */
 
 #ifndef EXTMR_PROPERTYFIELD_HPP
@@ -11,12 +11,13 @@
 #include <limits>
 
 #include <EXTMR/BoundsCheck.hpp>
-#include <EXTMR/Exceptions/SetNotAllowed.hpp>
-#include <EXTMR/Exceptions/OutOfRange.hpp>
-#include <EXTMR/Exceptions/ConstnessBreak.hpp>
+#include <EXTMR/Exceptions/PropertySetException.hpp>
+#include <EXTMR/Exceptions/PropertyRangeException.hpp>
+#include <EXTMR/Exceptions/VariantCostnessException.hpp>
 
 #include "Variant.hpp"
 #include "TypeRegister.hpp"
+#include "TypeTraits.hpp"
 
 namespace extmr{
 
@@ -28,12 +29,13 @@ namespace extmr{
 template<class ClassT, typename FieldT>
 class PropertyField : public Property
 {
-public:
     /// A numerical type. The same of FieldT if FieldT is numerical.
     typedef typename ToNumerical<FieldT>::Type NumT;
-    
+
     /// The property type, without any cv-qualifier.
     typedef typename RemoveConst<FieldT>::Type PropT;
+
+public:
     
     /**
      * Constructor for the property object.
@@ -49,6 +51,10 @@ public:
         
         // initialize bounds
         getTypeBounds<FieldT>(minValue, maxValue);
+        
+        // if the property is not constant we can set it by default
+        if (!IsConst<FieldT>::value) flags |= Settable;
+        
     }
     
     char getFlags() const
@@ -87,20 +93,22 @@ public:
         return *this;
     }
     
-    bool getGetByNcRef()
+    bool getGetByNonConstRef()
     {
         return true;
     }
     
-    bool getSetByNcRef()
+    bool getSetByNonConstRef()
     {
         return false;
     }
     
     Variant getData(const Variant& objPtr) const
-    {
+    {            
         // the pointer is retrieved from the Variant and converted to a raw char pointer
-        char* byteObjPtr = reinterpret_cast<char*>(objPtr.to<ClassT*>());
+        // (the constness prevent exception throwing when the object pointed is constant,
+        // constness is however handled after)
+        char* byteObjPtr = const_cast<char*>(reinterpret_cast<const char*>(objPtr.to<const ClassT*>()));
         
         // the pointer is summed to the the object pointer and converted to the field type
         FieldT& fieldRef = *reinterpret_cast<FieldT*>(byteObjPtr + offset);
@@ -118,20 +126,20 @@ public:
     void setData(const Variant& objPtr, const Variant& data) const
     {   
         // check whether the property is settable
-        if (!flags & Settable) throw SetNotAllowed(*this);
+        if (!flags & Settable) throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and converted to a raw char pointer
         char* byteObjPtr = reinterpret_cast<char*>(objPtr.to<ClassT*>());
         
         // check whether the pointer provided in not a pointer to a constant object
-        if (objPtr.isPointedConst()) throw ConstnessBreak(objPtr.getType());
+        if (objPtr.isPointedConst()) throw VariantCostnessException(objPtr.getType());
         
         // retrieve the new data value
         const PropT extractedValue = data.to<const PropT>();
         
         // check whether the new value is acceptable
         if (!checkValueBounds(extractedValue, minValue, maxValue))
-            throw OutOfRange(extractedValue, minValue, maxValue);
+            throw PropertyRangeException(extractedValue, minValue, maxValue);
         
         // the pointer is summed to the the object pointer and converted to the field type
         PropT& fieldRef = *reinterpret_cast<PropT*>(byteObjPtr + offset);
@@ -146,7 +154,7 @@ public:
     /// The minimum allowed value for this property.
     NumT minValue;
     
-    /// The maximum allowe value for this property.
+    /// The maximum allowed value for this property.
     NumT maxValue;
 };
 

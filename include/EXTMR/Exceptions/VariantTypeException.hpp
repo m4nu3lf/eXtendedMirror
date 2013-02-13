@@ -1,8 +1,8 @@
 /* 
- * File:   BadType.hpp
+ * File:   VariantTypeException.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 3 September 2012, 12.50
+ * Created on September 3, 2012, 12.50
  */
 
 #ifndef EXTMR_BADTYPE_HPP
@@ -10,14 +10,14 @@
 
 namespace extmr{
 
-class BadType : public std::exception
+class VariantTypeException : public std::exception
 {
 public:
-    BadType(const Type& givenType, const Type& expectedType) throw();
+    VariantTypeException(const Type& givenType,const Type& variantType) throw();
     const char* what() const throw();
 private:
     const Type* givenType;
-    const Type* expectedType;
+    const Type* variantType;
 };
 
 } // namespace extmr

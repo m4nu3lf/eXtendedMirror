@@ -2,7 +2,7 @@
  * File:   Typedef.h
  * Author: Manuele Finocchiaro
  *
- * Created on 31 July 2012, 10.19
+ * Created on July 31, 2012, 10.19
  */
 
 #ifndef TYPEDEF_HPP

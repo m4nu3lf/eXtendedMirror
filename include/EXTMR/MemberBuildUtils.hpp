@@ -2,7 +2,7 @@
  * File:   MemberBuildUtils.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 23 January 2013, 12.51
+ * Created on January 23, 2013, 12.51
  */
 
 #ifndef EXTMR_MEMBERBUILDUTILS_HPP

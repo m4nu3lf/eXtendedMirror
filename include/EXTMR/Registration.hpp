@@ -2,7 +2,7 @@
  * File:   Registration.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 8 August 2012, 18.04
+ * Created on August 8, 2012, 18.04
  */
 
 #ifndef EXTMR_REGISTRATION_HPP

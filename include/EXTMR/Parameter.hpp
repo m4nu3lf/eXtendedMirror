@@ -2,7 +2,7 @@
  * File:   Parameter.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 26 January 2013, 15.31
+ * Created on January 26, 2013, 15.31
  */
 
 #ifndef PARAMETER_HPP

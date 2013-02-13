@@ -61,21 +61,23 @@ Type& TypeRegister::registerNQType()
     Type::Category category = TypeRecognizer<T>::category;
     
     // method wrappers
-    void* (*_constructorWrapper)(const void*) = NULL;
-    void (*_destructorWrapper)(void*) = NULL;
+    void* (*_constructorWrapper)(void*) = NULL;
+    void* (*_copyConstructorWrapper)(const void*, void*) = NULL;
+    void (*_destructorWrapper)(void*, bool) = NULL;
     void (*_operatorAssignWrapper) (void*, const void*) = NULL;
     
     if (category != Type::Array)
     {
         // take the method wrappers, remove all extents to allow compilation even for arrays
         _constructorWrapper = constructorWrapper<typename RemoveAllExtents<T>::Type>;
+        _copyConstructorWrapper = copyConstructorWrapper<typename RemoveAllExtents<T>::Type>;
         _destructorWrapper = destructorWrapper<typename RemoveAllExtents<T>::Type>;
         _operatorAssignWrapper = operatorAssignWrapper<typename RemoveAllExtents<T>::Type>;
     }
     
     if (category & Type::Class)
     {
-        // template this class is an instace of if any
+        // template this class is an instance of if any
         Template* tempjate = NULL;
     
         // template type parameters if any
@@ -115,6 +117,7 @@ Type& TypeRegister::registerNQType()
                             sizeof(T),
                             typeid(T),
                             _constructorWrapper,
+                            _copyConstructorWrapper,
                             _destructorWrapper,
                             _operatorAssignWrapper,
                             *tempjate,
@@ -161,6 +164,7 @@ Type& TypeRegister::registerNQType()
                         sizeof(T),
                         typeid(T),
                         _constructorWrapper,
+                        _copyConstructorWrapper,
                         _destructorWrapper,
                         _operatorAssignWrapper,
                         *relatedType,

@@ -2,7 +2,7 @@
  * File:   MethodWrapper.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 27 dicembre 2012, 11.27
+ * Created on December 27, 2012, 11.27
  */
 
 #ifndef EXTMR_METHODWRAPPER_HPP
@@ -11,38 +11,64 @@
 namespace extmr{
 
 /**
- * Utility function to provide an abstract signature to construct objects.
- * If a non null pointer is provided the copy constructor is called to perform
- * a copy from the pointed object.
- * Specialize to provide support for different constructor signatures.
+ * Auxiliary function to provide an abstract signature to construct objects.
  * 
- * @param toBeCopiedPtr Pointer to an object to be copied if any.
- * @return Pointer to the new instance.
+ * @param address If not NULL, the placement constructor will be called to this address.
+ * @return A pointer to the new instance.
  */
 template<typename T>
-void* constructorWrapper(const void* toBeCopiedPtr)
+void* constructorWrapper(void* address)
 {
-    if (toBeCopiedPtr)
+    if (address)
     {
-        // call the copy constructor
-        return new T(*reinterpret_cast<const T*>(toBeCopiedPtr));
+        // call the placement constructor to the provided address
+        return new (reinterpret_cast<T*>(address)) T();
     }
     else
     {
-        // call the constructor without parameters
+        // call the constructor
         return new T();
     }
 }
 
 /**
- * Utility function to provide an abstract signature to destruct objects.
+ * Auxiliary function to provide an abstract signature to copy objects.
  * 
- * @param toBeDeletedPtr Pointer to the object to be destroied.
+ * @param address If not NULL, the placement copy constructor will be called to this address.
+ * @return A pointer to the new copied instance.
  */
 template<typename T>
-void destructorWrapper(void* toBeDeletedPtr)
+void* copyConstructorWrapper(const void* toBeCopiedPtr, void* address)
 {
-    delete reinterpret_cast<T*>(toBeDeletedPtr);
+    if (address)
+    {
+        // call the placement copy constructor to the specified address
+        return new (reinterpret_cast<T*>(address)) T(*reinterpret_cast<const T*>(toBeCopiedPtr));
+    }
+    else
+    {
+        // call the copy constructor
+        return new T(*reinterpret_cast<const T*>(toBeCopiedPtr));
+    }
+}
+
+/**
+ * Auxiliary function to provide an abstract signature to destruct objects.
+ * 
+ * @param toBeDeletedPtr Pointer to the object to be destroyed.
+ * @param deallocate If true, the delete operator is called, otherwise the destructor is called explicity
+ */
+template<typename T>
+void destructorWrapper(void* toBeDeletedPtr, bool deallocate)
+{
+    if (deallocate)
+    {
+        delete reinterpret_cast<T*>(toBeDeletedPtr);
+    }
+    else
+    {
+        reinterpret_cast<T*>(toBeDeletedPtr)->~T();
+    }
 }
 
 /**
@@ -74,16 +100,16 @@ struct ReturnVariantFlags
  */
 template
 <
-        class ClassT,
-        typename RetT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4,
-        typename ParamT5,
-        typename ParamT6,
-        typename ParamT7,
-        typename ParamT8
+    class ClassT,
+    typename RetT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6,
+    typename ParamT7,
+    typename ParamT8
 >
 struct MethodWrapper
 {
@@ -136,16 +162,16 @@ public:
          * construction.
          */
         const NqRetT& returnValue = (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>(),
-                    arg5.to<NqParamT5>(),
-                    arg6.to<NqParamT6>(),
-                    arg7.to<NqParamT7>(),
-                    arg8.to<NqParamT8>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>(),
+            arg5.to<NqParamT5>(),
+            arg6.to<NqParamT6>(),
+            arg7.to<NqParamT7>(),
+            arg8.to<NqParamT8>()
+        );
         return Variant(const_cast<NqRetT&>(returnValue), ReturnVariantFlags<RetT>::flags);
     }
     
@@ -155,15 +181,15 @@ private:
 
 template
 <
-        class ClassT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4,
-        typename ParamT5,
-        typename ParamT6,
-        typename ParamT7,
-        typename ParamT8
+    class ClassT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6,
+    typename ParamT7,
+    typename ParamT8
 >
 struct MethodWrapper<ClassT, void, ParamT1, ParamT2, ParamT3, ParamT4, ParamT5, ParamT6, ParamT7, ParamT8>
 {
@@ -201,16 +227,16 @@ public:
     ) const
     {   
         (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>(),
-                    arg5.to<NqParamT5>(),
-                    arg6.to<NqParamT6>(),
-                    arg7.to<NqParamT7>(),
-                    arg8.to<NqParamT8>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>(),
+            arg5.to<NqParamT5>(),
+            arg6.to<NqParamT6>(),
+            arg7.to<NqParamT7>(),
+            arg8.to<NqParamT8>()
+        );
         // return an invalid variant
         return Variant();
     }
@@ -221,15 +247,15 @@ private:
 
 template
 <
-        class ClassT,
-        typename RetT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4,
-        typename ParamT5,
-        typename ParamT6,
-        typename ParamT7
+    class ClassT,
+    typename RetT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6,
+    typename ParamT7
 >
 struct MethodWrapper<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4, ParamT5, ParamT6, ParamT7, Empty>
 {
@@ -269,15 +295,15 @@ public:
     ) const
     {   
         const NqRetT& returnValue = (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>(),
-                    arg5.to<NqParamT5>(),
-                    arg6.to<NqParamT6>(),
-                    arg7.to<NqParamT7>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>(),
+            arg5.to<NqParamT5>(),
+            arg6.to<NqParamT6>(),
+            arg7.to<NqParamT7>()
+        );
         return Variant(const_cast<NqRetT&>(returnValue), ReturnVariantFlags<RetT>::flags);
     }
     
@@ -287,14 +313,14 @@ private:
 
 template
 <
-        class ClassT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4,
-        typename ParamT5,
-        typename ParamT6,
-        typename ParamT7
+    class ClassT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6,
+    typename ParamT7
 >
 struct MethodWrapper<ClassT, void, ParamT1, ParamT2, ParamT3, ParamT4, ParamT5, ParamT6, ParamT7, Empty>
 {
@@ -331,15 +357,15 @@ public:
     ) const
     {   
         (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>(),
-                    arg5.to<NqParamT5>(),
-                    arg6.to<NqParamT6>(),
-                    arg7.to<NqParamT7>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>(),
+            arg5.to<NqParamT5>(),
+            arg6.to<NqParamT6>(),
+            arg7.to<NqParamT7>()
+        );
         // return an invalid variant
         return Variant();
     }
@@ -351,14 +377,14 @@ private:
 
 template
 <
-        class ClassT,
-        typename RetT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4,
-        typename ParamT5,
-        typename ParamT6
+    class ClassT,
+    typename RetT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6
 >
 struct MethodWrapper<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4, ParamT5, ParamT6, Empty, Empty>
 {
@@ -397,14 +423,14 @@ public:
     ) const
     {   
         const NqRetT& returnValue = (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>(),
-                    arg5.to<NqParamT5>(),
-                    arg6.to<NqParamT6>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>(),
+            arg5.to<NqParamT5>(),
+            arg6.to<NqParamT6>()
+        );
         return Variant(const_cast<NqRetT&>(returnValue), ReturnVariantFlags<RetT>::flags);
     }
     
@@ -414,13 +440,13 @@ private:
 
 template
 <
-        class ClassT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4,
-        typename ParamT5,
-        typename ParamT6
+    class ClassT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6
 >
 struct MethodWrapper<ClassT, void, ParamT1, ParamT2, ParamT3, ParamT4, ParamT5, ParamT6, Empty, Empty>
 {
@@ -456,14 +482,14 @@ public:
     ) const
     {   
         (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>(),
-                    arg5.to<NqParamT5>(),
-                    arg6.to<NqParamT6>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>(),
+            arg5.to<NqParamT5>(),
+            arg6.to<NqParamT6>()
+        );
         // return an invalid variant
         return Variant();
     }
@@ -475,13 +501,13 @@ private:
 
 template
 <
-        class ClassT,
-        typename RetT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4,
-        typename ParamT5
+    class ClassT,
+    typename RetT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5
 >
 struct MethodWrapper<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4, ParamT5, Empty, Empty, Empty>
 {
@@ -519,13 +545,13 @@ public:
     ) const
     {   
         const NqRetT& returnValue = (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>(),
-                    arg5.to<NqParamT5>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>(),
+            arg5.to<NqParamT5>()
+        );
         return Variant(const_cast<NqRetT&>(returnValue), ReturnVariantFlags<RetT>::flags);
     }
     
@@ -535,12 +561,12 @@ private:
 
 template
 <
-        class ClassT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4,
-        typename ParamT5
+    class ClassT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5
 >
 struct MethodWrapper<ClassT, void, ParamT1, ParamT2, ParamT3, ParamT4, ParamT5, Empty, Empty, Empty>
 {
@@ -575,13 +601,13 @@ public:
     ) const
     {   
         (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>(),
-                    arg5.to<NqParamT5>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>(),
+            arg5.to<NqParamT5>()
+        );
         // return an invalid variant
         return Variant();
     }
@@ -592,12 +618,12 @@ private:
 
 template
 <
-        class ClassT,
-        typename RetT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4
+    class ClassT,
+    typename RetT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4
 >
 struct MethodWrapper<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4, Empty, Empty, Empty, Empty>
 {
@@ -634,12 +660,12 @@ public:
     ) const
     {   
         const NqRetT& returnValue = (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>()
+        );
         return Variant(const_cast<NqRetT&>(returnValue), ReturnVariantFlags<RetT>::flags);
     }
     
@@ -649,11 +675,11 @@ private:
 
 template
 <
-        class ClassT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3,
-        typename ParamT4
+    class ClassT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4
 >
 struct MethodWrapper<ClassT, void, ParamT1, ParamT2, ParamT3, ParamT4, Empty, Empty, Empty, Empty>
 {
@@ -687,12 +713,12 @@ public:
     ) const
     {   
         (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>(),
-                    arg4.to<NqParamT4>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>(),
+            arg4.to<NqParamT4>()
+        );
         // return an invalid variant
         return Variant();
     }
@@ -703,11 +729,11 @@ private:
 
 template
 <
-        class ClassT,
-        typename RetT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3
+    class ClassT,
+    typename RetT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3
 >
 struct MethodWrapper<ClassT, RetT, ParamT1, ParamT2, ParamT3, Empty, Empty, Empty, Empty, Empty>
 {
@@ -743,11 +769,11 @@ public:
     ) const
     {   
         const NqRetT& returnValue = (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>()
+        );
         return Variant(const_cast<NqRetT&>(returnValue), ReturnVariantFlags<RetT>::flags);
     }
     
@@ -757,10 +783,10 @@ private:
 
 template
 <
-        class ClassT,
-        typename ParamT1,
-        typename ParamT2,
-        typename ParamT3
+    class ClassT,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3
 >
 struct MethodWrapper<ClassT, void, ParamT1, ParamT2, ParamT3, Empty, Empty, Empty, Empty, Empty>
 {
@@ -793,11 +819,11 @@ public:
     ) const
     {   
         (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>(),
-                    arg3.to<NqParamT3>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>(),
+            arg3.to<NqParamT3>()
+        );
         // return an invalid variant
         return Variant();
     }
@@ -808,10 +834,10 @@ private:
 
 template
 <
-        class ClassT,
-        typename RetT,
-        typename ParamT1,
-        typename ParamT2
+    class ClassT,
+    typename RetT,
+    typename ParamT1,
+    typename ParamT2
 >
 struct MethodWrapper<ClassT, RetT, ParamT1, ParamT2, Empty, Empty, Empty, Empty, Empty, Empty>
 {
@@ -846,10 +872,10 @@ public:
     ) const
     {   
         const NqRetT& returnValue = (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>()
+        );
         return Variant(const_cast<NqRetT&>(returnValue), ReturnVariantFlags<RetT>::flags);
     }
     
@@ -859,9 +885,9 @@ private:
 
 template
 <
-        class ClassT,
-        typename ParamT1,
-        typename ParamT2
+    class ClassT,
+    typename ParamT1,
+    typename ParamT2
 >
 struct MethodWrapper<ClassT, void, ParamT1, ParamT2, Empty, Empty, Empty, Empty, Empty, Empty>
 {
@@ -893,10 +919,10 @@ public:
     ) const
     {   
         (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>(),
-                    arg2.to<NqParamT2>()
-                );
+        (
+            arg1.to<NqParamT1>(),
+            arg2.to<NqParamT2>()
+        );
         // return an invalid variant
         return Variant();
     }
@@ -907,9 +933,9 @@ private:
 
 template
 <
-        class ClassT,
-        typename RetT,
-        typename ParamT1
+    class ClassT,
+    typename RetT,
+    typename ParamT1
 >
 struct MethodWrapper<ClassT, RetT, ParamT1, Empty, Empty, Empty, Empty, Empty, Empty, Empty>
 {
@@ -943,9 +969,9 @@ public:
     ) const
     {   
         const NqRetT& returnValue = (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>()
-                );
+        (
+            arg1.to<NqParamT1>()
+        );
         return Variant(const_cast<NqRetT&>(returnValue), ReturnVariantFlags<RetT>::flags);
     }
     
@@ -955,8 +981,8 @@ private:
 
 template
 <
-        class ClassT,
-        typename ParamT1
+    class ClassT,
+    typename ParamT1
 >
 struct MethodWrapper<ClassT, void, ParamT1, Empty, Empty, Empty, Empty, Empty, Empty, Empty>
 {
@@ -987,9 +1013,9 @@ public:
     ) const
     {   
         (objRef.*(method))
-                (
-                    arg1.to<NqParamT1>()
-                );
+        (
+            arg1.to<NqParamT1>()
+        );
         // return an invalid variant
         return Variant();
     }
@@ -1000,8 +1026,8 @@ private:
 
 template
 <
-        class ClassT,
-        typename RetT
+    class ClassT,
+    typename RetT
 >
 struct MethodWrapper<ClassT, RetT, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty>
 {
@@ -1077,7 +1103,7 @@ private:
 
 /*
  * Getter wrappers to allow to call through a signature with same parameter number
- * within the PropertyGetterSetter tempate class.
+ * within the PropertyGetterSetter template class.
  */
 template<class ClassT, typename RetT, typename ExtrParamT1, typename ExtrParamT2>
 struct GetterWrapper

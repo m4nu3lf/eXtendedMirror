@@ -18,20 +18,20 @@ Method::Method(const std::string& name) :
 
 Method::Method
 (
-        const string& name,
-        const Type& retType,
-        const Type& paramType1,
-        const Type& paramType2,
-        const Type& paramType3,
-        const Type& paramType4,
-        const Type& paramType5,
-        const Type& paramType6,
-        const Type& paramType7,
-        const Type& paramType8
+    const string& name,
+    const Type& retType,
+    const Type& paramType1,
+    const Type& paramType2,
+    const Type& paramType3,
+    const Type& paramType4,
+    const Type& paramType5,
+    const Type& paramType6,
+    const Type& paramType7,
+    const Type& paramType8
 ) :
-        name(name),
-        retType(&retType),
-        fullSignature(true)
+    name(name),
+    retType(&retType),
+    fullSignature(true)
 {
     this->retType = &retType;
     if (&paramType1 != NULL) params.push_back(new Parameter(paramType1));
@@ -46,19 +46,19 @@ Method::Method
 
 Method::Method
 (
-        const string& name,
-        const type_info& retType,
-        const type_info& paramType1,
-        const type_info& paramType2,
-        const type_info& paramType3,
-        const type_info& paramType4,
-        const type_info& paramType5,
-        const type_info& paramType6,
-        const type_info& paramType7,
-        const type_info& paramType8
+    const string& name,
+    const type_info& retType,
+    const type_info& paramType1,
+    const type_info& paramType2,
+    const type_info& paramType3,
+    const type_info& paramType4,
+    const type_info& paramType5,
+    const type_info& paramType6,
+    const type_info& paramType7,
+    const type_info& paramType8
 ) :
-        name(name),
-        fullSignature(true)
+    name(name),
+    fullSignature(true)
 {    
     const TypeRegister& typeReg = TypeRegister::getTypeReg();
     

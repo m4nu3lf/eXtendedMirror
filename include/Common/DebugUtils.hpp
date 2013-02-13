@@ -2,7 +2,7 @@
  * File:   DebugUtils.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 11 August 2012, 18.06
+ * Created on August 11, 2012, 18.06
  */
 
 #ifndef DEBUGUTILS_HPP

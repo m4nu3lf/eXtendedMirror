@@ -2,14 +2,14 @@
  * File:   VariantT.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 26 December 2012, 17.43
+ * Created on December 26, 2012, 17.43
  */
 
 #ifndef EXTMR_VARIANTT_HPP
 #define	EXTMR_VARIANTT_HPP
 
-#include <EXTMR/Exceptions/BadType.hpp>
-#include <EXTMR/Exceptions/ConstnessBreak.hpp>
+#include <EXTMR/Exceptions/VariantTypeException.hpp>
+#include <EXTMR/Exceptions/VariantCostnessException.hpp>
 #include <EXTMR/Variant.hpp>
 
 namespace extmr{
@@ -32,17 +32,17 @@ struct VariantInitializer
         TypeRegister& typeReg = TypeRegister::getTypeReg();
 
         // ensure the type of the data is registered and retrieve it
-        variant.typePtr = &typeReg.registerType<T>();
+        variant.type_ = &typeReg.registerType<T>();
 
         if (variant.flags & Variant::Reference)
         {
             // store the pointer to the data
-            variant.dataPtr = &data;
+            variant.data_ = &data;
         }
         else
         {
             // copy the data and store the pointer to it
-            variant.dataPtr = new T(data);
+            variant.data_ = new T(data);
         }
         
         // if the type is a pointer to a constant set the proper flag.
@@ -100,6 +100,10 @@ template<typename T>
 Variant::Variant(const T& data)
 : flags(0)
 {
+    // if the type is a constant array, then the type will be converted to a pointer to constant,
+    // so preserve this constness
+    if (IsArray<T>::value) this->flags |= PointerToConst;
+    
     VariantInitializer<T> initializer(*this);
     initializer(const_cast<T&>(data));
 }
@@ -108,13 +112,17 @@ template<typename T>
 Variant::Variant(T& data, char flags)
 : flags(flags)
 {
-    typedef typename RemoveConst<T>::Type NcvT;
+    typedef typename RemoveConst<T>::Type NonConstT;
     
-    // if the type is a constant one, and we are storing by reference, preserve constness
-    if ((flags & Reference) && IsConst<T>::value) flags |= Const;
+    // if the type is a constant one, and a storing is performed by reference, preserve constness
+    if ((flags & Reference) && IsConst<T>::value) this->flags |= Const;
     
-    VariantInitializer<NcvT> initializer(*this);
-    initializer(const_cast<NcvT&>(data));
+    // if the type is a constant array, then the type will be converted to a pointer to constant,
+    // so preserve this constness
+    if (IsArray<T>::value && IsConst<T>::value) this->flags |= PointerToConst;
+    
+    VariantInitializer<NonConstT> initializer(*this);
+    initializer(const_cast<NonConstT&>(data));
 }
 
 template<typename T>
@@ -127,19 +135,19 @@ Variant::operator T&() const
     const Type& targetType = typeReg.registerType<T>();
     
     // check for type compatibility
-    if (!canReinterpret(*typePtr, targetType))
-        throw BadType(*typePtr, targetType);
+    if (!canReinterpret(*type_, targetType))
+        throw VariantTypeException(*type_, targetType);
     
     // check for constness correctness
     if (!IsConst<T>::value && flags & Const)
-        throw ConstnessBreak(*typePtr);
+        throw VariantCostnessException(*type_);
     
     // check for pointed type's constness correctness
     if (flags & PointerToConst && !IsConst<typename RemovePointer<T>::Type>::value)
-        throw ConstnessBreak(typePtr->getPointedType());
+        throw VariantCostnessException(type_->getPointedType());
 
     // return the data
-    return *reinterpret_cast<T*>(dataPtr);
+    return *reinterpret_cast<T*>(data_);
 }
 
 template<typename T>
@@ -161,20 +169,20 @@ const T& Variant::operator=(const T& rvalue)
     const Type& type = typeReg.getType<T>();
     
     // check if types are the same
-    if (!typePtr || type != *typePtr)
+    if (!type_ || type != *type_)
     {
         // remove the previously allocated data if any
-        if (dataPtr && typePtr) typePtr->deleteInstance(dataPtr);
+        if (data_ && type_) type_->deleteInstance(data_);
         
         // set the new Type
-        typePtr = &type;
+        type_ = &type;
         
         // allocate a new object
-        dataPtr = new T();
+        data_ = new T();
     }
     
     // call the assignment operator
-    typePtr->assignInstance(dataPtr, &rvalue);
+    type_->assignInstance(data_, &rvalue);
     
     // return the rvalue
     return rvalue;

@@ -2,7 +2,7 @@
  * File:   TypeRecognition.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 12 August 2012, 10.22
+ * Created on August 12, 2012, 10.22
  */
 
 #ifndef EXTMR_TYPERECOGNITION_HPP

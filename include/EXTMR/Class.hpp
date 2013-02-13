@@ -2,7 +2,7 @@
  * File:   Class.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 29 dicembre 2012, 11.09
+ * Created on December 26, 2012, 11.09
  */
 
 #ifndef EXTMR_CLASS_HPP
@@ -171,6 +171,7 @@ protected:
      * @param size The class size.
      * @param cppType The type_info struct of the class.
      * @param constructor The class constructor wrapper function.
+     * @param copyConstructor The type copy constructor wrapper function.
      * @param destructor The class destructor wrapper function.
      * @param operatorAssign The class assign operator wrapper function.
      * @param typeArgs The type descpriptors of the type arguments.
@@ -180,8 +181,9 @@ protected:
             const std::string& name,
             uint size,
             const std::type_info& cppType,
-            void* (*constructor)(const void*),
-            void (*destructor)(void*),
+            void* (*constructor)(void*),
+            void* (*copyConstructor)(const void*, void*),
+            void (*destructor)(void*, bool),
             void (*operatorAssign)(void*, const void*),
             const Template& templateInfo = *reinterpret_cast<Template*>(NULL),
             const std::vector<const Type*>& templateArgs = std::vector<const Type*>()
@@ -217,10 +219,10 @@ protected:
     /// The type descriptors of the template arguments.
     std::vector<const Type*> templateParamTypes;
     
-    /// The types object of the base classes sorted by the type_info struct order.
+    /// The types object of the base classes sorted by the type_info structure order.
     std::set<const Class*, Class::PtrCmpById> baseClasses;
 
-    /// The types object of the derived classes sorted by the type_info struct order.
+    /// The types object of the derived classes sorted by the type_info structure order.
     std::set<const Class*, Class::PtrCmpById> derivedClasses;
 
     /// The properties of this class.
@@ -241,7 +243,7 @@ protected:
     /// The type register is the factory for the Class class and need to access the private constructor.
     friend class TypeRegister;
     
-    /// The Autoregister need to call the addBaseClass(), addProperty() and addMethod() methods.
+    /// The ClassBuilder needs to call the addBaseClass(), addProperty() and addMethod() methods.
     template<class T>
     friend class ClassBuilder;
 };

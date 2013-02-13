@@ -2,7 +2,7 @@
  * File:   Variant.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 3 September 2012, 12.04
+ * Created on September 3, 2012, 12.04
  */
 
 #ifndef EXTMR_VARIANT_HPP
@@ -73,7 +73,7 @@ public:
      */
     const Type& getType() const
     {
-        return *typePtr;
+        return *type_;
     }
     
     /**
@@ -183,7 +183,7 @@ public:
      * Operator for assignment.
      * The data is copied through the type assign operator.
      * If the data of the lvalue variant has not yet been allocated is then allocated
-     * through the standard constructor. It types are differents, then the lvalue variant
+     * through the standard constructor. It types are different, then the lvalue variant
      * data is first deallocated, and then types are set the same.
      * 
      * @param other The other variant object.
@@ -194,11 +194,11 @@ public:
     /**
      * Operator for assignment.
      * The data of the rvalue is stored into the variant after it has been copied
-     * through the assingment operator of the specified type.
+     * through the assignment operator of the specified type.
      * If current type of the variant is different form that of the rvalue then
      * the previous data is deallocated with the destructor and a new object of the
      * new type is allocated with its default constructor.
-     * The assignemnt is then performed.
+     * The assignment is then performed.
      * 
      * @param rvalue The rvalue object
      * @return A reference to the rvalue
@@ -225,17 +225,17 @@ private:
      * Determine if a reinterpret_cast from a reference to the original type
      * to a reference to the target type would lead to a meaningful result.
      * 
-     * @param type The orginal type.
+     * @param type The original type.
      * @param targettype The target type.
      * @return true if the types are compatible for reinterpret_cast.
      */
     static bool canReinterpret(const Type& type, const Type& targetType);
     
     /// Pointer to the data.
-    void* dataPtr;
+    void* data_;
     
     /// Pointer to the Type of the data.
-    const Type* typePtr;
+    const Type* type_;
     
     /// This field store some variant flags.
     char flags;

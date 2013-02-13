@@ -2,7 +2,7 @@
  * File:   ExtendedMirror.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 30 ottobre 2012, 17.38
+ * Created on October 30, 2012, 17.38
  */
 
 #ifndef EXTENDEDMIRROR_HPP

@@ -21,26 +21,28 @@ Class::Class(const type_info& type) : Type(type)
 
 Class::Class
 (
-        const string& name,
-        uint size,
-        const type_info& cppType,
-        void* (*constructor)(const void*),
-        void (*destructor)(void*),
-        void (*operatorAssign)(void*, const void*),
-        const Template& tempjate,
-        const std::vector<const Type*>& templateParamTypes
+    const string& name,
+    uint size,
+    const type_info& cppType,
+    void* (*constructor)(void*),
+    void* (*copyConstructor)(const void*, void*),
+    void (*destructor)(void*, bool),
+    void (*operatorAssign)(void*, const void*),
+    const Template& tempjate,
+    const std::vector<const Type*>& templateParamTypes
 ) :
-        Type
-        (
-                name,
-                size,
-                cppType,
-                constructor,
-                destructor,
-                operatorAssign
-        ),
-        tempjate(&tempjate),
-        templateParamTypes(templateParamTypes)
+    Type
+    (
+        name,
+        size,
+        cppType,
+        constructor,
+        copyConstructor,
+        destructor,
+        operatorAssign
+    ),
+    tempjate(&tempjate),
+    templateParamTypes(templateParamTypes)
 {
     if (this->tempjate) category = CompClass;
     else category = Type::Class;

@@ -2,7 +2,7 @@
  * File:   Method.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 20 ottobre 2012, 21.55
+ * Created on October 20, 2012, 21.55
  */
 
 #ifndef EXTMR_METHOD_HPP
@@ -48,16 +48,16 @@ public:
      */
     Method
     (
-            const std::string& name,
-            const Type& retType,
-            const Type& paramType1 = *reinterpret_cast<Type*>(NULL),
-            const Type& paramType2 = *reinterpret_cast<Type*>(NULL),
-            const Type& paramType3 = *reinterpret_cast<Type*>(NULL),
-            const Type& paramType4 = *reinterpret_cast<Type*>(NULL),
-            const Type& paramType5 = *reinterpret_cast<Type*>(NULL),
-            const Type& paramType6 = *reinterpret_cast<Type*>(NULL),
-            const Type& paramType7 = *reinterpret_cast<Type*>(NULL),
-            const Type& paramType8 = *reinterpret_cast<Type*>(NULL)
+        const std::string& name,
+        const Type& retType,
+        const Type& paramType1 = *reinterpret_cast<Type*>(NULL),
+        const Type& paramType2 = *reinterpret_cast<Type*>(NULL),
+        const Type& paramType3 = *reinterpret_cast<Type*>(NULL),
+        const Type& paramType4 = *reinterpret_cast<Type*>(NULL),
+        const Type& paramType5 = *reinterpret_cast<Type*>(NULL),
+        const Type& paramType6 = *reinterpret_cast<Type*>(NULL),
+        const Type& paramType7 = *reinterpret_cast<Type*>(NULL),
+        const Type& paramType8 = *reinterpret_cast<Type*>(NULL)
     );
     
     /**
@@ -76,16 +76,16 @@ public:
      */
     Method
     (
-            const std::string& name,
-            const std::type_info& retType,
-            const std::type_info& paramType1 = *reinterpret_cast<std::type_info*>(NULL),
-            const std::type_info& paramType2 = *reinterpret_cast<std::type_info*>(NULL),
-            const std::type_info& paramType3 = *reinterpret_cast<std::type_info*>(NULL),
-            const std::type_info& paramType4 = *reinterpret_cast<std::type_info*>(NULL),
-            const std::type_info& paramType5 = *reinterpret_cast<std::type_info*>(NULL),
-            const std::type_info& paramType6 = *reinterpret_cast<std::type_info*>(NULL),
-            const std::type_info& paramType7 = *reinterpret_cast<std::type_info*>(NULL),
-            const std::type_info& paramType8 = *reinterpret_cast<std::type_info*>(NULL)
+        const std::string& name,
+        const std::type_info& retType,
+        const std::type_info& paramType1 = *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType2 = *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType3 = *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType4 = *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType5 = *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType6 = *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType7 = *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType8 = *reinterpret_cast<std::type_info*>(NULL)
     );
     
     /**
@@ -144,17 +144,18 @@ public:
      * @param arg8 Argument 8.
      * @return A Variant containing the return value.
      */
-    virtual Variant call(
-                    const Variant& objPtr,
-                    const Variant& arg1 = Variant(),
-                    const Variant& arg2 = Variant(),
-                    const Variant& arg3 = Variant(),
-                    const Variant& arg4 = Variant(),
-                    const Variant& arg5 = Variant(),
-                    const Variant& arg6 = Variant(),
-                    const Variant& arg7 = Variant(),
-                    const Variant& arg8 = Variant()
-                ) const
+    virtual Variant call
+    (
+        const Variant& objPtr,
+        const Variant& arg1 = Variant(),
+        const Variant& arg2 = Variant(),
+        const Variant& arg3 = Variant(),
+        const Variant& arg4 = Variant(),
+        const Variant& arg5 = Variant(),
+        const Variant& arg6 = Variant(),
+        const Variant& arg7 = Variant(),
+        const Variant& arg8 = Variant()
+    ) const
     {
         return Variant();
     }

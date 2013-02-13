@@ -2,13 +2,13 @@
  * File:   PropertyArrayField.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 2 February 2013, 20.29
+ * Created on February 2, 2013, 20.29
  */
 
 #ifndef EXTMR_PROPERTYARRAYFIELD_HPP
 #define	EXTMR_PROPERTYARRAYFIELD_HPP
 
-#include <EXTMR/Exceptions/SetNotAllowed.hpp>
+#include <EXTMR/Exceptions/PropertySetException.hpp>
 
 #include "Variant.hpp"
 
@@ -48,20 +48,22 @@ public:
         return *this;
     }
     
-    bool getGetByNcRef()
+    bool getGetByNonConstRef()
     {
         return false;
     }
     
-    bool getSetByNcRef()
+    bool getSetByNonConstRef()
     {
         return false;
     }
     
     Variant getData(const Variant& objPtr) const
     {
-        // the pointer is retrieved from the variant and converted to a raw char pointer
-        char* byteObjPtr = reinterpret_cast<char*>(objPtr.to<ClassT*>());
+        // the pointer is retrieved from the Variant and converted to a raw char pointer
+        // (the constness prevent exception throwing when the object pointed is constant,
+        // constness is however handled after)
+        char* byteObjPtr = const_cast<char*>(reinterpret_cast<const char*>(objPtr.to<const ClassT*>()));
         
         // the pointer is summed to the the object pointer and converted to the field type
         FieldT& fieldRef = *reinterpret_cast<FieldT*>(byteObjPtr + offset);
@@ -69,21 +71,22 @@ public:
         if (objPtr.isPointedConst())
         {
             // the array type is converted to a constant type, and the value is returned through a Variant
-            return Variant(const_cast<const FieldT&>(fieldRef));
+            return Variant(const_cast<const FieldT&>(fieldRef), 0);
         }
         else
         {
             // the array is returned through a Variant
-            return Variant(fieldRef);
+            return Variant(fieldRef, 0);
         }
     }
     
     void setData(const Variant& objPtr, const Variant& data) const
     {
         // cannot set an array
-        throw SetNotAllowed(*this);
+        throw PropertySetException(*this);
     }
     
+private:
     /// The offset of the field within the object.
     size_t offset;
 };

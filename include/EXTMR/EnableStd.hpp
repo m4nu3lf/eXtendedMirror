@@ -2,7 +2,7 @@
  * File:   EnableStd.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 1 January 2013, 20.43
+ * Created on January 1, 2013, 20.43
  */
 
 #ifndef EXTMR_ENABLESTD_HPP

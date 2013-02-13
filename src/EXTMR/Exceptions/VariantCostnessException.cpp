@@ -1,5 +1,5 @@
 /* 
- * File:   ConstnessBreak.cpp
+ * File:   VariantCostnessException.cpp
  * Author: Manuele Finocchiaro
  * 
  * Created on 22 January 2013, 18.56
@@ -11,15 +11,15 @@
 using namespace extmr;
 using namespace std;
 
-ConstnessBreak::ConstnessBreak(const Type& type) throw()
+VariantCostnessException::VariantCostnessException(const Type& type) throw()
         : type(type)
 {
 }
 
-const char* ConstnessBreak::what() const throw()
+const char* VariantCostnessException::what() const throw()
 {
-    return (string("Cannot convert to type ")
+    return (string("Cannot convert variant of type const ")
             + type.getName()
-            + " from type const "
+            + " to type "
             + type.getName() + ".").c_str();
 }

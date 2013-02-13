@@ -13,19 +13,19 @@ using namespace extmr;
 
 Variant::Variant()
 {
-    dataPtr = NULL;
-    typePtr = NULL;
+    data_ = NULL;
+    type_ = NULL;
 }
 
 Variant::Variant(const Variant& orig) : flags(0)
 {       
     // copy the Type pointer
-    typePtr = orig.typePtr;
+    type_ = orig.type_;
     
     if (orig.flags | CopyByRef)
     {
         // reference the data
-        dataPtr = orig.dataPtr;
+        data_ = orig.data_;
         
         // copy constness
         flags = orig.flags;
@@ -36,29 +36,29 @@ Variant::Variant(const Variant& orig) : flags(0)
     else
     {
         // copy the data
-        dataPtr = typePtr->newInstance(orig.dataPtr);
+        data_ = type_->newInstance(orig.data_);
     }
 }
 
 const Variant& Variant::operator=(const Variant& other)
 {
     // check if the type are different
-    if (*other.typePtr != *typePtr)
+    if (*other.type_ != *type_)
     {
         // deallocate previous data if any
-        if (dataPtr) typePtr->deleteInstance(dataPtr);
+        if (data_) type_->deleteInstance(data_);
 
         // copy the Type pointer
-        typePtr = other.typePtr;
+        type_ = other.type_;
         
         // allocate the new type data
-        dataPtr = typePtr->newInstance();
+        data_ = type_->newInstance();
     }
     // if no data has yet been allocated, allocate it now
-    else if(!dataPtr) dataPtr = typePtr->newInstance();
+    else if(!data_) data_ = type_->newInstance();
     
     // perform assignment
-    typePtr->assignInstance(dataPtr, other.dataPtr);
+    type_->assignInstance(data_, other.data_);
 }
 
 Variant::~Variant()
@@ -66,13 +66,13 @@ Variant::~Variant()
     if (!flags & Reference)
     {        
         // deallocate the data
-        if (dataPtr) typePtr->deleteInstance(dataPtr);
+        if (data_) type_->deleteInstance(data_);
     }
 }
 
 bool Variant::isValid()
 {
-    return dataPtr && typePtr;
+    return data_ && type_;
 }
 
 bool Variant::canReinterpret(const Type& type, const Type& targetType)

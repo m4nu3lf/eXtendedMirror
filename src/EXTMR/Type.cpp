@@ -5,48 +5,52 @@ using namespace std;
 using namespace extmr;
 
 Type::Type(const string& name) : 
-        name(name),
-        size(0),
-        cppType(*reinterpret_cast<type_info*>(NULL)),
-        constructor(NULL),
-        destructor(NULL),
-        operatorAssign(NULL),
-        category(Primitive)
+    name(name),
+    size(0),
+    cppType(*reinterpret_cast<type_info*>(NULL)),
+    constructor(NULL),
+    copyConstructor(NULL),
+    destructor(NULL),
+    operatorAssign(NULL),
+    category(Primitive)
 {
 }
 
 Type::Type(const type_info& cppType) :
-        name(""),
-        size(0),
-        cppType(cppType),
-        constructor(NULL),
-        destructor(NULL),
-        operatorAssign(NULL),
-        category(Primitive)
+    name(""),
+    size(0),
+    cppType(cppType),
+    constructor(NULL),
+    copyConstructor(NULL),
+    destructor(NULL),
+    operatorAssign(NULL),
+    category(Primitive)
 {
 }
 
 Type::Type
 (
-        const string& name,
-        size_t size,
-        const type_info& cppType,
-        void* (*constructor)(const void*),
-        void (*destructor)(void*),
-        void (*operatorAssign)(void*, const void*),
-        const Type& relatedType,
-        bool isArray,
-        size_t arraySize
+    const string& name,
+    size_t size,
+    const type_info& cppType,
+    void* (*constructor)(void*),
+    void* (*copyConstructor)(const void*, void*),
+    void (*destructor)(void*, bool),
+    void (*operatorAssign)(void*, const void*),
+    const Type& relatedType,
+    bool isArray,
+    size_t arraySize
 ) :
-        name(name),
-        category(category),
-        size(size),
-        cppType(cppType),
-        constructor(constructor),
-        destructor(destructor),
-        operatorAssign(operatorAssign),
-        relatedType(&relatedType),
-        arraySize(arraySize)
+    name(name),
+    category(category),
+    size(size),
+    cppType(cppType),
+    constructor(constructor),
+    copyConstructor(copyConstructor),
+    destructor(destructor),
+    operatorAssign(operatorAssign),
+    relatedType(&relatedType),
+    arraySize(arraySize)
 {
     if (this->relatedType)
     {
@@ -58,14 +62,19 @@ Type::Type
     else category = Primitive;
 }
 
-void* Type::newInstance(const void* toBeCopiedPtr) const
+void* Type::newInstance(void* address) const
 {
-    return constructor(toBeCopiedPtr);
+    return constructor(address);
 }
 
-void Type::deleteInstance(void* toBeDeletedPtr) const
+void* Type::copyInstance(void* toBeCopiedPtr, void* address) const
 {
-    destructor(toBeDeletedPtr);
+    return copyConstructor(toBeCopiedPtr, address);
+}
+
+void Type::deleteInstance(void* toBeDeletedPtr, bool deallocate) const
+{
+    destructor(toBeDeletedPtr, deallocate);
 }
 
 void Type::assignInstance(void* lvaluePtr, const void* rvaluePtr) const

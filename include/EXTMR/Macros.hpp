@@ -2,7 +2,7 @@
  * File:   Macros.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 4 August 2012, 13.13
+ * Created on August 4, 2012, 13.13
  */
 
 #ifndef EXTMR_MACROS_HPP

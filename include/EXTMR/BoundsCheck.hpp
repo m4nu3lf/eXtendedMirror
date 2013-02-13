@@ -2,7 +2,7 @@
  * File:   BoundsCheck.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 6 January 2013, 15.49
+ * Created on January 6, 2013, 15.49
  */
 
 #ifndef EXTMR_BOUNDSCHECK_HPP

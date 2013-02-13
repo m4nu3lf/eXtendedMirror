@@ -2,7 +2,7 @@
  * File:   Misc.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 23 January 2013, 13.19
+ * Created on January 23, 2013, 13.19
  */
 
 #ifndef EXTMR_MISC_HPP

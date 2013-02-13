@@ -1,5 +1,5 @@
 /* 
- * File:   OutOfRange.cpp
+ * File:   PropertyRangeException.cpp
  * Author: Manuele Finocchiaro
  * 
  * Created on 15 January 2013, 18.58
@@ -12,11 +12,15 @@
 using namespace std;
 using namespace extmr;
 
-OutOfRange::OutOfRange( double , double minValue, double maxValue) throw()
-        : givenValue(givenValue), minValue(minValue), maxValue(maxValue)
+PropertyRangeException::PropertyRangeException(double givenValue,
+                                               double minValue,
+                                               double maxValue) throw()
+        : givenValue(givenValue)
+        , minValue(minValue)
+        , maxValue(maxValue)
 {
 }
-const char* OutOfRange::what() const throw()
+const char* PropertyRangeException::what() const throw()
 {
     stringstream ss;
     ss << "Given value of " << givenValue 

@@ -2,7 +2,7 @@
  * File:   PtrCmpByName.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on 10 October 2012, 13.51
+ * Created on October 10, 2012, 13.51
  */
 
 #ifndef PTRCMPBYNAME_HPP

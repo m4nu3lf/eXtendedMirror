@@ -64,20 +64,30 @@ public:
     Type(const std::type_info& cppType);
     
     /**
-     * Construct a new instance of the type. If a pointer to
-     * another instance is provided than the copy constructor is called.
+     * Construct a new instance of the type.
      * 
-     * @param toBeCopiedPtr The pointer to the object to be copied.
-     * @return A new instance pointer.
+     * @param addres If not NULL the placement constructor is called to this address.
+     * @return The pointer to the new instance.
      */
-    void* newInstance(const void* toBeCopiedPtr = NULL) const;
+    void* newInstance(void* address = NULL) const;
     
     /**
-     * Destroy an object of this type calling its constructor.
+     * Copy an instance of the type.
      * 
-     * @param toBeDeletedPtr A pointer to an object of this type.
+     * @param toBeCopiedPtr The address of the instance to be copied.
+     * @param addres If not NULL the placement copy constructor is called to this address.
+     * @return The pointer of the new copied instance.
      */
-    void deleteInstance(void* toBeDeletedPtr) const;
+    void* copyInstance(void* toBeCopiedPtr, void* address = NULL) const;
+    
+    /**
+     * Destroy an instance of the type.
+     * 
+     * @param toBeDeletedPtr The pointer to the instance to be deleted.
+     * @param dallocate If true the delete operator is called causing the memory to be deallocated otherwise the
+     * destructor is called explicity.
+     */
+    void deleteInstance(void* toBeDeletedPtr, bool deallocate = true) const;
     
     /**
      * Perfor an assignment between two object instances of this type.
@@ -173,6 +183,7 @@ protected:
      * @param size The type size.
      * @param cppType The type_info struct of the type.
      * @param constructor The type constructor wrapper function.
+     * @param copyConstructor The type copy constructor wrapper function.
      * @param destructor The type destructor wrapper function.
      * @param operatorAssign The type assign operator wrapper function.
      * @param relatedType The Type of the type pointed by this 
@@ -185,8 +196,9 @@ protected:
             const std::string& name,
             std::size_t size,
             const std::type_info& cppType,
-            void* (*constructor)(const void*),
-            void (*destructor)(void*),
+            void* (*constructor)(void*),
+            void* (*copyConstructor)(const void*, void*),
+            void (*destructor)(void*, bool),
             void (*operatorAssign)(void*, const void*),
             const Type& relatedType = *reinterpret_cast<Type*>(NULL),
             bool isArray = false,
@@ -206,10 +218,13 @@ protected:
     Category category;
     
     /// The constructor function pointer.
-    void* (*constructor)(const void*);
+    void* (*constructor)(void*);
+    
+    /// The copy constructor function pointer.
+    void* (*copyConstructor)(const void*, void*);
     
     /// The destructor function pointer
-    void (*destructor)(void*);
+    void (*destructor)(void*, bool);
     
     /// The assign operator function pointer
     void (*operatorAssign)(void*, const void*);
