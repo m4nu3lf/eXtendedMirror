@@ -19,10 +19,10 @@ struct Parameter
     : type(type), byNcReference(byNcReference)
     {};
     
-    /// The parameter type.
+    /** The parameter type. */
     const Type& type;
     
-    /// Whether the parameter is passed by a non const reference.
+    /** Whether the parameter is passed by a non const reference. */
     const bool byNcReference;
 };
 

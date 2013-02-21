@@ -15,17 +15,17 @@ VariantTypeException::VariantTypeException
             const Type& givenType, 
             const Type& expectedType
         ) throw()
-        : givenType(&givenType)
-        , variantType(&expectedType)
+        : givenType_(&givenType)
+        , variantType_(&expectedType)
 {
 }
 
 const char* VariantTypeException::what() const throw()
 {
     return (string("Cannot convert variant of type \"")
-            + variantType->getName()
+            + variantType_->getName()
             + "\" to type \""
-            + givenType->getName()
+            + givenType_->getName()
             + "\".\n").c_str();
 }
 

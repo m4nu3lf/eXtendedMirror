@@ -18,9 +18,9 @@ public:
                            double givenValue) throw();
     const char* what() const throw();
 private:
-    double givenValue;
-    double minValue;
-    double maxValue;
+    double givenValue_;
+    double minValue_;
+    double maxValue_;
 };
 
 } // namespace extmr

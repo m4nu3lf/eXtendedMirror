@@ -13,13 +13,14 @@ namespace extmr{
 class Type;
 
 /**
- * This class can store data from each type that is registrable or already registered
- * within the type register.
+ * This class can store data from each type that is registrable or already
+ * registered within the type register.
  * For store we mean that data can be both copied and stored or just referenced. 
- * In the second case is up to the programmer to ensure the data will remain valid and to deallocate
- * this data after the variant object is destroyed.
- * The copy construct has in any case the effect to copy the content of the variant so that
- * changes on the data of the newly created variant never affect the original variant.
+ * In the second case is up to the programmer to ensure the data will remain
+ * valid and to deallocate this data after the variant object is destroyed.
+ * The copy construct has in any case the effect to copy the content of the
+ * variant so that changes on the data of the newly created variant never affect
+ * the original variant.
  */
 class Variant
 {
@@ -29,13 +30,14 @@ public:
      */
     enum Flags
     {
-        /// The variant data is a reference to external data.
+        // The variant data is a reference to external data.
         Reference = 1,
         
-        /// The variant holds constant data
+        // The variant holds constant data
         Const = 2,
         
-        /// When this variant is copied into another one, data will be referenced.
+        // When this variant is copied into another one,
+        // data will be referenced.
         CopyByRef = 4
     };
     
@@ -46,8 +48,8 @@ public:
     
     /**
      * Construct a variant from the given object.
-     * The object data is copied with its class copy constructor and the data is stored
-     * internally.
+     * The object data is copied with its class copy constructor and the data is
+     * stored internally.
      * 
      * @param data
      */
@@ -56,8 +58,8 @@ public:
     
     /**
      * Construct a variant from the given object.
-     * By default the object is copied with its class copy constructor and the data is stored
-     * internally.
+     * By default the object is copied with its class copy constructor and the
+     * data is stored internally.
      * If you want to change this behavior specify the second parameter.
      * 
      * @param data The object from which to take the data form.
@@ -106,7 +108,8 @@ public:
     /**
      * Ask if this variant holds a pointer to constant data.
      * 
-     * @return true if the variant holds a pointer to constant data, false otherwise.
+     * @return true if the variant holds a pointer to constant data,
+     * false otherwise.
      */
     bool isPointedConst() const
     {
@@ -114,8 +117,8 @@ public:
     }
     
     /**
-     * Set the variant data to be constant, after a variant has been marked as constant,
-     * the constness cannot be removed anymore.
+     * Set the variant data to be constant, after a variant has been marked as
+     * constant, the constness cannot be removed anymore.
      */
     void setConst()
     {
@@ -123,9 +126,11 @@ public:
     }
     
     /**
-     * Set the variant data to be referenced when the variant is copied with the copy constructor.
+     * Set the variant data to be referenced when the variant is copied with the
+     * copy constructor.
      * 
-     * @param value Whether data of the copied object should be a reference to this one.
+     * @param value Whether data of the copied object should be a reference to
+     * this one.
      */
     void setCopyByRef(bool value = true)
     {
@@ -141,9 +146,10 @@ public:
      * to an object of a class, then the specified type
      * is respectively a base class of the that class or a pointer to
      * a base class of that class.
-     * In other words this would only work if a reinterpret_cast<> from the pointer
-     * to the contained data type to a pointer of the target type would lead to a meaningful result.
-     * In all other cases a BadType exception arises.
+     * In other words this would only work if a reinterpret_cast<> from the
+     * pointer to the contained data type to a pointer of the target type would 
+     * lead to a meaningful conversion.
+     * In all other cases a VariantTypeException arises.
      * 
      * @return The variant data.
      */
@@ -182,9 +188,10 @@ public:
     /**
      * Operator for assignment.
      * The data is copied through the type assign operator.
-     * If the data of the lvalue variant has not yet been allocated is then allocated
-     * through the standard constructor. It types are different, then the lvalue variant
-     * data is first deallocated, and then types are set the same.
+     * If the data of the lvalue variant has not yet been allocated is then
+     * allocated through the standard constructor.
+     * It types are different, then the lvalue variant data is first
+     * deallocated, and then types are set the same.
      * 
      * @param other The other variant object.
      * @return The variant
@@ -193,11 +200,11 @@ public:
     
     /**
      * Operator for assignment.
-     * The data of the rvalue is stored into the variant after it has been copied
-     * through the assignment operator of the specified type.
+     * The data of the rvalue is stored into the variant after it has been
+     * copied through the assignment operator of the specified type.
      * If current type of the variant is different form that of the rvalue then
-     * the previous data is deallocated with the destructor and a new object of the
-     * new type is allocated with its default constructor.
+     * the previous data is deallocated with the destructor and a new object of
+     * the new type is allocated with its default constructor.
      * The assignment is then performed.
      * 
      * @param rvalue The rvalue object
@@ -231,16 +238,17 @@ private:
      */
     static bool canReinterpret(const Type& type, const Type& targetType);
     
-    /// Pointer to the data.
+    // Pointer to the data.
     void* data_;
     
-    /// Pointer to the Type of the data.
+    // Pointer to the Type of the data.
     const Type* type_;
     
-    /// This field store some variant flags.
+    // This field store some variant flags.
     char flags;
     
-    /// The actual construction of the object is delegated to this function object.
+    // The actual construction of the object is delegated to this function
+    // object.
     template<typename T>
     friend class VariantInitializer;
 };

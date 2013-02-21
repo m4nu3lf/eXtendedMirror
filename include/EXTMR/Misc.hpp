@@ -42,7 +42,8 @@ std::string getNonQualifiedName(const std::string& name);
  * @param max The variable to set at the maximum value.
  */
 template<typename T>
-void getTypeBounds(typename ToNumerical<T>::Type& min, typename ToNumerical<T>::Type& max)
+void getTypeBounds(typename ToNumerical<T>::Type& min,
+        typename ToNumerical<T>::Type& max)
 {
     typedef typename ToNumerical<T>::Type NumT;
     

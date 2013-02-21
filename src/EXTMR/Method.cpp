@@ -12,7 +12,7 @@ using namespace std;
 using namespace extmr;
 
 Method::Method(const std::string& name) :
-        name(name), fullSignature(false)
+        name_(name), fullSignature_(false)
 {
 }
 
@@ -29,19 +29,19 @@ Method::Method
     const Type& paramType7,
     const Type& paramType8
 ) :
-    name(name),
-    retType(&retType),
-    fullSignature(true)
+    name_(name),
+    retType_(&retType),
+    fullSignature_(true)
 {
-    this->retType = &retType;
-    if (&paramType1 != NULL) params.push_back(new Parameter(paramType1));
-    if (&paramType2 != NULL) params.push_back(new Parameter(paramType2));
-    if (&paramType3 != NULL) params.push_back(new Parameter(paramType3));
-    if (&paramType4 != NULL) params.push_back(new Parameter(paramType4));
-    if (&paramType5 != NULL) params.push_back(new Parameter(paramType5));
-    if (&paramType6 != NULL) params.push_back(new Parameter(paramType6));
-    if (&paramType7 != NULL) params.push_back(new Parameter(paramType7));
-    if (&paramType8 != NULL) params.push_back(new Parameter(paramType8));
+    this->retType_ = &retType;
+    if (&paramType1 != NULL) params_.push_back(new Parameter(paramType1));
+    if (&paramType2 != NULL) params_.push_back(new Parameter(paramType2));
+    if (&paramType3 != NULL) params_.push_back(new Parameter(paramType3));
+    if (&paramType4 != NULL) params_.push_back(new Parameter(paramType4));
+    if (&paramType5 != NULL) params_.push_back(new Parameter(paramType5));
+    if (&paramType6 != NULL) params_.push_back(new Parameter(paramType6));
+    if (&paramType7 != NULL) params_.push_back(new Parameter(paramType7));
+    if (&paramType8 != NULL) params_.push_back(new Parameter(paramType8));
 }
 
 Method::Method
@@ -57,37 +57,37 @@ Method::Method
     const type_info& paramType7,
     const type_info& paramType8
 ) :
-    name(name),
-    fullSignature(true)
+    name_(name),
+    fullSignature_(true)
 {    
     const TypeRegister& typeReg = TypeRegister::getTypeReg();
     
     if (&retType)
-        this->retType = &typeReg.getType(retType);
-    else this->retType = NULL;
-    if (&paramType1 != NULL) params.push_back(new Parameter(typeReg.getType(paramType1)));
-    if (&paramType2 != NULL) params.push_back(new Parameter(typeReg.getType(paramType2)));
-    if (&paramType3 != NULL) params.push_back(new Parameter(typeReg.getType(paramType3)));
-    if (&paramType4 != NULL) params.push_back(new Parameter(typeReg.getType(paramType4)));
-    if (&paramType5 != NULL) params.push_back(new Parameter(typeReg.getType(paramType5)));
-    if (&paramType6 != NULL) params.push_back(new Parameter(typeReg.getType(paramType6)));
-    if (&paramType7 != NULL) params.push_back(new Parameter(typeReg.getType(paramType7)));
-    if (&paramType8 != NULL) params.push_back(new Parameter(typeReg.getType(paramType8)));
+        this->retType_ = &typeReg.getType(retType);
+    else this->retType_ = NULL;
+    if (&paramType1 != NULL) params_.push_back(new Parameter(typeReg.getType(paramType1)));
+    if (&paramType2 != NULL) params_.push_back(new Parameter(typeReg.getType(paramType2)));
+    if (&paramType3 != NULL) params_.push_back(new Parameter(typeReg.getType(paramType3)));
+    if (&paramType4 != NULL) params_.push_back(new Parameter(typeReg.getType(paramType4)));
+    if (&paramType5 != NULL) params_.push_back(new Parameter(typeReg.getType(paramType5)));
+    if (&paramType6 != NULL) params_.push_back(new Parameter(typeReg.getType(paramType6)));
+    if (&paramType7 != NULL) params_.push_back(new Parameter(typeReg.getType(paramType7)));
+    if (&paramType8 != NULL) params_.push_back(new Parameter(typeReg.getType(paramType8)));
 }
 
 const std::string& Method::getName() const
 {
-    return name;
+    return name_;
 }
 
 void Method::addParameter(const Parameter& param)
 {
-    params.push_back(&param);
+    params_.push_back(&param);
 }
 
 const Type& Method::getReturnType() const
 {
-    return *retType;
+    return *retType_;
 }
 
 bool Method::getReturnByNonConstRef() const
@@ -97,7 +97,7 @@ bool Method::getReturnByNonConstRef() const
 
 const std::vector<const Parameter*>& Method::getParameters() const
 {
-    return params;
+    return params_;
 }
 
 bool Method::isConst() const

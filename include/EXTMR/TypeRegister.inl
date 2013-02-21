@@ -1,5 +1,5 @@
-#ifndef EXTMR_TYPEREGISTERT_HPP
-#define EXTMR_TYPEREGISTERT_HPP
+#ifndef EXTMR_TYPEREGISTER_INL
+#define EXTMR_TYPEREGISTER_INL
 
 #include <EXTMR/MemberWrappers.hpp>
 
@@ -35,11 +35,11 @@ const Class& TypeRegister::getClass() const
 template<typename T>
 Type& TypeRegister::registerType()
 {
-    // remove type cv qualifiers and reference
-    typedef typename RemoveAllCVQualifiers<typename RemoveReference<T>::Type>::Type NQT;
+    typedef typename RemoveReference<T>::Type NonRefT;
+    typedef typename RemoveAllCVQualifiers<NonRefT>::Type NonQualifiedT;
     
     // call the actual registration method with the unqualified type
-    return registerNQType<NQT>();
+    return registerNonQualifiedType<NonQualifiedT>();
 }
 
 template<typename T>
@@ -49,7 +49,7 @@ Class& TypeRegister::registerClass()
 }
 
 template<typename T>
-Type& TypeRegister::registerNQType()
+Type& TypeRegister::registerNonQualifiedType()
 {
     static Type* type = NULL;
     
@@ -61,18 +61,21 @@ Type& TypeRegister::registerNQType()
     Type::Category category = TypeRecognizer<T>::category;
     
     // method wrappers
-    void* (*_constructorWrapper)(void*) = NULL;
-    void* (*_copyConstructorWrapper)(const void*, void*) = NULL;
-    void (*_destructorWrapper)(void*, bool) = NULL;
-    void (*_operatorAssignWrapper) (void*, const void*) = NULL;
+    void* (*constructorWrapper)(void*) = NULL;
+    void* (*copyConstructorWrapper)(const void*, void*) = NULL;
+    void (*destructorWrapper)(void*, bool) = NULL;
+    void (*operatorAssignWrapper) (void*, const void*) = NULL;
     
     if (category != Type::Array)
     {
-        // take the method wrappers, remove all extents to allow compilation even for arrays
-        _constructorWrapper = constructorWrapper<typename RemoveAllExtents<T>::Type>;
-        _copyConstructorWrapper = copyConstructorWrapper<typename RemoveAllExtents<T>::Type>;
-        _destructorWrapper = destructorWrapper<typename RemoveAllExtents<T>::Type>;
-        _operatorAssignWrapper = operatorAssignWrapper<typename RemoveAllExtents<T>::Type>;
+        // remove all extents to allow compilation even for arrays
+        typedef typename RemoveAllExtents<T>::Type NoExtentsT;
+        
+        // take the method wrappers
+        constructorWrapper = extmr::constructorWrapper<NoExtentsT>;
+        copyConstructorWrapper = extmr::copyConstructorWrapper<NoExtentsT>;
+        destructorWrapper = extmr::destructorWrapper<NoExtentsT>;
+        operatorAssignWrapper = extmr::operatorAssignWrapper<NoExtentsT>;
     }
     
     if (category & Type::Class)
@@ -96,12 +99,13 @@ Type& TypeRegister::registerNQType()
             if (&type3) templateTypeArgs.push_back(&type3); 
             if (&type4) templateTypeArgs.push_back(&type4); 
 
-            Template* tempjate = new Template(TemplateRecognizer<T>::getName(), TemplateRecognizer<T>::argN);
+            Template* tempjate = new Template(TemplateRecognizer<T>::getName(),
+                    TemplateRecognizer<T>::argN);
             std::set<Template*, Template::PtrCmp>::iterator ite;
-            ite = templates.find(tempjate);
-            if (ite == templates.end())
+            ite = templates_.find(tempjate);
+            if (ite == templates_.end())
             {
-                templates.insert(tempjate);
+                templates_.insert(tempjate);
             }
             else
             {
@@ -116,10 +120,10 @@ Type& TypeRegister::registerNQType()
                             name,
                             sizeof(T),
                             typeid(T),
-                            _constructorWrapper,
-                            _copyConstructorWrapper,
-                            _destructorWrapper,
-                            _operatorAssignWrapper,
+                            constructorWrapper,
+                            copyConstructorWrapper,
+                            destructorWrapper,
+                            operatorAssignWrapper,
                             *tempjate,
                             templateTypeArgs
                     );
@@ -132,8 +136,8 @@ Type& TypeRegister::registerNQType()
         classBuilder(*clazz, *this);
         
         // push the class object into the class sets
-        classesById.insert(clazz);
-        classesByName.insert(clazz);
+        classesById_.insert(clazz);
+        classesByName_.insert(clazz);
     }
     else
     {
@@ -163,10 +167,10 @@ Type& TypeRegister::registerNQType()
                         name,
                         sizeof(T),
                         typeid(T),
-                        _constructorWrapper,
-                        _copyConstructorWrapper,
-                        _destructorWrapper,
-                        _operatorAssignWrapper,
+                        constructorWrapper,
+                        copyConstructorWrapper,
+                        destructorWrapper,
+                        operatorAssignWrapper,
                         *relatedType,
                         isArray,
                         arraySize
@@ -174,19 +178,20 @@ Type& TypeRegister::registerNQType()
     }
     
     // push the type object into the type sets
-    typesById.insert(type);
-    typesByName.insert(type);
+    typesById_.insert(type);
+    typesByName_.insert(type);
     
     // call the function registered for call back
-    if (callBackFnc) callBackFnc(*type);
+    if (callBackFnc_) callBackFnc_(*type);
     
     // return the type
     return *type;
 }
 
 /*
- * Calling the registerType with a void type has no consequences and a null type reference is returned.
- * This must be ensured because the method registration mechanism call this for the returned method type and this type can be void.
+ * Calling the registerType with a void type has no consequences and a null type
+ * reference is returned. This must be ensured because the method registration
+ * mechanism call this for the returned method type and this type can be void.
  */
 template<>
 inline Type& TypeRegister::registerType<void>()
@@ -196,4 +201,4 @@ inline Type& TypeRegister::registerType<void>()
 
 } // namespca extmr
 
-#endif // EXTMR_TYPEREGISTERT_HPP
+#endif // EXTMR_TYPEREGISTER_INL

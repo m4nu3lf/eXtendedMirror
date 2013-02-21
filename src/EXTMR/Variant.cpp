@@ -81,7 +81,8 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
     if (type == targetType) return true;
 
     // are they objects?
-    if (type.getCategory() == Type::Class && targetType.getCategory() == Type::Class)
+    if (type.getCategory() == Type::Class &&
+            targetType.getCategory() == Type::Class)
     {
         // cast to the respective class descriptors
         const Class& clazz = dynamic_cast<const Class&>(type);
@@ -93,14 +94,16 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
     }
         
     // are they pointers?
-    if (type.getCategory() == Type::Pointer && targetType.getCategory() == Type::Pointer)
+    if (type.getCategory() == Type::Pointer &&
+            targetType.getCategory() == Type::Pointer)
     {
         // get the pointed types
         const Type& pointedType = type.getPointedType();
         const Type& pointedTargetType = targetType.getPointedType();
 
         // are they objects?
-        if (pointedType.getCategory() != Type::Class || pointedTargetType.getCategory() != Type::Class)
+        if (pointedType.getCategory() != Type::Class ||
+                pointedTargetType.getCategory() != Type::Class)
             return false;
 
         // are they the same type?
@@ -108,7 +111,8 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
 
         // cast to the respective class descriptors
         const Class& pointedClass = dynamic_cast<const Class&>(pointedType);
-        const Class& pointedTargetClass = dynamic_cast<const Class&>(pointedTargetType);
+        const Class& pointedTargetClass =
+                dynamic_cast<const Class&>(pointedTargetType);
         
         // is the target pointed class a base class of the pointed class?
         if (pointedClass.derivesFrom(pointedTargetClass)) return true;

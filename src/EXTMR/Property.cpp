@@ -6,19 +6,19 @@ using namespace extmr;
 
 Property::Property(const std::string& name)
 {
-    this->name = name;
-    this->type = NULL;
-    flags = 0;
+    this->name_ = name;
+    this->type_ = NULL;
+    flags_ = 0;
 }
 
 const string& Property::getName() const
 {
-    return name;
+    return name_;
 }
 
 const Type& Property::getType() const
 {
-    return *type;
+    return *type_;
 }
 
 char Property::getFlags() const

@@ -18,8 +18,8 @@ public:
     PropertySetException(const Property& property, const Class& ownerClass);
     const char* what() const throw();
 private:
-    const Property& property;
-    const Class& ownerClass;
+    const Property& property_;
+    const Class& ownerClass_;
 };
 
 } // namespace extmr

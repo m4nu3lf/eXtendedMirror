@@ -27,16 +27,17 @@ public:
      * @param name The property name.
      * @param field A member pointer to the field.
      */
-    PropertyArrayField(const std::string& name, FieldT ClassT::*field) : Property(name)
+    PropertyArrayField(const std::string& name, FieldT ClassT::*field)
+    : Property(name)
     {
         
         offset = (size_t) &(((ClassT*)NULL)->*field);
-        type = &TypeRegister::getTypeReg().getType<FieldT>();
+        type_ = &TypeRegister::getTypeReg().getType<FieldT>();
     }
     
     char getFlags() const
     {
-        return flags;
+        return flags_;
     }
     
     Property& setFlags(char flags)
@@ -44,7 +45,7 @@ public:
         // cannot set an array
         flags &= ~Settable;
         
-        this->flags = flags;   
+        this->flags_ = flags;   
         return *this;
     }
     
@@ -60,22 +61,23 @@ public:
     
     Variant getData(const Variant& objPtr) const
     {
-        // the pointer is retrieved from the Variant and converted to a raw char pointer
-        // (the constness prevent exception throwing when the object pointed is constant,
-        // constness is however handled after)
-        char* byteObjPtr = const_cast<char*>(reinterpret_cast<const char*>(objPtr.to<const ClassT*>()));
+        // the value is retrieved as a constant to prevent exception throwing
+        // if the passed Variant is a constant Variant.
+        const ClassT& constObj = objPtr.to<const ClassT*>();
+        
+        // remove constness, the costness is however handled successively
+        ClassT& obj = const_cast<ClassT&>(constObj);
+        char* byteObjPtr = reinterpret_cast<char*>(&obj);
         
         // the pointer is summed to the the object pointer and converted to the field type
         FieldT& fieldRef = *reinterpret_cast<FieldT*>(byteObjPtr + offset);
         
         if (objPtr.isPointedConst())
         {
-            // the array type is converted to a constant type, and the value is returned through a Variant
             return Variant(const_cast<const FieldT&>(fieldRef), 0);
         }
         else
         {
-            // the array is returned through a Variant
             return Variant(fieldRef, 0);
         }
     }

@@ -17,10 +17,12 @@ class Type;
 bool operator<(const Type&, const Type&);
 
 /**
- * Describes a method of a class that has been registered through the reflection mechanism.
+ * Describes a method of a class that has been registered into the reflection
+ * mechanism.
+ * 
  * Note that a Method is related to the class and not to the object (instances).
- * Use this class only for set querying. Effective functionalities implementation is
- * delegated to subclasses.
+ * This class is can be used as a key for set containers but the effective
+ * implementation is delegated to subclasses.
  */
 class Method
 {
@@ -78,14 +80,22 @@ public:
     (
         const std::string& name,
         const std::type_info& retType,
-        const std::type_info& paramType1 = *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType2 = *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType3 = *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType4 = *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType5 = *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType6 = *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType7 = *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType8 = *reinterpret_cast<std::type_info*>(NULL)
+        const std::type_info& paramType1 =
+            *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType2 =
+            *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType3 =
+            *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType4 =
+            *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType5 =
+            *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType6 =
+            *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType7 =
+            *reinterpret_cast<std::type_info*>(NULL),
+        const std::type_info& paramType8 =
+            *reinterpret_cast<std::type_info*>(NULL)
     );
     
     /**
@@ -161,21 +171,28 @@ public:
     }
     
     /** 
-     * This function object is used to compare two pointers to this class by the signature information of the pointed objects.
-     * If one of the comparing method has no full signature defined then is only performed a name comparison.
+     * This function object is used to compare two pointers to this class by the
+     * signature of the pointed Method objects.
+     * If one of the comparing Method has no full signature defined then is only
+     * performed a name comparison.
      */
     struct PtrCmp
     {
-        bool operator()(const Method* methodPtr1, const Method* methodPtr2) const
+        bool operator()(const Method* methodPtr1, const Method* methodPtr2)
+        const
         {
-                if (methodPtr1->name < methodPtr2->name) return true;
-                if (!methodPtr1->fullSignature || methodPtr2->fullSignature) return false;
-                ushort paramN1 = methodPtr1->params.size();
-                ushort paramN2 = methodPtr2->params.size();
+                if (methodPtr1->name_ < methodPtr2->name_)
+                    return true;
+                if (!methodPtr1->fullSignature_ || methodPtr2->fullSignature_)
+                    return false;
+                ushort paramN1 = methodPtr1->params_.size();
+                ushort paramN2 = methodPtr2->params_.size();
                 ushort paramN = std::min(paramN1, paramN2);
                 for (uint i = 0; i < paramN; i++)
                 {
-                    if (methodPtr1->params[i]->type < methodPtr2->params[i]->type) return true;
+                    if (methodPtr1->params_[i]->type
+                        < methodPtr2->params_[i]->type)
+                        return true;
                 }
                 if (paramN1 < paramN2) return true;
                 return false;
@@ -184,18 +201,22 @@ public:
     
 protected:
     
-    /// The method name.
-    std::string name;
+    // The method name
+    std::string name_;
     
-    /// The returned type.
-    const Type* retType;
+    // The returned type
+    const Type* retType_;
     
-    /// whether the method full signature is provided (used in comparing two methods).
-    bool fullSignature;
+    // Whether the method full signature is provided
+    // (used in comparing two methods)
+    bool fullSignature_;
     
-    /// The parameter list.
-    std::vector<const Parameter*> params;
+    // The parameter list
+    std::vector<const Parameter*> params_;
 };
+
+typedef std::set<Method*, Method::PtrCmp> MethodSet;
+typedef std::set<const Method*, Method::PtrCmp> ConstMethodSet;
 
 } // namespace extmr
 

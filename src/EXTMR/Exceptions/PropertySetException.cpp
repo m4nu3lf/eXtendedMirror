@@ -15,15 +15,15 @@ using namespace extmr;
 
 PropertySetException::PropertySetException(const Property& property,
                                            const Class& ownerClass)
-        : property(property)
-        , ownerClass(ownerClass)
+        : property_(property)
+        , ownerClass_(ownerClass)
 {
 }
 
 const char* PropertySetException::what() const throw()
 {
     return (string("Attempt to write the non settable property ")
-            + property.getName()
+            + property_.getName()
             + "of class "
-            + ownerClass.getName() + ".").c_str();
+            + ownerClass_.getName() + ".").c_str();
 }

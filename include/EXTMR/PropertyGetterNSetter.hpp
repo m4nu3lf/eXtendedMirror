@@ -24,37 +24,40 @@ namespace extmr{
  * Implementation of the Property class. Handles a property from a getter
  * and setter couple.
  */
-template<class ClassT, typename RetT, typename ParamT = Empty, typename ExtrParamT1 = Empty, typename ExtrParamT2 = Empty>
+template<class ClassT, typename RetT, typename ParamT = Empty,
+        typename ExtrParamT1 = Empty, typename ExtrParamT2 = Empty>
 class PropertyGetterNSetter : public Property
 {
-    /// define the property type after removing the cv-qualifier and the constness of RetT
-    typedef typename RemoveAllCVQualifiers<typename RemoveReference<RetT>::Type>::Type PropT;
+    // define the property type after removing the reference and all the
+    // cv qualifiers
+    typedef typename RemoveReference<RetT>::Type NonRefT; 
+    typedef typename RemoveAllCVQualifiers<NonRefT>::Type PropT;
     
-    /// A numerical type. The same of PropT if PropT is numerical.
+    // A numerical type. The same of PropT if PropT is numerical.
     typedef typename ToNumerical<PropT>::Type NumT;
     
-    /// general getter method
+    // general getter method
     typedef RetT (ClassT::*GeneralGetter)(...);
     
-    /// general setter method
+    // general setter method
     typedef void (ClassT::*GeneralSetter)(ParamT, ...);
     
-    /// getter method with no extra parameters
+    // getter method with no extra parameters
     typedef RetT (ClassT::*Getter0)();
     
-    /// setter method with no extra parameters
+    // setter method with no extra parameters
     typedef void (ClassT::*Setter0)(ParamT);
     
-    /// getter method with one extra parameters
+    // getter method with one extra parameters
     typedef RetT (ClassT::*Getter1)(ExtrParamT1);
     
-    /// setter method with one extra parameters
+    // setter method with one extra parameters
     typedef void (ClassT::*Setter1)(ParamT, ExtrParamT1);
     
-    /// getter method with two extra parameters
+    // getter method with two extra parameters
     typedef RetT (ClassT::*Getter2)(ExtrParamT1, ExtrParamT2);
     
-    /// setter method with two extra parameters
+    // setter method with two extra parameters
     typedef void (ClassT::*Setter2)(ParamT, ExtrParamT1, ExtrParamT2);
     
 public:
@@ -74,17 +77,17 @@ public:
         Setter0 setter
     ) 
     : Property(name)
-    , getterWrapper(getter)
-    , constGetter(constGetter)
-    , setterWrapper(setter)
+    , getterWrapper_(getter)
+    , constGetter_(constGetter)
+    , setterWrapper_(setter)
     {
-         type = &TypeRegister::getTypeReg().getType<PropT>();
+         type_ = &TypeRegister::getTypeReg().getType<PropT>();
         
         // if the setter is not null we can set the property
-        if (setter) flags |= Settable;
+        if (setter) flags_ |= Settable;
          
         // initialize bounds
-         getTypeBounds<PropT>(minValue, maxValue);
+         getTypeBounds<PropT>(minValue_, maxValue_);
     }
     
     /**
@@ -105,18 +108,18 @@ public:
         ExtrParamT1 extrArg1
     )
     : Property(name)
-    , getterWrapper(getter)
-    , constGetter(constGetter)
-    , setterWrapper(setter)
-    , extrArg1(extrArg1)
+    , getterWrapper_(getter)
+    , constGetter_(constGetter)
+    , setterWrapper_(setter)
+    , extrArg1_(extrArg1)
     {
-        type = &TypeRegister::getTypeReg().getType<PropT>();
+        type_ = &TypeRegister::getTypeReg().getType<PropT>();
                 
         // if the setter is not null we can set the property
-        if (setter) flags |= Settable;
+        if (setter) flags_ |= Settable;
         
         // initialize bounds
-        getTypeBounds<PropT>(minValue, maxValue);
+        getTypeBounds<PropT>(minValue_, maxValue_);
     }
     
     /**
@@ -139,54 +142,55 @@ public:
         ExtrParamT2 extrArg2
     )
     : Property(name)
-    , getterWrapper(getter)
-    , constGetter(constGetter)
-    , setterWrapper(setter)
-    , extrArg1(extrArg1)
-    , extrArg2(extrArg2)
+    , getterWrapper_(getter)
+    , constGetter_(constGetter)
+    , setterWrapper_(setter)
+    , extrArg1_(extrArg1)
+    , extrArg2_(extrArg2)
     {
-        type = &TypeRegister::getTypeReg().getType<PropT>();
+        type_ = &TypeRegister::getTypeReg().getType<PropT>();
         
         // if the setter is not null we can set the property
-        if (setter) flags |= Settable;
+        if (setter) flags_ |= Settable;
         
         // initialize bounds
-        getTypeBounds<PropT>(minValue, maxValue);
+        getTypeBounds<PropT>(minValue_, maxValue_);
     }
     
     char getFlags() const
     {
-        return flags;
+        return flags_;
     }
     
     Property& setFlags(char flags)
     {
-        // If the setter pointer is NULL no way we can change the property to a settable one.
-        if (!setterWrapper.setter) flags &= ~Settable;
+        // If the setter pointer is NULL no way we can change the property to a
+        // settable one.
+        if (!setterWrapper_.setter) flags &= ~Settable;
         
-        this->flags = flags;
+        this->flags_ = flags;
         return *this;
     }
     
     double getMinValue() const
     {
-        return minValue;
+        return minValue_;
     }
     
     Property& setMinValue(double minValue)
     {
-        this->minValue = minValue;
+        this->minValue_ = minValue;
         return *this;
     }
     
     double getMaxValue() const
     {
-        return maxValue;
+        return maxValue_;
     }
     
     Property& setMaxValue(double maxValue)
     {
-        this->maxValue = maxValue;
+        this->maxValue_ = maxValue;
         return *this;
     }
     
@@ -206,16 +210,18 @@ public:
         ClassT& objRef = *objPtr.to<ClassT*>();
         
         // we cannot call a non constant getter of a constant instance
-        if (objPtr.isPointedConst() && !constGetter) throw VariantCostnessException(objPtr.getType());
+        if (objPtr.isPointedConst() && !constGetter_)
+            throw VariantCostnessException(objPtr.getType());
                 
-        const PropT& data = getterWrapper(objRef, extrArg1, extrArg2);
-        return Variant(const_cast<PropT&>(data), ReturnVariantFlags<RetT>::flags);
+        const PropT& data = getterWrapper_(objRef, extrArg1_, extrArg2_);
+        return Variant(const_cast<PropT&>(data),
+                ReturnVariantFlags<RetT>::flags);
     }
     
     void setData(const Variant& objPtr, const Variant& data) const
     {
         // check whether the property is settable
-        if (!setterWrapper.setter) throw PropertySetException(*this);
+        if (!setterWrapper_.setter) throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
         ClassT& objRef = *objPtr.to<ClassT*>();
@@ -224,34 +230,34 @@ public:
         PropT& extractedValue = data.to<PropT>();
         
         // check whether the new value is into the specified bounds
-        if (!checkValueBounds(extractedValue, minValue, maxValue)) return;
+        if (!checkValueBounds(extractedValue, minValue_, maxValue_)) return;
         
         // the data is set calling the setter method wrapper
-        setterWrapper(objRef, extractedValue, extrArg1, extrArg2);
+        setterWrapper_(objRef, extractedValue, extrArg1_, extrArg2_);
     }
     
 private:
 
     /// The getter method wrapper
-    GetterWrapper<ClassT, RetT, ExtrParamT1, ExtrParamT2> getterWrapper;
+    GetterWrapper<ClassT, RetT, ExtrParamT1, ExtrParamT2> getterWrapper_;
     
     /// Whether the getter method is constant
-    bool constGetter;
+    bool constGetter_;
     
     /// The setter method wrapper
-    SetterWrapper<ClassT, ParamT, ExtrParamT1, ExtrParamT2> setterWrapper;
+    SetterWrapper<ClassT, ParamT, ExtrParamT1, ExtrParamT2> setterWrapper_;
     
     /// First extra parameter to pass when calling the getter and setter
-    ExtrParamT1 extrArg1;
+    ExtrParamT1 extrArg1_;
     
     /// Second extra parameter to pass when calling the getter and setter
-    ExtrParamT2 extrArg2;
+    ExtrParamT2 extrArg2_;
     
     /// The minimum allowed value for this property.
-    NumT minValue;
+    NumT minValue_;
     
     /// The maximum allowed value for this property.
-    NumT maxValue;
+    NumT maxValue_;
 };
 
 } // namespace extmr

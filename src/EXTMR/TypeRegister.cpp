@@ -12,7 +12,7 @@ TypeRegister& TypeRegister::getTypeReg()
 
 TypeRegister::TypeRegister(void (*callBackFnc)(const Type&))
 {
-    this->callBackFnc = callBackFnc;
+    this->callBackFnc_ = callBackFnc;
     
     // register the base types
     registerType<char>();
@@ -28,18 +28,18 @@ TypeRegister::TypeRegister(void (*callBackFnc)(const Type&))
 const Type& TypeRegister::getType(const string& typeName) const
 {
     Type type(typeName);
-    set<Type*, Type::PtrCmpByName>::const_iterator ite;
-    ite = typesByName.find(&type);
-    if (ite == typesByName.end()) return *reinterpret_cast<Type*>(NULL);
+    TypeSetByName::const_iterator ite;
+    ite = typesByName_.find(&type);
+    if (ite == typesByName_.end()) return *reinterpret_cast<Type*>(NULL);
     return **ite;
 }
 
 const Type& TypeRegister::getType(const type_info& cppType) const
 {
     Type type(cppType);
-    set<Type*, Type::PtrCmpById>::const_iterator ite;
-    ite = typesById.find(&type);
-    if (ite == typesById.end()) return *reinterpret_cast<Type*>(NULL);
+    TypeSetById::const_iterator ite;
+    ite = typesById_.find(&type);
+    if (ite == typesById_.end()) return *reinterpret_cast<Type*>(NULL);
     return **ite;
 }
 
@@ -47,17 +47,17 @@ const Class& TypeRegister::getClass(const string& className) const
 {
     Class clazz(className);
     set<Class*, Type::PtrCmpByName>::const_iterator ite;
-    ite = classesByName.find(&clazz);
-    if (ite == classesByName.end()) return *reinterpret_cast<Class*>(NULL);
+    ite = classesByName_.find(&clazz);
+    if (ite == classesByName_.end()) return *reinterpret_cast<Class*>(NULL);
     return **ite;
 }
 
 const Class& TypeRegister::getClass(const type_info& cppType) const
 {
     Class clazz(cppType);
-    set<Class*, Type::PtrCmpById>::const_iterator ite;
-    ite = classesById.find(&clazz);
-    if (ite == classesById.end()) return *reinterpret_cast<Class*>(NULL);
+    ClassSetById::const_iterator ite;
+    ite = classesById_.find(&clazz);
+    if (ite == classesById_.end()) return *reinterpret_cast<Class*>(NULL);
     return **ite;
 }
 
@@ -65,22 +65,22 @@ const Template& TypeRegister::getTemplate(const string& templateName) const
 {
     Template template_(templateName);
     set<Template*, Template::PtrCmp>::const_iterator ite;
-    ite = templates.find(&template_);
-    if (ite == templates.end()) return *reinterpret_cast<Template*>(NULL);
+    ite = templates_.find(&template_);
+    if (ite == templates_.end()) return *reinterpret_cast<Template*>(NULL);
     return **ite;
 }
 
-const set<const Type*, Type::PtrCmpById>& TypeRegister::getTypes()
+const ConstTypeSetById& TypeRegister::getTypes()
 {
-    return (set<const Type*, Type::PtrCmpById>&) typesById;
+    return (ConstTypeSetById&) typesById_;
 }
 
-const set<const Class*, Type::PtrCmpById>& TypeRegister::getClasses()
+const ConstClassSetById& TypeRegister::getClasses()
 {
-    return (set<const Class*, Type::PtrCmpById>&) classesById;
+    return (ConstClassSetById&) classesById_;
 }
 
 const set<const Template*, Template::PtrCmp>& TypeRegister::getTemplates()
 {
-    return (set<const Template*, Template::PtrCmp>&)templates;
+    return (set<const Template*, Template::PtrCmp>&)templates_;
 }

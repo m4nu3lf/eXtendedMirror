@@ -7,25 +7,26 @@ class Type;
 class Variant;
 
 /**
- * Describes a property of a class. A property is an attribute that has been registered
- * through the reflection mechanism. Note that a Property is related to the class and not
- * to the object (instances).
+ * Describes a property of a class. A property is an attribute that has been 
+ * registered through the reflection mechanism. Note that a Property is related 
+ * to the class and not to the object (instances).
  */
 class Property
 {
 public:
     
-    /// Some property flags.
+    // Some property flags.
     enum PropertyFlags
     {
-        /// Whether the property is settable or not.
+        // Whether the property is settable or not.
         Settable = 1,
 
-        /// Whether the property interface should be considered part of the host class interface.
+        // Whether the property interface should be considered part of the host
+        // class interface.
         Encapsulated = 2,
 
-        /// Whether the encapsulated property is retrieved by pointer or reference.
-        EncasulatedPtr = 4,
+        // Whether the property is retrieved and set by pointer
+        Pointer = 4,
 
     };
     
@@ -79,7 +80,7 @@ public:
      * A reference to the Property is returned to allow a method chain call.
      * NOTE: this method makes sense only if the property is of a numerical type.
      * 
-     * @param minValue the mininum allowe value.
+     * @param minValue the minimum allowed value.
      * @return This Property.
      */
     virtual Property& setMinValue(double minValue);
@@ -131,23 +132,26 @@ public:
      */
     virtual void setData(const Variant& objPtr, const Variant& data) const {};
     
-    /// This function object is used to compare two pointers to this class by the name of the pointed objects.
+    
     typedef ::PtrCmpByName<Property> PtrCmp;
     
 protected:
     
-    /// The property name.
-    std::string name;
+    // The property name.
+    std::string name_;
     
-    /// The property Type.
-    const Type* type;
+    // The property Type.
+    const Type* type_;
     
-    /// PtrCmpByName must be a friend of this class to access the name attribute.
+    // PtrCmpByName must be a friend of this class to access the name attribute.
     friend class ::PtrCmpByName<Property>;
     
-    /// Property flags.
-    char flags;
+    // Property flags.
+    char flags_;
 };
+
+typedef std::set<Property*, Property::PtrCmp> PropertySet;
+typedef std::set<const Property*, Property::PtrCmp> ConstPropertySet;
 
 } // namespace extmr
 

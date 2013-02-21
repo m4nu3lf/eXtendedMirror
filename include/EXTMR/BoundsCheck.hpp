@@ -17,7 +17,8 @@ namespace extmr{
  * @param value The value to check.
  * @param min The minimum value.
  * @param max The maximum value.
- * @return True if the value is into the range or if the type is not a numerical value.
+ * @return True if the value is into the range or if the type is not a numerical
+ * value.
  */
 template<typename T1, typename T2>
 bool inline checkValueBounds(const T1& value, const T2& min, const T2& max)
@@ -25,11 +26,13 @@ bool inline checkValueBounds(const T1& value, const T2& min, const T2& max)
     return true;
 }
 
-#define EXTMR_SPECIALIZE_CHECK_VALUE_BOUNDS(num_type)\
-template<>\
-bool inline checkValueBounds<num_type, num_type>(const num_type& value, const num_type& min, const num_type& max)\
-{\
-    return min <= value & value <= max;\
+#define EXTMR_SPECIALIZE_CHECK_VALUE_BOUNDS(num_type)                          \
+template<>                                                                     \
+bool inline checkValueBounds<num_type, num_type>(const num_type& value,        \
+                                                 const num_type& min,          \
+                                                 const num_type& max)          \
+{                                                                              \
+    return min <= value & value <= max;                                        \
 }
 
 EXTMR_SPECIALIZE_CHECK_VALUE_BOUNDS(char);

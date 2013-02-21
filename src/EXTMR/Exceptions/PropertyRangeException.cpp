@@ -15,17 +15,19 @@ using namespace extmr;
 PropertyRangeException::PropertyRangeException(double givenValue,
                                                double minValue,
                                                double maxValue) throw()
-        : givenValue(givenValue)
-        , minValue(minValue)
-        , maxValue(maxValue)
+        : givenValue_(givenValue),
+        minValue_(minValue),
+        maxValue_(maxValue)
 {
 }
+
+
 const char* PropertyRangeException::what() const throw()
 {
     stringstream ss;
-    ss << "Given value of " << givenValue 
+    ss << "Given value of " << givenValue_ 
             << " when expected value into the range from " 
-            << minValue << " to " << maxValue << ".";
+            << minValue_ << " to " << maxValue_ << ".";
     return ss.str().c_str(); 
 }
 

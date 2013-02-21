@@ -34,7 +34,8 @@ public:
     
     /**
      * Get the Class of the class with the given name if any.
-     * Return a NULL reference if the type is not a class, or is not a registered one.
+     * Return a NULL reference if the type is not a class,
+     * or is nota registered one.
      * 
      * @param className The name of the class.
      * @return The Class.
@@ -43,7 +44,8 @@ public:
     
     /**
      * Get the Class of the class with the given type_info.
-     * Return a NULL reference if the type is not a class, or is not a registered one.
+     * Return a NULL reference if the type is not a class,
+     * or is not a registered one.
      * 
      * @param cppType The type_info struct of the class.
      * @return The Class.
@@ -62,7 +64,8 @@ public:
     
     /**
      * Get the Class of the class of the given object.
-     * Return a NULL reference if the type is not a class, or is not a registered one.
+     * Return a NULL reference if the type is not a class,
+     * or is not a registered one.
      * 
      * @param obj The object instance
      * @return The Class.
@@ -82,7 +85,8 @@ public:
     
     /**
      * Get the Class of the given class type.
-     * Return a NULL reference if the type is not a class, or is not a registered one.
+     * Return a NULL reference if the type is not a class,
+     * or is not a registered one.
      * 
      * @tparam T The given type.
      * @return The Class.
@@ -105,7 +109,7 @@ public:
      * 
      * @return The Type pointer set. 
      */
-    const std::set<const Type*, Type::PtrCmpById>& getTypes();
+    const ConstTypeSetById& getTypes();
     
     /**
      * Get a set containing the pointers to the class descriptors of all
@@ -113,7 +117,7 @@ public:
      * 
      * @return The Class pointer set. 
      */
-    const std::set<const Class*, Type::PtrCmpById>& getClasses();
+    const ConstClassSetById& getClasses();
     
     /**
      * Get a set containing the pointers to the template descriptors of all
@@ -124,9 +128,9 @@ public:
     const std::set<const Template*, Template::PtrCmp>& getTemplates();
     
     /**
-     * Start the registration mechanism for the given type. You should not to call
-     * this method unless you know what you are doing. Registration macros will handle
-     * automatic type registration and call this method for you.
+     * Start the registration mechanism for the given type. You should not call
+     * this method unless you know what you are doing.
+     * Registration macros will handle automatic type registration and call this method for you.
      * 
      * @return The registered type.
      */
@@ -141,8 +145,8 @@ public:
     template<typename T> Class& registerClass();
     
     /**
-     * Set a function that is called whenever a type is registered within the type register
-     * and the registered type is passed to this function.
+     * Set a function that is called whenever a type is registered within the
+     * type register and the registered type is passed to this function.
      * 
      * @param callBackFnc
      */
@@ -162,17 +166,19 @@ private:
     /**
      * Constructor.
      * 
-     * @param callBackFnc A function that is called every time a Type is registered.
+     * @param callBackFnc A function that is called every time a Type is
+     * registered.
      */
     TypeRegister(void (*callBackFnc)(const Type&));
     
     /**
-     * This method is called by registerType, after the type qualifiers are removed
+     * This method is called by registerType, after the type qualifiers are
+     * removed
      * from the type.
      * 
      * @return the registered type.
      */
-    template<typename T> Type& registerNQType();
+    template<typename T> Type& registerNonQualifiedType();
     
      /**
       * Make this object non copyable.
@@ -180,23 +186,28 @@ private:
     TypeRegister(const TypeRegister&);
     TypeRegister& operator=(const TypeRegister&);
 
-    /// A set containing the pointers to all the registered type descriptors sorted by type name.
-    std::set<Type*, Type::PtrCmpByName> typesByName;
+    // A set containing the pointers to all the registered type descriptors
+    //sorted by type name.
+    TypeSetByName typesByName_;
     
-    /// A set containing the pointers to all the registered type descriptors sorted by type_info struct order.
-    std::set<Type*, Type::PtrCmpById> typesById;
+    // A set containing the pointers to all the registered type descriptors
+    //sorted by type_info struct order.
+    TypeSetById typesById_;
     
-    /// A set containing the pointers to all the registered class descriptors sorted by type name.
-    std::set<Class*, Type::PtrCmpByName> classesByName;
+    // A set containing the pointers to all the registered class descriptors
+    // sorted by type name.
+    ClassSetByName classesByName_;
     
-    /// A set containing the pointers to all the registered class descriptors sorted by type_info struct order.
-    std::set<Class*, Type::PtrCmpById> classesById;
+    // A set containing the pointers to all the registered class descriptors
+    // sorted by type_info struct order.
+    ClassSetById classesById_;
     
-    /// A set containing the template descriptors of all the instantiated templates.
-    std::set<Template*, Template::PtrCmp> templates;
+    // A set containing the template descriptors of all the instantiated
+    //templates.
+    std::set<Template*, Template::PtrCmp> templates_;
     
-    /// The call back function to call whenever a type is registered.
-    void (*callBackFnc) (const Type&);
+    // The call back function to call whenever a type is registered.
+    void (*callBackFnc_) (const Type&);
 };
 
 } // namespace extmr

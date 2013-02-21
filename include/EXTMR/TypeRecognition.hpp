@@ -24,9 +24,12 @@ struct TypeRecognizer
 {};
 
 /**
- * Specialize for each supported template type. Each specialization must define the template
- * parameters types with names T1, T2, T3, T4, the constant uint argN and the static method std::string getName();
- * The types of this non specialized version or those unused in a specialization must evaluate to void.
+ * Specialize for each supported template type.
+ * Each specialization must define the template parameters types
+ * with names T1, T2, T3, T4, the constant uint argN and the static method 
+ * std::string getName();
+ * The types of this non specialized version or those unused in a specialization
+ * must evaluate to void.
  */
 template<class T>
 struct TemplateRecognizer
@@ -49,7 +52,8 @@ template<typename T>
 struct TypeRecognizer<T*>
 {
     /**
-     * If TypeRecognizer<T>::getName() returns "SomeType" then this method returns "SomeType*".
+     * If TypeRecognizer<T>::getName() returns "SomeType" then this method
+     * returns "SomeType*".
      * 
      * @return The type name.
      */
@@ -72,13 +76,15 @@ struct TypeRecognizer<T[size]>
     typedef typename RemoveAllExtents<T>::Type NonArrayT;
     
     /**
-     * If TypeRecognizer<T>::getName() returns "SomeType" then this method returns "SomeType[size_1][size_2]...[size_n]".
+     * If TypeRecognizer<T>::getName() returns "SomeType" then this method
+     * returns "SomeType[size_1][size_2]...[size_n]".
      * 
      * @return The type name.
      */
     static std::string getName()
     {
-        return TypeRecognizer<NonArrayT>::getName() + ArraySizeSignature<T[size]>::getSizeSignature();
+        return TypeRecognizer<NonArrayT>::getName() +
+                ArraySizeSignature<T[size]>::getSizeSignature();
     }
     
     static const Type::Category category = Type::Array;

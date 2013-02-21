@@ -37,18 +37,17 @@ public:
      */
     uint getArgN() const;
     
-    /// This function object is used to compare two pointers to this class by the name of the pointed objects.
     typedef ::PtrCmpByName<Template> PtrCmp;
     
 private:
     
-    /// The name of the template.
-    std::string name;
+    // The name of the template.
+    std::string name_;
     
-    /// The number of arguments.
-    uint argN;
+    // The number of arguments.
+    uint argN_;
     
-    /// PtrCmpByName must be a friend of this class to access the name attribute.
+    // PtrCmpByName must be a friend of this class to access the name attribute.
     friend class ::PtrCmpByName<Template>;
 };
 

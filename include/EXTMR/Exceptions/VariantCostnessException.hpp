@@ -16,7 +16,7 @@ public:
     VariantCostnessException(const Type& type) throw();
     const char* what() const throw();
 private:
-    const Type& type;
+    const Type& type_;
 };
 
 } // namespace extmr

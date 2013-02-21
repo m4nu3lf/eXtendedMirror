@@ -12,17 +12,17 @@ using namespace std;
 using namespace extmr;
 
 Template::Template(const string& name, uint argN) :
-        name(name), argN(argN)
+        name_(name), argN_(argN)
 {
 }
 
 const std::string& Template::getName() const
 {
-    return name;
+    return name_;
 }
 
 uint Template::getArgN() const
 {
-    return argN;
+    return argN_;
 }
 

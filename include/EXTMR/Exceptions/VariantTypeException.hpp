@@ -5,8 +5,8 @@
  * Created on September 3, 2012, 12.50
  */
 
-#ifndef EXTMR_BADTYPE_HPP
-#define	EXTMR_BADTYPE_HPP
+#ifndef EXTMR_VARIANTTYPEEXCEPTION_HPP
+#define	EXTMR_VARIANTTYPEEXCEPTION_HPP
 
 namespace extmr{
 
@@ -16,11 +16,11 @@ public:
     VariantTypeException(const Type& givenType,const Type& variantType) throw();
     const char* what() const throw();
 private:
-    const Type* givenType;
-    const Type* variantType;
+    const Type* givenType_;
+    const Type* variantType_;
 };
 
 } // namespace extmr
 
-#endif	/* EXTMR_BADTYPE_HPP */
+#endif	/* EXTMR_VARIANTTYPEEXCEPTION_HPP */
 

@@ -11,7 +11,8 @@
 namespace extmr{
 
 /**
- * This template class allow a class to be registered without any extra code inside the main() or any other function.
+ * This template class allow a class to be registered without any extra code
+ * inside the main() or any other function.
  * Registration is performed by the constructor on instantiation.
  */
 template<class T>

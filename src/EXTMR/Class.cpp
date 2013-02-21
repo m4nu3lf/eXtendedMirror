@@ -41,48 +41,48 @@ Class::Class
         destructor,
         operatorAssign
     ),
-    tempjate(&tempjate),
-    templateParamTypes(templateParamTypes)
+    tempjate_(&tempjate),
+    templateArgs_(templateParamTypes)
 {
-    if (this->tempjate) category = CompClass;
-    else category = Type::Class;
+    if (this->tempjate_) category_ = CompClass;
+    else category_ = Type::Class;
 }
 
 const Template& Class::getTemplate() const
 {
-    return *tempjate;
+    return *tempjate_;
 }
 
-const std::vector<const Type*>& Class::getTemplateParamTypes() const
+const std::vector<const Type*>& Class::getTemplateArgs() const
 {
-    return templateParamTypes;
+    return templateArgs_;
 }
 
 const set<const Class*, Class::PtrCmpById>& Class::getBaseClasses() const
 {
-    return baseClasses;
+    return baseClasses_;
 }
 
 const set<const Class*, Class::PtrCmpById>& Class::getDerivedClasses() const
 {
-    return derivedClasses;
+    return derivedClasses_;
 }
 
 Class& Class::operator<<(Class& baseClass)
 {
     // put this class into the derived list of the base Class
-    baseClass.derivedClasses.insert(this);
+    baseClass.derivedClasses_.insert(this);
     
     // put the base class into the base list of this Class
-    baseClasses.insert(&baseClass);
+    baseClasses_.insert(&baseClass);
     
     // insert all the base class properties into the properties set
-    const std::set<const Property*, Property::PtrCmp>& baseClassProperties = baseClass.getProperties();
-    properties.insert(baseClassProperties.begin(), baseClassProperties.end());
+    const ConstPropertySet& baseClassProperties = baseClass.getProperties();
+    properties_.insert(baseClassProperties.begin(), baseClassProperties.end());
     
     // insert all the base class method descriptors into the methods set
-    const std::set<const Method*, Method::PtrCmp>& baseClassMethods = baseClass.getMethods();
-    methods.insert(baseClassMethods.begin(), baseClassMethods.end());
+    const ConstMethodSet& baseClassMethods = baseClass.getMethods();
+    methods_.insert(baseClassMethods.begin(), baseClassMethods.end());
     
     return *this;
 }
@@ -90,46 +90,46 @@ Class& Class::operator<<(Class& baseClass)
 Class& Class::operator<<(Property& property)
 {
     // remove previous inserted properties with the same name
-    properties.erase(&property);
+    properties_.erase(&property);
     
-    properties.insert(&property);
+    properties_.insert(&property);
     return *this;
 }
 
 Class& Class::operator<<(Method& method)
 {
     // remove previous inserted methods with the same signature
-    methods.erase(&method);
+    methods_.erase(&method);
     
-    methods.insert(&method);
+    methods_.insert(&method);
     return *this;
 }
 
-const set<const Property*, Property::PtrCmp>& Class::getProperties(bool inherited) const
+const ConstPropertySet& Class::getProperties(bool inherited) const
 {
     if (inherited)
     {
-        return properties;
+        return properties_;
     }
-    return ownProperties;
+    return ownProperties_;
 }
 
-const set<const Method*, Method::PtrCmp>& Class::getMethods(bool inherited) const
+const ConstMethodSet& Class::getMethods(bool inherited) const
 {
     if (inherited)
     {
-        return methods;
+        return methods_;
     }
-    return ownMethods;
+    return ownMethods_;
 }
 
 bool Class::hasProperty(const string& propertyName, bool inherited) const
 {
-    const set<const Property*, Property::PtrCmp>* propertySelection;
-    if (inherited) propertySelection = &properties;
-    else propertySelection = &ownProperties;
+    const ConstPropertySet* propertySelection;
+    if (inherited) propertySelection = &properties_;
+    else propertySelection = &ownProperties_;
     
-    set<const Property*, Property::PtrCmp>::iterator ite;
+    ConstPropertySet::iterator ite;
     Property property(propertyName);
     ite = propertySelection->find(&property);
     if (ite != propertySelection->end()) return true;
@@ -138,11 +138,11 @@ bool Class::hasProperty(const string& propertyName, bool inherited) const
 
 bool Class::hasMethod(const string& methodName, bool inherited) const
 {
-    const set<const Method*, Method::PtrCmp>* methodSelection;
-    if (inherited) methodSelection = &methods;
-    else methodSelection = &ownMethods;
+    const ConstMethodSet* methodSelection;
+    if (inherited) methodSelection = &methods_;
+    else methodSelection = &ownMethods_;
     
-    set<const Method*, Method::PtrCmp>::iterator ite;
+    ConstMethodSet::iterator ite;
     Method method(methodName);
     ite = methodSelection->find(&method);
     if (ite != methodSelection->end()) return true;
@@ -151,11 +151,11 @@ bool Class::hasMethod(const string& methodName, bool inherited) const
 
 bool Class::hasMethod(const Method& method, bool inherited) const
 {
-    const set<const Method*, Method::PtrCmp>* methodSelection;
-    if (inherited) methodSelection = &methods;
-    else methodSelection = &ownMethods;
+    const ConstMethodSet* methodSelection;
+    if (inherited) methodSelection = &methods_;
+    else methodSelection = &ownMethods_;
     
-    set<const Method*, Method::PtrCmp>::iterator ite;
+    ConstMethodSet::iterator ite;
     ite = methodSelection->find(&method);
     if (ite != methodSelection->end()) return true;
     return false;
@@ -170,48 +170,48 @@ bool Class::derivesFrom(const string& baseClassName) const
 
 bool Class::derivesFrom(const Class& baseClass) const
 {
-    set<const Class*>::iterator ite = baseClasses.find(&baseClass);
-    if (ite != baseClasses.end()) return true;
+    set<const Class*>::iterator ite = baseClasses_.find(&baseClass);
+    if (ite != baseClasses_.end()) return true;
     return false;
 }
 
 const Property& Class::getProperty(const string& propertyName) const
 {
-    set<const Property*, Property::PtrCmp>::iterator ite;
+    ConstPropertySet::iterator ite;
     Property property(propertyName);
-    ite = properties.find(&property);
-    if (ite != properties.end()) return **ite;
+    ite = properties_.find(&property);
+    if (ite != properties_.end()) return **ite;
     return *reinterpret_cast<Property*>(NULL);
 }
 
 const Method& Class::getMethod(const string& methodName) const
 {
-    set<const Method*, Method::PtrCmp>::iterator ite;
+    ConstMethodSet::iterator ite;
     Method method(methodName);
-    ite = methods.find(&method);
-    if (ite != methods.end()) return **ite;
+    ite = methods_.find(&method);
+    if (ite != methods_.end()) return **ite;
     return *reinterpret_cast<Method*>(NULL);
 }
 
 const Method& Class::getMethod(const Method& method) const
 {
-    set<const Method*, Method::PtrCmp>::iterator ite;
-    ite = methods.find(&method);
-    if (ite != methods.end()) return **ite;
+    ConstMethodSet::iterator ite;
+    ite = methods_.find(&method);
+    if (ite != methods_.end()) return **ite;
     return *reinterpret_cast<Method*>(NULL);
 }
 
 Class::~Class()
 {
-    set<const Property*, Property::PtrCmp>::iterator prop_ite = properties.begin();
-    while(prop_ite != properties.end())
+    ConstPropertySet::iterator prop_ite = properties_.begin();
+    while(prop_ite != properties_.end())
     {
         delete *prop_ite;
         prop_ite++;
     }
     
-    set<const Method*, Method::PtrCmp>::iterator meth_ite = methods.begin();
-    while(meth_ite != methods.end())
+    ConstMethodSet::iterator meth_ite = methods_.begin();
+    while(meth_ite != methods_.end())
     {
         delete *meth_ite;
         meth_ite++;

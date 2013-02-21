@@ -11,6 +11,13 @@
 namespace extmr
 {
 
+class Class;
+    
+typedef std::set<const Class*, Type::PtrCmpById> ConstClassSetById;
+typedef std::set<Class*, Type::PtrCmpById> ClassSetById;
+typedef std::set<const Class*, Type::PtrCmpByName> ConstClassSetByName;
+typedef std::set<Class*, Type::PtrCmpByName> ClassSetByName;
+    
 class Class : public Type
 {
 public:
@@ -38,56 +45,58 @@ public:
     const Template& getTemplate() const;
     
     /**
-     * Get a vector containing the type descriptors of the type arguments of the template.
-     * If this class is not a template instance, an empty vector will be returned.
+     * Get a vector containing the Type objects of the type arguments of the
+     * template.
+     * If this class is not a template instance, an empty vector will be
+     * returned.
      * 
      * @return The type descriptors vector.
      */
-    const std::vector<const Type*>& getTemplateParamTypes() const;
+    const std::vector<const Type*>& getTemplateArgs() const;
     
      /**
      * Retrieve all the base class descriptors.
      * 
-     * @return A set containig the pointers to the base classes type objects.
+     * @return A set containing the pointers to the base Classes.
      */
-    const std::set<const Class*, Class::PtrCmpById>& getBaseClasses() const;
+    const ConstClassSetById& getBaseClasses() const;
     
     /**
      * Retrieve all the derived class descriptors.
      * 
-     * @return A set containig the pointers to the derived classes type objects.
+     * @return A set containing the pointers to the derived Classes.
      */
-    const std::set<const Class*, Class::PtrCmpById>& getDerivedClasses() const;
+    const ConstClassSetById& getDerivedClasses() const;
     
     /**
-     * Retrieve all the property descriptors of this class. Note that the properties inherited
-     * form the base classes are not included.
+     * Retrieve all the property descriptors of this class. Note that the
+     * properties inherited form the base classes are not included.
      * 
      * @param inherited Whether to include inherited properties.
-     * @return A set containig the pointers to the class property objects.
+     * @return A set containing the pointers to the class property objects.
      */
-    const std::set<const Property*, Property::PtrCmp>& getProperties(bool inherited = true) const;
+    const ConstPropertySet& getProperties(bool inherited = true) const;
     
     /**
-     * Retrieve all the method descpritors of this class. Note that the methods inherited
-     * form the base classes are not included.
+     * Retrieve all the Methods of this class.
      * 
      * @param inherited Whether to include inherited methods.
-     * @return A set containig the pointers to the class method objects.
+     * @return A set containing the pointers to the class method objects.
      */
-    const std::set<const Method*, Method::PtrCmp>& getMethods(bool inherited = true) const;
+    const ConstMethodSet& getMethods(bool inherited = true) const;
     
     /**
-     * Check whether or not the class has a property with the given name.
+     * Check whether or not the class has a Property with the given name.
      * 
-     * @param propertyName The name of the property.
+     * @param propertyName The name of the Property.
      * @param inherited Whether to search through inherited properties too.
      * @return true if the class has the property, false otherwise.
      */
-    bool hasProperty(const std::string& propertyName, bool inherited = true) const;
+    bool hasProperty(const std::string& propertyName, bool inherited = true)
+    const;
     
     /**
-     * Check whether or not the class has a method with the given name.
+     * Check whether or not the class has a Method with the given name.
      * 
      * @param methodName The name of the method.
      * @param inherited Whether to search through inherited methods too.
@@ -96,9 +105,9 @@ public:
     bool hasMethod(const std::string& methodName, bool inherited = true) const;
     
     /**
-     * Check whether or not the class has a method with the given signature.
+     * Check whether or not the class has a Method with the given signature.
      * 
-     * @param method The Method.
+     * @param method The Method with the given signature.
      * @param inherited Whether to search through inherited methods too.
      * @return true if the class has the method, false otherwise.
      */
@@ -108,21 +117,23 @@ public:
      * Check whether or not the class derives from a class with the given name.
      * 
      * @param baseClassName The name of the class.
-     * @return true if the class derives from the given one, flase otherwise.
+     * @return true if the class derives from the given one, false otherwise.
      */
     bool derivesFrom(const std::string& baseClassName) const;
     
     /**
-     * Check whetehr or not the class derives from a given class.
+     * Check whether or not the class derives from a given class.
      * 
      * @param baseClass The type of the derived class
-     * @return true if the class derives from the given one, flase otherwise. 
+     * @return true if the class derives from the given one, false otherwise. 
      */
     bool derivesFrom(const Class& baseClass) const;
     
     /**
      * Get the Property with the given property name.
-     * To see if there is a property with that name call first the HasProperty() method.
+     * 
+     * To see if there is a property with that name call first the hasProperty()
+     * method.
      * 
      * @param propertyName The name of the property.
      * @return The Property with that name.
@@ -131,11 +142,13 @@ public:
     
     /**
      * Get the Method of the method with the given name.
-     * To see if there is a method with that name call first the hasMethod() method.
-     * If there are more than one overloaded methods registered with the same name
-     * the first one according with the sorting rules will be returnd.
-     * To have more control over the overloaded methods use getMethod with the whole signature
-     * information.
+     * 
+     * To see if there is a method with that name call first the hasMethod()
+     * method.
+     * If there are more than one overloaded methods registered with the same
+     * name the first one according with the sorting rules will be returned.
+     * To have more control over the overloaded methods use getMethod with the
+     * whole signature information.
      * 
      * @param methodName The name of the method.
      * @return The Method of the method with this name.
@@ -144,7 +157,9 @@ public:
     
     /**
      * Get the Method of the method with the given signature.
-     * To see if there is a method with that name call first the hasMethod() method.
+     * 
+     * To see if there is a method with that name call first the hasMethod()
+     * method.
      * 
      * @param method The Method with the signature you want to retrieve.
      * 
@@ -152,15 +167,7 @@ public:
      */
     const Method& getMethod(const Method& method) const;
     
-    /**
-     * Virtual destructor
-     */
     virtual ~Class();
-    
-    /**
-     * This function object is used to compare two pointers to this class by the name of the pointed objects.
-     */
-    typedef ::PtrCmpByName<Class> PtrCmpByName;
     
 protected:
     
@@ -174,7 +181,8 @@ protected:
      * @param copyConstructor The type copy constructor wrapper function.
      * @param destructor The class destructor wrapper function.
      * @param operatorAssign The class assign operator wrapper function.
-     * @param typeArgs The type descpriptors of the type arguments.
+     * @param tempjate The template this class is an instance of.
+     * @param templateArgs The Type of the template arguments.
      */
     Class
     (
@@ -185,7 +193,7 @@ protected:
             void* (*copyConstructor)(const void*, void*),
             void (*destructor)(void*, bool),
             void (*operatorAssign)(void*, const void*),
-            const Template& templateInfo = *reinterpret_cast<Template*>(NULL),
+            const Template& tempjate = *reinterpret_cast<Template*>(NULL),
             const std::vector<const Type*>& templateArgs = std::vector<const Type*>()
      );
     
@@ -213,37 +221,37 @@ protected:
      */
     Class& operator <<(Method& method);
     
-    /// The template descriptor of the template this class is an instance of.
-    const Template* tempjate;
+    // The template descriptor of the template this class is an instance of.
+    const Template* tempjate_;
     
-    /// The type descriptors of the template arguments.
-    std::vector<const Type*> templateParamTypes;
+    // The type descriptors of the template arguments.
+    std::vector<const Type*> templateArgs_;
     
-    /// The types object of the base classes sorted by the type_info structure order.
-    std::set<const Class*, Class::PtrCmpById> baseClasses;
+    // The types object of the base classes sorted by the type_info structure
+    // order.
+    ConstClassSetById baseClasses_;
 
-    /// The types object of the derived classes sorted by the type_info structure order.
-    std::set<const Class*, Class::PtrCmpById> derivedClasses;
+    // The types object of the derived classes sorted by the type_info structure
+    // order.
+    ConstClassSetById derivedClasses_;
 
-    /// The properties of this class.
-    std::set<const Property*, Property::PtrCmp> properties;
+    // The properties of this class.
+    ConstPropertySet properties_;
     
-    /// The properties of this class except those inherited from base classes.
-    std::set<const Property*, Property::PtrCmp> ownProperties;
+    // The properties of this class except those inherited from base classes.
+    ConstPropertySet ownProperties_;
     
-    /// The methods of this class.
-    std::set<const Method*, Method::PtrCmp> methods;
+    // The methods of this class.
+    ConstMethodSet methods_;
     
-    /// The methods of this class except those inherited form base classes.
-    std::set<const Method*, Method::PtrCmp> ownMethods;
+    // The methods of this class except those inherited form base classes.
+    ConstMethodSet ownMethods_;
     
-    /// PtrCmpByName must be a friend of this class to access the name attribute.
-    friend class ::PtrCmpByName<Class>;
-    
-    /// The type register is the factory for the Class class and need to access the private constructor.
+    // The type register is the factory for the Class class and need to access
+    // the private constructor.
     friend class TypeRegister;
     
-    /// The ClassBuilder needs to call the addBaseClass(), addProperty() and addMethod() methods.
+    // The ClassBuilder needs to call the stream operator.
     template<class T>
     friend class ClassBuilder;
 };

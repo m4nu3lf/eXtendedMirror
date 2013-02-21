@@ -29,9 +29,9 @@
 #include <EXTMR/PropertyField.hpp>
 #include <EXTMR/PropertyArrayField.hpp>
 #include <EXTMR/PropertyGetterNSetter.hpp>
-#include <EXTMR/VariantT.hpp>
+#include <EXTMR/Variant.inl>
 #include <EXTMR/MethodImpl.hpp>
-#include <EXTMR/TypeRegisterT.hpp>
+#include <EXTMR/TypeRegister.inl>
 #include <EXTMR/MemberBuildUtils.hpp>
 #include <EXTMR/Macros.hpp>
 

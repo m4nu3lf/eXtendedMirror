@@ -12,14 +12,14 @@ using namespace extmr;
 using namespace std;
 
 VariantCostnessException::VariantCostnessException(const Type& type) throw()
-        : type(type)
+        : type_(type)
 {
 }
 
 const char* VariantCostnessException::what() const throw()
 {
     return (string("Cannot convert variant of type const ")
-            + type.getName()
+            + type_.getName()
             + " to type "
-            + type.getName() + ".").c_str();
+            + type_.getName() + ".").c_str();
 }

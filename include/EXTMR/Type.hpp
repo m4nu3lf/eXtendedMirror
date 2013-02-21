@@ -8,11 +8,15 @@ class Method;
 
 /**
  * Holds information about a registered type for the reflection mechanism.
- * The type can be a primitive (\a Primitive), a pointer (\a Pointer), an array (\a Array),
- * a reflected class (\a Class) or a template instance (\a CompClass).
- * Each one of these type categories is identified by the internal enum Category.
- * Except for the a\ Primitive each one of the others categories is implemented in a subclass.
- * This class should be instantiate only when registering a type by the TypeRegister.
+ * 
+ * The type can be a primitive (\a Primitive), a pointer (\a Pointer),
+ * an array (\a Array), a reflected class (\a Class) or a template instance
+ * (\a CompClass). Each one of these type categories is identified by the
+ * internal enum Category.
+ * Except for the a\ Primitive each one of the others categories is 
+ * implemented in a subclass.
+ * This class should be instantiate only when registering a type by
+ * the TypeRegister.
  */
 class Type
 {
@@ -66,7 +70,8 @@ public:
     /**
      * Construct a new instance of the type.
      * 
-     * @param addres If not NULL the placement constructor is called to this address.
+     * @param addres If not NULL the placement constructor is called to this
+     * address.
      * @return The pointer to the new instance.
      */
     void* newInstance(void* address = NULL) const;
@@ -74,28 +79,29 @@ public:
     /**
      * Copy an instance of the type.
      * 
-     * @param toBeCopiedPtr The address of the instance to be copied.
-     * @param addres If not NULL the placement copy constructor is called to this address.
+     * @param originAddr The address of the instance to be copied.
+     * @param destAddr If not NULL the placement copy constructor is called to
+     * this address.
      * @return The pointer of the new copied instance.
      */
-    void* copyInstance(void* toBeCopiedPtr, void* address = NULL) const;
+    void* copyInstance(void* originAddr, void* destAddr = NULL) const;
     
     /**
      * Destroy an instance of the type.
      * 
-     * @param toBeDeletedPtr The pointer to the instance to be deleted.
+     * @param address The pointer to the instance to be deleted.
      * @param dallocate If true the delete operator is called causing the memory to be deallocated otherwise the
      * destructor is called explicity.
      */
-    void deleteInstance(void* toBeDeletedPtr, bool deallocate = true) const;
+    void deleteInstance(void* address, bool deallocate = true) const;
     
     /**
      * Perfor an assignment between two object instances of this type.
      * 
-     * @param lvaluePtr A pointer to an object of this type to be used as lvalue.
-     * @param rvaluePtr A pointer to an object of this type to be used as rvalue.
+     * @param lvalueAddr A pointer to an object of this type to be used as lvalue.
+     * @param rvalueAddr A pointer to an object of this type to be used as rvalue.
      */
-    void assignInstance(void* lvaluePtr, const void* rvaluePtr) const;
+    void assignInstance(void* lvalueAddr, const void* rvalueAddr) const;
     
     /**
      * Get a value of Category that represent the type category.
@@ -112,14 +118,15 @@ public:
     const std::string& getName() const;
     
     /**
-     * Get the size of this type, the same of the one given by the sizeof() function
+     * Get the size of this type, the same of the one given by sizeof().
      * 
      * @return The type size.
      */
     std::size_t getSize() const;
     
     /**
-     * Get the type_info struct of this type, the same of the one given by the typeid() function
+     * Get the type_info struct of this type,
+     * the same of the one given by the typeid().
      * 
      * @return The type_info struct.
      */
@@ -157,15 +164,10 @@ public:
     // TODO: this method is not yet implemented. Decide whether and how to implement this method.
     bool isNumerical() const;
     
-    /**
-     * Virtual destructor
-     */
     virtual ~Type();
     
-    /// This function object is used to compare two pointers to this class by the name of the pointed objects.
     typedef ::PtrCmpByName<Type> PtrCmpByName;
     
-    /// This function object is used to compare two pointers to this class by the '<' operator of the pointed objects
     struct PtrCmpById
     {
         bool operator()(const Type* ptr1, const Type* ptr2) const
@@ -205,63 +207,74 @@ protected:
             std::size_t arraySize = 0
      );
     
-    /// The name of the type.
-    std::string name;
+    // The name of the type.
+    std::string name_;
 
-    /// The size of the type.
-    size_t size;
+    // The size of the type.
+    size_t size_;
     
-    /// The type_info struct of the type.
-    const std::type_info& cppType;
+    // The type_info struct of the type.
+    const std::type_info& cppType_;
     
-    /// The type category.
-    Category category;
+    // The type category.
+    Category category_;
     
-    /// The constructor function pointer.
-    void* (*constructor)(void*);
+    // The constructor function pointer.
+    void* (*constructor_)(void*);
     
-    /// The copy constructor function pointer.
-    void* (*copyConstructor)(const void*, void*);
+    // The copy constructor function pointer.
+    void* (*copyConstructor_)(const void*, void*);
     
-    /// The destructor function pointer
-    void (*destructor)(void*, bool);
+    // The destructor function pointer
+    void (*destructor_)(void*, bool);
     
-    /// The assign operator function pointer
-    void (*operatorAssign)(void*, const void*);
+    // The assign operator function pointer
+    void (*operatorAssign_)(void*, const void*);
     
-    /// A pointer to the Type of the type pointed by this one or the one this type is an array of.
-    const Type* relatedType;
+    // A pointer to the Type object of the type pointed by this one or the one
+    // this type is an array of.
+    const Type* relatedType_;
     
-    /// The size of the array.
-    size_t arraySize;
+    // The size of the array.
+    size_t arraySize_;
     
-    /// PtrCmpByName must be a friend of this class to access the name attribute.
+    // PtrCmpByName must be a friend of this class to access the name attribute.
     friend class ::PtrCmpByName<Type>;
     
-    /// The type register is the factory for the type class and need to access the private constructor.
+    // The type register is the factory for the type class and need to access
+    // the private constructor.
     friend class TypeRegister;
     
-    /// The less operator must be a friend to access the type field.
+    // The equal operator must be a friend to access the cppType field.
+    friend bool operator==(const Type&, const Type&);
+    
+    // The not equal operator must be a friend to access the cppType field.
+    friend bool operator!=(const Type&, const Type&);
+    
+    // The less operator must be a friend to access the cppType field.
     friend bool operator<(const Type&, const Type&);
 };
 
-/// The type equal operator compares the Type addresses.
 bool inline operator==(const Type& t1, const Type& t2)
 {
-    return &t1 == &t2;
+    return t1.cppType_ == t2.cppType_;
 }
 
-/// The type not_equal operator compares the Type addresses.
 bool inline operator!=(const Type& t1, const Type& t2)
 {
-    return &t1 != &t2;
+    return t1.cppType_ != t2.cppType_;
 }
 
-/// type less operator compares the type_info struct with the type_info::before() method.
+// type less operator compares the type_info struct with the type_info::before() method.
 bool inline operator<(const Type& t1, const Type& t2)
 {
-    return t1.cppType.before(t2.cppType);
+    return t1.cppType_.before(t2.cppType_);
 }
+
+typedef std::set<const Type*, Type::PtrCmpById> ConstTypeSetById;
+typedef std::set<Type*, Type::PtrCmpById> TypeSetById;
+typedef std::set<const Type*, Type::PtrCmpByName> ConstTypeSetByName;
+typedef std::set<Type*, Type::PtrCmpByName> TypeSetByName;
 
 } // namespace extmr
 

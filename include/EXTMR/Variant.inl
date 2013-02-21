@@ -1,12 +1,12 @@
 /* 
- * File:   VariantT.hpp
+ * File:   Variant.inl
  * Author: Manuele Finocchiaro
  *
  * Created on December 26, 2012, 17.43
  */
 
-#ifndef EXTMR_VARIANTT_HPP
-#define	EXTMR_VARIANTT_HPP
+#ifndef EXTMR_VARIANT_INL
+#define	EXTMR_VARIANT_INL
 
 #include <EXTMR/Exceptions/VariantTypeException.hpp>
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
@@ -100,8 +100,8 @@ template<typename T>
 Variant::Variant(const T& data)
 : flags(0)
 {
-    // if the type is a constant array, then the type will be converted to a pointer to constant,
-    // so preserve this constness
+    // if the type is a constant array, then the type will be converted to a
+    // pointer to constant, so remember this constness
     if (IsArray<T>::value) this->flags |= PointerToConst;
     
     VariantInitializer<T> initializer(*this);
@@ -114,11 +114,12 @@ Variant::Variant(T& data, char flags)
 {
     typedef typename RemoveConst<T>::Type NonConstT;
     
-    // if the type is a constant one, and a storing is performed by reference, preserve constness
+    // if the type is a constant one, and a storing is performed by reference,
+    // remember constness
     if ((flags & Reference) && IsConst<T>::value) this->flags |= Const;
     
-    // if the type is a constant array, then the type will be converted to a pointer to constant,
-    // so preserve this constness
+    // if the type is a constant array, then the type will be converted to a
+    // pointer to constant, so remember this constness
     if (IsArray<T>::value && IsConst<T>::value) this->flags |= PointerToConst;
     
     VariantInitializer<NonConstT> initializer(*this);
@@ -143,7 +144,8 @@ Variant::operator T&() const
         throw VariantCostnessException(*type_);
     
     // check for pointed type's constness correctness
-    if (flags & PointerToConst && !IsConst<typename RemovePointer<T>::Type>::value)
+    if (flags & PointerToConst &&
+            !IsConst<typename RemovePointer<T>::Type>::value)
         throw VariantCostnessException(type_->getPointedType());
 
     // return the data
@@ -190,5 +192,5 @@ const T& Variant::operator=(const T& rvalue)
 
 } // namespace extmr
 
-#endif	/* EXTMR_VARIANTT_HPP */
+#endif	/* EXTMR_VARIANT_INL */
 
