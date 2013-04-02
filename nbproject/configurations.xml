@@ -38,9 +38,10 @@
           <itemPath>include/EXTMR/Type.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRecognition.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRegister.hpp</itemPath>
-          <itemPath>include/EXTMR/TypeRegisterT.hpp</itemPath>
+          <itemPath>include/EXTMR/TypeRegister.inl</itemPath>
           <itemPath>include/EXTMR/TypeTraits.hpp</itemPath>
           <itemPath>include/EXTMR/Variant.hpp</itemPath>
+          <itemPath>include/EXTMR/Variant.inl</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -102,6 +103,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="include/EXTMR/TypeRegister.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Variant.inl" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>

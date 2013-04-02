@@ -165,10 +165,10 @@ bool Class::derivesFrom(const string& baseClassName) const
 {
     const Type& baseClass = TypeRegister::getTypeReg().getType(baseClassName);
     if (baseClass.getCategory() != Type::Class) return false;
-    return derivesFrom(reinterpret_cast<const Class&>(baseClass));
+    return inheritsFrom(reinterpret_cast<const Class&>(baseClass));
 }
 
-bool Class::derivesFrom(const Class& baseClass) const
+bool Class::inheritsFrom(const Class& baseClass) const
 {
     set<const Class*>::iterator ite = baseClasses_.find(&baseClass);
     if (ite != baseClasses_.end()) return true;

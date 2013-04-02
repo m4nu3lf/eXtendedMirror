@@ -16,6 +16,8 @@
 #include <EXTMR/MemberWrappers.hpp>
 
 #include "Variant.hpp"
+#include "Property.hpp"
+#include "TypeTraits.hpp"
 
 
 namespace extmr{
@@ -61,6 +63,7 @@ class PropertyGetterNSetter : public Property
     typedef void (ClassT::*Setter2)(ParamT, ExtrParamT1, ExtrParamT2);
     
 public:
+    
     /**
      * Constructor for the property object. Takes no extra arguments.
      * 
@@ -89,6 +92,7 @@ public:
         // initialize bounds
          getTypeBounds<PropT>(minValue_, maxValue_);
     }
+    
     
     /**
      * Constructor for the property object. Takes one extra argument.
@@ -121,6 +125,7 @@ public:
         // initialize bounds
         getTypeBounds<PropT>(minValue_, maxValue_);
     }
+    
     
     /**
      * Constructor for the property object. Takes two extra arguments.
@@ -157,10 +162,12 @@ public:
         getTypeBounds<PropT>(minValue_, maxValue_);
     }
     
+    
     char getFlags() const
     {
         return flags_;
     }
+    
     
     Property& setFlags(char flags)
     {
@@ -168,25 +175,29 @@ public:
         // settable one.
         if (!setterWrapper_.setter) flags &= ~Settable;
         
-        this->flags_ = flags;
+        flags_ = flags;
         return *this;
     }
+    
     
     double getMinValue() const
     {
         return minValue_;
     }
     
+    
     Property& setMinValue(double minValue)
     {
-        this->minValue_ = minValue;
+        minValue_ = minValue;
         return *this;
     }
+    
     
     double getMaxValue() const
     {
         return maxValue_;
     }
+    
     
     Property& setMaxValue(double maxValue)
     {
@@ -194,15 +205,37 @@ public:
         return *this;
     }
     
-    bool getGetByNonConstRef()
+    
+    Property::GetMode getGetMode()
     {
-        return IsReference<RetT>::value && !IsConst<RetT>::value;
+        if (IsReference<RetT>::value)
+        {
+            if (IsConst<RetT>::value)
+                return ConstReference;
+            else
+                return Reference;
+        }
+        else
+            return Value;
     }
     
-    bool getSetByNonConstRef()
+    
+    Property::SetMode getSetMode()
     {
-        return IsReference<ParamT>::value && !IsConst<RetT>::value;
+        if (!setterWrapper_.setter)
+            return None;
+        
+        if (IsReference<ParamT>::value)
+        {
+            if (IsConst<ParamT>::value)
+                return ConstReference;
+            else
+                return Reference;
+        }
+        else
+            return Value;
     }
+    
     
     Variant getData(const Variant& objPtr) const
     {
@@ -218,10 +251,12 @@ public:
                 ReturnVariantFlags<RetT>::flags);
     }
     
+    
     void setData(const Variant& objPtr, const Variant& data) const
     {
         // check whether the property is settable
-        if (!setterWrapper_.setter) throw PropertySetException(*this);
+        if (!setterWrapper_.setter)
+            throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
         ClassT& objRef = *objPtr.to<ClassT*>();

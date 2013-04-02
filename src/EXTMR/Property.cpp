@@ -6,60 +6,71 @@ using namespace extmr;
 
 Property::Property(const std::string& name)
 {
-    this->name_ = name;
-    this->type_ = NULL;
+    name_ = name;
+    type_ = NULL;
     flags_ = 0;
 }
+
 
 const string& Property::getName() const
 {
     return name_;
 }
 
+
 const Type& Property::getType() const
 {
     return *type_;
 }
 
+
 char Property::getFlags() const
 {
     return 0;
 }
-    
+
+
 Property& Property::setFlags(char flags)
 {
     return *this;
 }
+
 
 double Property::getMinValue() const
 {
     return numeric_limits<double>::min();
 }
 
+
 Property& Property::setMinValue(double minValue)
 {
     return *this;
 }
+
 
 double Property::getMaxValue() const
 {
     return numeric_limits<double>::max();
 }
 
+
 Property& Property::setMaxValue(double maxValue)
 {
     return *this;
 }
 
-bool Property::getGetByNonConstRef()
+
+Property::GetMode Property::getGetMode()
 {
-    return false;
+    return None;
 }
 
-bool Property::getSetByNonConstRef()
+
+Property::SetMode Property::getSetMode()
 {
-    return false;
+    return None;
 }
+
 
 Variant Property::getData(const Variant& objPtr) const
 {

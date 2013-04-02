@@ -10,8 +10,6 @@
 
 #include <EXTMR/Exceptions/PropertySetException.hpp>
 
-#include "Variant.hpp"
-
 namespace extmr{
 
 /**
@@ -21,6 +19,7 @@ template<class ClassT, typename FieldT>
 class PropertyArrayField : public Property
 {
 public:
+    
     /**
      * Constructor for the property object.
      * 
@@ -35,10 +34,12 @@ public:
         type_ = &TypeRegister::getTypeReg().getType<FieldT>();
     }
     
+    
     char getFlags() const
     {
         return flags_;
     }
+    
     
     Property& setFlags(char flags)
     {
@@ -49,15 +50,18 @@ public:
         return *this;
     }
     
-    bool getGetByNonConstRef()
+    
+    Property::GetMode getGetMode()
     {
-        return false;
+        return Value;
     }
     
-    bool getSetByNonConstRef()
+    
+    Property::SetMode getSetMode()
     {
-        return false;
+        return None;
     }
+    
     
     Variant getData(const Variant& objPtr) const
     {
@@ -82,13 +86,16 @@ public:
         }
     }
     
+    
     void setData(const Variant& objPtr, const Variant& data) const
     {
         // cannot set an array
         throw PropertySetException(*this);
     }
     
+    
 private:
+    
     /// The offset of the field within the object.
     size_t offset;
 };

@@ -89,7 +89,7 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
         const Class& targetClass = dynamic_cast<const Class&>(targetType);
 
         // is the target type a base class of the contained data type?
-        if (clazz.derivesFrom(targetClass)) return true;
+        if (clazz.inheritsFrom(targetClass)) return true;
         else return false;
     }
         
@@ -115,7 +115,7 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
                 dynamic_cast<const Class&>(pointedTargetType);
         
         // is the target pointed class a base class of the pointed class?
-        if (pointedClass.derivesFrom(pointedTargetClass)) return true;
+        if (pointedClass.inheritsFrom(pointedTargetClass)) return true;
         else return false;
     }
 }

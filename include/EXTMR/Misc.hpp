@@ -24,6 +24,7 @@ struct Empty
     Empty(T param){};
 };
 
+
 /**
  * Remove namespace qualifiers from a string representing a member name.
  * e.g. "Class::member" becomes "member".
@@ -32,6 +33,7 @@ struct Empty
  * @return the formatted name.
  */
 std::string getNonQualifiedName(const std::string& name);
+
 
 /**
  * Set the passed parameters to the numerical limits of the type T.
@@ -57,6 +59,7 @@ void getTypeBounds(typename ToNumerical<T>::Type& min,
     }
     else min = max = 0;
 }
+
 
 /**
  * This function returns a function pointer to the callback function

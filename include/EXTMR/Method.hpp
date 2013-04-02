@@ -120,11 +120,12 @@ public:
     const Type& getReturnType() const;
     
     /**
-     * Ask if the methods returns by a non constant reference.
+     * Ask for the mode the methods returns, that is by value, reference
+     * or constant reference.
      * 
-     * @return True if the method returns by a non constant reference.
+     * @return The return mode.
      */
-    virtual bool getReturnByNonConstRef() const;
+    virtual ReturnMode getReturnMode() const;
     
     /**
      * Get a vector with the Parameters.
@@ -197,6 +198,13 @@ public:
                 if (paramN1 < paramN2) return true;
                 return false;
         }
+    };
+    
+    enum ReturnMode
+    {
+        Value = 0,
+        Reference = 1,
+        ConstReference = 3
     };
     
 protected:

@@ -67,9 +67,10 @@ public:
      */
     virtual Property& setFlags(char flags);
     
-        /**
+    /**
      * Ask for the property minimum allowed value.
-     * NOTE: this method makes sense only if the property is of a numerical type.
+     * NOTE: this method makes sense only if the property is of a numerical
+     * type.
      * 
      * @return the minimum value.
      */
@@ -78,7 +79,8 @@ public:
     /**
      * Set the property minimum allowed value.
      * A reference to the Property is returned to allow a method chain call.
-     * NOTE: this method makes sense only if the property is of a numerical type.
+     * NOTE: this method makes sense only if the property is of a numerical
+     * type.
      * 
      * @param minValue the minimum allowed value.
      * @return This Property.
@@ -86,7 +88,8 @@ public:
     virtual Property& setMinValue(double minValue);
     /**
      * Ask for the property maximum allowed value.
-     * NOTE: this method makes sense only if the property is of a numerical type.
+     * NOTE: this method makes sense only if the property is of a numerical
+     * type.
      * 
      * @return the maximum value.
      */
@@ -95,7 +98,8 @@ public:
     /**
      * Set the property maximum allowed value.
      * A reference to the Property is returned to allow a method chain call.
-     * NOTE: this method makes sense only if the property is of a numerical type.
+     * NOTE: this method makes sense only if the property is of a numerical
+     * type.
      * 
      * @param maxValue the maximum allowed value.
      * @return This Property.
@@ -103,18 +107,20 @@ public:
     virtual Property& setMaxValue(double maxValue);
     
     /**
-     * Ask whether the property data is retrieved by a non constant reference.
+     * Ask how the property data is retrieved, that is by value, by reference
+     * of by a constant reference.
      * 
-     * @return True if the property data is retrieved by a non constant reference.
+     * @return The GetMode
      */
-    virtual bool getGetByNonConstRef();
+    virtual GetMode getGetMode();
     
     /**
-     * Ask whether the property data is set by a non constant reference.
+     * Ask how the property data is set, that is by value, by reference
+     * of by a constant reference.
      * 
-     * @return True if the property data is set by reference.
+     * @return The SetMode
      */
-    virtual bool getSetByNonConstRef();
+    virtual SetMode getSetMode();
     
     /**
      * Get the data through variant objects.
@@ -134,6 +140,17 @@ public:
     
     
     typedef ::PtrCmpByName<Property> PtrCmp;
+    
+    enum GetSetMode
+    {
+        None = 0,
+        Value = 1,
+        Reference = 2,
+        ConstReference = 6,
+    };
+    
+    typedef GetSetMode GetMode;
+    typedef GetSetMode SetMode;
     
 protected:
     

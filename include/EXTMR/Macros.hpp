@@ -28,6 +28,7 @@ struct TypeRecognizer<primitive_type>                                          \
                                                                                \
 } // namespace extmr
 
+
 /**
  * \def EXTMR_ENABLE_CLASS(reflected_class)
  * 
@@ -61,6 +62,7 @@ struct ClassBuilder<reflected_class>                                           \
                                                                                \
 } // namespace extmr
 
+
 /**
  * \def EXTMR_BUILD_CLASS(reflected_class)
  * 
@@ -72,6 +74,7 @@ void extmr::ClassBuilder<reflected_class>::operator()(Class& clazz,            \
                                                       TypeRegister& typeReg)   \
 const
 
+
 /**
  * \def EXTMR_AUTOREG(reflected_class)
  * 
@@ -82,6 +85,7 @@ const
 #define EXTMR_AUTOREG(reflected_class)\
 static extmr::AutoRegisterer<reflected_class> autoRegisterer;
 
+
 /**
  * \def EXTMR_PROPERTY_FLD(q_field)
  * 
@@ -91,6 +95,7 @@ static extmr::AutoRegisterer<reflected_class> autoRegisterer;
 #define EXTMR_PROPERTY_FLD(q_field)\
 buildProperty(getNonQualifiedName(#q_field), &q_field)
 
+
 /**
  * \def EXTMR_METHOD(q_method)
  * 
@@ -99,6 +104,7 @@ buildProperty(getNonQualifiedName(#q_field), &q_field)
  */
 #define EXTMR_METHOD(q_method)\
 buildMethod(getNonQualifiedName(#q_method), &q_method)
+
 
 /**
  * \def EXTMR_ENABLE_N_BUILD_TCLASS_1(reflected_tclass)
@@ -158,6 +164,7 @@ void extmr::ClassBuilder<reflected_tclass<T1> >::operator()                    \
     TypeRegister& typeReg                                                      \
 ) const                                                                        \
 
+
 /**
  * \def EXTMR_ENABLE_N_BUILD_TCLASS_2(reflected_tclass)
  * 
@@ -175,7 +182,7 @@ struct TypeRecognizer<reflected_tclass<T1, T2> >                               \
     static std::string getName()                                               \
     {                                                                          \
         std::string str = std::string(#reflected_tclass) + "<";                \
-        str += TypeRecognizer<T1>::getName()                                   \
+        str += TypeRecognizer<T1>::getName();                                  \
         str += ", " + TypeRecognizer<T2>::getName();                           \
         if (str[str.length() - 1] == '>')                                      \
         {                                                                      \
@@ -340,13 +347,14 @@ void extmr::ClassBuilder<reflected_tclass<T1, T2, T3, T4> >::operator()        \
     TypeRegister& typeReg                                                      \
 ) const
 
+
 /**
  * \def EXTMR_SETCALLBACK(reflected_tclass)
  * Set the call back function to call every time a type is registered.
  * Put this macro into a cpp file.
  * 
- * \a fnc The function for callback. The function must take a const Type reference as
- * argument and have a void return value.
+ * \a fnc The function for callback. The function must take a const Type
+ * reference as argument and have a void return value.
  * 
  */
 #define EXTMR_SETCALLBACK(fnc)                                                 \
@@ -355,15 +363,43 @@ void (*extmr::getRegCallBack())(const Type&)                                   \
     return fnc;                                                                \
 }
 
+
 /** \def EXTMR_METHOD_PARAM_MAX
  * The maximum number of parameter for supported methods
  */ 
 #define EXTMR_METHOD_PARAM_MAX 8
 
+
 /** \def EXTMR_TCLASS_PARAM_MAX
  * The maximum number of parameter for supported template classes
  */ 
 #define EXTMR_TCLASS_PARAM_MAX 4
+
+
+namespace extmr
+{
+    template<class C1, class C2>
+    bool is(const C2& object)
+    {
+        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        
+        const Class& c1 = typeReg.getClass<C1>();
+        const Class& c2 = typeReg.getClassOf(object);
+        
+        if (c1 == c2)
+            return true;
+        return c2.inheritsFrom(c1);
+    }
+}
+
+
+/** \def EXTMR_IS(object, clazz)
+ * 
+ * \a obj_reference A reference to an object.
+ * \a clazz The class the object is checked to be an instance.
+ */ 
+#define EXTMR_IS(obj_reference, clazz) \
+extmr::is<clazz>(obj_reference)
 
 #endif	/* EXTMR_MACROS_HPP */
 

@@ -114,12 +114,12 @@ public:
     bool hasMethod(const Method& method, bool inherited = true) const;
     
     /**
-     * Check whether or not the class derives from a class with the given name.
+     * Check whether or not the class inherits from a class with the given name.
      * 
      * @param baseClassName The name of the class.
      * @return true if the class derives from the given one, false otherwise.
      */
-    bool derivesFrom(const std::string& baseClassName) const;
+    bool inheritsFrom(const std::string& baseClassName) const;
     
     /**
      * Check whether or not the class derives from a given class.
@@ -127,7 +127,7 @@ public:
      * @param baseClass The type of the derived class
      * @return true if the class derives from the given one, false otherwise. 
      */
-    bool derivesFrom(const Class& baseClass) const;
+    bool inheritsFrom(const Class& baseClass) const;
     
     /**
      * Get the Property with the given property name.

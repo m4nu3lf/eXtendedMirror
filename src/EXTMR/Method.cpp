@@ -90,9 +90,9 @@ const Type& Method::getReturnType() const
     return *retType_;
 }
 
-bool Method::getReturnByNonConstRef() const
+Method::ReturnMode Method::getReturnMode() const
 {
-    return false;
+    return Value;
 }
 
 const std::vector<const Parameter*>& Method::getParameters() const

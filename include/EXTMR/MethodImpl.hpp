@@ -11,6 +11,9 @@
 #include <EXTMR/MemberWrappers.hpp>
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 
+#include "Method.hpp"
+#include "TypeTraits.hpp"
+
 namespace extmr{
 
 template
@@ -370,9 +373,17 @@ public:
         fullSignature_ = true;
     }
     
-    bool getReturnByNonConstRef() const
+    Method::ReturnMode getReturnMode() const
     {
-        return IsNonConstReference<RetT>::value;
+        if (IsReference<RetT>::value)
+        {
+            if (IsConst<RetT>::value)
+                return ConstReference;
+            else
+                return Reference;
+        }
+        else
+            return Value;
     }
     
     bool isConst() const

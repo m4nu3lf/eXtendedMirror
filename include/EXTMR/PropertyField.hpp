@@ -18,6 +18,7 @@
 #include "Variant.hpp"
 #include "TypeRegister.hpp"
 #include "TypeTraits.hpp"
+#include "Property.hpp"
 
 namespace extmr{
 
@@ -58,10 +59,12 @@ public:
         
     }
     
+    
     char getFlags() const
     {
         return flags_;
     }
+    
     
     Property& setFlags(char flags)
     {
@@ -72,10 +75,12 @@ public:
         return *this;
     }
     
+    
     double getMinValue() const
     {
         return minValue_;
     }
+    
     
     Property& setMinValue(double minValue)
     {
@@ -83,10 +88,12 @@ public:
         return *this;
     }
     
+    
     double getMaxValue() const
     {
         return maxValue_;
     }
+    
     
     Property& setMaxValue(double maxValue)
     {
@@ -94,15 +101,18 @@ public:
         return *this;
     }
     
-    bool getGetByNonConstRef()
+    
+    Property::GetMode getGetMode()
     {
-        return true;
+        return Reference;
     }
     
-    bool getSetByNonConstRef()
+    
+    Property::SetMode getSetMode()
     {
-        return false;
+        return Value;
     }
+    
     
     Variant getData(const Variant& objPtr) const
     {            
@@ -114,7 +124,8 @@ public:
         ClassT& obj = const_cast<ClassT&>(constObj);
         char* byteObjPtr = reinterpret_cast<char*>(&obj);
         
-        // the pointer is summed to the the object pointer and converted to the field type
+        // the pointer is summed to the the object pointer and converted to the
+        // field type
         FieldT& fieldRef = *reinterpret_cast<FieldT*>(byteObjPtr + offset_);
         
         // the flags to construct the returned Variant. The Variant is a
@@ -123,23 +134,28 @@ public:
         
         // if the pointer to the instance is a pointer to a constant, return the
         // field data as a constant Variant
-        if (objPtr.isPointedConst()) flags |= Variant::Const;
+        if (objPtr.isPointedConst())
+            flags |= Variant::Const;
         
         // the data of the field is returned as a reference Variant
         return Variant(fieldRef, flags);
     }
     
+    
     void setData(const Variant& objPtr, const Variant& data) const
     {   
         // check whether the property is settable
-        if (!flags_ & Settable) throw PropertySetException(*this);
+        if (!flags_ & Settable)
+            throw PropertySetException(*this);
         
-        // the pointer is retrieved from the variant and converted to a raw char pointer
+        // the pointer is retrieved from the variant and converted to a raw char
+        // pointer
         char* byteObjPtr = reinterpret_cast<char*>(objPtr.to<ClassT*>());
         
         // check whether the pointer provided in not a pointer to a constant
         // object
-        if (objPtr.isPointedConst()) throw VariantCostnessException(objPtr.getType());
+        if (objPtr.isPointedConst())
+            throw VariantCostnessException(objPtr.getType());
         
         // retrieve the new data value
         const PropT extractedValue = data.to<const PropT>();
@@ -148,7 +164,8 @@ public:
         if (!checkValueBounds(extractedValue, minValue_, maxValue_))
             throw PropertyRangeException(extractedValue, minValue_, maxValue_);
         
-        // the pointer is summed to the the object pointer and converted to the field type
+        // the pointer is summed to the the object pointer and converted to the
+        // field type
         PropT& fieldRef = *reinterpret_cast<PropT*>(byteObjPtr + offset_);
         
         // the field is assigned the new data
