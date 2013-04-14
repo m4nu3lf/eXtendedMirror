@@ -130,7 +130,8 @@ public:
     /**
      * Start the registration mechanism for the given type. You should not call
      * this method unless you know what you are doing.
-     * Registration macros will handle automatic type registration and call this method for you.
+     * Registration macros will handle automatic type registration and call this
+     * method for you.
      * 
      * @return The registered type.
      */

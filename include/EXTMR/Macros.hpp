@@ -8,6 +8,9 @@
 #ifndef EXTMR_MACROS_HPP
 #define	EXTMR_MACROS_HPP
 
+#include "TypeRegister.hpp"
+
+
 /**
  * \def EXTMR_ENABLE_PRIMITIVE(primitive_type)
  * Specialize the TypeRecognizer class for the \a primitive_type
@@ -396,10 +399,49 @@ namespace extmr
 /** \def EXTMR_IS(object, clazz)
  * 
  * \a obj_reference A reference to an object.
- * \a clazz The class the object is checked to be an instance.
+ * \a clazz A class name.
+ * \return true if obj_reference is an instance of clazz, false otherwise
  */ 
 #define EXTMR_IS(obj_reference, clazz) \
 extmr::is<clazz>(obj_reference)
+
+
+namespace extmr
+{
+    template <typename T>
+    const Type& type()
+    {
+        return TypeRegister::getTypeReg().registerType<type>();
+    }
+}
+
+
+/** \def EXTMR_TYPE(type)
+ * 
+ * \a type A typename
+ * \return The Type object for the provided typename.
+ */ 
+#define EXTMR_TYPE(type) \
+extmr::type<type>()
+
+
+namespace extmr
+{
+    template <typename C>
+    const Class& clazz()
+    {
+        return TypeRegister::getTypeReg().registerClass<C>();
+    }
+}
+
+
+/** \def EXTMR_CLASS(clazz)
+ * 
+ * \a clazz A class name.
+ * \return The Class object for the provided clazz.
+ */ 
+#define EXTMR_CLASS(clazz) \
+extmr::clazz<clazz>()
 
 #endif	/* EXTMR_MACROS_HPP */
 
