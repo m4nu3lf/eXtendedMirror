@@ -6,7 +6,7 @@
 	<META NAME="GENERATOR" CONTENT="LibreOffice 3.6  (Linux)">
 	<META NAME="AUTHOR" CONTENT="Manuele Finocchiaro">
 	<META NAME="CREATED" CONTENT="20130203;18163332">
-	<META NAME="CHANGED" CONTENT="20130211;18201600">
+	<META NAME="CHANGED" CONTENT="20130415;21522900">
 	<META NAME="CHANGEDBY" CONTENT="Manuele Finocchiaro">
 	<STYLE TYPE="text/css">
 	<!--
@@ -428,9 +428,9 @@ mat[10][10][10];<BR>Variant var(mat);</SPAN></FONT></P>
 <P ALIGN=LEFT><FONT FACE="Times New Roman, serif"><SPAN STYLE="font-weight: normal">Will
 be of type int* and the value will be &amp;mat[0][0][0].<BR>Note that
 the Variant will store such a pointer as a pointer to constant. If
-you don't want this, because you want to </SPAN></FONT><FONT FACE="Times New Roman, serif"><SPAN STYLE="font-weight: normal">write</SPAN></FONT><FONT FACE="Times New Roman, serif"><SPAN STYLE="font-weight: normal">
-the array data, you can use the overladed Variant constructor
-specifying a zero flag value:</SPAN></FONT></P>
+you don't want this, because you want to write</SPAN></FONT> <FONT FACE="Times New Roman, serif"><SPAN STYLE="font-weight: normal">the
+array data, you can use the overladed Variant constructor specifying
+a zero flag value:</SPAN></FONT></P>
 <P ALIGN=LEFT STYLE="font-weight: normal"><FONT FACE="Arial, sans-serif">Variant
 var(mat, 0);</FONT></P>
 <P ALIGN=LEFT><SPAN STYLE="font-weight: normal">A variant can also be
@@ -478,6 +478,9 @@ with some limitations:</P>
 	parameters are not supported. If you want to register a template
 	with more parameters you have no choice but to extend the framework,
 	although this is quite simple I won't cover it in this guide.</P>
+	<LI><P>Only instantiable and copyable classes with a public non-arg
+	constructor are supported. This limitation is actually just for
+	convenience and could be removed in the next versions.</P>
 </UL>
 <H2 CLASS="western"><A NAME="3.13.Reflection and Serialization|outline"></A>
 Reflection and Serialization</H2>
