@@ -27,6 +27,13 @@ bool operator<(const Type&, const Type&);
 class Method
 {
 public:
+    enum ReturnMode
+    {
+        Value = 0,
+        Reference = 1,
+        ConstReference = 3
+    };
+    
     /**
      * Construct a method with no full signature, just the name.
      * 
@@ -125,7 +132,7 @@ public:
      * 
      * @return The return mode.
      */
-    virtual ReturnMode getReturnMode() const;
+    virtual Method::ReturnMode getReturnMode() const;
     
     /**
      * Get a vector with the Parameters.
@@ -198,13 +205,6 @@ public:
                 if (paramN1 < paramN2) return true;
                 return false;
         }
-    };
-    
-    enum ReturnMode
-    {
-        Value = 0,
-        Reference = 1,
-        ConstReference = 3
     };
     
 protected:

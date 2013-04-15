@@ -7,8 +7,8 @@
       <logicalFolder name="include" displayName="include" projectFiles="true">
         <logicalFolder name="Common" displayName="Common" projectFiles="true">
           <itemPath>include/Common/Common.hpp</itemPath>
+          <itemPath>include/Common/ContainerUtils.hpp</itemPath>
           <itemPath>include/Common/DebugUtils.hpp</itemPath>
-          <itemPath>include/Common/PtrCmpByName.hpp</itemPath>
           <itemPath>include/Common/Typedef.hpp</itemPath>
         </logicalFolder>
         <logicalFolder name="EXTMR" displayName="EXTMR" projectFiles="true">
@@ -103,10 +103,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="include/EXTMR/TypeRegister.inl" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Variant.inl" ex="false" tool="3" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>

@@ -411,7 +411,7 @@ namespace extmr
     template <typename T>
     const Type& type()
     {
-        return TypeRegister::getTypeReg().registerType<type>();
+        return TypeRegister::getTypeReg().registerType<T>();
     }
 }
 

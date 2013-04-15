@@ -30,6 +30,17 @@ public:
 
     };
     
+    enum GetSetMode
+    {
+        None = 0,
+        Value = 1,
+        Reference = 2,
+        ConstReference = 6,
+    };
+    
+    typedef GetSetMode GetMode;
+    typedef GetSetMode SetMode;
+    
     /**
      * Basic constructor for initialization.
      * 
@@ -112,7 +123,7 @@ public:
      * 
      * @return The GetMode
      */
-    virtual GetMode getGetMode();
+    virtual Property::GetMode getGetMode();
     
     /**
      * Ask how the property data is set, that is by value, by reference
@@ -120,7 +131,7 @@ public:
      * 
      * @return The SetMode
      */
-    virtual SetMode getSetMode();
+    virtual Property::SetMode getSetMode();
     
     /**
      * Get the data through variant objects.
@@ -140,17 +151,6 @@ public:
     
     
     typedef ::PtrCmpByName<Property> PtrCmp;
-    
-    enum GetSetMode
-    {
-        None = 0,
-        Value = 1,
-        Reference = 2,
-        ConstReference = 6,
-    };
-    
-    typedef GetSetMode GetMode;
-    typedef GetSetMode SetMode;
     
 protected:
     
