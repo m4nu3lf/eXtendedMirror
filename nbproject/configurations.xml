@@ -22,7 +22,6 @@
           <itemPath>include/EXTMR/Class.hpp</itemPath>
           <itemPath>include/EXTMR/EnableStd.hpp</itemPath>
           <itemPath>include/EXTMR/ExtendedMirror.hpp</itemPath>
-          <itemPath>include/EXTMR/Macros.hpp</itemPath>
           <itemPath>include/EXTMR/MemberBuildUtils.hpp</itemPath>
           <itemPath>include/EXTMR/MemberWrappers.hpp</itemPath>
           <itemPath>include/EXTMR/Method.hpp</itemPath>
@@ -34,6 +33,8 @@
           <itemPath>include/EXTMR/PropertyField.hpp</itemPath>
           <itemPath>include/EXTMR/PropertyGetterNSetter.hpp</itemPath>
           <itemPath>include/EXTMR/Registration.hpp</itemPath>
+          <itemPath>include/EXTMR/RegistrationMacros.hpp</itemPath>
+          <itemPath>include/EXTMR/Shortcuts.hpp</itemPath>
           <itemPath>include/EXTMR/Template.hpp</itemPath>
           <itemPath>include/EXTMR/Type.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRecognition.hpp</itemPath>

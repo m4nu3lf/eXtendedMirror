@@ -59,14 +59,14 @@ public:
     (
         const std::string& name,
         const Type& retType,
-        const Type& paramType1 = *reinterpret_cast<Type*>(NULL),
-        const Type& paramType2 = *reinterpret_cast<Type*>(NULL),
-        const Type& paramType3 = *reinterpret_cast<Type*>(NULL),
-        const Type& paramType4 = *reinterpret_cast<Type*>(NULL),
-        const Type& paramType5 = *reinterpret_cast<Type*>(NULL),
-        const Type& paramType6 = *reinterpret_cast<Type*>(NULL),
-        const Type& paramType7 = *reinterpret_cast<Type*>(NULL),
-        const Type& paramType8 = *reinterpret_cast<Type*>(NULL)
+        const Type& paramType1 = Type::Void,
+        const Type& paramType2 = Type::Void,
+        const Type& paramType3 = Type::Void,
+        const Type& paramType4 = Type::Void,
+        const Type& paramType5 = Type::Void,
+        const Type& paramType6 = Type::Void,
+        const Type& paramType7 = Type::Void,
+        const Type& paramType8 = Type::Void
     );
     
     /**
@@ -87,22 +87,14 @@ public:
     (
         const std::string& name,
         const std::type_info& retType,
-        const std::type_info& paramType1 =
-            *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType2 =
-            *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType3 =
-            *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType4 =
-            *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType5 =
-            *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType6 =
-            *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType7 =
-            *reinterpret_cast<std::type_info*>(NULL),
-        const std::type_info& paramType8 =
-            *reinterpret_cast<std::type_info*>(NULL)
+        const std::type_info& paramType1 = typeid(void),
+        const std::type_info& paramType2 = typeid(void),
+        const std::type_info& paramType3 = typeid(void),
+        const std::type_info& paramType4 = typeid(void),
+        const std::type_info& paramType5 = typeid(void),
+        const std::type_info& paramType6 = typeid(void),
+        const std::type_info& paramType7 = typeid(void),
+        const std::type_info& paramType8 = typeid(void)
     );
     
     /**
@@ -111,6 +103,20 @@ public:
      * @return The name of the method.
      */
     const std::string& getName() const;
+    
+    /**
+     * Get the owner Class of the property.
+     * 
+     * @return The owner Class.
+     */
+    const Class& getOwner() const;
+    
+    /**
+     * Set the owner Class of the method.
+     * 
+     * @param owner The owner Class.
+     */
+    void setOwner(const Class& owner);
     
     /**
      * Add an other parameter to the parameter list.
@@ -211,6 +217,9 @@ protected:
     
     // The method name
     std::string name_;
+    
+    // The owner class
+    const Class* owner_;
     
     // The returned type
     const Type* retType_;

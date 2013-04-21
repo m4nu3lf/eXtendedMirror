@@ -8,8 +8,6 @@
 #ifndef EXTMR_MACROS_HPP
 #define	EXTMR_MACROS_HPP
 
-#include "TypeRegister.hpp"
-
 
 /**
  * \def EXTMR_ENABLE_PRIMITIVE(primitive_type)
@@ -64,6 +62,45 @@ struct ClassBuilder<reflected_class>                                           \
 };                                                                             \
                                                                                \
 } // namespace extmr
+
+#define EXTMR_NON_INSTANTIABLE(type)                                           \
+template<>                                                                     \
+struct ConstructorWrapper<type> : public Constructor                           \
+{                                                                              \
+    void* operator()(void* destAddr)                                           \
+    {                                                                          \
+        return NULL;                                                           \
+    }                                                                          \
+};                                                                             \
+                                                                               \
+template<>                                                                     \
+struct DestructorWrapper<type> : public Destructor                             \
+{                                                                              \
+    void operator()(void* address, bool deallocate)                            \
+    {                                                                          \
+    }                                                                          \
+};
+
+
+#define EXTMR_NON_COPYABLE(type)                                               \
+template<>                                                                     \
+struct CopyConstructorWrapper<type> : public CopyConstructor                   \
+{                                                                              \
+    void* operator()(const void* originAddr, void* destAddr)                   \
+    {                                                                          \
+        return NULL;                                                           \
+    }                                                                          \
+};
+
+
+#define EXTMR_NON_LVALUE(type)                                                 \
+template<>                                                                     \
+struct AssignOperatorWrapper<type> : public AssignOperator                     \
+{                                                                              \
+    void operator()(void* lvalueAddr, const void* rvalueAddr)                  \
+    {                                                                          \
+    }                                                                          \
+};
 
 
 /**
@@ -378,70 +415,6 @@ void (*extmr::getRegCallBack())(const Type&)                                   \
  */ 
 #define EXTMR_TCLASS_PARAM_MAX 4
 
-
-namespace extmr
-{
-    template<class C1, class C2>
-    bool is(const C2& object)
-    {
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
-        
-        const Class& c1 = typeReg.getClass<C1>();
-        const Class& c2 = typeReg.getClassOf(object);
-        
-        if (c1 == c2)
-            return true;
-        return c2.inheritsFrom(c1);
-    }
-}
-
-
-/** \def EXTMR_IS(object, clazz)
- * 
- * \a obj_reference A reference to an object.
- * \a clazz A class name.
- * \return true if obj_reference is an instance of clazz, false otherwise
- */ 
-#define EXTMR_IS(obj_reference, clazz) \
-extmr::is<clazz>(obj_reference)
-
-
-namespace extmr
-{
-    template <typename T>
-    const Type& type()
-    {
-        return TypeRegister::getTypeReg().registerType<T>();
-    }
-}
-
-
-/** \def EXTMR_TYPE(type)
- * 
- * \a type A typename
- * \return The Type object for the provided typename.
- */ 
-#define EXTMR_TYPE(type) \
-extmr::type<type>()
-
-
-namespace extmr
-{
-    template <typename C>
-    const Class& clazz()
-    {
-        return TypeRegister::getTypeReg().registerClass<C>();
-    }
-}
-
-
-/** \def EXTMR_CLASS(clazz)
- * 
- * \a clazz A class name.
- * \return The Class object for the provided clazz.
- */ 
-#define EXTMR_CLASS(clazz) \
-extmr::clazz<clazz>()
 
 #endif	/* EXTMR_MACROS_HPP */
 

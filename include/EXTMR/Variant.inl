@@ -54,6 +54,7 @@ struct VariantInitializer
     Variant& variant;
 };
 
+
 /**
  * If the type is a multidimensional array, remove one
  * extent from the type, construct an initializer for this type
@@ -74,6 +75,7 @@ struct VariantInitializer<T[size1][size2]>
     // A reference to the variant that is being initialized
     Variant& variant;
 };
+
 
 /**
  * If the type is a one-dimensional array, create an initializer
@@ -108,6 +110,7 @@ Variant::Variant(const T& data)
     initializer(const_cast<T&>(data));
 }
 
+
 template<typename T>
 Variant::Variant(T& data, char flags)
 : flags(flags)
@@ -125,6 +128,7 @@ Variant::Variant(T& data, char flags)
     VariantInitializer<NonConstT> initializer(*this);
     initializer(const_cast<NonConstT&>(data));
 }
+
 
 template<typename T>
 Variant::operator T&() const
@@ -152,14 +156,17 @@ Variant::operator T&() const
     return *reinterpret_cast<T*>(data_);
 }
 
+
 template<typename T>
 inline T& Variant::to() const
 {
     return *this;
 }
 
+
 template<>
 Empty& Variant::to<Empty>() const;
+
 
 template<typename T>
 const T& Variant::operator=(const T& rvalue)
@@ -189,6 +196,7 @@ const T& Variant::operator=(const T& rvalue)
     // return the rvalue
     return rvalue;
 }
+
 
 } // namespace extmr
 

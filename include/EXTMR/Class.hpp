@@ -169,6 +169,8 @@ public:
     
     virtual ~Class();
     
+    static const Class Void;
+    
 protected:
     
     /**
@@ -189,10 +191,10 @@ protected:
             const std::string& name,
             uint size,
             const std::type_info& cppType,
-            void* (*constructor)(void*),
-            void* (*copyConstructor)(const void*, void*),
-            void (*destructor)(void*, bool),
-            void (*operatorAssign)(void*, const void*),
+            Constructor* constructor,
+            CopyConstructor* copyConstructor,
+            Destructor* destructor,
+            AssignOperator* assignOperator,
             const Template& tempjate = *reinterpret_cast<Template*>(NULL),
             const std::vector<const Type*>& templateArgs = std::vector<const Type*>()
      );

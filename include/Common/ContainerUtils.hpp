@@ -8,26 +8,19 @@
 #ifndef CONTAINERUTILS_HPP
 #define	CONTAINERUTILS_HPP
 
-/**
- * Compare two pointer to T objects. T object must have a name_ field.
- * 
- * @param ptr1 Pointer to the first object.
- * @param ptr2 Pointer to the second object.
- * @return true if the name of the first pointed object comes first than the
- * name of the second pointed object.
- */
+
 template<class T>
 struct PtrCmpByName
 {
     bool operator()(const T* ptr1, const T* ptr2) const
     {
-        return ptr1->name_ < ptr2->name_;
+        return ptr1->getName() < ptr2->getName();
     }
 };
 
 
-template<class T>
-T* setFindByName(std::set<T*, PtrCmpByName<T> > set, const std::string& name)
+template<class T, class N>
+T* setFindByName(std::set<T*, PtrCmpByName<T> > set, const N& name)
 {
     T key(name);
     typename std::set<T*, PtrCmpByName<T> >::iterator ite;
@@ -38,11 +31,67 @@ T* setFindByName(std::set<T*, PtrCmpByName<T> > set, const std::string& name)
 }
 
 
-template<class T>
-T* setRemoveByName(std::set<T*, PtrCmpByName<T> > set, const std::string& name)
+template<class T, class N>
+T* setRemoveByName(std::set<T*, PtrCmpByName<T> > set, const N& name)
 {
     T key(name);
-    set.erase(&key);
+    typename std::set<T*, PtrCmpByName<T> >::iterator ite;
+    ite = set.find(&key);
+    if (ite == set.end())
+        return NULL;
+    T* value = *ite;
+    set.erase(ite);
+    return value;
+}
+
+
+template<class T>
+struct PtrCmpById
+{
+    bool operator()(const T* ptr1, const T* ptr2) const
+    {
+        return ptr1->getId() < ptr2->getId();
+    }
+};
+
+
+template<class T, class I>
+T* setFindById(std::set<T*, PtrCmpById<T> > set, const I& id)
+{
+    T key(id);
+    typename std::set<T*, PtrCmpById<T> >::iterator ite;
+    ite = set.find(&key);
+    if (ite == set.end())
+        return NULL;
+    return *ite;
+}
+
+
+template<class T, class I>
+T* setRemoveById(std::set<T*, PtrCmpById<T> > set, const I& id)
+{
+    T key(id);
+    typename std::set<T*, PtrCmpById<T> >::iterator ite;
+    ite = set.find(&key);
+    if (ite == set.end())
+        return NULL;
+    T* value = *ite;
+    set.erase(ite);
+    return value;
+}
+
+
+template<class T, class C>
+T* setDeleteAll(std::set<T*, C> set)
+{
+    typename std::set<T*, C>::iterator ite = set.begin();
+    while(ite != set.end())
+    {
+        T* element = *ite;
+        set.erase(ite);
+        delete element;
+        ite ++;
+    }
 }
 
 #endif	/* CONTAINERUTILS_HPP */

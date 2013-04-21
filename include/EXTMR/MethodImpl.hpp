@@ -11,8 +11,6 @@
 #include <EXTMR/MemberWrappers.hpp>
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 
-#include "Method.hpp"
-#include "TypeTraits.hpp"
 
 namespace extmr{
 
@@ -36,6 +34,7 @@ public:
     /// type of a generic method belonging to ClassT
     typedef void (ClassT::*GeneralMethod)(...);
     
+    
     /**
      * Constructor for a method with no parameters.
      * 
@@ -55,6 +54,7 @@ public:
         // method has full signature
         fullSignature_ = true;
     }
+    
     
     /**
      * Constructor for a method with one parameters.
@@ -83,6 +83,7 @@ public:
         // method has full signature
         fullSignature_ = true;
     }
+    
     
     /**
      * Constructor for a method with two parameters.
@@ -114,6 +115,7 @@ public:
         // method has full signature
         fullSignature_ = true;
     }
+    
     
     /**
      * Constructor for a method with three parameters.
@@ -188,6 +190,7 @@ public:
         fullSignature_ = true;
     }
     
+    
     /**
      * Constructor for a method with five parameters.
      * 
@@ -228,6 +231,7 @@ public:
         // method has full signature
         fullSignature_ = true;
     }
+    
     
     /**
      * Constructor for a method with six parameters.
@@ -273,6 +277,7 @@ public:
         // method has full signature
         fullSignature_ = true;
     }
+    
     
     /**
      * Constructor for a method with seven parameters.
@@ -321,6 +326,7 @@ public:
         // method has full signature
         fullSignature_ = true;
     }
+    
     
     /**
      * Constructor for a method with eight parameters.
@@ -373,6 +379,7 @@ public:
         fullSignature_ = true;
     }
     
+    
     Method::ReturnMode getReturnMode() const
     {
         if (IsReference<RetT>::value)
@@ -386,10 +393,12 @@ public:
             return Value;
     }
     
+    
     bool isConst() const
     {
         return constant_;
     }
+    
     
     /**
      * Call the method.

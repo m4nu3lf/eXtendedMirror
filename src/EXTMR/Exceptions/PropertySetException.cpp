@@ -13,10 +13,8 @@
 using namespace std;
 using namespace extmr;
 
-PropertySetException::PropertySetException(const Property& property,
-                                           const Class& ownerClass)
+PropertySetException::PropertySetException(const Property& property)
         : property_(property)
-        , ownerClass_(ownerClass)
 {
 }
 
@@ -25,5 +23,5 @@ const char* PropertySetException::what() const throw()
     return (string("Attempt to write the non settable property ")
             + property_.getName()
             + "of class "
-            + ownerClass_.getName() + ".").c_str();
+            + property_.getOwner().getName() + ".").c_str();
 }

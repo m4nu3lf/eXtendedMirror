@@ -11,23 +11,28 @@
 using namespace std;
 using namespace extmr;
 
+const Class Class::Void("void");
+
+
 Class::Class(const string& name) : Type(name)
 {
 }
 
+
 Class::Class(const type_info& type) : Type(type)
 {
 }
+
 
 Class::Class
 (
     const string& name,
     uint size,
     const type_info& cppType,
-    void* (*constructor)(void*),
-    void* (*copyConstructor)(const void*, void*),
-    void (*destructor)(void*, bool),
-    void (*operatorAssign)(void*, const void*),
+    Constructor* constructor,
+    CopyConstructor* copyConstructor,
+    Destructor* destructor,
+    AssignOperator* assignOperator,
     const Template& tempjate,
     const std::vector<const Type*>& templateParamTypes
 ) :
@@ -39,7 +44,7 @@ Class::Class
         constructor,
         copyConstructor,
         destructor,
-        operatorAssign
+        assignOperator
     ),
     tempjate_(&tempjate),
     templateArgs_(templateParamTypes)
@@ -48,25 +53,30 @@ Class::Class
     else category_ = Type::Class;
 }
 
+
 const Template& Class::getTemplate() const
 {
     return *tempjate_;
 }
+
 
 const std::vector<const Type*>& Class::getTemplateArgs() const
 {
     return templateArgs_;
 }
 
+
 const set<const Class*, Class::PtrCmpById>& Class::getBaseClasses() const
 {
     return baseClasses_;
 }
 
+
 const set<const Class*, Class::PtrCmpById>& Class::getDerivedClasses() const
 {
     return derivedClasses_;
 }
+
 
 Class& Class::operator<<(Class& baseClass)
 {
@@ -87,14 +97,18 @@ Class& Class::operator<<(Class& baseClass)
     return *this;
 }
 
+
 Class& Class::operator<<(Property& property)
 {
     // remove previous inserted properties with the same name
     properties_.erase(&property);
     
+    property.setOwner(*this);
+    
     properties_.insert(&property);
     return *this;
 }
+
 
 Class& Class::operator<<(Method& method)
 {
@@ -105,6 +119,7 @@ Class& Class::operator<<(Method& method)
     return *this;
 }
 
+
 const ConstPropertySet& Class::getProperties(bool inherited) const
 {
     if (inherited)
@@ -114,6 +129,7 @@ const ConstPropertySet& Class::getProperties(bool inherited) const
     return ownProperties_;
 }
 
+
 const ConstMethodSet& Class::getMethods(bool inherited) const
 {
     if (inherited)
@@ -122,6 +138,7 @@ const ConstMethodSet& Class::getMethods(bool inherited) const
     }
     return ownMethods_;
 }
+
 
 bool Class::hasProperty(const string& propertyName, bool inherited) const
 {
@@ -136,6 +153,7 @@ bool Class::hasProperty(const string& propertyName, bool inherited) const
     return false;
 }
 
+
 bool Class::hasMethod(const string& methodName, bool inherited) const
 {
     const ConstMethodSet* methodSelection;
@@ -149,6 +167,7 @@ bool Class::hasMethod(const string& methodName, bool inherited) const
     return false;
 }
 
+
 bool Class::hasMethod(const Method& method, bool inherited) const
 {
     const ConstMethodSet* methodSelection;
@@ -161,12 +180,14 @@ bool Class::hasMethod(const Method& method, bool inherited) const
     return false;
 }
 
-bool Class::derivesFrom(const string& baseClassName) const
+
+bool Class::inheritsFrom(const string& baseClassName) const
 {
     const Type& baseClass = TypeRegister::getTypeReg().getType(baseClassName);
     if (baseClass.getCategory() != Type::Class) return false;
     return inheritsFrom(reinterpret_cast<const Class&>(baseClass));
 }
+
 
 bool Class::inheritsFrom(const Class& baseClass) const
 {
@@ -174,6 +195,7 @@ bool Class::inheritsFrom(const Class& baseClass) const
     if (ite != baseClasses_.end()) return true;
     return false;
 }
+
 
 const Property& Class::getProperty(const string& propertyName) const
 {
@@ -184,6 +206,7 @@ const Property& Class::getProperty(const string& propertyName) const
     return *reinterpret_cast<Property*>(NULL);
 }
 
+
 const Method& Class::getMethod(const string& methodName) const
 {
     ConstMethodSet::iterator ite;
@@ -193,6 +216,7 @@ const Method& Class::getMethod(const string& methodName) const
     return *reinterpret_cast<Method*>(NULL);
 }
 
+
 const Method& Class::getMethod(const Method& method) const
 {
     ConstMethodSet::iterator ite;
@@ -200,6 +224,7 @@ const Method& Class::getMethod(const Method& method) const
     if (ite != methods_.end()) return **ite;
     return *reinterpret_cast<Method*>(NULL);
 }
+
 
 Class::~Class()
 {

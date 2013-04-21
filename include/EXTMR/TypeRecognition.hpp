@@ -23,6 +23,7 @@ template<typename T>
 struct TypeRecognizer
 {};
 
+
 /**
  * Specialize for each supported template type.
  * Each specialization must define the template parameters types
@@ -44,6 +45,7 @@ struct TemplateRecognizer
     }
     static const uint argN = 0;
 };
+
 
 /**
  * Partial template specialization of the TypeRecognizer struct for pointers.
@@ -67,6 +69,7 @@ struct TypeRecognizer<T*>
     static const Type::Category category = Type::Pointer;
 };
 
+
 /**
  * Partial template specialization of the TypeRecognizer struct for arrays.
  */
@@ -89,6 +92,65 @@ struct TypeRecognizer<T[size]>
     
     static const Type::Category category = Type::Array;
 };
+
+
+/**
+ * Check if a given type is instatiable.
+ * Non array types are supposed to be instantiable by default.
+ * Specialize this class for each non instantiable class.
+ */
+template<typename T>
+struct IsInstantiable
+{
+    static const bool value = true;
+};
+
+
+template<typename T>
+struct IsInstantiable<T[]>
+{
+    static const bool value = false;
+};
+
+
+/**
+ * Check if a given type is copyable.
+ * Non array types are supposed to be copyable by default.
+ * Specialize this class for each non copyable class.
+ */
+template<typename T>
+struct IsCopyable
+{
+    static const bool value = true;
+};
+
+
+template<typename T>
+struct IsCopyable<T[]>
+{
+    static const bool value = false;
+};
+
+
+/**
+ * Check if a given type is copyable.
+ * Non array types are supposed to be lvalue by default.
+ * Specialize this class for each non lvalue class.
+ */
+template<typename T>
+struct IsLvalue
+{
+    static const bool value = true;
+};
+
+
+template<typename T>
+struct IsLvalue<T[]>
+{
+    static const bool value = false;
+};
+
+
 
 } // namespace extmr
 

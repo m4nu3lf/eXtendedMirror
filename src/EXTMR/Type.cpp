@@ -4,17 +4,20 @@
 using namespace std;
 using namespace extmr;
 
+const Type Type::Void("void");
+
 Type::Type(const string& name) : 
     name_(name),
     size_(0),
-    cppType_(*reinterpret_cast<type_info*>(NULL)),
+    cppType_(typeid(void)),
     constructor_(NULL),
     copyConstructor_(NULL),
     destructor_(NULL),
-    operatorAssign_(NULL),
+    assignOperator_(NULL),
     category_(Primitive)
 {
 }
+
 
 Type::Type(const type_info& cppType) :
     name_(""),
@@ -23,20 +26,21 @@ Type::Type(const type_info& cppType) :
     constructor_(NULL),
     copyConstructor_(NULL),
     destructor_(NULL),
-    operatorAssign_(NULL),
+    assignOperator_(NULL),
     category_(Primitive)
 {
 }
+
 
 Type::Type
 (
     const string& name,
     size_t size,
     const type_info& cppType,
-    void* (*constructor)(void*),
-    void* (*copyConstructor)(const void*, void*),
-    void (*destructor)(void*, bool),
-    void (*operatorAssign)(void*, const void*),
+    Constructor* constructor,
+    CopyConstructor* copyConstructor,
+    Destructor* destructor,
+    AssignOperator* assignOperator,
     const Type& relatedType,
     bool isArray,
     size_t arraySize
@@ -48,7 +52,7 @@ Type::Type
     constructor_(constructor),
     copyConstructor_(copyConstructor),
     destructor_(destructor),
-    operatorAssign_(operatorAssign),
+    assignOperator_(assignOperator),
     relatedType_(&relatedType),
     arraySize_(arraySize)
 {
@@ -62,64 +66,104 @@ Type::Type
     else category_ = Primitive;
 }
 
+
+bool Type::isInstatiable()
+{
+    return constructor_ != NULL;
+}
+
+
+bool Type::isCopyable()
+{
+    return copyConstructor_ != NULL;
+}
+
+
+bool Type::isLvalue()
+{
+    return assignOperator_ != NULL;
+}
+
+
 void* Type::newInstance(void* address) const
 {
-    return constructor_(address);
+    if (constructor_)
+        return (*constructor_)(address);
+    else
+        return NULL;
 }
+
 
 void* Type::copyInstance(void* toBeCopiedPtr, void* address) const
 {
-    return copyConstructor_(toBeCopiedPtr, address);
+    if (copyConstructor_)
+        return (*copyConstructor_)(toBeCopiedPtr, address);
+    else
+        return NULL;
 }
+
 
 void Type::deleteInstance(void* toBeDeletedPtr, bool deallocate) const
 {
-    destructor_(toBeDeletedPtr, deallocate);
+    if (destructor_)
+        (*destructor_)(toBeDeletedPtr, deallocate);
 }
+
 
 void Type::assignInstance(void* lvaluePtr, const void* rvaluePtr) const
 {
-    operatorAssign_(lvaluePtr, rvaluePtr);
+    if (assignOperator_)
+        (*assignOperator_)(lvaluePtr, rvaluePtr);
 }
+
 
 Type::Category Type::getCategory() const
 {
     return category_;
 }
 
+
 const string& Type::getName() const
 {
     return name_;
 }
+
 
 std::size_t Type::getSize() const
 {
     return size_;
 }
 
-const type_info& Type::getCpptype() const
+
+const type_info& Type::getCppType() const
 {
     return cppType_;
 }
+
 
 const Type& Type::getPointedType() const
 {
     if (category_ == Pointer)
         return *relatedType_;
-    else return *reinterpret_cast<Type*>(NULL);
+    else
+        return Type::Void;
 }
+
 
 const Type& Type::getArrayElementType() const
 {
     if (category_ == Array)
         return *relatedType_;
-    else return *reinterpret_cast<Type*>(NULL);
+    else
+        return Type::Void;
 }
+
 
 const std::size_t Type::getArraySize() const
 {
     return arraySize_;
 }
+
 
 Type::~Type()
 {

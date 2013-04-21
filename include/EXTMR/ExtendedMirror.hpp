@@ -17,10 +17,11 @@
 #include <Common/Common.hpp>
 #include <EXTMR/TypeTraits.hpp>
 #include <EXTMR/Misc.hpp>
-#include <EXTMR/Property.hpp>
 #include <EXTMR/Variant.hpp>
-#include <EXTMR/Method.hpp>
+#include <EXTMR/MemberWrappers.hpp>
 #include <EXTMR/Type.hpp>
+#include <EXTMR/Property.hpp>
+#include <EXTMR/Method.hpp>
 #include <EXTMR/Template.hpp>
 #include <EXTMR/Class.hpp>
 #include <EXTMR/TypeRegister.hpp>
@@ -33,7 +34,8 @@
 #include <EXTMR/MethodImpl.hpp>
 #include <EXTMR/TypeRegister.inl>
 #include <EXTMR/MemberBuildUtils.hpp>
-#include <EXTMR/Macros.hpp>
+#include <EXTMR/RegistrationMacros.hpp>
+#include <EXTMR/Shortcuts.hpp>
 
 // Specialize the type recognizer for each primitive type
 EXTMR_ENABLE_PRIMITIVE(char);

@@ -45,8 +45,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/Template.o \
 	${OBJECTDIR}/src/EXTMR/Misc.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o \
-	${OBJECTDIR}/src/EXTMR/Property.o \
-	${OBJECTDIR}/src/EXTMR/Class.o
+	${OBJECTDIR}/src/EXTMR/Class.o \
+	${OBJECTDIR}/src/EXTMR/Property.o
 
 
 # C Compiler Flags
@@ -125,15 +125,15 @@ ${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o: src/EXTMR/Exceptions
 	${RM} $@.d
 	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o src/EXTMR/Exceptions/PropertyRangeException.cpp
 
-${OBJECTDIR}/src/EXTMR/Property.o: src/EXTMR/Property.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Property.o src/EXTMR/Property.cpp
-
 ${OBJECTDIR}/src/EXTMR/Class.o: src/EXTMR/Class.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
 	${RM} $@.d
 	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Class.o src/EXTMR/Class.cpp
+
+${OBJECTDIR}/src/EXTMR/Property.o: src/EXTMR/Property.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} $@.d
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Property.o src/EXTMR/Property.cpp
 
 # Subprojects
 .build-subprojects:

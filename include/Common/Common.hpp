@@ -2,7 +2,7 @@
  * File:   Common.hpp
  * Author: Manuele Finocchiaro
  *
- * Created on November 3, 2012, 11.34
+ * Created on 3 November 2012, 11.34
  */
 
 #ifndef COMMON_HPP

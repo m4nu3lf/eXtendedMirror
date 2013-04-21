@@ -61,6 +61,34 @@ void getTypeBounds(typename ToNumerical<T>::Type& min,
 }
 
 
+template<typename T>
+double toDouble(T& value)
+{
+    return 0;
+}
+
+
+#define EXTMR_SPECIALIZE_TO_DOUBLE(getType)                                       \
+template<>                                                                     \
+double toDouble<getType>(getType& value)                                              \
+{                                                                              \
+    return static_cast<double>(value);                                         \
+}
+
+
+EXTMR_SPECIALIZE_TO_DOUBLE(char);
+EXTMR_SPECIALIZE_TO_DOUBLE(wchar_t);
+EXTMR_SPECIALIZE_TO_DOUBLE(short);
+EXTMR_SPECIALIZE_TO_DOUBLE(int);
+EXTMR_SPECIALIZE_TO_DOUBLE(long);
+EXTMR_SPECIALIZE_TO_DOUBLE(float);
+EXTMR_SPECIALIZE_TO_DOUBLE(double);
+EXTMR_SPECIALIZE_TO_DOUBLE(uchar);
+EXTMR_SPECIALIZE_TO_DOUBLE(ushort);
+EXTMR_SPECIALIZE_TO_DOUBLE(uint);
+EXTMR_SPECIALIZE_TO_DOUBLE(ulong);
+
+
 /**
  * This function returns a function pointer to the callback function
  * to call on type registration. This function is used to retrieve the call

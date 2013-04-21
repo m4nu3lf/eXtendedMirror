@@ -5,16 +5,26 @@ using namespace std;
 using namespace extmr;
 
 Property::Property(const std::string& name)
+        : name_(name), type_(NULL), owner_(&Class::Void), flags_(0)
 {
-    name_ = name;
-    type_ = NULL;
-    flags_ = 0;
 }
 
 
 const string& Property::getName() const
 {
     return name_;
+}
+
+
+const Class& Property::getOwner() const
+{
+    return *owner_;
+}
+
+
+void Property::setOwner(const Class& owner)
+{
+    owner_ = &owner;
 }
 
 

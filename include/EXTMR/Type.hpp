@@ -68,6 +68,27 @@ public:
     Type(const std::type_info& cppType);
     
     /**
+     * Ask if the type is instantiable.
+     * 
+     * @return True if the type is instatiable.
+     */
+    bool isInstatiable();
+    
+    /**
+     * Ask if the type is copyable.
+     * 
+     * @return True if the type is copyable.
+     */
+    bool isCopyable();
+    
+    /**
+     * Ask if the type can be assigned to.
+     * 
+     * @return True if the type can be assigned to.
+     */
+    bool isLvalue();
+    
+    /**
      * Construct a new instance of the type.
      * 
      * @param addres If not NULL the placement constructor is called to this
@@ -130,7 +151,7 @@ public:
      * 
      * @return The type_info struct.
      */
-    const std::type_info& getCpptype() const;
+    const std::type_info& getCppType() const;
     
     /**
      * Get the Type of the type pointed by this one.
@@ -176,6 +197,8 @@ public:
         }
     };
     
+    static const Type Void;
+    
 protected:
     
     /**
@@ -198,11 +221,11 @@ protected:
             const std::string& name,
             std::size_t size,
             const std::type_info& cppType,
-            void* (*constructor)(void*),
-            void* (*copyConstructor)(const void*, void*),
-            void (*destructor)(void*, bool),
-            void (*operatorAssign)(void*, const void*),
-            const Type& relatedType = *reinterpret_cast<Type*>(NULL),
+            Constructor* constructor,
+            CopyConstructor* copyConstructor,
+            Destructor* destructor,
+            AssignOperator* assignOperator,
+            const Type& relatedType = Type::Void,
             bool isArray = false,
             std::size_t arraySize = 0
      );
@@ -219,17 +242,17 @@ protected:
     // The type category.
     Category category_;
     
-    // The constructor function pointer.
-    void* (*constructor_)(void*);
+    // The constructor function object.
+    Constructor* constructor_;
     
-    // The copy constructor function pointer.
-    void* (*copyConstructor_)(const void*, void*);
+    // The copy constructor function object.
+    CopyConstructor* copyConstructor_;
     
-    // The destructor function pointer
-    void (*destructor_)(void*, bool);
+    // The destructor function object.
+    Destructor* destructor_;
     
-    // The assign operator function pointer
-    void (*operatorAssign_)(void*, const void*);
+    // The assign operator function object.
+    AssignOperator* assignOperator_;
     
     // A pointer to the Type object of the type pointed by this one or the one
     // this type is an array of.

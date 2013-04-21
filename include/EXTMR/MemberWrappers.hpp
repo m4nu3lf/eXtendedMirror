@@ -10,84 +10,97 @@
 
 namespace extmr{
 
-/**
- * Auxiliary function to provide an abstract signature to construct objects.
- * 
- * @param destAddress If not NULL, the placement constructor will be called to
- * this address.
- * @return A pointer to the new instance.
- */
-template<typename T>
-void* constructorWrapper(void* destAddr)
+struct Constructor
 {
-    if (destAddr)
-    {
-        // call the placement constructor to the provided address
-        return new (reinterpret_cast<T*>(destAddr)) T();
-    }
-    else
-    {
-        // call the constructor
-        return new T();
-    }
-}
+    virtual void* operator()(void* destAddr) = 0;
+};
 
-/**
- * Auxiliary function to provide an abstract signature to copy objects.
- * 
- * @param originAddr The address of the object to copy.
- * @param destAddr If not NULL, the placement copy constructor will be called
- * to this address.
- * @return A pointer to the new copied instance.
- */
-template<typename T>
-void* copyConstructorWrapper(const void* originAddr, void* destAddr)
-{
-    const T& origin = T(*reinterpret_cast<const T*>(originAddr));
     
-    if (destAddr)
-    {        
-        // call the placement copy constructor to the specified address
-        return new (reinterpret_cast<T*>(destAddr)) T(origin);
-    }
-    else
-    {
-        // call the copy constructor
-        return new T(origin);
-    }
-}
-
-/**
- * Auxiliary function to provide an abstract signature to destruct objects.
- * 
- * @param address Address of the object to be destroyed.
- * @param deallocate If true, the delete operator is called, otherwise
- * the destructor is called explicity.
- */
 template<typename T>
-void destructorWrapper(void* address, bool deallocate)
+struct ConstructorWrapper : public Constructor
 {
-    if (deallocate)
+    void* operator()(void* destAddr)
     {
-        delete reinterpret_cast<T*>(address);
+        if (destAddr)
+        {
+            // call the placement constructor to the provided address
+            return new (reinterpret_cast<T*>(destAddr)) T();
+        }
+        else
+        {
+            // call the constructor
+            return new T();
+        }
     }
-    else
-    {
-        reinterpret_cast<T*>(address)->~T();
-    }
-}
+};
 
-/**
- * Utility function to provide an abstract signature to assign objects.
- * 
- * @param lvalueAddr Address of the lvalue object.
- * @param rvalueAddr Address of the rvalue object.
- */
-template<typename T>
-void operatorAssignWrapper(void* lvalueAddr, const void* rvalueAddr)
+
+struct CopyConstructor
 {
-    *reinterpret_cast<T*>(lvalueAddr) = *reinterpret_cast<const T*>(rvalueAddr);
-}
+    virtual void* operator()(const void* originAddr, void* destAddr) = 0;
+};
+
+
+template<typename T>
+struct CopyConstructorWrapper : public CopyConstructor
+{
+
+    void* operator()(const void* originAddr, void* destAddr)
+    {
+        const T& origin = T(*reinterpret_cast<const T*>(originAddr));
+
+        if (destAddr)
+        {        
+            // call the placement copy constructor to the specified address
+            return new (reinterpret_cast<T*>(destAddr)) T(origin);
+        }
+        else
+        {
+            // call the copy constructor
+            return new T(origin);
+        }
+    }
+};
+
+
+struct Destructor
+{
+    virtual void operator()(void* address, bool deallocate) = 0;
+};
+
+
+template<typename T>
+struct DestructorWrapper : public Destructor
+{
+    void operator()(void* address, bool deallocate)
+    {
+        if (deallocate)
+        {
+            delete reinterpret_cast<T*>(address);
+        }
+        else
+        {
+            reinterpret_cast<T*>(address)->~T();
+        }
+    }
+};
+
+
+struct AssignOperator
+{
+    virtual void operator()(void* lvalueAddr, const void* rvalueAddr) = 0;
+};
+
+
+template<typename T>
+struct AssignOperatorWrapper : public AssignOperator
+{
+    void operator()(void* lvalueAddr, const void* rvalueAddr)
+    {
+        *reinterpret_cast<T*>(lvalueAddr) = *reinterpret_cast<const T*>(rvalueAddr);
+    }
+};
+
 
 /**
  * Utility template to get the right flags for the return variant of the method
@@ -134,14 +147,22 @@ public:
             ParamT5, ParamT6, ParamT7, ParamT8);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type NqParamT6;
-    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type NqParamT7;
-    typedef typename RemoveConst<typename RemoveReference<ParamT8>::Type>::Type NqParamT8;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
+        NqParamT5;
+    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
+        NqParamT6;
+    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
+        NqParamT7;
+    typedef typename RemoveConst<typename RemoveReference<ParamT8>::Type>::Type
+        NqParamT8;
     
     /// type of the return value without any cv-qualifier and no reference
     typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
@@ -223,14 +244,22 @@ public:
             ParamT5, ParamT6, ParamT7, ParamT8);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type NqParamT6;
-    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type NqParamT7;
-    typedef typename RemoveConst<typename RemoveReference<ParamT8>::Type>::Type NqParamT8;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
+        NqParamT5;
+    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
+        NqParamT6;
+    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
+        NqParamT7;
+    typedef typename RemoveConst<typename RemoveReference<ParamT8>::Type>::Type
+        NqParamT8;
     
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
@@ -292,13 +321,20 @@ public:
             ParamT5, ParamT6, ParamT7);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type NqParamT6;
-    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type NqParamT7;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
+        NqParamT5;
+    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
+        NqParamT6;
+    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
+        NqParamT7;
     
     /// type of the return value without any cv-qualifier and no reference
     typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
@@ -362,13 +398,20 @@ public:
             ParamT5, ParamT6, ParamT7);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type NqParamT6;
-    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type NqParamT7;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
+        NqParamT5;
+    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
+        NqParamT6;
+    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
+        NqParamT7;
     
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
@@ -429,12 +472,18 @@ public:
             ParamT5, ParamT6);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type NqParamT6;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
+        NqParamT5;
+    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
+        NqParamT6;
     
     /// type of the return value without any cv-qualifier and no reference
     typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
@@ -496,12 +545,18 @@ public:
             ParamT5, ParamT6);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type NqParamT6;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
+        NqParamT5;
+    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
+        NqParamT6;
     
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
@@ -560,11 +615,16 @@ public:
             ParamT5);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type NqParamT5;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
+        NqParamT5;
     
     /// type of the return value without any cv-qualifier and no reference
     typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
@@ -624,11 +684,16 @@ public:
             ParamT5);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type NqParamT5;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
+        NqParamT5;
     
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
@@ -683,10 +748,14 @@ public:
     typedef RetT (ClassT::*MethodType)(ParamT1, ParamT2, ParamT3, ParamT4);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
     
     /// type of the return value without any cv-qualifier and no reference
     typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
@@ -743,10 +812,14 @@ public:
     typedef void (ClassT::*MethodType)(ParamT1, ParamT2, ParamT3, ParamT4);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type NqParamT4;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
+        NqParamT4;
     
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
@@ -799,9 +872,12 @@ public:
     typedef RetT (ClassT::*MethodType)(ParamT1, ParamT2, ParamT3);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
     
     /// type of the return value without any cv-qualifier and no reference
     typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
@@ -856,9 +932,12 @@ public:
     typedef void (ClassT::*MethodType)(ParamT1, ParamT2, ParamT3);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type NqParamT3;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
+        NqParamT3;
     
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
@@ -897,7 +976,8 @@ template
     typename ParamT1,
     typename ParamT2
 >
-struct MethodWrapper<ClassT, RetT, ParamT1, ParamT2, Empty, Empty, Empty, Empty, Empty, Empty>
+struct MethodWrapper<ClassT, RetT, ParamT1, ParamT2, Empty, Empty, Empty, Empty,
+        Empty, Empty>
 {
 public:
     
@@ -908,8 +988,10 @@ public:
     typedef RetT (ClassT::*MethodType)(ParamT1, ParamT2);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
     
     /// type of the return value without any cv-qualifier and no reference
     typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type 
@@ -950,7 +1032,8 @@ template
     typename ParamT1,
     typename ParamT2
 >
-struct MethodWrapper<ClassT, void, ParamT1, ParamT2, Empty, Empty, Empty, Empty, Empty, Empty>
+struct MethodWrapper<ClassT, void, ParamT1, ParamT2, Empty, Empty, Empty, Empty,
+        Empty, Empty>
 {
 public:
     
@@ -961,8 +1044,10 @@ public:
     typedef void (ClassT::*MethodType)(ParamT1, ParamT2);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type NqParamT2;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
+        NqParamT2;
     
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
@@ -1011,7 +1096,8 @@ public:
     typedef RetT (ClassT::*MethodType)(ParamT1);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
     
     /// type of the return value without any cv-qualifier and no reference
     typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
@@ -1062,7 +1148,8 @@ public:
     typedef void (ClassT::*MethodType)(ParamT1);
     
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type NqParamT1;
+    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
+        NqParamT1;
     
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}

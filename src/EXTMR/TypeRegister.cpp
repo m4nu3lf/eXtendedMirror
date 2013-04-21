@@ -10,6 +10,7 @@ TypeRegister& TypeRegister::getTypeReg()
     return typeReg;
 }
 
+
 TypeRegister::TypeRegister(void (*callBackFnc)(const Type&))
 {
     this->callBackFnc_ = callBackFnc;
@@ -25,6 +26,7 @@ TypeRegister::TypeRegister(void (*callBackFnc)(const Type&))
     registerType<bool>();
 }
 
+
 const Type& TypeRegister::getType(const string& typeName) const
 {
     Type type(typeName);
@@ -33,6 +35,7 @@ const Type& TypeRegister::getType(const string& typeName) const
     if (ite == typesByName_.end()) return *reinterpret_cast<Type*>(NULL);
     return **ite;
 }
+
 
 const Type& TypeRegister::getType(const type_info& cppType) const
 {
@@ -43,6 +46,7 @@ const Type& TypeRegister::getType(const type_info& cppType) const
     return **ite;
 }
 
+
 const Class& TypeRegister::getClass(const string& className) const
 {
     Class clazz(className);
@@ -51,6 +55,7 @@ const Class& TypeRegister::getClass(const string& className) const
     if (ite == classesByName_.end()) return *reinterpret_cast<Class*>(NULL);
     return **ite;
 }
+
 
 const Class& TypeRegister::getClass(const type_info& cppType) const
 {
@@ -61,6 +66,7 @@ const Class& TypeRegister::getClass(const type_info& cppType) const
     return **ite;
 }
 
+
 const Template& TypeRegister::getTemplate(const string& templateName) const
 {
     Template template_(templateName);
@@ -70,15 +76,18 @@ const Template& TypeRegister::getTemplate(const string& templateName) const
     return **ite;
 }
 
+
 const ConstTypeSetById& TypeRegister::getTypes()
 {
     return (ConstTypeSetById&) typesById_;
 }
 
+
 const ConstClassSetById& TypeRegister::getClasses()
 {
     return (ConstClassSetById&) classesById_;
 }
+
 
 const set<const Template*, Template::PtrCmp>& TypeRegister::getTemplates()
 {

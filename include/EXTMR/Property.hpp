@@ -4,6 +4,7 @@
 namespace extmr{
 
 class Type;
+class Class;
 class Variant;
 
 /**
@@ -61,6 +62,20 @@ public:
      * @return The Type.
      */
     const Type& getType() const;
+    
+    /**
+     * Get the owner Class of the property.
+     * 
+     * @return The owner Class.
+     */
+    const Class& getOwner() const;
+    
+    /**
+     * Set the owner Class of the property.
+     * 
+     * @param owner The owner Class.
+     */
+    void setOwner(const Class& owner);
     
     /**
      * Get the flags of this property.
@@ -156,6 +171,9 @@ protected:
     
     // The property name.
     std::string name_;
+    
+    // The property owner class
+    const Class* owner_;
     
     // The property Type.
     const Type* type_;

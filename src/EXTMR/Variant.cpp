@@ -17,6 +17,7 @@ Variant::Variant()
     type_ = NULL;
 }
 
+
 Variant::Variant(const Variant& orig) : flags(0)
 {       
     // copy the Type pointer
@@ -40,6 +41,7 @@ Variant::Variant(const Variant& orig) : flags(0)
     }
 }
 
+
 const Variant& Variant::operator=(const Variant& other)
 {
     // check if the type are different
@@ -61,6 +63,7 @@ const Variant& Variant::operator=(const Variant& other)
     type_->assignInstance(data_, other.data_);
 }
 
+
 Variant::~Variant()
 {
     if (!flags & Reference)
@@ -70,10 +73,12 @@ Variant::~Variant()
     }
 }
 
+
 bool Variant::isValid()
 {
     return data_ && type_;
 }
+
 
 bool Variant::canReinterpret(const Type& type, const Type& targetType)
 {
@@ -120,6 +125,7 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
     }
 }
 
+
 namespace extmr{
 
 // A variant can always be converted to an Empty object. 
@@ -129,6 +135,7 @@ Empty& Variant::to<Empty>() const
     static Empty empty;
     return empty;
 }
+
 
 } // namespace extmr
 

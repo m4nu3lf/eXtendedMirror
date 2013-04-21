@@ -15,10 +15,6 @@
 #include <EXTMR/Exceptions/PropertyRangeException.hpp>
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 
-#include "Variant.hpp"
-#include "TypeRegister.hpp"
-#include "TypeTraits.hpp"
-#include "Property.hpp"
 
 namespace extmr{
 
@@ -118,7 +114,7 @@ public:
     {            
         // the value is retrieved as a constant to prevent exception throwing
         // if the passed Variant is a constant Variant.
-        const ClassT& constObj = objPtr.to<const ClassT*>();
+        const ClassT& constObj = *objPtr.to<const ClassT*>();
         
         // remove constness, the costness is however handled successively
         ClassT& obj = const_cast<ClassT&>(constObj);
@@ -160,9 +156,9 @@ public:
         // retrieve the new data value
         const PropT extractedValue = data.to<const PropT>();
         
-        // check whether the new value is acceptable
+        // check whether the new value is within bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_))
-            throw PropertyRangeException(extractedValue, minValue_, maxValue_);
+            throw PropertyRangeException(toDouble(extractedValue), minValue_, maxValue_);
         
         // the pointer is summed to the the object pointer and converted to the
         // field type

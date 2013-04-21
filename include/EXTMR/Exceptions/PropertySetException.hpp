@@ -15,11 +15,10 @@ class Property;
 class PropertySetException : public std::exception
 {
 public:
-    PropertySetException(const Property& property, const Class& ownerClass);
+    PropertySetException(const Property& property);
     const char* what() const throw();
 private:
     const Property& property_;
-    const Class& ownerClass_;
 };
 
 } // namespace extmr

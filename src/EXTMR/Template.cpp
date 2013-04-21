@@ -16,10 +16,12 @@ Template::Template(const string& name, uint argN) :
 {
 }
 
+
 const std::string& Template::getName() const
 {
     return name_;
 }
+
 
 uint Template::getArgN() const
 {

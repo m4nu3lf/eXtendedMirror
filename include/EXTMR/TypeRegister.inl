@@ -3,6 +3,8 @@
 
 #include <EXTMR/MemberWrappers.hpp>
 
+#include "Type.hpp"
+
 namespace extmr{
 
 template<typename T>
@@ -18,6 +20,7 @@ const Class& TypeRegister::getClassOf(const T& obj) const
     return getClass(typeid(obj));
 }
 
+
 template<typename T>
 const Type& TypeRegister::getType() const
 {   
@@ -25,12 +28,14 @@ const Type& TypeRegister::getType() const
     return type;
 }
 
+
 template<typename T>
 const Class& TypeRegister::getClass() const
 {   
     static const Class& clazz = getClass(typeid(T));
     return clazz;
 }
+
 
 template<typename T>
 Type& TypeRegister::registerType()
@@ -42,11 +47,16 @@ Type& TypeRegister::registerType()
     return registerNonQualifiedType<NonQualifiedT>();
 }
 
+
 template<typename T>
 Class& TypeRegister::registerClass()
 {
-    return dynamic_cast<Class&>(registerType<T>());
+    if (TypeRecognizer<T>::category | Type::Class)
+        return dynamic_cast<Class&>(registerType<T>());
+    else
+        return *reinterpret_cast<Class*>(NULL);
 }
+
 
 template<typename T>
 Type& TypeRegister::registerNonQualifiedType()
@@ -61,22 +71,24 @@ Type& TypeRegister::registerNonQualifiedType()
     Type::Category category = TypeRecognizer<T>::category;
     
     // method wrappers
-    void* (*constructorWrapper)(void*) = NULL;
-    void* (*copyConstructorWrapper)(const void*, void*) = NULL;
-    void (*destructorWrapper)(void*, bool) = NULL;
-    void (*operatorAssignWrapper) (void*, const void*) = NULL;
+    Constructor* constructor = NULL;
+    CopyConstructor* copyConstructor = NULL;
+    Destructor* destructor = NULL;
+    AssignOperator* assignOperator = NULL;
     
-    if (category != Type::Array)
+    
+    // take the method wrappers
+    if (IsInstantiable<T>::value)
     {
-        // remove all extents to allow compilation even for arrays
-        typedef typename RemoveAllExtents<T>::Type NoExtentsT;
-        
-        // take the method wrappers
-        constructorWrapper = extmr::constructorWrapper<NoExtentsT>;
-        copyConstructorWrapper = extmr::copyConstructorWrapper<NoExtentsT>;
-        destructorWrapper = extmr::destructorWrapper<NoExtentsT>;
-        operatorAssignWrapper = extmr::operatorAssignWrapper<NoExtentsT>;
+        constructor = new extmr::ConstructorWrapper<T>;
+        destructor = new extmr::DestructorWrapper<T>;
     }
+
+    if (IsCopyable<T>::value)
+        copyConstructor = new extmr::CopyConstructorWrapper<T>;
+
+    if (IsLvalue<T>::value)
+        assignOperator = new extmr::AssignOperatorWrapper<T>;
     
     if (category & Type::Class)
     {
@@ -120,10 +132,10 @@ Type& TypeRegister::registerNonQualifiedType()
                             name,
                             sizeof(T),
                             typeid(T),
-                            constructorWrapper,
-                            copyConstructorWrapper,
-                            destructorWrapper,
-                            operatorAssignWrapper,
+                            constructor,
+                            copyConstructor,
+                            destructor,
+                            assignOperator,
                             *tempjate,
                             templateTypeArgs
                     );
@@ -167,10 +179,10 @@ Type& TypeRegister::registerNonQualifiedType()
                         name,
                         sizeof(T),
                         typeid(T),
-                        constructorWrapper,
-                        copyConstructorWrapper,
-                        destructorWrapper,
-                        operatorAssignWrapper,
+                        constructor,
+                        copyConstructor,
+                        destructor,
+                        assignOperator,
                         *relatedType,
                         isArray,
                         arraySize
@@ -188,6 +200,7 @@ Type& TypeRegister::registerNonQualifiedType()
     return *type;
 }
 
+
 /*
  * Calling the registerType with a void type has no consequences and a null type
  * reference is returned. This must be ensured because the method registration
@@ -198,6 +211,7 @@ inline Type& TypeRegister::registerType<void>()
 {
     return *reinterpret_cast<Type*>(NULL);
 }
+
 
 } // namespca extmr
 

@@ -23,17 +23,20 @@ struct IsConst
     static const bool value = false;
 };
 
+
 template<typename T>
 struct IsConst<const T>
 {
     static const bool value = true;
 };
 
+
 template<typename T>
 struct IsConst<const T&>
 {
     static const bool value = true;
 };
+
 
 /**
  * Checks whether or not a given type is a reference.
@@ -45,11 +48,13 @@ struct IsReference
     static const bool value = false;
 };
 
+
 template<typename T>
 struct IsReference<T&>
 {
     static const bool value = true;
 };
+
 
 /**
  * Checks whether or not a given type is a reference.
@@ -61,11 +66,13 @@ struct IsArray
     static const bool value = false;
 };
 
+
 template<typename T, std::size_t size>
 struct IsArray<T[size]>
 {
     static const bool value = true;
 };
+
 
 /**
  * Checks whether or not a given type is a non constant reference.
@@ -76,6 +83,7 @@ struct IsNonConstReference
     static const bool value = IsReference<T>::value && ! IsConst<T>::value;
 };
 
+
 /**
  * Remove constness from a type.
  */
@@ -85,17 +93,20 @@ struct RemoveConst
     typedef T Type;
 };
 
+
 template<typename T>
 struct RemoveConst<const T>
 {
     typedef T Type;
 };
 
+
 template<typename T>
 struct RemoveConst<const T&>
 {
     typedef T Type;
 };
+
 
 /**
  * Removes all the CV qualifiers that appears in the type name.
@@ -106,11 +117,13 @@ struct RemoveAllCVQualifiers
     typedef T Type;
 };
 
+
 template<typename T>
 struct RemoveAllCVQualifiers<const T>
 {
     typedef typename RemoveAllCVQualifiers<T>::Type Type;
 };
+
 
 template<typename T>
 struct RemoveAllCVQualifiers<const T*>
@@ -118,11 +131,13 @@ struct RemoveAllCVQualifiers<const T*>
     typedef typename RemoveAllCVQualifiers<T*>::Type Type;
 };
 
+
 template<typename T>
 struct RemoveAllCVQualifiers<const T&>
 {
     typedef typename RemoveAllCVQualifiers<T&>::Type Type;
 };
+
 
 /**
  * Remove the pointer from the type.
@@ -133,11 +148,13 @@ struct RemovePointer
     typedef T Type;
 };
 
+
 template<typename T>
 struct RemovePointer<T*>
 {
     typedef T Type;
 };
+
 
 /**
  * Remove the reference from the type.
@@ -148,11 +165,13 @@ struct RemoveReference
     typedef T Type;
 };
 
+
 template<typename T>
 struct RemoveReference<T&>
 {
     typedef T Type;
 };
+
 
 /**
  * If T is the type ElementType[size_1][size_2]...[size_n] then Type evaluate to
@@ -165,11 +184,13 @@ struct RemoveExtent
     typedef T Type;
 };
 
+
 template<typename T, std::size_t size>
 struct RemoveExtent<T[size]>
 {
     typedef T Type;
 };
+
 
 /**
  * If T is the type ElementType[size_1][size_2]...[size_n] then Type evaluate to
@@ -182,11 +203,13 @@ struct RemoveAllExtents
     typedef T Type;
 };
 
+
 template<typename T, std::size_t size>
 struct RemoveAllExtents<T[size]>
 {
     typedef typename RemoveAllExtents<T>::Type Type;
 };
+
 
 /**
  * The getSizeSignature method returns a string in the form [size_1][size_2]...[size_n]
@@ -202,6 +225,7 @@ struct ArraySizeSignature
     }
 };
 
+
 template<typename T, std::size_t size>
 struct ArraySizeSignature<T[size]>
 {
@@ -213,6 +237,7 @@ struct ArraySizeSignature<T[size]>
     }
 };
 
+
 /**
  * Given the [size_1][size_2]...[size_n] array the size member
  * evaluate to size_1 or to zero if T is not an array.
@@ -223,11 +248,13 @@ struct ArraySize
     static const std::size_t size = 0;
 };
 
+
 template<typename T, std::size_t _size>
 struct ArraySize<T[_size]>
 {
     static const std::size_t size = _size;
 };
+
 
 
 /**
@@ -240,12 +267,14 @@ struct ToNumerical
     typedef char Type;
 };
 
-#define EXTMR_TONUMERICAL_SPECIALIZE(type)\
+
+#define EXTMR_TONUMERICAL_SPECIALIZE(getType)\
 template<>\
-struct ToNumerical<type>\
+struct ToNumerical<getType>\
 {\
-    typedef type Type;\
+    typedef getType Type;\
 };
+
 
 // Specialize the type recognizer for each primitive type
 EXTMR_TONUMERICAL_SPECIALIZE(char);
