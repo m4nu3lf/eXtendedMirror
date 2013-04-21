@@ -9,70 +9,46 @@
 #define	CONTAINERUTILS_HPP
 
 
+#define DEFINE_SIMPLE_POINTER_COMPARER(getter, ComparerName)                   \
+                                                                               \
+template<class T>                                                              \
+struct ComparerName                                                            \
+{                                                                              \
+    bool operator()(const T* ptr1, const T* ptr2) const                        \
+    {                                                                          \
+        return ptr1->getter() < ptr2->getter();                                \
+    }                                                                          \
+};                                                                             \
+
+
+namespace ptrSet {
+
+    
 template<class T>
-struct PtrCmpByName
+struct KeyObjectSubclass
 {
-    bool operator()(const T* ptr1, const T* ptr2) const
-    {
-        return ptr1->getName() < ptr2->getName();
-    }
+    typedef T Type;
 };
+    
 
-
-template<class T, class N>
-T* setFindByName(std::set<T*, PtrCmpByName<T> > set, const N& name)
+template<class T, class C, typename K>
+T* findByKey(std::set<T*, C> set, const K& key)
 {
-    T key(name);
-    typename std::set<T*, PtrCmpByName<T> >::iterator ite;
-    ite = set.find(&key);
+    typename KeyObjectSubclass<T>::Type value(key);
+    typename std::set<T*, C>::iterator ite;
+    ite = set.find(&value);
     if (ite == set.end())
         return NULL;
     return *ite;
 }
 
 
-template<class T, class N>
-T* setRemoveByName(std::set<T*, PtrCmpByName<T> > set, const N& name)
+template<class T, class C, typename K>
+T* removeByKey(std::set<T*, C> set, const K& key)
 {
-    T key(name);
-    typename std::set<T*, PtrCmpByName<T> >::iterator ite;
-    ite = set.find(&key);
-    if (ite == set.end())
-        return NULL;
-    T* value = *ite;
-    set.erase(ite);
-    return value;
-}
-
-
-template<class T>
-struct PtrCmpById
-{
-    bool operator()(const T* ptr1, const T* ptr2) const
-    {
-        return ptr1->getId() < ptr2->getId();
-    }
-};
-
-
-template<class T, class I>
-T* setFindById(std::set<T*, PtrCmpById<T> > set, const I& id)
-{
-    T key(id);
-    typename std::set<T*, PtrCmpById<T> >::iterator ite;
-    ite = set.find(&key);
-    if (ite == set.end())
-        return NULL;
-    return *ite;
-}
-
-
-template<class T, class I>
-T* setRemoveById(std::set<T*, PtrCmpById<T> > set, const I& id)
-{
-    T key(id);
-    typename std::set<T*, PtrCmpById<T> >::iterator ite;
-    ite = set.find(&key);
+    typename KeyObjectSubclass<T>::Type keyObj(key);
+    typename std::set<T*, C>::iterator ite;
+    ite = set.find(&keyObj);
     if (ite == set.end())
         return NULL;
     T* value = *ite;
@@ -82,7 +58,7 @@ T* setRemoveById(std::set<T*, PtrCmpById<T> > set, const I& id)
 
 
 template<class T, class C>
-T* setDeleteAll(std::set<T*, C> set)
+T* deleteAll(std::set<T*, C> set)
 {
     typename std::set<T*, C>::iterator ite = set.begin();
     while(ite != set.end())
@@ -93,6 +69,24 @@ T* setDeleteAll(std::set<T*, C> set)
         ite ++;
     }
 }
+
+
+} // namespace ptrSet
+
+#define DEFINE_PTRSET_KEYOBJECT_SUBCLASS(Class, Subclass)                      \
+                                                                               \
+class Class;                                                                   \
+class Subclass;                                                                \
+                                                                               \
+namespace ptrSet {                                                             \
+                                                                               \
+template<>                                                                     \
+struct KeyObjectSubclass<Class>                                                \
+{                                                                              \
+    typedef Subclass Type;                                                     \
+};                                                                             \
+                                                                               \
+} // namespace ptrSet
 
 #endif	/* CONTAINERUTILS_HPP */
 

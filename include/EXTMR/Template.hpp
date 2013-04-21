@@ -37,7 +37,7 @@ public:
      */
     uint getArgN() const;
     
-    typedef ::PtrCmpByName<Template> PtrCmp;
+    typedef extmr::PtrCmpByName<Template> PtrCmp;
     
 private:
     
@@ -48,7 +48,7 @@ private:
     uint argN_;
     
     // PtrCmpByName must be a friend of this class to access the name attribute.
-    friend class ::PtrCmpByName<Template>;
+    friend class extmr::PtrCmpByName<Template>;
 };
 
 } // namespace extmr

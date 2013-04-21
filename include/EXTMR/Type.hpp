@@ -187,7 +187,7 @@ public:
     
     virtual ~Type();
     
-    typedef ::PtrCmpByName<Type> PtrCmpByName;
+    typedef extmr::PtrCmpByName<Type> PtrCmpByName;
     
     struct PtrCmpById
     {
@@ -262,7 +262,7 @@ protected:
     size_t arraySize_;
     
     // PtrCmpByName must be a friend of this class to access the name attribute.
-    friend class ::PtrCmpByName<Type>;
+    friend class extmr::PtrCmpByName<Type>;
     
     // The type register is the factory for the type class and need to access
     // the private constructor.

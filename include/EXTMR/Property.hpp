@@ -165,7 +165,7 @@ public:
     virtual void setData(const Variant& objPtr, const Variant& data) const {};
     
     
-    typedef ::PtrCmpByName<Property> PtrCmp;
+    typedef extmr::PtrCmpByName<Property> PtrCmp;
     
 protected:
     
@@ -179,7 +179,7 @@ protected:
     const Type* type_;
     
     // PtrCmpByName must be a friend of this class to access the name attribute.
-    friend class ::PtrCmpByName<Property>;
+    friend class extmr::PtrCmpByName<Property>;
     
     // Property flags.
     char flags_;
