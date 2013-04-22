@@ -99,7 +99,7 @@ EXTMR_SPECIALIZE_TO_DOUBLE(ulong);
 void (*getRegCallBack())(const Type&);
 
 
-DEFINE_SIMPLE_POINTER_COMPARER(getName, PtrCmpByName)
+DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 
 } // namespace extmr
 

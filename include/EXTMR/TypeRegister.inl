@@ -4,6 +4,7 @@
 #include <EXTMR/MemberWrappers.hpp>
 
 #include "Type.hpp"
+#include "TypeTraits.hpp"
 
 namespace extmr{
 
@@ -79,13 +80,13 @@ Type& TypeRegister::registerNonQualifiedType()
     
     // take the method wrappers
     if (IsInstantiable<T>::value)
-    {
         constructor = new extmr::ConstructorWrapper<T>;
-        destructor = new extmr::DestructorWrapper<T>;
-    }
 
     if (IsCopyable<T>::value)
         copyConstructor = new extmr::CopyConstructorWrapper<T>;
+    
+    if (!IsArray<T>::value)
+        destructor = new extmr::DestructorWrapper<T>;
 
     if (IsLvalue<T>::value)
         assignOperator = new extmr::AssignOperatorWrapper<T>;
@@ -99,7 +100,7 @@ Type& TypeRegister::registerNonQualifiedType()
         std::vector<const Type*> templateTypeArgs;
         
         // recursively register the types this class depends on
-        if(category == Type::CompClass)
+        if(category == Type::CompoundClass)
         {
             Type& type1 = registerType<typename TemplateRecognizer<T>::T1>();
             Type& type2 = registerType<typename TemplateRecognizer<T>::T2>();

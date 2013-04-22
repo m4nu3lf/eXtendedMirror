@@ -63,9 +63,12 @@ struct ClassBuilder<reflected_class>                                           \
                                                                                \
 } // namespace extmr
 
-#define EXTMR_NON_INSTANTIABLE(type)                                           \
+
+#define EXTMR_ASSUME_ABSTRACT(reflected_class)                                 \
+namespace extrm{                                                               \
+                                                                               \
 template<>                                                                     \
-struct ConstructorWrapper<type> : public Constructor                           \
+struct ConstructorWrapper<reflected_class> : public Constructor                \
 {                                                                              \
     void* operator()(void* destAddr)                                           \
     {                                                                          \
@@ -74,15 +77,15 @@ struct ConstructorWrapper<type> : public Constructor                           \
 };                                                                             \
                                                                                \
 template<>                                                                     \
-struct DestructorWrapper<type> : public Destructor                             \
+struct IsInstantiable<reflected_class>                                         \
 {                                                                              \
-    void operator()(void* address, bool deallocate)                            \
-    {                                                                          \
-    }                                                                          \
-};
+    static const bool value = false;                                           \
+}                                                                              \
+                                                                               \
+} //namespace extmr
 
 
-#define EXTMR_NON_COPYABLE(type)                                               \
+#define EXTMR_ASSUME_NON_COPYABLE(type)                                        \
 template<>                                                                     \
 struct CopyConstructorWrapper<type> : public CopyConstructor                   \
 {                                                                              \
@@ -90,16 +93,28 @@ struct CopyConstructorWrapper<type> : public CopyConstructor                   \
     {                                                                          \
         return NULL;                                                           \
     }                                                                          \
+};                                                                             \
+                                                                               \
+template<>                                                                     \
+struct IsCopyable                                                              \
+{                                                                              \
+    static const bool value = false;                                           \
 };
 
 
-#define EXTMR_NON_LVALUE(type)                                                 \
+#define EXTMR_ASSUME_NON_LVALUE(type)                                          \
 template<>                                                                     \
 struct AssignOperatorWrapper<type> : public AssignOperator                     \
 {                                                                              \
     void operator()(void* lvalueAddr, const void* rvalueAddr)                  \
     {                                                                          \
     }                                                                          \
+};                                                                             \
+                                                                               \
+template<>                                                                     \
+struct IsLvalue                                                                \
+{                                                                              \
+    static const bool value = false;                                           \
 };
 
 
@@ -127,34 +142,14 @@ static extmr::AutoRegisterer<reflected_class> autoRegisterer;
 
 
 /**
- * \def EXTMR_PROPERTY_FLD(q_field)
- * 
- * Build a Property from a class field with the same name of the field.
- * the \a q_field parameter must be qualified with the class name.
- */
-#define EXTMR_PROPERTY_FLD(q_field)\
-buildProperty(getNonQualifiedName(#q_field), &q_field)
-
-
-/**
- * \def EXTMR_METHOD(q_method)
- * 
- * Build a Method with the same name of the provided method.
- * \a q_method is the qualified method name.
- */
-#define EXTMR_METHOD(q_method)\
-buildMethod(getNonQualifiedName(#q_method), &q_method)
-
-
-/**
- * \def EXTMR_ENABLE_N_BUILD_TCLASS_1(reflected_tclass)
+ * \def EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_1(reflected_tclass)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with one type parameter template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_N_BUILD_TCLASS_1(reflected_tclass)                        \
+#define EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_1(reflected_tclass)                \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1>                                                          \
@@ -172,7 +167,7 @@ struct TypeRecognizer<reflected_tclass<T1> >                                   \
         return str;                                                            \
     }                                                                          \
                                                                                \
-    static const Type::Category category = Type::CompClass;                    \
+    static const Type::Category category = Type::CompoundClass;                \
 };                                                                             \
                                                                                \
 template<typename _T1>                                                         \
@@ -206,14 +201,14 @@ void extmr::ClassBuilder<reflected_tclass<T1> >::operator()                    \
 
 
 /**
- * \def EXTMR_ENABLE_N_BUILD_TCLASS_2(reflected_tclass)
+ * \def EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_2(reflected_tclass)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_N_BUILD_TCLASS_2(reflected_tclass)                        \
+#define EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_2(reflected_tclass)                \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1, typename T2>                                             \
@@ -232,7 +227,7 @@ struct TypeRecognizer<reflected_tclass<T1, T2> >                               \
         return str;                                                            \
     }                                                                          \
                                                                                \
-    static const Type::Category category = Type::CompClass;                    \
+    static const Type::Category category = Type::CompoundClass;                \
 };                                                                             \
                                                                                \
 template<typename _T1, typename _T2>                                           \
@@ -273,7 +268,7 @@ void extmr::ClassBuilder<reflected_tclass<T1, T2> >::operator()                \
  * Works only with three type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_N_BUILD_TCLASS_3(reflected_tclass)                        \
+#define EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_3(reflected_tclass)                \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1,  typename T2,  typename T3>                              \
@@ -293,7 +288,7 @@ struct TypeRecognizer<reflected_tclass<T1, T2, T3> >                           \
         return str;                                                            \
     }                                                                          \
                                                                                \
-    static const Type::Category category = Type::CompClass;                    \
+    static const Type::Category category = Type::CompoundClass;                \
 };                                                                             \
                                                                                \
 template<typename _T1,  typename _T2,  typename _T3>                           \
@@ -327,14 +322,14 @@ void extmr::ClassBuilder<reflected_tclass<T1, T2, T3> >::operator()            \
 
 
 /**
- * \def EXTMR_ENABLE_N_BUILD_TCLASS_4(reflected_tclass)
+ * \def EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_4(reflected_tclass)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with four type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_N_BUILD_TCLASS_4(reflected_tclass)                        \
+#define EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_4(reflected_tclass)                \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1,  typename T2,  typename T3,  typename T4>                \
@@ -355,7 +350,7 @@ struct TypeRecognizer<reflected_tclass<T1, T2, T3, T4> >                       \
         return str;                                                            \
     }                                                                          \
                                                                                \
-    static const Type::Category category = Type::CompClass;                    \
+    static const Type::Category category = Type::CompoundClass;                \
 };                                                                             \
                                                                                \
 template<typename _T1,  typename _T2,  typename _T3,  typename _T4>            \

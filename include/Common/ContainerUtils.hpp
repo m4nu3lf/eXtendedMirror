@@ -9,7 +9,7 @@
 #define	CONTAINERUTILS_HPP
 
 
-#define DEFINE_SIMPLE_POINTER_COMPARER(getter, ComparerName)                   \
+#define DEFINE_POINTER_COMPARER_BY_METHOD(getter, ComparerName)                \
                                                                                \
 template<class T>                                                              \
 struct ComparerName                                                            \
@@ -25,7 +25,7 @@ namespace ptrSet {
 
     
 template<class T>
-struct KeyObjectSubclass
+struct ThrowawayKeyClass
 {
     typedef T Type;
 };
@@ -34,7 +34,7 @@ struct KeyObjectSubclass
 template<class T, class C, typename K>
 T* findByKey(std::set<T*, C> set, const K& key)
 {
-    typename KeyObjectSubclass<T>::Type value(key);
+    typename ThrowawayKeyClass<T>::Type value(key);
     typename std::set<T*, C>::iterator ite;
     ite = set.find(&value);
     if (ite == set.end())
@@ -46,7 +46,7 @@ T* findByKey(std::set<T*, C> set, const K& key)
 template<class T, class C, typename K>
 T* removeByKey(std::set<T*, C> set, const K& key)
 {
-    typename KeyObjectSubclass<T>::Type keyObj(key);
+    typename ThrowawayKeyClass<T>::Type keyObj(key);
     typename std::set<T*, C>::iterator ite;
     ite = set.find(&keyObj);
     if (ite == set.end())
@@ -73,17 +73,17 @@ T* deleteAll(std::set<T*, C> set)
 
 } // namespace ptrSet
 
-#define DEFINE_PTRSET_KEYOBJECT_SUBCLASS(Class, Subclass)                      \
+#define DEFINE_PTRSET_THROWAWAY_KEY_CLASS(Class, KeyClass)                     \
                                                                                \
 class Class;                                                                   \
-class Subclass;                                                                \
+class KeyClass;                                                                \
                                                                                \
 namespace ptrSet {                                                             \
                                                                                \
 template<>                                                                     \
-struct KeyObjectSubclass<Class>                                                \
+struct ThrowawayKeyClass<Class>                                                \
 {                                                                              \
-    typedef Subclass Type;                                                     \
+    typedef KeyClass Type;                                                     \
 };                                                                             \
                                                                                \
 } // namespace ptrSet

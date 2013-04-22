@@ -49,7 +49,7 @@ Class::Class
     tempjate_(&tempjate),
     templateArgs_(templateParamTypes)
 {
-    if (this->tempjate_) category_ = CompClass;
+    if (this->tempjate_) category_ = CompoundClass;
     else category_ = Type::Class;
 }
 

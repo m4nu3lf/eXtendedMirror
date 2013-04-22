@@ -50,7 +50,7 @@ public:
         /**
          *  A type that depends on other types, i.e. a template instance.
          */
-        CompClass = 24,
+        CompoundClass = 24,
     };
     
     /**

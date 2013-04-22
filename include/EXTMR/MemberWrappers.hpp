@@ -35,6 +35,13 @@ struct ConstructorWrapper : public Constructor
 };
 
 
+template<typename T, std::size_t size>
+struct ConstructorWrapper<T[size]> : public Constructor
+{
+    void* operator()(void* destAddr){}
+};
+
+
 struct CopyConstructor
 {
     virtual void* operator()(const void* originAddr, void* destAddr) = 0;
@@ -63,6 +70,13 @@ struct CopyConstructorWrapper : public CopyConstructor
 };
 
 
+template<typename T, std::size_t size>
+struct CopyConstructorWrapper<T[size]>: public CopyConstructor
+{
+    void* operator()(const void* originAddr, void* destAddr){}
+};
+
+
 struct Destructor
 {
     virtual void operator()(void* address, bool deallocate) = 0;
@@ -86,6 +100,13 @@ struct DestructorWrapper : public Destructor
 };
 
 
+template<typename T, std::size_t size>
+struct DestructorWrapper<T[size]> : public Destructor
+{
+    void operator()(void* address, bool deallocate){}
+};
+
+
 struct AssignOperator
 {
     virtual void operator()(void* lvalueAddr, const void* rvalueAddr) = 0;
@@ -99,6 +120,13 @@ struct AssignOperatorWrapper : public AssignOperator
     {
         *reinterpret_cast<T*>(lvalueAddr) = *reinterpret_cast<const T*>(rvalueAddr);
     }
+};
+
+
+template<typename T, std::size_t size>
+struct AssignOperatorWrapper<T[size]> : public AssignOperator
+{
+    void operator()(void* lvalueAddr, const void* rvalueAddr){}
 };
 
 
