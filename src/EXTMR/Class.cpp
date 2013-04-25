@@ -60,19 +60,19 @@ const Template& Class::getTemplate() const
 }
 
 
-const std::vector<const Type*>& Class::getTemplateArgs() const
+const ConstTypeVector& Class::getTemplateArgs() const
 {
     return templateArgs_;
 }
 
 
-const set<const Class*, Class::PtrCmpById>& Class::getBaseClasses() const
+const ConstClassSetById& Class::getBaseClasses() const
 {
     return baseClasses_;
 }
 
 
-const set<const Class*, Class::PtrCmpById>& Class::getDerivedClasses() const
+const ConstClassSetById& Class::getDerivedClasses() const
 {
     return derivedClasses_;
 }
@@ -142,78 +142,65 @@ const ConstMethodSet& Class::getMethods(bool inherited) const
 
 bool Class::hasProperty(const string& propertyName, bool inherited) const
 {
-    const ConstPropertySet* propertySelection;
-    if (inherited) propertySelection = &properties_;
-    else propertySelection = &ownProperties_;
-    
-    ConstPropertySet::iterator ite;
-    Property property(propertyName);
-    ite = propertySelection->find(&property);
-    if (ite != propertySelection->end()) return true;
-    return false;
+    if (inherited)
+        return ptrSet::findByKey(properties_, propertyName);
+    else
+        return ptrSet::findByKey(ownProperties_, propertyName);
 }
 
 
 bool Class::hasMethod(const string& methodName, bool inherited) const
 {
-    const ConstMethodSet* methodSelection;
-    if (inherited) methodSelection = &methods_;
-    else methodSelection = &ownMethods_;
-    
-    ConstMethodSet::iterator ite;
-    Method method(methodName);
-    ite = methodSelection->find(&method);
-    if (ite != methodSelection->end()) return true;
-    return false;
+    if (inherited)
+        return ptrSet::findByKey(methods_, methodName);
+    else
+        return ptrSet::findByKey(ownMethods_, methodName);
 }
 
 
 bool Class::hasMethod(const Method& method, bool inherited) const
 {
-    const ConstMethodSet* methodSelection;
-    if (inherited) methodSelection = &methods_;
-    else methodSelection = &ownMethods_;
-    
-    ConstMethodSet::iterator ite;
-    ite = methodSelection->find(&method);
-    if (ite != methodSelection->end()) return true;
-    return false;
+    if (inherited)
+        return (methods_.find(&method) != methods_.end());
+    else
+        return (ownMethods_.find(&method) != ownMethods_.end());
 }
 
 
 bool Class::inheritsFrom(const string& baseClassName) const
 {
     const Type& baseClass = TypeRegister::getTypeReg().getType(baseClassName);
-    if (baseClass.getCategory() != Type::Class) return false;
-    return inheritsFrom(reinterpret_cast<const Class&>(baseClass));
+    
+    if (baseClass.getCategory() != Type::Class)
+        return false;
+    else
+        return inheritsFrom(reinterpret_cast<const Class&>(baseClass));
 }
 
 
 bool Class::inheritsFrom(const Class& baseClass) const
-{
-    set<const Class*>::iterator ite = baseClasses_.find(&baseClass);
-    if (ite != baseClasses_.end()) return true;
+{    
+    ConstClassSetById::iterator ite = baseClasses_.begin();
+    while(ite != baseClasses_.end())
+    {
+        if (**ite == *this || (*ite)->inheritsFrom(*this))
+            return true;
+        ite++;
+    }
+    
     return false;
 }
 
 
 const Property& Class::getProperty(const string& propertyName) const
 {
-    ConstPropertySet::iterator ite;
-    Property property(propertyName);
-    ite = properties_.find(&property);
-    if (ite != properties_.end()) return **ite;
-    return *reinterpret_cast<Property*>(NULL);
+    return *ptrSet::findByKey(properties_, propertyName);
 }
 
 
 const Method& Class::getMethod(const string& methodName) const
 {
-    ConstMethodSet::iterator ite;
-    Method method(methodName);
-    ite = methods_.find(&method);
-    if (ite != methods_.end()) return **ite;
-    return *reinterpret_cast<Method*>(NULL);
+    return *ptrSet::findByKey(methods_, methodName);
 }
 
 
@@ -228,18 +215,7 @@ const Method& Class::getMethod(const Method& method) const
 
 Class::~Class()
 {
-    ConstPropertySet::iterator prop_ite = properties_.begin();
-    while(prop_ite != properties_.end())
-    {
-        delete *prop_ite;
-        prop_ite++;
-    }
-    
-    ConstMethodSet::iterator meth_ite = methods_.begin();
-    while(meth_ite != methods_.end())
-    {
-        delete *meth_ite;
-        meth_ite++;
-    }
+    ptrSet::deleteAll(ownProperties_);
+    ptrSet::deleteAll(ownMethods_);
 }
 

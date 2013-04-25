@@ -12,81 +12,62 @@
 
 namespace extmr{
 
-
-/**
- * Checks whether or not a given type is constant.
- * The value field evaluate to true if so, to false otherwise.
- */
-template<typename T>
-struct IsConst
-{
-    static const bool value = false;
-};
-
-
-template<typename T>
-struct IsConst<const T>
+    
+struct TrueType
 {
     static const bool value = true;
 };
 
 
-template<typename T>
-struct IsConst<const T&>
-{
-    static const bool value = true;
-};
-
-
-/**
- * Checks whether or not a given type is a reference.
- * The value field evaluate to true if so, to false otherwise.
- */
-template<typename T>
-struct IsReference
+struct FalseType
 {
     static const bool value = false;
 };
 
 
+// Type checks
+
 template<typename T>
-struct IsReference<T&>
-{
-    static const bool value = true;
-};
+struct IsConst : public FalseType {};
 
 
-/**
- * Checks whether or not a given type is a reference.
- * The value field evaluate to true if so, to false otherwise.
- */
 template<typename T>
-struct IsArray
-{
-    static const bool value = false;
-};
+struct IsConst<const T> : public TrueType {};
+
+
+template<typename T>
+struct IsConst<const T&> : public TrueType {};
+
+
+template<typename T>
+struct IsReference : public FalseType {};
+
+
+template<typename T>
+struct IsReference<T&> : public TrueType {};
+
+
+template<typename T>
+struct IsArray : public FalseType {};
 
 
 template<typename T, std::size_t size>
-struct IsArray<T[size]>
-{
-    static const bool value = true;
-};
+struct IsArray<T[size]> : public TrueType {};
 
 
-/**
- * Checks whether or not a given type is a non constant reference.
- */
 template<typename T>
-struct IsNonConstReference
-{
-    static const bool value = IsReference<T>::value && ! IsConst<T>::value;
-};
+struct IsNonConstReference : public FalseType {};
 
 
-/**
- * Remove constness from a type.
- */
+template<typename T>
+struct IsNonConstReference<const T&> : public FalseType {};
+
+
+template<typename T>
+struct IsNonConstReference<T&> : public TrueType {};
+
+// Type modifications
+
 template<typename T>
 struct RemoveConst
 {
@@ -108,9 +89,6 @@ struct RemoveConst<const T&>
 };
 
 
-/**
- * Removes all the CV qualifiers that appears in the type name.
- */
 template<typename T>
 struct RemoveAllCVQualifiers
 {
@@ -139,9 +117,20 @@ struct RemoveAllCVQualifiers<const T&>
 };
 
 
-/**
- * Remove the pointer from the type.
- */
+template<typename T>
+struct RemoveAllCVQualifiers<volatile T*>
+{
+    typedef typename RemoveAllCVQualifiers<T*>::Type Type;
+};
+
+
+template<typename T>
+struct RemoveAllCVQualifiers<volatile T&>
+{
+    typedef typename RemoveAllCVQualifiers<T&>::Type Type;
+};
+
+
 template<typename T>
 struct RemovePointer
 {
@@ -156,9 +145,6 @@ struct RemovePointer<T*>
 };
 
 
-/**
- * Remove the reference from the type.
- */
 template<typename T>
 struct RemoveReference
 {

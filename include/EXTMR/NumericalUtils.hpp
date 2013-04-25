@@ -11,6 +11,61 @@
 namespace extmr{
 
 /**
+ * Set the passed parameters to the numerical limits of the type T.
+ * If T is a floating point value min is set to be - max.
+ * If T is not a numerical type both value are set to zero.
+ * 
+ * @param min The variable to set at the minimum value.
+ * @param max The variable to set at the maximum value.
+ */
+template<typename T>
+void getTypeBounds(typename ToNumerical<T>::Type& min,
+        typename ToNumerical<T>::Type& max)
+{
+    typedef typename ToNumerical<T>::Type NumT;
+    
+    if (std::numeric_limits<T>::is_specialized)
+    {
+        max = std::numeric_limits<NumT>::max();
+        if(std::numeric_limits<T>::is_integer)
+            min = std::numeric_limits<NumT>::min();
+        else
+            min = -max;
+    }
+    else min = max = 0;
+}
+
+
+template<typename T>
+double toDouble(T& value)
+{
+    return 0;
+}
+
+
+#define EXTMR_SPECIALIZE_TO_DOUBLE(getType)                                    \
+template<>                                                                     \
+inline                                                                         \
+double toDouble<getType>(getType& value)                                       \
+{                                                                              \
+    return static_cast<double>(value);                                         \
+}
+
+
+EXTMR_SPECIALIZE_TO_DOUBLE(char);
+EXTMR_SPECIALIZE_TO_DOUBLE(wchar_t);
+EXTMR_SPECIALIZE_TO_DOUBLE(short);
+EXTMR_SPECIALIZE_TO_DOUBLE(int);
+EXTMR_SPECIALIZE_TO_DOUBLE(long);
+EXTMR_SPECIALIZE_TO_DOUBLE(float);
+EXTMR_SPECIALIZE_TO_DOUBLE(double);
+EXTMR_SPECIALIZE_TO_DOUBLE(uchar);
+EXTMR_SPECIALIZE_TO_DOUBLE(ushort);
+EXTMR_SPECIALIZE_TO_DOUBLE(uint);
+EXTMR_SPECIALIZE_TO_DOUBLE(ulong);
+
+
+/**
  * Checks whether a value is into the defined bounds.
  * For non numerical values returns true by default.
  * 

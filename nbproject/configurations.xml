@@ -18,15 +18,15 @@
             <itemPath>include/EXTMR/Exceptions/VariantCostnessException.hpp</itemPath>
             <itemPath>include/EXTMR/Exceptions/VariantTypeException.hpp</itemPath>
           </logicalFolder>
-          <itemPath>include/EXTMR/BoundsCheck.hpp</itemPath>
           <itemPath>include/EXTMR/Class.hpp</itemPath>
+          <itemPath>include/EXTMR/Empty.hpp</itemPath>
           <itemPath>include/EXTMR/EnableStd.hpp</itemPath>
           <itemPath>include/EXTMR/ExtendedMirror.hpp</itemPath>
           <itemPath>include/EXTMR/MemberBuildUtils.hpp</itemPath>
           <itemPath>include/EXTMR/MemberWrappers.hpp</itemPath>
           <itemPath>include/EXTMR/Method.hpp</itemPath>
           <itemPath>include/EXTMR/MethodImpl.hpp</itemPath>
-          <itemPath>include/EXTMR/Misc.hpp</itemPath>
+          <itemPath>include/EXTMR/NumericalUtils.hpp</itemPath>
           <itemPath>include/EXTMR/Parameter.hpp</itemPath>
           <itemPath>include/EXTMR/Property.hpp</itemPath>
           <itemPath>include/EXTMR/PropertyArrayField.hpp</itemPath>
@@ -63,7 +63,6 @@
           </logicalFolder>
           <itemPath>src/EXTMR/Class.cpp</itemPath>
           <itemPath>src/EXTMR/Method.cpp</itemPath>
-          <itemPath>src/EXTMR/Misc.cpp</itemPath>
           <itemPath>src/EXTMR/Property.cpp</itemPath>
           <itemPath>src/EXTMR/Template.cpp</itemPath>
           <itemPath>src/EXTMR/Type.cpp</itemPath>

@@ -37,8 +37,6 @@ public:
      */
     uint getArgN() const;
     
-    typedef extmr::PtrCmpByName<Template> PtrCmp;
-    
 private:
     
     // The name of the template.
@@ -46,10 +44,12 @@ private:
     
     // The number of arguments.
     uint argN_;
-    
-    // PtrCmpByName must be a friend of this class to access the name attribute.
-    friend class extmr::PtrCmpByName<Template>;
 };
+
+
+typedef std::set<const Template*, PtrCmpByName<Type> > ConstTemplateSet;
+typedef std::set<Template*, PtrCmpByName<Template> > TemplateSet;
+
 
 } // namespace extmr
 

@@ -21,6 +21,16 @@ struct ComparerName                                                            \
 };                                                                             \
 
 
+template<class T>
+struct PtrCmpByVal
+{
+    bool operator()(const T* ptr1, const T* ptr2) const
+    {
+        return *ptr1 < *ptr2;
+    }
+};
+
+
 namespace ptrSet {
 
     
@@ -34,9 +44,9 @@ struct ThrowawayKeyClass
 template<class T, class C, typename K>
 T* findByKey(std::set<T*, C> set, const K& key)
 {
-    typename ThrowawayKeyClass<T>::Type value(key);
+    typename ThrowawayKeyClass<T>::Type keyObj(key);
     typename std::set<T*, C>::iterator ite;
-    ite = set.find(&value);
+    ite = set.find(&keyObj);
     if (ite == set.end())
         return NULL;
     return *ite;

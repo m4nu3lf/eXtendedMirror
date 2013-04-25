@@ -164,9 +164,6 @@ public:
      */
     virtual void setData(const Variant& objPtr, const Variant& data) const {};
     
-    
-    typedef extmr::PtrCmpByName<Property> PtrCmp;
-    
 protected:
     
     // The property name.
@@ -178,15 +175,12 @@ protected:
     // The property Type.
     const Type* type_;
     
-    // PtrCmpByName must be a friend of this class to access the name attribute.
-    friend class extmr::PtrCmpByName<Property>;
-    
     // Property flags.
     char flags_;
 };
 
-typedef std::set<Property*, Property::PtrCmp> PropertySet;
-typedef std::set<const Property*, Property::PtrCmp> ConstPropertySet;
+typedef std::set<Property*, PtrCmpByName<Property> > PropertySet;
+typedef std::set<const Property*, PtrCmpByName<Property> > ConstPropertySet;
 
 } // namespace extmr
 

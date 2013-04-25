@@ -6,15 +6,13 @@ using namespace extmr;
 
 TypeRegister& TypeRegister::getTypeReg()
 {
-    static TypeRegister typeReg(getRegCallBack());
+    static TypeRegister typeReg;
     return typeReg;
 }
 
 
-TypeRegister::TypeRegister(void (*callBackFnc)(const Type&))
+TypeRegister::TypeRegister()
 {
-    this->callBackFnc_ = callBackFnc;
-    
     // register the base types
     registerType<char>();
     registerType<short>();
@@ -29,67 +27,47 @@ TypeRegister::TypeRegister(void (*callBackFnc)(const Type&))
 
 const Type& TypeRegister::getType(const string& typeName) const
 {
-    Type type(typeName);
-    TypeSetByName::const_iterator ite;
-    ite = typesByName_.find(&type);
-    if (ite == typesByName_.end()) return *reinterpret_cast<Type*>(NULL);
-    return **ite;
+    return *ptrSet::findByKey(typesByName_, typeName);
 }
 
 
 const Type& TypeRegister::getType(const type_info& cppType) const
 {
-    Type type(cppType);
-    TypeSetById::const_iterator ite;
-    ite = typesById_.find(&type);
-    if (ite == typesById_.end()) return *reinterpret_cast<Type*>(NULL);
-    return **ite;
+    return *ptrSet::findByKey(typesById_, cppType);
 }
 
 
 const Class& TypeRegister::getClass(const string& className) const
 {
-    Class clazz(className);
-    set<Class*, Type::PtrCmpByName>::const_iterator ite;
-    ite = classesByName_.find(&clazz);
-    if (ite == classesByName_.end()) return *reinterpret_cast<Class*>(NULL);
-    return **ite;
+    return *ptrSet::findByKey(classesByName_, className);
 }
 
 
 const Class& TypeRegister::getClass(const type_info& cppType) const
 {
-    Class clazz(cppType);
-    ClassSetById::const_iterator ite;
-    ite = classesById_.find(&clazz);
-    if (ite == classesById_.end()) return *reinterpret_cast<Class*>(NULL);
-    return **ite;
+    return *ptrSet::findByKey(classesById_, cppType);
 }
 
 
 const Template& TypeRegister::getTemplate(const string& templateName) const
 {
-    Template template_(templateName);
-    set<Template*, Template::PtrCmp>::const_iterator ite;
-    ite = templates_.find(&template_);
-    if (ite == templates_.end()) return *reinterpret_cast<Template*>(NULL);
-    return **ite;
+    return *ptrSet::findByKey(templates_, templateName);
 }
 
 
-const ConstTypeSetById& TypeRegister::getTypes()
+const ConstTypeSetById& TypeRegister::getTypes() const
 {
-    return (ConstTypeSetById&) typesById_;
+    return reinterpret_cast<const ConstTypeSetById&>(typesById_);
 }
 
 
-const ConstClassSetById& TypeRegister::getClasses()
+const ConstClassSetById& TypeRegister::getClasses() const
 {
-    return (ConstClassSetById&) classesById_;
+    return reinterpret_cast<const ConstClassSetById&>(classesById_);
 }
 
 
-const set<const Template*, Template::PtrCmp>& TypeRegister::getTemplates()
+const ConstTemplateSet& TypeRegister::getTemplates() const
 {
-    return (set<const Template*, Template::PtrCmp>&)templates_;
+    return reinterpret_cast<const ConstTemplateSet&>(templates_);
 }

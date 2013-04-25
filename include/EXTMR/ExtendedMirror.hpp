@@ -14,9 +14,24 @@
 #include <map>
 #include <vector>
 
+/**
+ * This function returns a function pointer to the callback function
+ * to call on type registration. This function is used to retrieve the call
+ * back function on the TypeRegister singleton instantiation.
+ * 
+ * @return The callback function
+ */
+
+
+
 #include <Common/Common.hpp>
+namespace extmr {
+DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
+};
+
+        
 #include <EXTMR/TypeTraits.hpp>
-#include <EXTMR/Misc.hpp>
+#include <EXTMR/Empty.hpp>
 #include <EXTMR/Variant.hpp>
 #include <EXTMR/MemberWrappers.hpp>
 #include <EXTMR/Type.hpp>
@@ -36,6 +51,7 @@
 #include <EXTMR/MemberBuildUtils.hpp>
 #include <EXTMR/RegistrationMacros.hpp>
 #include <EXTMR/Shortcuts.hpp>
+
 
 // Specialize the type recognizer for each primitive type
 EXTMR_ENABLE_PRIMITIVE(char);

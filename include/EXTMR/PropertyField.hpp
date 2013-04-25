@@ -10,7 +10,7 @@
 
 #include <limits>
 
-#include <EXTMR/BoundsCheck.hpp>
+#include <EXTMR/NumericalUtils.hpp>
 #include <EXTMR/Exceptions/PropertySetException.hpp>
 #include <EXTMR/Exceptions/PropertyRangeException.hpp>
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>

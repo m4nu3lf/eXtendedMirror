@@ -187,16 +187,6 @@ public:
     
     virtual ~Type();
     
-    typedef extmr::PtrCmpByName<Type> PtrCmpByName;
-    
-    struct PtrCmpById
-    {
-        bool operator()(const Type* ptr1, const Type* ptr2) const
-        {
-            return *ptr1 < *ptr2;
-        }
-    };
-    
     static const Type Void;
     
 protected:
@@ -261,9 +251,6 @@ protected:
     // The size of the array.
     size_t arraySize_;
     
-    // PtrCmpByName must be a friend of this class to access the name attribute.
-    friend class extmr::PtrCmpByName<Type>;
-    
     // The type register is the factory for the type class and need to access
     // the private constructor.
     friend class TypeRegister;
@@ -294,10 +281,12 @@ bool inline operator<(const Type& t1, const Type& t2)
     return t1.cppType_.before(t2.cppType_);
 }
 
-typedef std::set<const Type*, Type::PtrCmpById> ConstTypeSetById;
-typedef std::set<Type*, Type::PtrCmpById> TypeSetById;
-typedef std::set<const Type*, Type::PtrCmpByName> ConstTypeSetByName;
-typedef std::set<Type*, Type::PtrCmpByName> TypeSetByName;
+typedef std::set<const Type*, PtrCmpByVal<Type> > ConstTypeSetById;
+typedef std::set<Type*, PtrCmpByVal<Type> > TypeSetById;
+typedef std::set<const Type*, PtrCmpByName<Type> > ConstTypeSetByName;
+typedef std::set<Type*, PtrCmpByName<Type> > TypeSetByName;
+typedef std::vector<const Type*> ConstTypeVector;
+typedef std::vector<Type*> TypeVector;
 
 } // namespace extmr
 

@@ -3,10 +3,8 @@
 
 #include <EXTMR/MemberWrappers.hpp>
 
-#include "Type.hpp"
-#include "TypeTraits.hpp"
-
 namespace extmr{
+
 
 template<typename T>
 const Type& TypeRegister::getTypeOf(const T& obj) const
@@ -114,7 +112,7 @@ Type& TypeRegister::registerNonQualifiedType()
 
             Template* tempjate = new Template(TemplateRecognizer<T>::getName(),
                     TemplateRecognizer<T>::argN);
-            std::set<Template*, Template::PtrCmp>::iterator ite;
+            TemplateSet::iterator ite;
             ite = templates_.find(tempjate);
             if (ite == templates_.end())
             {
@@ -195,7 +193,8 @@ Type& TypeRegister::registerNonQualifiedType()
     typesByName_.insert(type);
     
     // call the function registered for call back
-    if (callBackFnc_) callBackFnc_(*type);
+    if (getRegCallBack())
+        getRegCallBack()(*type);
     
     // return the type
     return *type;

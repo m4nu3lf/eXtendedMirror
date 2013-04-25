@@ -43,7 +43,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/Method.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o \
 	${OBJECTDIR}/src/EXTMR/Template.o \
-	${OBJECTDIR}/src/EXTMR/Misc.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o \
 	${OBJECTDIR}/src/EXTMR/Class.o \
 	${OBJECTDIR}/src/EXTMR/Property.o
@@ -114,11 +113,6 @@ ${OBJECTDIR}/src/EXTMR/Template.o: src/EXTMR/Template.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Template.o src/EXTMR/Template.cpp
-
-${OBJECTDIR}/src/EXTMR/Misc.o: src/EXTMR/Misc.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Misc.o src/EXTMR/Misc.cpp
 
 ${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o: src/EXTMR/Exceptions/PropertyRangeException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions

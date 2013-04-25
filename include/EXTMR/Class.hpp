@@ -13,10 +13,10 @@ namespace extmr
 
 class Class;
     
-typedef std::set<const Class*, Type::PtrCmpById> ConstClassSetById;
-typedef std::set<Class*, Type::PtrCmpById> ClassSetById;
-typedef std::set<const Class*, Type::PtrCmpByName> ConstClassSetByName;
-typedef std::set<Class*, Type::PtrCmpByName> ClassSetByName;
+typedef std::set<const Class*, PtrCmpByVal<Type> > ConstClassSetById;
+typedef std::set<Class*, PtrCmpByVal<Type> > ClassSetById;
+typedef std::set<const Class*, PtrCmpByName<Type> > ConstClassSetByName;
+typedef std::set<Class*, PtrCmpByName<Type> > ClassSetByName;
     
 class Class : public Type
 {
@@ -52,7 +52,7 @@ public:
      * 
      * @return The type descriptors vector.
      */
-    const std::vector<const Type*>& getTemplateArgs() const;
+    const ConstTypeVector& getTemplateArgs() const;
     
      /**
      * Retrieve all the base class descriptors.
@@ -196,7 +196,8 @@ protected:
             Destructor* destructor,
             AssignOperator* assignOperator,
             const Template& tempjate = *reinterpret_cast<Template*>(NULL),
-            const std::vector<const Type*>& templateArgs = std::vector<const Type*>()
+            const std::vector<const Type*>& templateArgs =
+                        std::vector<const Type*>()
      );
     
     /**
@@ -227,7 +228,7 @@ protected:
     const Template* tempjate_;
     
     // The type descriptors of the template arguments.
-    std::vector<const Type*> templateArgs_;
+    ConstTypeVector templateArgs_;
     
     // The types object of the base classes sorted by the type_info structure
     // order.

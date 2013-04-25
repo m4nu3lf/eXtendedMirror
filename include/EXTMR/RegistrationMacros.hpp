@@ -393,10 +393,14 @@ void extmr::ClassBuilder<reflected_tclass<T1, T2, T3, T4> >::operator()        \
  * 
  */
 #define EXTMR_SETCALLBACK(fnc)                                                 \
-void (*extmr::getRegCallBack())(const Type&)                                   \
+namespace extmr {                                                              \
+                                                                               \
+void (*TypeRegister::getRegCallBack())(const Type&)                            \
 {                                                                              \
     return fnc;                                                                \
-}
+}                                                                              \
+                                                                               \
+} // namespace extmr
 
 
 /** \def EXTMR_METHOD_PARAM_MAX

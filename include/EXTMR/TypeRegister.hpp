@@ -109,7 +109,7 @@ public:
      * 
      * @return The Type pointer set. 
      */
-    const ConstTypeSetById& getTypes();
+    const ConstTypeSetById& getTypes() const;
     
     /**
      * Get a set containing the pointers to the class descriptors of all
@@ -117,7 +117,7 @@ public:
      * 
      * @return The Class pointer set. 
      */
-    const ConstClassSetById& getClasses();
+    const ConstClassSetById& getClasses() const;
     
     /**
      * Get a set containing the pointers to the template descriptors of all
@@ -125,7 +125,7 @@ public:
      * 
      * @return The template descriptor pointer set. 
      */
-    const std::set<const Template*, Template::PtrCmp>& getTemplates();
+    const ConstTemplateSet& getTemplates() const;
     
     /**
      * Start the registration mechanism for the given type. You should not call
@@ -166,11 +166,8 @@ private:
 
     /**
      * Constructor.
-     * 
-     * @param callBackFnc A function that is called every time a Type is
-     * registered.
      */
-    TypeRegister(void (*callBackFnc)(const Type&));
+    TypeRegister();
     
     /**
      * This method is called by registerType, after the type qualifiers are
@@ -180,6 +177,14 @@ private:
      * @return the registered type.
      */
     template<typename T> Type& registerNonQualifiedType();
+    
+    /**
+     * Return the function pointer of the callback function to call after each
+     * type registration.
+     * 
+     * @return The callback function pointer.
+     */
+    static void (*getRegCallBack())(const Type&);
     
      /**
       * Make this object non copyable.
@@ -205,10 +210,7 @@ private:
     
     // A set containing the template descriptors of all the instantiated
     //templates.
-    std::set<Template*, Template::PtrCmp> templates_;
-    
-    // The call back function to call whenever a type is registered.
-    void (*callBackFnc_) (const Type&);
+    TemplateSet templates_;
 };
 
 } // namespace extmr
