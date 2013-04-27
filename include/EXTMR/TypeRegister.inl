@@ -144,7 +144,7 @@ Type& TypeRegister::registerNonQualifiedType()
         
         // call the ClassBuilder of this class to build the class info
         ClassBuilder<T> classBuilder;
-        classBuilder(*clazz, *this);
+        classBuilder(*clazz);
         
         // push the class object into the class sets
         classesById_.insert(clazz);

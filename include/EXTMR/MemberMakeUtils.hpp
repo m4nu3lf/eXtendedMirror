@@ -5,8 +5,8 @@
  * Created on January 23, 2013, 12.51
  */
 
-#ifndef EXTMR_MEMBERBUILDUTILS_HPP
-#define	EXTMR_MEMBERBUILDUTILS_HPP
+#ifndef EXTMR_MEMBERMAKEUTILS_HPP
+#define	EXTMR_MEMBERMAKEUTILS_HPP
 
 /*
  * Collection of functions to allow registration of properties and methods
@@ -18,7 +18,7 @@ namespace extmr{
  * Methods for property building through type deduction 
  */
 template<class ClassT, typename FieldT>
-Property& buildProperty(const std::string& name, FieldT ClassT::* field)
+Property& makeProperty(const std::string& name, FieldT ClassT::* field)
 {
     // ensure that the type is registered
     TypeRegister::getTypeReg().registerType<FieldT>();
@@ -28,7 +28,7 @@ Property& buildProperty(const std::string& name, FieldT ClassT::* field)
 }
 
 template<class ClassT, typename FieldT, std::size_t size>
-Property& buildProperty(const std::string& name,
+Property& makeProperty(const std::string& name,
         FieldT (ClassT::* field) [size])
 {
     // ensure that the type is registered
@@ -39,7 +39,7 @@ Property& buildProperty(const std::string& name,
 }
 
 template<class ClassT, typename RetT, typename ParamT>
-Property& buildProperty(const std::string& name, RetT (ClassT::*getter)(),
+Property& makeProperty(const std::string& name, RetT (ClassT::*getter)(),
         void (ClassT::*setter)(ParamT))
 {   
     // ensure that the type is registered
@@ -51,7 +51,7 @@ Property& buildProperty(const std::string& name, RetT (ClassT::*getter)(),
 }
 
 template<class ClassT, typename RetT, typename ParamT>
-Property& buildProperty(const std::string& name, RetT (ClassT::*getter)() const,
+Property& makeProperty(const std::string& name, RetT (ClassT::*getter)() const,
         void (ClassT::*setter)(ParamT))
 {
     // ensure that the type is registered
@@ -66,7 +66,7 @@ Property& buildProperty(const std::string& name, RetT (ClassT::*getter)() const,
 }
 
 template<class ClassT, typename RetT>
-Property& buildProperty(const std::string& name, RetT (ClassT::*getter)())
+Property& makeProperty(const std::string& name, RetT (ClassT::*getter)())
 {
     // ensure that the type is registered
     TypeRegister::getTypeReg().registerType<RetT>();
@@ -82,7 +82,7 @@ Property& buildProperty(const std::string& name, RetT (ClassT::*getter)())
 }
 
 template<class ClassT, typename RetT>
-Property& buildProperty(const std::string& name, RetT (ClassT::*getter)() const)
+Property& makeProperty(const std::string& name, RetT (ClassT::*getter)() const)
 {
     // ensure that the type is registered
     TypeRegister::getTypeReg().registerType<RetT>();
@@ -101,7 +101,7 @@ Property& buildProperty(const std::string& name, RetT (ClassT::*getter)() const)
 }
 
 template<class ClassT, typename RetT, typename ParamT, typename ExtrParamT>
-Property& buildProperty
+Property& makeProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT),
@@ -124,7 +124,7 @@ Property& buildProperty
 }
     
 template<class ClassT, typename RetT, typename ParamT, typename ExtrParamT>
-Property& buildProperty
+Property& makeProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT) const,
@@ -151,7 +151,7 @@ Property& buildProperty
 }
 
 template<class ClassT, typename RetT, typename ExtrParamT>
-Property& buildProperty(const std::string& name,
+Property& makeProperty(const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT), ExtrParamT extrArg)
 {
     // ensure that the type is registered
@@ -169,7 +169,7 @@ Property& buildProperty(const std::string& name,
 }
 
 template<class ClassT, typename RetT, typename ExtrParamT>
-Property& buildProperty(const std::string& name,
+Property& makeProperty(const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT) const, ExtrParamT extrArg)
 {
     // ensure that the type is registered
@@ -192,7 +192,7 @@ Property& buildProperty(const std::string& name,
 
 template<class ClassT, typename RetT, typename ParamT, typename ExtrParamT1,
         typename ExtrParamT2>
-Property& buildProperty
+Property& makeProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT1, ExtrParamT2),
@@ -219,7 +219,7 @@ Property& buildProperty
 
 template<class ClassT, typename RetT, typename ParamT, typename ExtrParamT1,
         typename ExtrParamT2>
-Property& buildProperty
+Property& makeProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT1, ExtrParamT2) const,
@@ -251,7 +251,7 @@ Property& buildProperty
 
 template<class ClassT, typename RetT, typename ExtrParamT1,
         typename ExtrParamT2>
-Property& buildProperty
+Property& makeProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT1, ExtrParamT2),
@@ -277,7 +277,7 @@ Property& buildProperty
 
 template<class ClassT, typename RetT, typename ExtrParamT1,
         typename ExtrParamT2>
-Property& buildProperty
+Property& makeProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT1, ExtrParamT2) const,
@@ -310,7 +310,7 @@ Property& buildProperty
  */
 
 template<class ClassT, typename RetT>
-Method& buildMethod(const std::string& name, RetT (ClassT::*method)())
+Method& makeMethod(const std::string& name, RetT (ClassT::*method)())
 {
     // ensure the RetT is registered
     TypeRegister::getTypeReg().registerType<RetT>();
@@ -320,7 +320,7 @@ Method& buildMethod(const std::string& name, RetT (ClassT::*method)())
 }
 
 template<class ClassT, typename RetT>
-Method& buildMethod(const std::string& name, RetT (ClassT::*method)() const)
+Method& makeMethod(const std::string& name, RetT (ClassT::*method)() const)
 {
     // ensure the RetT is registered
     TypeRegister::getTypeReg().registerType<RetT>();
@@ -333,7 +333,7 @@ Method& buildMethod(const std::string& name, RetT (ClassT::*method)() const)
 }
     
 template<class ClassT, typename RetT, typename ParamT1>
-Method& buildMethod(const std::string& name, RetT (ClassT::*method)(ParamT1))
+Method& makeMethod(const std::string& name, RetT (ClassT::*method)(ParamT1))
 {
     // ensure the types are registered
     TypeRegister::getTypeReg().registerType<RetT>();
@@ -344,7 +344,7 @@ Method& buildMethod(const std::string& name, RetT (ClassT::*method)(ParamT1))
 }
 
 template<class ClassT, typename RetT, typename ParamT1>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1) const)
 {
     // ensure the types are registered
@@ -360,7 +360,7 @@ Method& buildMethod(const std::string& name,
 }
     
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2))
 {
     // ensure the types are registered
@@ -373,7 +373,7 @@ Method& buildMethod(const std::string& name,
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2) const)
 {
     // ensure the types are registered
@@ -392,7 +392,7 @@ Method& buildMethod(const std::string& name,
     
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3))
 {
     // ensure the types are registered
@@ -408,7 +408,7 @@ Method& buildMethod(const std::string& name,
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3) const)
 {
     // ensure the types are registered
@@ -429,7 +429,7 @@ Method& buildMethod(const std::string& name,
     
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4))
 {
     // ensure the types are registered
@@ -446,7 +446,7 @@ Method& buildMethod(const std::string& name,
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4) const)
 {
     // ensure the types are registered
@@ -468,7 +468,7 @@ Method& buildMethod(const std::string& name,
     
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5))
 {
     // ensure the types are registered
@@ -486,7 +486,7 @@ Method& buildMethod(const std::string& name,
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4,
         ParamT5) const)
 {
@@ -510,7 +510,7 @@ Method& buildMethod(const std::string& name,
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6))
 {
@@ -530,7 +530,7 @@ Method& buildMethod(const std::string& name,
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6) const)
 {
@@ -556,7 +556,7 @@ Method& buildMethod(const std::string& name,
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6,
         typename ParamT7>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6, ParamT7))
 {
@@ -578,7 +578,7 @@ Method& buildMethod(const std::string& name,
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6,
         typename ParamT7>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6, ParamT7) const)
 {
@@ -605,7 +605,7 @@ Method& buildMethod(const std::string& name,
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6,
         typename ParamT7, typename ParamT8>
-Method& buildMethod(const std::string& name,
+Method& makeMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6, ParamT7, ParamT8))
 {   
@@ -628,7 +628,7 @@ Method& buildMethod(const std::string& name,
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6,
         typename ParamT7, typename ParamT8>
-Method& buildMethod(const std::string& name, RetT (ClassT::*method)(ParamT1,
+Method& makeMethod(const std::string& name, RetT (ClassT::*method)(ParamT1,
         ParamT2, ParamT3, ParamT4, ParamT5, ParamT6, ParamT7, ParamT8) const)
 {   
     // ensure the types are registered
@@ -654,5 +654,5 @@ Method& buildMethod(const std::string& name, RetT (ClassT::*method)(ParamT1,
 
 } // namespace extmr
 
-#endif	/* EXTMR_MEMBERBUILDUTILS_HPP */
+#endif	/* EXTMR_MEMBERMAKEUTILS_HPP */
 

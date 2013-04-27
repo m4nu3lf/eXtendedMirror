@@ -30,7 +30,7 @@ struct AutoRegisterer
 template<class T>
 struct ClassBuilder
 {
-    void operator()(Class& clazz, TypeRegister& typeReg) const
+    void operator()(Class& clazz) const
     {
         
     }

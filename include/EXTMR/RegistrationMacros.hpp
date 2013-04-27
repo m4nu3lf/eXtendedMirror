@@ -58,7 +58,7 @@ struct TypeRecognizer<reflected_class>                                         \
 template<>                                                                     \
 struct ClassBuilder<reflected_class>                                           \
 {                                                                              \
-    void operator()(Class& clazz, TypeRegister& typeReg) const;                \
+    void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
 } // namespace extmr
@@ -134,9 +134,7 @@ struct IsLvalue                                                                \
  * \a relfected_class is the class to be build.
  */
 #define EXTMR_BUILD_CLASS(reflected_class)                                     \
-void extmr::ClassBuilder<reflected_class>::operator()(Class& clazz,            \
-                                                      TypeRegister& typeReg)   \
-const
+void extmr::ClassBuilder<reflected_class>::operator()(Class& clazz) const
 
 
 /**
@@ -196,17 +194,14 @@ struct TemplateRecognizer<reflected_tclass<_T1> >                              \
 template<typename T1>                                                          \
 struct ClassBuilder<reflected_tclass<T1> >                                     \
 {                                                                              \
-    void operator()(Class& clazz, TypeRegister& typeReg) const;                \
+    void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
 } /* namespace extmr */                                                        \
                                                                                \
 template<typename T1>                                                          \
 void extmr::ClassBuilder<reflected_tclass<T1> >::operator()                    \
-(                                                                              \
-    Class& clazz,                                                              \
-    TypeRegister& typeReg                                                      \
-) const                                                                        \
+(Class& clazz) const
 
 
 /**
@@ -256,17 +251,14 @@ struct TemplateRecognizer<reflected_tclass<_T1, _T2> >                         \
 template<typename T1,  typename T2>                                            \
 struct ClassBuilder<reflected_tclass<T1, T2> >                                 \
 {                                                                              \
-    void operator()(Class& clazz, TypeRegister& typeReg) const;                \
+    void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
 } /* namespace extmr */                                                        \
                                                                                \
 template<typename T1, typename T2>                                             \
 void extmr::ClassBuilder<reflected_tclass<T1, T2> >::operator()                \
-(                                                                              \
-    Class& clazz,                                                              \
-    TypeRegister& typeReg                                                      \
-) const
+(Class& clazz) const
 
 
 /**
@@ -317,17 +309,14 @@ struct TemplateRecognizer<reflected_tclass<_T1, _T2, _T3> >                    \
 template<typename T1,  typename T2,  typename T3>                              \
 struct ClassBuilder<reflected_tclass<T1, T2, T3> >                             \
 {                                                                              \
-    void operator()(Class& clazz, TypeRegister& typeReg) const;                \
+    void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
 } /* namespace extmr */                                                        \
                                                                                \
 template<typename T1, typename T2, typename T3>                                \
 void extmr::ClassBuilder<reflected_tclass<T1, T2, T3> >::operator()            \
-(                                                                              \
-    Class& clazz,                                                              \
-    TypeRegister& typeReg                                                      \
-) const
+(Class& clazz) const
 
 
 /**
@@ -379,17 +368,14 @@ struct TemplateRecognizer<reflected_tclass<_T1, _T2, _T3, _T4> >               \
 template<typename T1,  typename T2,  typename T3,  typename T4>                \
 struct ClassBuilder<reflected_tclass<T1, T2, T3, T4> >                         \
 {                                                                              \
-    void operator()(Class& clazz, TypeRegister& typeReg) const;                \
+    void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
 } /* namespace extmr */                                                        \
                                                                                \
 template<typename T1, typename T2, typename T3, typename T4>                   \
 void extmr::ClassBuilder<reflected_tclass<T1, T2, T3, T4> >::operator()        \
-(                                                                              \
-    Class& clazz,                                                              \
-    TypeRegister& typeReg                                                      \
-) const
+(Class& clazz) const
 
 
 /**

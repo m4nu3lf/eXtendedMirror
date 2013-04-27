@@ -9,12 +9,26 @@
 #define	SHORTCUTS_HPP
 
 namespace extmr {
-    
+
+
+template <typename T>
+Type& registerType()
+{
+    return TypeRegister::getTypeReg().registerType<T>();
+}
+
+
+template <class C>
+Class& registerClass()
+{
+    return TypeRegister::getTypeReg().registerClass<C>();
+}
+
 
 template <typename T>
 const Type& getType()
 {
-    return TypeRegister::getTypeReg().registerType<T>();
+    return TypeRegister::getTypeReg().getType<T>();
 }
 
 
@@ -26,30 +40,34 @@ const Class& getClass()
 
 
 template <typename T>
-const Type& typeOf(T& var)
+const Type& getTypeOf(T& var)
 {
     return TypeRegister::getTypeReg().getTypeOf<T>(var);
 }
 
 
 template <typename C>
-const Class& classOf(C& object)
+const Class& getClassOf(C& object)
 {
     return TypeRegister::getTypeReg().getClassOf<C>(object);
+}
+
+
+template<class C>
+bool is(const C& object, const Class& clazz)
+{
+    const Class& c = getClassOf(object);
+
+    if (c == clazz)
+        return true;
+    return c.inheritsFrom(clazz);
 }
 
 
 template<class C1, class C2>
 bool is(const C2& object)
 {
-    TypeRegister& typeReg = TypeRegister::getTypeReg();
-
-    const Class& c1 = typeReg.getClass<C1>();
-    const Class& c2 = typeReg.getClassOf(object);
-
-    if (c1 == c2)
-        return true;
-    return c2.inheritsFrom(c1);
+    return dynamic_cast<const C1*>(&object);
 }
 
 
