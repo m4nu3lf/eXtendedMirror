@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/Variant.o \
 	${OBJECTDIR}/src/EXTMR/Type.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o \
+	${OBJECTDIR}/src/EXTMR/Member.o \
 	${OBJECTDIR}/src/EXTMR/TypeRegister.o \
 	${OBJECTDIR}/src/EXTMR/Method.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o \
@@ -93,6 +94,11 @@ ${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o: src/EXTMR/Exceptions/P
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o src/EXTMR/Exceptions/PropertySetException.cpp
+
+${OBJECTDIR}/src/EXTMR/Member.o: src/EXTMR/Member.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Member.o src/EXTMR/Member.cpp
 
 ${OBJECTDIR}/src/EXTMR/TypeRegister.o: src/EXTMR/TypeRegister.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR

@@ -24,7 +24,7 @@ bool operator<(const Type&, const Type&);
  * This class is can be used as a key for set containers but the effective
  * implementation is delegated to subclasses.
  */
-class Method
+class Method : public Member
 {
 public:
     enum ReturnMode
@@ -96,27 +96,6 @@ public:
         const std::type_info& paramType7 = typeid(void),
         const std::type_info& paramType8 = typeid(void)
     );
-    
-    /**
-     * Get the name of the method.
-     * 
-     * @return The name of the method.
-     */
-    const std::string& getName() const;
-    
-    /**
-     * Get the owner Class of the property.
-     * 
-     * @return The owner Class.
-     */
-    const Class& getOwner() const;
-    
-    /**
-     * Set the owner Class of the method.
-     * 
-     * @param owner The owner Class.
-     */
-    void setOwner(const Class& owner);
     
     /**
      * Add an other parameter to the parameter list.
@@ -214,13 +193,6 @@ public:
     };
     
 protected:
-    
-    // The method name
-    std::string name_;
-    
-    // The owner class
-    const Class* owner_;
-    
     // The returned type
     const Type* retType_;
     

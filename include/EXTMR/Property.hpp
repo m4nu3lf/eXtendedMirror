@@ -4,7 +4,6 @@
 namespace extmr{
 
 class Type;
-class Class;
 class Variant;
 
 /**
@@ -12,7 +11,7 @@ class Variant;
  * registered through the reflection mechanism. Note that a Property is related 
  * to the class and not to the object (instances).
  */
-class Property
+class Property : public Member
 {
 public:
     
@@ -50,32 +49,11 @@ public:
     Property(const std::string& name = "");
     
     /**
-     * Get the name of the property.
-     * 
-     * @return The name of the property.
-     */
-    const std::string& getName() const;
-    
-    /**
      * Get the Type of the property type.
      * 
      * @return The Type.
      */
     const Type& getType() const;
-    
-    /**
-     * Get the owner Class of the property.
-     * 
-     * @return The owner Class.
-     */
-    const Class& getOwner() const;
-    
-    /**
-     * Set the owner Class of the property.
-     * 
-     * @param owner The owner Class.
-     */
-    void setOwner(const Class& owner);
     
     /**
      * Get the flags of this property.
@@ -165,13 +143,6 @@ public:
     virtual void setData(const Variant& objPtr, const Variant& data) const {};
     
 protected:
-    
-    // The property name.
-    std::string name_;
-    
-    // The property owner class
-    const Class* owner_;
-    
     // The property Type.
     const Type* type_;
     

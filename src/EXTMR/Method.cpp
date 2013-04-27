@@ -11,8 +11,7 @@
 using namespace std;
 using namespace extmr;
 
-Method::Method(const std::string& name) :
-        name_(name), fullSignature_(false), owner_(&Class::Void)
+Method::Method(const std::string& name) : Member(name), fullSignature_(false)
 {
 }
 
@@ -30,7 +29,7 @@ Method::Method
     const Type& paramType7,
     const Type& paramType8
 ) :
-    name_(name),
+    Member(name),
     retType_(&retType),
     fullSignature_(true)
 {
@@ -67,7 +66,7 @@ Method::Method
     const type_info& paramType7,
     const type_info& paramType8
 ) :
-    name_(name),
+    Member(name),
     fullSignature_(true)
 {    
     const TypeRegister& typeReg = TypeRegister::getTypeReg();
@@ -91,24 +90,6 @@ Method::Method
         params_.push_back(new Parameter(typeReg.getType(paramType7)));
     if (paramType8 != Type::Void)
         params_.push_back(new Parameter(typeReg.getType(paramType8)));
-}
-
-
-const std::string& Method::getName() const
-{
-    return name_;
-}
-
-
-const Class& Method::getOwner() const
-{
-    return *owner_;
-}
-
-
-void Method::setOwner(const Class& owner)
-{
-    owner_ = &owner;
 }
 
 

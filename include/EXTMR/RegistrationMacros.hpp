@@ -64,8 +64,29 @@ struct ClassBuilder<reflected_class>                                           \
 } // namespace extmr
 
 
+#define EXTMR_ASSUME_NON_COPYABLE(type)                                        \
+namespace extmr{                                                               \
+                                                                               \
+template<>                                                                     \
+struct CopyConstructorWrapper<type> : public CopyConstructor                   \
+{                                                                              \
+    void* operator()(const void* originAddr, void* destAddr)                   \
+    {                                                                          \
+        return NULL;                                                           \
+    }                                                                          \
+};                                                                             \
+                                                                               \
+template<>                                                                     \
+struct IsCopyable<type>                                                        \
+{                                                                              \
+    static const bool value = false;                                           \
+};                                                                             \
+                                                                               \
+} //namespace extmr
+
+
 #define EXTMR_ASSUME_ABSTRACT(reflected_class)                                 \
-namespace extrm{                                                               \
+namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
 struct ConstructorWrapper<reflected_class> : public Constructor                \
@@ -80,29 +101,15 @@ template<>                                                                     \
 struct IsInstantiable<reflected_class>                                         \
 {                                                                              \
     static const bool value = false;                                           \
-}                                                                              \
-                                                                               \
-} //namespace extmr
-
-
-#define EXTMR_ASSUME_NON_COPYABLE(type)                                        \
-template<>                                                                     \
-struct CopyConstructorWrapper<type> : public CopyConstructor                   \
-{                                                                              \
-    void* operator()(const void* originAddr, void* destAddr)                   \
-    {                                                                          \
-        return NULL;                                                           \
-    }                                                                          \
 };                                                                             \
                                                                                \
-template<>                                                                     \
-struct IsCopyable                                                              \
-{                                                                              \
-    static const bool value = false;                                           \
-};
+} /*namespace extmr*/                                                          \
+EXTMR_ASSUME_NON_COPYABLE(reflected_class)
 
 
 #define EXTMR_ASSUME_NON_LVALUE(type)                                          \
+namespace extmr{                                                               \
+                                                                               \
 template<>                                                                     \
 struct AssignOperatorWrapper<type> : public AssignOperator                     \
 {                                                                              \
@@ -115,7 +122,9 @@ template<>                                                                     \
 struct IsLvalue                                                                \
 {                                                                              \
     static const bool value = false;                                           \
-};
+};                                                                             \
+                                                                               \
+} //namespace extmr
 
 
 /**
