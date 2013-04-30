@@ -37,6 +37,14 @@ public:
      */
     uint getArgN() const;
     
+    
+    /**
+     * Not valid Template.
+     * This template is used wherever reference to a non valid template is 
+     * needed.
+     */
+    static const Template None;
+    
 private:
     
     // The name of the template.

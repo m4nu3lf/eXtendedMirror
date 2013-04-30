@@ -11,6 +11,10 @@
 using namespace std;
 using namespace extmr;
 
+
+const Template Template::None("");
+    
+
 Template::Template(const string& name, uint argN) :
         name_(name), argN_(argN)
 {

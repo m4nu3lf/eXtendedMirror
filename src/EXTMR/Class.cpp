@@ -7,6 +7,7 @@
 
 #include <Common/Common.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
+#include <EXTMR/Exceptions/NotFoundExceptions.hpp>
 
 using namespace std;
 using namespace extmr;
@@ -78,10 +79,10 @@ const ConstClassSetById& Class::getDerivedClasses() const
 }
 
 
-Class& Class::operator<<(Class& baseClass)
-{
+Class& Class::operator<<(const Class& baseClass)
+{    
     // put this class into the derived list of the base Class
-    baseClass.derivedClasses_.insert(this);
+    const_cast<Class&>(baseClass).derivedClasses_.insert(this);
     
     // put the base class into the base list of this Class
     baseClasses_.insert(&baseClass);
@@ -194,13 +195,21 @@ bool Class::inheritsFrom(const Class& baseClass) const
 
 const Property& Class::getProperty(const string& propertyName) const
 {
-    return *ptrSet::findByKey(properties_, propertyName);
+    const Property* property = ptrSet::findByKey(properties_, propertyName);
+    if (property)
+        return *property;
+    else
+        throw PropertyNotFoundException(propertyName, name_);
 }
 
 
 const Method& Class::getMethod(const string& methodName) const
 {
-    return *ptrSet::findByKey(methods_, methodName);
+    const Method* method = ptrSet::findByKey(methods_, methodName);
+    if (method)
+        return *method;
+    else
+        throw MethodNotFoundException(*method, name_);
 }
 
 
@@ -209,7 +218,8 @@ const Method& Class::getMethod(const Method& method) const
     ConstMethodSet::iterator ite;
     ite = methods_.find(&method);
     if (ite != methods_.end()) return **ite;
-    return *reinterpret_cast<Method*>(NULL);
+    
+    throw MethodNotFoundException(method, name_);
 }
 
 

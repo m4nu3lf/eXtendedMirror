@@ -57,7 +57,8 @@ const Variant& Variant::operator=(const Variant& other)
         data_ = type_->newInstance();
     }
     // if no data has yet been allocated, allocate it now
-    else if(!data_) data_ = type_->newInstance();
+    else if(!data_)
+        data_ = type_->newInstance();
     
     // perform assignment
     type_->assignInstance(data_, other.data_);
@@ -69,7 +70,8 @@ Variant::~Variant()
     if (!flags & Reference)
     {        
         // deallocate the data
-        if (data_) type_->deleteInstance(data_);
+        if (data_)
+            type_->deleteInstance(data_);
     }
 }
 

@@ -187,6 +187,11 @@ public:
     
     virtual ~Type();
     
+    /**
+     * Non valid Type.
+     * This Type can be used where ever a reference to a non valid Type is
+     * needed.
+     */
     static const Type Void;
     
 protected:

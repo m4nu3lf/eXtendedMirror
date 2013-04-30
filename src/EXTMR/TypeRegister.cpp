@@ -1,5 +1,6 @@
 #include <Common/Common.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
+#include <EXTMR/Exceptions/NotFoundExceptions.hpp>
 
 using namespace std;
 using namespace extmr;
@@ -22,36 +23,64 @@ TypeRegister::TypeRegister()
     registerType<uchar>();
     registerType<ushort>();
     registerType<bool>();
+    
+    // a void class is needed in the type register and Class::Void cannot be
+    // used since it may be still uninitialized
+    Class* voidClass = new Class("void");
+    typesByName_.insert(voidClass);
+    typesById_.insert(voidClass);
+    classesByName_.insert(voidClass);
+    classesById_.insert(voidClass);
 }
 
 
 const Type& TypeRegister::getType(const string& typeName) const
 {
-    return *ptrSet::findByKey(typesByName_, typeName);
+    Type* type = ptrSet::findByKey(typesByName_, typeName);
+    if (type)
+        return *type;
+    else
+        throw TypeNotFoundException(typeName);
 }
 
 
 const Type& TypeRegister::getType(const type_info& cppType) const
 {
-    return *ptrSet::findByKey(typesById_, cppType);
+    Type* type = ptrSet::findByKey(typesById_, cppType);
+    if (type)
+        return *type;
+    else
+        throw TypeNotFoundException(cppType.name());
 }
 
 
 const Class& TypeRegister::getClass(const string& className) const
 {
-    return *ptrSet::findByKey(classesByName_, className);
+    Class* clazz = ptrSet::findByKey(classesByName_, className);
+    if (clazz)
+        return *clazz;
+    else
+        throw TypeNotFoundException(className);
 }
 
 
 const Class& TypeRegister::getClass(const type_info& cppType) const
 {
-    return *ptrSet::findByKey(classesById_, cppType);
+    Class* clazz = ptrSet::findByKey(classesById_, cppType);
+    if (clazz)
+        return *clazz;
+    else
+        throw TypeNotFoundException(cppType.name());
 }
 
 
 const Template& TypeRegister::getTemplate(const string& templateName) const
 {
-    return *ptrSet::findByKey(templates_, templateName);
+    Template* tempjate = ptrSet::findByKey(templates_, templateName);
+    if (tempjate)
+        return *tempjate;
+    else
+        throw TemplateNotFoundException(templateName);
 }
 
 

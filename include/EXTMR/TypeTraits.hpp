@@ -104,6 +104,13 @@ struct RemoveAllCVQualifiers<const T>
 
 
 template<typename T>
+struct RemoveAllCVQualifiers<volatile T>
+{
+    typedef typename RemoveAllCVQualifiers<T>::Type Type;
+};
+
+
+template<typename T>
 struct RemoveAllCVQualifiers<const T*>
 {
     typedef typename RemoveAllCVQualifiers<T*>::Type Type;

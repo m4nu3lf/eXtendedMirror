@@ -16,6 +16,7 @@ VariantCostnessException::VariantCostnessException(const Type& type) throw()
 {
 }
 
+
 const char* VariantCostnessException::what() const throw()
 {
     return (string("Cannot convert variant of type const ")

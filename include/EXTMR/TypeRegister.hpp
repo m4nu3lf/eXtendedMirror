@@ -128,14 +128,13 @@ public:
     const ConstTemplateSet& getTemplates() const;
     
     /**
-     * Start the registration mechanism for the given type. You should not call
-     * this method unless you know what you are doing.
+     * Start the registration mechanism for the given type.
      * Registration macros will handle automatic type registration and call this
      * method for you.
      * 
      * @return The registered type.
      */
-    template<typename T> Type& registerType();
+    template<typename T> const Type& registerType();
     
     /**
      * The same of registerType() except this is only valid for class types and
@@ -143,7 +142,7 @@ public:
      * 
      * @return The registered type.
      */
-    template<typename T> Class& registerClass();
+    template<typename T> const Class& registerClass();
     
     /**
      * Set a function that is called whenever a type is registered within the

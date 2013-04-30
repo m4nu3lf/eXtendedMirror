@@ -12,14 +12,14 @@ namespace extmr {
 
 
 template <typename T>
-Type& registerType()
+const Type& registerType()
 {
     return TypeRegister::getTypeReg().registerType<T>();
 }
 
 
 template <class C>
-Class& registerClass()
+const Class& registerClass()
 {
     return TypeRegister::getTypeReg().registerClass<C>();
 }

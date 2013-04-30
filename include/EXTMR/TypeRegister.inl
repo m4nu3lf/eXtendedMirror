@@ -37,7 +37,7 @@ const Class& TypeRegister::getClass() const
 
 
 template<typename T>
-Type& TypeRegister::registerType()
+const Type& TypeRegister::registerType()
 {
     typedef typename RemoveReference<T>::Type NonRefT;
     typedef typename RemoveAllCVQualifiers<NonRefT>::Type NonQualifiedT;
@@ -48,12 +48,12 @@ Type& TypeRegister::registerType()
 
 
 template<typename T>
-Class& TypeRegister::registerClass()
+const Class& TypeRegister::registerClass()
 {
     if (TypeRecognizer<T>::category | Type::Class)
-        return dynamic_cast<Class&>(registerType<T>());
+        return dynamic_cast<const Class&>(registerType<T>());
     else
-        return *reinterpret_cast<Class*>(NULL);
+        return getClass<void>();
 }
 
 
@@ -86,7 +86,7 @@ Type& TypeRegister::registerNonQualifiedType()
     if (!IsArray<T>::value)
         destructor = new extmr::DestructorWrapper<T>;
 
-    if (IsLvalue<T>::value)
+    if (IsAssignable<T>::value)
         assignOperator = new extmr::AssignOperatorWrapper<T>;
     
     if (category & Type::Class)
@@ -100,10 +100,14 @@ Type& TypeRegister::registerNonQualifiedType()
         // recursively register the types this class depends on
         if(category == Type::CompoundClass)
         {
-            Type& type1 = registerType<typename TemplateRecognizer<T>::T1>();
-            Type& type2 = registerType<typename TemplateRecognizer<T>::T2>();
-            Type& type3 = registerType<typename TemplateRecognizer<T>::T3>();
-            Type& type4 = registerType<typename TemplateRecognizer<T>::T4>();
+            const Type& type1 =
+                        registerType<typename TemplateRecognizer<T>::T1>();
+            const Type& type2 =
+                        registerType<typename TemplateRecognizer<T>::T2>();
+            const Type& type3 =
+                        registerType<typename TemplateRecognizer<T>::T3>();
+            const Type& type4 =
+                        registerType<typename TemplateRecognizer<T>::T4>();
 
             if (&type1) templateTypeArgs.push_back(&type1);
             if (&type2) templateTypeArgs.push_back(&type2); 
@@ -153,7 +157,7 @@ Type& TypeRegister::registerNonQualifiedType()
     else
     {
         // the type this type point to of the array element type
-        Type* relatedType = NULL;
+        const Type* relatedType = NULL;
         
         // whether the type is an array
         bool isArray;
@@ -207,9 +211,9 @@ Type& TypeRegister::registerNonQualifiedType()
  * mechanism call this for the returned method type and this type can be void.
  */
 template<>
-inline Type& TypeRegister::registerType<void>()
+inline const Type& TypeRegister::registerType<void>()
 {
-    return *reinterpret_cast<Type*>(NULL);
+    return getType<void>();
 }
 
 

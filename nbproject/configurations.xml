@@ -13,6 +13,7 @@
         </logicalFolder>
         <logicalFolder name="EXTMR" displayName="EXTMR" projectFiles="true">
           <logicalFolder name="Exceptions" displayName="Exceptions" projectFiles="true">
+            <itemPath>include/EXTMR/Exceptions/NotFoundExceptions.hpp</itemPath>
             <itemPath>include/EXTMR/Exceptions/PropertyRangeException.hpp</itemPath>
             <itemPath>include/EXTMR/Exceptions/PropertySetException.hpp</itemPath>
             <itemPath>include/EXTMR/Exceptions/VariantCostnessException.hpp</itemPath>
@@ -57,6 +58,7 @@
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="EXTMR" displayName="EXTMR" projectFiles="true">
           <logicalFolder name="Exceptions" displayName="Exceptions" projectFiles="true">
+            <itemPath>src/EXTMR/Exceptions/NotFoundExceptions.cpp</itemPath>
             <itemPath>src/EXTMR/Exceptions/PropertyRangeException.cpp</itemPath>
             <itemPath>src/EXTMR/Exceptions/PropertySetException.cpp</itemPath>
             <itemPath>src/EXTMR/Exceptions/VariantCostnessException.cpp</itemPath>

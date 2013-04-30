@@ -20,6 +20,7 @@ VariantTypeException::VariantTypeException
 {
 }
 
+
 const char* VariantTypeException::what() const throw()
 {
     return (string("Cannot convert variant of type \"")

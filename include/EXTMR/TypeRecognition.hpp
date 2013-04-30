@@ -106,8 +106,8 @@ struct IsInstantiable
 };
 
 
-template<typename T>
-struct IsInstantiable<T[]>
+template<typename T, std::size_t size>
+struct IsInstantiable<T[size]>
 {
     static const bool value = false;
 };
@@ -125,8 +125,8 @@ struct IsCopyable
 };
 
 
-template<typename T>
-struct IsCopyable<T[]>
+template<typename T, std::size_t size>
+struct IsCopyable<T[size]>
 {
     static const bool value = false;
 };
@@ -138,14 +138,14 @@ struct IsCopyable<T[]>
  * Specialize this class for each non lvalue class.
  */
 template<typename T>
-struct IsLvalue
+struct IsAssignable
 {
     static const bool value = true;
 };
 
 
-template<typename T>
-struct IsLvalue<T[]>
+template<typename T, std::size_t size>
+struct IsAssignable<T[size]>
 {
     static const bool value = false;
 };

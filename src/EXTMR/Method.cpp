@@ -11,7 +11,8 @@
 using namespace std;
 using namespace extmr;
 
-Method::Method(const std::string& name) : Member(name), fullSignature_(false)
+Method::Method(const std::string& name) : Member(name), retType_(&Type::Void),
+        fullSignature_(false)
 {
 }
 

@@ -8,6 +8,9 @@
 #ifndef EXTMR_CLASS_HPP
 #define	EXTMR_CLASS_HPP
 
+#include "Template.hpp"
+
+
 namespace extmr
 {
 
@@ -169,6 +172,11 @@ public:
     
     virtual ~Class();
     
+    /**
+     * Non valid Class.
+     * This Class can be used where ever a reference to a non valid Class is
+     * needed.
+     */
     static const Class Void;
     
 protected:
@@ -195,7 +203,7 @@ protected:
             CopyConstructor* copyConstructor,
             Destructor* destructor,
             AssignOperator* assignOperator,
-            const Template& tempjate = *reinterpret_cast<Template*>(NULL),
+            const Template& tempjate = Template::None,
             const std::vector<const Type*>& templateArgs =
                         std::vector<const Type*>()
      );
@@ -206,7 +214,7 @@ protected:
      * @param type The base Class.
      * @return This class.
      */
-    Class& operator << (Class& baseClass);
+    Class& operator << (const Class& baseClass);
     
     /**
      * Add a property to this class.

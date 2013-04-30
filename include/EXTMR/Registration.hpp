@@ -16,13 +16,18 @@ namespace extmr{
  * Registration is performed by the constructor on instantiation.
  */
 template<class T>
-struct AutoRegisterer
+class AutoRegisterer
 {
     AutoRegisterer()
     {
         TypeRegister::getTypeReg().registerType<T>();\
     }
+    
+    static AutoRegisterer autoregisterer;
 };
+
+template<class T>
+AutoRegisterer<T> AutoRegisterer<T>::autoregisterer;
 
 /**
  * This function object builds a class info.

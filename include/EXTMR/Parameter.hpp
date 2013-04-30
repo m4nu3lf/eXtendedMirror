@@ -26,6 +26,10 @@ struct Parameter
     const bool byNcReference;
 };
 
+
+typedef std::vector<const Parameter*> ConstPrameterVector;
+
+
 } //namespace extmr
 
 #endif	/* PARAMETER_HPP */

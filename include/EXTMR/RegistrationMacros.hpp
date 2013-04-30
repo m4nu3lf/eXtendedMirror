@@ -64,11 +64,11 @@ struct ClassBuilder<reflected_class>                                           \
 } // namespace extmr
 
 
-#define EXTMR_ASSUME_NON_COPYABLE(type)                                        \
+#define EXTMR_ASSUME_NON_COPYABLE(reflected_class)                             \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct CopyConstructorWrapper<type> : public CopyConstructor                   \
+struct CopyConstructorWrapper<reflected_class> : public CopyConstructor        \
 {                                                                              \
     void* operator()(const void* originAddr, void* destAddr)                   \
     {                                                                          \
@@ -77,7 +77,7 @@ struct CopyConstructorWrapper<type> : public CopyConstructor                   \
 };                                                                             \
                                                                                \
 template<>                                                                     \
-struct IsCopyable<type>                                                        \
+struct IsCopyable<reflected_class>                                             \
 {                                                                              \
     static const bool value = false;                                           \
 };                                                                             \
@@ -85,7 +85,7 @@ struct IsCopyable<type>                                                        \
 } //namespace extmr
 
 
-#define EXTMR_ASSUME_ABSTRACT(reflected_class)                                 \
+#define EXTMR_ASSUME_NON_INSTANTIABLE(reflected_class)                         \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
@@ -103,15 +103,14 @@ struct IsInstantiable<reflected_class>                                         \
     static const bool value = false;                                           \
 };                                                                             \
                                                                                \
-} /*namespace extmr*/                                                          \
-EXTMR_ASSUME_NON_COPYABLE(reflected_class)
+} //namespace extmr
 
 
-#define EXTMR_ASSUME_NON_LVALUE(type)                                          \
+#define EXTMR_ASSUME_NON_ASSIGNABLE(reflected_class)                           \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct AssignOperatorWrapper<type> : public AssignOperator                     \
+struct AssignOperatorWrapper<reflected_class> : public AssignOperator          \
 {                                                                              \
     void operator()(void* lvalueAddr, const void* rvalueAddr)                  \
     {                                                                          \
@@ -119,12 +118,17 @@ struct AssignOperatorWrapper<type> : public AssignOperator                     \
 };                                                                             \
                                                                                \
 template<>                                                                     \
-struct IsLvalue                                                                \
+struct IsAssignable<reflected_class>                                           \
 {                                                                              \
     static const bool value = false;                                           \
 };                                                                             \
                                                                                \
 } //namespace extmr
+
+
+#define EXTMR_ASSUME_ABSTRACT(reflected_class)                                 \
+EXTMR_ASSUME_NON_INSTANTIABLE(reflected_class)                                 \
+EXTMR_ASSUME_NON_COPYABLE(reflected_class)
 
 
 /**
@@ -144,8 +148,8 @@ void extmr::ClassBuilder<reflected_class>::operator()(Class& clazz) const
  * object is loaded dynamically, with no extra code.
  * \a relfected_class is the class to be registered.
  */
-#define EXTMR_AUTOREG(reflected_class)\
-static extmr::AutoRegisterer<reflected_class> autoRegisterer;
+#define EXTMR_AUTOREG(reflected_class)                                         \
+template class extmr::AutoRegisterer<reflected_class>;
 
 
 /**

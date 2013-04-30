@@ -124,7 +124,7 @@ public:
      * 
      * @return A vector containing the Parameters.
      */
-    const std::vector<const Parameter*>& getParameters() const;
+    const ConstPrameterVector& getParameters() const;
     
     /**
      * Ask if the method is constant.
@@ -201,7 +201,10 @@ protected:
     bool fullSignature_;
     
     // The parameter list
-    std::vector<const Parameter*> params_;
+    ConstPrameterVector params_;
+    
+    // Need to know if the method has a full signature
+    friend class MethodNotFoundException;
 };
 
 typedef std::set<Method*, Method::PtrCmp> MethodSet;
