@@ -78,10 +78,17 @@ bool is(const C& object, const Class& clazz)
 }
 
 
-template<class C1, class C2>
-bool is(const C2& object)
+inline
+const void unregisterType(const std::string& name)
 {
-    return dynamic_cast<const C1*>(&object);
+    return TypeRegister::getTypeReg().unregisterType(name);
+}
+
+
+inline
+const void unregisterType(const std::type_info& typeId)
+{
+    return TypeRegister::getTypeReg().unregisterType(typeId);
 }
 
 

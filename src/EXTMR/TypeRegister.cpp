@@ -100,3 +100,43 @@ const ConstTemplateSet& TypeRegister::getTemplates() const
 {
     return reinterpret_cast<const ConstTemplateSet&>(templates_);
 }
+
+
+void TypeRegister::unregisterType(const std::string& typeName)
+{
+    Type* type = ptrSet::removeByKey(typesByName_, typeName);
+    ptrSet::removeByKey(typesById_, type->getCppType());
+    if (!type)
+        throw TypeNotFoundException(typeName);
+    
+    if (type->getCategory() | Type::Class)
+    {
+        Class* clazz = ptrSet::removeByKey(classesByName_, typeName);
+        ptrSet::removeByKey(classesById_, clazz->getCppType());
+    }
+    
+    delete type;
+}
+
+
+void TypeRegister::unregisterType(const std::type_info& cppType)
+{
+    Type* type = ptrSet::removeByKey(typesById_, cppType);
+    ptrSet::removeByKey(typesByName_, type->getName());
+    if (!type)
+        throw TypeNotFoundException(cppType.name());
+    
+    if (type->getCategory() | Type::Class)
+    {
+        Class* clazz = ptrSet::removeByKey(classesById_, cppType);
+        ptrSet::removeByKey(classesByName_, clazz->getName());
+    }
+    
+    delete type;
+}
+
+
+TypeRegister::~TypeRegister()
+{
+
+}

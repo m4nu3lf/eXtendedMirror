@@ -388,7 +388,7 @@ struct ClassBuilder<reflected_template<T1, T2, T3, T4> >                       \
 
 
 /**
- * \def EXTMR_SETCALLBACK(reflected_tclass)
+ * \def EXTMR_SETCALLBACK(fnc)
  * Set the call back function to call every time a type is registered.
  * Put this macro into a cpp file.
  * 
@@ -407,16 +407,22 @@ void (*TypeRegister::getRegCallBack())(const Type&)                            \
 } // namespace extmr
 
 
+/** \def EXTMR_GET_N_SET_EXTRA_PARAM_MAX
+ * The maximum number of supported extra parameter for getters and setters
+ */ 
+#define EXTMR_GET_N_SET_EXTRA_PARAM_MAX 3
+
+
 /** \def EXTMR_METHOD_PARAM_MAX
- * The maximum number of parameter for supported methods
+ * The maximum number of parameters for supported methods
  */ 
 #define EXTMR_METHOD_PARAM_MAX 8
 
 
-/** \def EXTMR_TCLASS_PARAM_MAX
+/** \def EXTMR_TEMPLATE_PARAM_MAX
  * The maximum number of parameter for supported template classes
  */ 
-#define EXTMR_TCLASS_PARAM_MAX 4
+#define EXTMR_TEMPLATE_PARAM_MAX 4
 
 
 #endif	/* EXTMR_MACROS_HPP */

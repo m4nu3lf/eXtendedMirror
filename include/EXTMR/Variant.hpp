@@ -171,20 +171,6 @@ public:
      */
     Variant(const Variant& orig);
     
-#ifdef EXTMR_STDSTRING_FACILITY
-    
-    /**
-     * Constructor facility for strings. A c string is converted
-     * into an std::string.
-     * 
-     * @param str A c string.
-     */
-    Variant(const char* str) : Variant(string(str))
-    {
-    }
-    
-#endif
-    
     /**
      * Operator for assignment.
      * The data is copied through the type assign operator.
@@ -255,5 +241,5 @@ private:
 
 } // namespace extmr
 
-#endif	/* VARIANT_HPP */
+#endif	/* EXTMR_VARIANT_HPP */
 

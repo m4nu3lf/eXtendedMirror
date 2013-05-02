@@ -21,7 +21,7 @@ NonDestructibleException::NonDestructibleException(const Type& type) throw()
 
 const char* NonDestructibleException::what() const throw()
 {
-    return ("Trying destroy an instance of \"" + type_->getName() 
+    return ("Trying to destroy an instance of \"" + type_->getName() 
             + "\" that is not a destuctible type").c_str();
 }
 

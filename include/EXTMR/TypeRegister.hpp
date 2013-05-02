@@ -145,6 +145,20 @@ public:
     template<typename T> const Class& registerClass();
     
     /**
+     * Remove a type from the register.
+     * 
+     * @param typeName The typeName.
+     */
+     void unregisterType(const std::string& typeName);
+     
+    /**
+     * Remove a type from the register.
+     * 
+     * @param cppType The type_info struct of the type.
+     */
+     void unregisterType(const std::type_info& cppType);
+    
+    /**
      * Set a function that is called whenever a type is registered within the
      * type register and the registered type is passed to this function.
      * 
@@ -163,10 +177,15 @@ public:
     
 private:
 
-    /**
-     * Constructor.
-     */
+     /**
+      * Singleton limitations
+      */
     TypeRegister();
+    
+    TypeRegister(const TypeRegister&);
+    TypeRegister& operator=(const TypeRegister&);
+    
+    ~ TypeRegister();
     
     /**
      * This method is called by registerType, after the type qualifiers are
@@ -184,12 +203,6 @@ private:
      * @return The callback function pointer.
      */
     static void (*getRegCallBack())(const Type&);
-    
-     /**
-      * Make this object non copyable.
-      */
-    TypeRegister(const TypeRegister&);
-    TypeRegister& operator=(const TypeRegister&);
 
     // A set containing the pointers to all the registered type descriptors
     //sorted by type name.

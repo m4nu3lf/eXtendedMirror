@@ -227,5 +227,21 @@ Class::~Class()
 {
     ptrSet::deleteAll(ownProperties_);
     ptrSet::deleteAll(ownMethods_);
+    
+    ConstClassSetById::iterator ite = baseClasses_.begin();
+    
+    while(ite != baseClasses_.end())
+    {
+        const_cast<Class*>(*ite)->derivedClasses_.erase(this);
+        ite ++;
+    }
+    
+    ite = derivedClasses_.begin();
+    
+    while(ite != derivedClasses_.end())
+    {
+        const_cast<Class*>(*ite)->baseClasses_.erase(this);
+        ite ++;
+    }
 }
 

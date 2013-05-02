@@ -54,7 +54,7 @@ struct CopyConstructorWrapper : public CopyConstructor
 
     void* operator()(const void* originAddr, void* destAddr)
     {
-        const T& origin = T(*reinterpret_cast<const T*>(originAddr));
+        const T& origin = *reinterpret_cast<const T*>(originAddr);
 
         if (destAddr)
         {        

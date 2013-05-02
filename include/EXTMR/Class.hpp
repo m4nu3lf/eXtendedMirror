@@ -8,8 +8,6 @@
 #ifndef EXTMR_CLASS_HPP
 #define	EXTMR_CLASS_HPP
 
-#include "Template.hpp"
-
 
 namespace extmr
 {
