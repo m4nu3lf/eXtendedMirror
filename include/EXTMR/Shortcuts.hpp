@@ -32,10 +32,24 @@ const Type& getType()
 }
 
 
+inline
+const Type& getType(const std::string& name)
+{
+    return TypeRegister::getTypeReg().getType(name);
+}
+
+
 template <typename C>
 const Class& getClass()
 {
     return TypeRegister::getTypeReg().registerClass<C>();
+}
+
+
+inline
+const Class& getClass(const std::string& name)
+{
+    return TypeRegister::getTypeReg().getClass(name);
 }
 
 

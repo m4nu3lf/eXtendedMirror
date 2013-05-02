@@ -36,10 +36,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o \
 	${OBJECTDIR}/src/EXTMR/Variant.o \
 	${OBJECTDIR}/src/EXTMR/Type.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o \
 	${OBJECTDIR}/src/EXTMR/Member.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o \
 	${OBJECTDIR}/src/EXTMR/TypeRegister.o \
 	${OBJECTDIR}/src/EXTMR/Method.o \
@@ -47,7 +50,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/Template.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o \
 	${OBJECTDIR}/src/EXTMR/Class.o \
-	${OBJECTDIR}/src/EXTMR/Property.o
+	${OBJECTDIR}/src/EXTMR/Property.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o
 
 
 # C Compiler Flags
@@ -81,6 +85,11 @@ ${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o: src/EXTMR/Exceptions/V
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o src/EXTMR/Exceptions/VariantTypeException.cpp
 
+${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o: src/EXTMR/Exceptions/NonAssignableException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o src/EXTMR/Exceptions/NonAssignableException.cpp
+
 ${OBJECTDIR}/src/EXTMR/Variant.o: src/EXTMR/Variant.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
 	${RM} $@.d
@@ -96,10 +105,20 @@ ${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o: src/EXTMR/Exceptions/P
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o src/EXTMR/Exceptions/PropertySetException.cpp
 
+${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o: src/EXTMR/Exceptions/NonCopyableException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o src/EXTMR/Exceptions/NonCopyableException.cpp
+
 ${OBJECTDIR}/src/EXTMR/Member.o: src/EXTMR/Member.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Member.o src/EXTMR/Member.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o: src/EXTMR/Exceptions/NonInstantiableException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o src/EXTMR/Exceptions/NonInstantiableException.cpp
 
 ${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o: src/EXTMR/Exceptions/NotFoundExceptions.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
@@ -140,6 +159,11 @@ ${OBJECTDIR}/src/EXTMR/Property.o: src/EXTMR/Property.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Property.o src/EXTMR/Property.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o: src/EXTMR/Exceptions/NonDestructibleException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o src/EXTMR/Exceptions/NonDestructibleException.cpp
 
 # Subprojects
 .build-subprojects:

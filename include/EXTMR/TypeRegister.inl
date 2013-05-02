@@ -83,7 +83,7 @@ Type& TypeRegister::registerNonQualifiedType()
     if (IsCopyable<T>::value)
         copyConstructor = new extmr::CopyConstructorWrapper<T>;
     
-    if (!IsArray<T>::value)
+    if (IsDestructible<T>::value)
         destructor = new extmr::DestructorWrapper<T>;
 
     if (IsAssignable<T>::value)

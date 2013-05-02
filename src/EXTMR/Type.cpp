@@ -1,5 +1,9 @@
 #include <Common/Common.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
+#include <EXTMR/Exceptions/NonInstantiableException.hpp>
+#include <EXTMR/Exceptions/NonCopyableException.hpp>
+#include <EXTMR/Exceptions/NonAssignableException.hpp>
+#include <EXTMR/Exceptions/NonDestructibleException.hpp>
 
 using namespace std;
 using namespace extmr;
@@ -79,9 +83,15 @@ bool Type::isCopyable()
 }
 
 
-bool Type::isLvalue()
+bool Type::isAssignable()
 {
     return assignOperator_ != NULL;
+}
+
+
+bool Type::isDestructible()
+{
+    return destructor_ != NULL;
 }
 
 
@@ -90,7 +100,7 @@ void* Type::newInstance(void* address) const
     if (constructor_)
         return (*constructor_)(address);
     else
-        return NULL;
+        throw NonInstantiableException(*this);
 }
 
 
@@ -99,7 +109,7 @@ void* Type::copyInstance(void* toBeCopiedPtr, void* address) const
     if (copyConstructor_)
         return (*copyConstructor_)(toBeCopiedPtr, address);
     else
-        return NULL;
+        throw NonCopyableException(*this);
 }
 
 
@@ -107,6 +117,8 @@ void Type::deleteInstance(void* toBeDeletedPtr, bool deallocate) const
 {
     if (destructor_)
         (*destructor_)(toBeDeletedPtr, deallocate);
+    else
+        throw NonDestructibleException(*this);
 }
 
 
@@ -114,6 +126,8 @@ void Type::assignInstance(void* lvaluePtr, const void* rvaluePtr) const
 {
     if (assignOperator_)
         (*assignOperator_)(lvaluePtr, rvaluePtr);
+    else
+        throw NonAssignableException(*this);
 }
 
 

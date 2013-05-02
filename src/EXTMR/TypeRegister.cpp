@@ -60,7 +60,7 @@ const Class& TypeRegister::getClass(const string& className) const
     if (clazz)
         return *clazz;
     else
-        throw TypeNotFoundException(className);
+        throw ClassNotFoundException(className);
 }
 
 
@@ -70,7 +70,7 @@ const Class& TypeRegister::getClass(const type_info& cppType) const
     if (clazz)
         return *clazz;
     else
-        throw TypeNotFoundException(cppType.name());
+        throw ClassNotFoundException(cppType.name());
 }
 
 

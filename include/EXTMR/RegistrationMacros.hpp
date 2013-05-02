@@ -126,8 +126,29 @@ struct IsAssignable<reflected_class>                                           \
 } //namespace extmr
 
 
+#define EXTMR_ASSUME_NON_DESTRUCTIBLE(reflected_class)                         \
+namespace extmr{                                                               \
+                                                                               \
+template<>                                                                     \
+struct DestructorWrapper<reflected_class> : public Destructor                  \
+{                                                                              \
+    void operator()(void* address, bool deallocate)                            \
+    {                                                                          \
+    }                                                                          \
+};                                                                             \
+                                                                               \
+template<>                                                                     \
+struct IsDestructible<reflected_class>                                         \
+{                                                                              \
+    static const bool value = false;                                           \
+};                                                                             \
+                                                                               \
+} //namespace extmr
+
+
 #define EXTMR_ASSUME_ABSTRACT(reflected_class)                                 \
 EXTMR_ASSUME_NON_INSTANTIABLE(reflected_class)                                 \
+EXTMR_ASSUME_NON_ASSIGNABLE(reflected_class)                                   \
 EXTMR_ASSUME_NON_COPYABLE(reflected_class)
 
 
@@ -137,8 +158,8 @@ EXTMR_ASSUME_NON_COPYABLE(reflected_class)
  * Ensure the class will be registered at program start with no extra code.
  * \a relfected_class is the class to be build.
  */
-#define EXTMR_BUILD_CLASS(reflected_class)                                     \
-void extmr::ClassBuilder<reflected_class>::operator()(Class& clazz) const
+#define EXTMR_BUILD_CLASS(...)                                                 \
+void extmr::ClassBuilder<__VA_ARGS__>::operator()(Class& clazz) const
 
 
 /**
@@ -153,22 +174,22 @@ template class extmr::AutoRegisterer<reflected_class>;
 
 
 /**
- * \def EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_1(reflected_tclass)
+ * \def EXTMR_ENABLE_TEMPLATE_1(reflected_template)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with one type parameter template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_1(reflected_tclass)                \
+#define EXTMR_ENABLE_TEMPLATE_1(reflected_template)                            \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1>                                                          \
-struct TypeRecognizer<reflected_tclass<T1> >                                   \
+struct TypeRecognizer<reflected_template<T1> >                                 \
 {                                                                              \
     static std::string getName()                                               \
     {                                                                          \
-        std::string str = std::string(#reflected_tclass) + "<";                \
+        std::string str = std::string(#reflected_template) + "<";              \
         str += TypeRecognizer<T1>::getName();                                  \
         if (str[str.length() - 1] == '>')                                      \
         {                                                                      \
@@ -182,7 +203,7 @@ struct TypeRecognizer<reflected_tclass<T1> >                                   \
 };                                                                             \
                                                                                \
 template<typename _T1>                                                         \
-struct TemplateRecognizer<reflected_tclass<_T1> >                              \
+struct TemplateRecognizer<reflected_template<_T1> >                            \
 {                                                                              \
     typedef _T1 T1;                                                            \
     typedef void T2;                                                           \
@@ -190,41 +211,37 @@ struct TemplateRecognizer<reflected_tclass<_T1> >                              \
     typedef void T4;                                                           \
     static std::string getName()                                               \
     {                                                                          \
-        return #reflected_tclass;                                              \
+        return #reflected_template;                                            \
     }                                                                          \
     static const uint argN = 1;                                                \
 };                                                                             \
                                                                                \
 template<typename T1>                                                          \
-struct ClassBuilder<reflected_tclass<T1> >                                     \
+struct ClassBuilder<reflected_template<T1> >                                   \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
-} /* namespace extmr */                                                        \
-                                                                               \
-template<typename T1>                                                          \
-void extmr::ClassBuilder<reflected_tclass<T1> >::operator()                    \
-(Class& clazz) const
+} // namespace extmr
 
 
 /**
- * \def EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_2(reflected_tclass)
+ * \def EXTMR_ENABLE_TEMPLATE_2(reflected_template)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_2(reflected_tclass)                \
+#define EXTMR_ENABLE_TEMPLATE_2(reflected_template)                            \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1, typename T2>                                             \
-struct TypeRecognizer<reflected_tclass<T1, T2> >                               \
+struct TypeRecognizer<reflected_template<T1, T2> >                             \
 {                                                                              \
     static std::string getName()                                               \
     {                                                                          \
-        std::string str = std::string(#reflected_tclass) + "<";                \
+        std::string str = std::string(#reflected_template) + "<";              \
         str += TypeRecognizer<T1>::getName();                                  \
         str += ", " + TypeRecognizer<T2>::getName();                           \
         if (str[str.length() - 1] == '>')                                      \
@@ -239,7 +256,7 @@ struct TypeRecognizer<reflected_tclass<T1, T2> >                               \
 };                                                                             \
                                                                                \
 template<typename _T1, typename _T2>                                           \
-struct TemplateRecognizer<reflected_tclass<_T1, _T2> >                         \
+struct TemplateRecognizer<reflected_template<_T1, _T2> >                       \
 {                                                                              \
     typedef _T1 T1;                                                            \
     typedef _T2 T2;                                                            \
@@ -247,41 +264,37 @@ struct TemplateRecognizer<reflected_tclass<_T1, _T2> >                         \
     typedef void T4;                                                           \
     static std::string getName()                                               \
     {                                                                          \
-        return #reflected_tclass;                                              \
+        return #reflected_template;                                            \
     }                                                                          \
     static const uint argN = 2;                                                \
 };                                                                             \
                                                                                \
 template<typename T1,  typename T2>                                            \
-struct ClassBuilder<reflected_tclass<T1, T2> >                                 \
+struct ClassBuilder<reflected_template<T1, T2> >                               \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
-} /* namespace extmr */                                                        \
-                                                                               \
-template<typename T1, typename T2>                                             \
-void extmr::ClassBuilder<reflected_tclass<T1, T2> >::operator()                \
-(Class& clazz) const
+} // namespace extmr
 
 
 /**
- * \def EXTMR_ENABLE_N_BUILD_TCLASS_3(reflected_tclass)
+ * \def EXTMR_ENABLE_TEMPLATE_3(reflected_template)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with three type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_3(reflected_tclass)                \
+#define EXTMR_ENABLE_TEMPLATE_3(reflected_template)                            \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1,  typename T2,  typename T3>                              \
-struct TypeRecognizer<reflected_tclass<T1, T2, T3> >                           \
+struct TypeRecognizer<reflected_template<T1, T2, T3> >                         \
 {                                                                              \
     static std::string getName()                                               \
     {                                                                          \
-        std::string str = std::string(#reflected_tclass) + "<";                \
+        std::string str = std::string(#reflected_template) + "<";              \
         str += TypeRecognizer<T1>::getName() + ", ";                           \
         str += TypeRecognizer<T2>::getName() + ", ";                           \
         str += TypeRecognizer<T3>::getName();                                  \
@@ -297,7 +310,7 @@ struct TypeRecognizer<reflected_tclass<T1, T2, T3> >                           \
 };                                                                             \
                                                                                \
 template<typename _T1,  typename _T2,  typename _T3>                           \
-struct TemplateRecognizer<reflected_tclass<_T1, _T2, _T3> >                    \
+struct TemplateRecognizer<reflected_template<_T1, _T2, _T3> >                  \
 {                                                                              \
     typedef _T1 T1;                                                            \
     typedef _T2 T2;                                                            \
@@ -305,41 +318,37 @@ struct TemplateRecognizer<reflected_tclass<_T1, _T2, _T3> >                    \
     typedef void T4;                                                           \
     static std::string getName()                                               \
     {                                                                          \
-        return #reflected_tclass;                                              \
+        return #reflected_template;                                            \
     }                                                                          \
     static const uint argN = 3;                                                \
 };                                                                             \
                                                                                \
 template<typename T1,  typename T2,  typename T3>                              \
-struct ClassBuilder<reflected_tclass<T1, T2, T3> >                             \
+struct ClassBuilder<reflected_template<T1, T2, T3> >                           \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
-} /* namespace extmr */                                                        \
-                                                                               \
-template<typename T1, typename T2, typename T3>                                \
-void extmr::ClassBuilder<reflected_tclass<T1, T2, T3> >::operator()            \
-(Class& clazz) const
+} // namespace extmr
 
 
 /**
- * \def EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_4(reflected_tclass)
+ * \def EXTMR_ENABLE_TEMPLATE_4(reflected_template)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with four type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_N_BUILD_TEMPLATE_CLASS_4(reflected_tclass)                \
+#define EXTMR_ENABLE_TEMPLATE_4(reflected_template)                            \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1,  typename T2,  typename T3,  typename T4>                \
-struct TypeRecognizer<reflected_tclass<T1, T2, T3, T4> >                       \
+struct TypeRecognizer<reflected_template<T1, T2, T3, T4> >                     \
 {                                                                              \
     static std::string getName()                                               \
     {                                                                          \
-        std::string str = std::string(#reflected_tclass) + "<";                \
+        std::string str = std::string(#reflected_template) + "<";              \
         str += TypeRecognizer<T1>::getName() + ", ";                           \
         str += TypeRecognizer<T2>::getName() + ", ";                           \
         str += TypeRecognizer<T3>::getName() + ", ";                           \
@@ -356,7 +365,7 @@ struct TypeRecognizer<reflected_tclass<T1, T2, T3, T4> >                       \
 };                                                                             \
                                                                                \
 template<typename _T1,  typename _T2,  typename _T3,  typename _T4>            \
-struct TemplateRecognizer<reflected_tclass<_T1, _T2, _T3, _T4> >               \
+struct TemplateRecognizer<reflected_template<_T1, _T2, _T3, _T4> >             \
 {                                                                              \
     typedef _T1 T1;                                                            \
     typedef _T2 T2;                                                            \
@@ -364,22 +373,18 @@ struct TemplateRecognizer<reflected_tclass<_T1, _T2, _T3, _T4> >               \
     typedef _T4 T4;                                                            \
     static std::string getName()                                               \
     {                                                                          \
-        return #reflected_tclass;                                              \
+        return #reflected_template;                                            \
     }                                                                          \
     static const uint argN = 4;                                                \
 };                                                                             \
                                                                                \
 template<typename T1,  typename T2,  typename T3,  typename T4>                \
-struct ClassBuilder<reflected_tclass<T1, T2, T3, T4> >                         \
+struct ClassBuilder<reflected_template<T1, T2, T3, T4> >                       \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
-} /* namespace extmr */                                                        \
-                                                                               \
-template<typename T1, typename T2, typename T3, typename T4>                   \
-void extmr::ClassBuilder<reflected_tclass<T1, T2, T3, T4> >::operator()        \
-(Class& clazz) const
+} // namespace extmr
 
 
 /**

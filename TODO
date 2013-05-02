@@ -1,0 +1,16 @@
+1) The newInstance() method of the Type/Class class should return a Variant object insteand of a void*.
+
+2) The deleteInstance() method should take a Variant object holding a pointer to an object as parameter instad of a void*.
+
+3) Redefine the ConstructorWrapper and the DestructorWrapper for array types so that an array is constructed/destructed and the pointer to the first element is returned.
+
+4) Consider create a subclass of the Variant class, let say Reference, that holds external data and provide a constructor that take a non const reference.
+Consider also the creation of ConstVariant and a ConstReference subclasses.
+If such classes are used the return type of the method Property::getData() and Method::call() should be const Variant& instead of Variant, and the parameter types of Property::setData() and Method::call() should be const Variant& too instead of Variat to enable polymorphism.
+Since we operate on the pointed value be the internal Variant pointer but not on the variant pointer itself the constness of a Variant passed to the Method::call() does not deny the operation on the referenced value for methods that takes a reference.
+
+5) Variant returned from a void method and variant nearly created should be of type void instead of non-valid.
+
+6) When checking for the correctness of a Variant cast compare the type_->getCppType() with the typeid() of the target type instead of calling the TypeRegister::getType<>() method for just a bit of performace boost.
+
+7) The guide should be rewritten in part since it does not match the libray API anymore, and the limits of instantiable, copyable and destructable classes only has been removed.

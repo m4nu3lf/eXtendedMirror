@@ -11,7 +11,7 @@ class Method;
  * 
  * The type can be a primitive (\a Primitive), a pointer (\a Pointer),
  * an array (\a Array), a reflected class (\a Class) or a template instance
- * (\a CompClass). Each one of these type categories is identified by the
+ * (\a CompoudClass). Each one of these type categories is identified by the
  * internal enum Category.
  * Except for the a\ Primitive each one of the others categories is 
  * implemented in a subclass.
@@ -23,7 +23,7 @@ class Type
 public:
     
     /**
-     * Enum of supported type categories.
+     * Type categories.
      */
     enum Category
     {
@@ -48,7 +48,7 @@ public:
         Class = 8,
         
         /**
-         *  A type that depends on other types, i.e. a template instance.
+         *  A template instance.
          */
         CompoundClass = 24,
     };
@@ -86,7 +86,16 @@ public:
      * 
      * @return True if the type can be assigned to.
      */
-    bool isLvalue();
+    bool isAssignable();
+    
+    
+    /**
+     * Ask if the type is destructible.
+     * 
+     * @return True if the type can be destroyed.
+     */
+    bool isDestructible();
+    
     
     /**
      * Construct a new instance of the type.
@@ -280,7 +289,8 @@ bool inline operator!=(const Type& t1, const Type& t2)
     return t1.cppType_ != t2.cppType_;
 }
 
-// type less operator compares the type_info struct with the type_info::before() method.
+// type less operator compares the type_info struct with the type_info::before()
+// method.
 bool inline operator<(const Type& t1, const Type& t2)
 {
     return t1.cppType_.before(t2.cppType_);

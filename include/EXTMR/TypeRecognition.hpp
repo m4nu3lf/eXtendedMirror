@@ -151,6 +151,20 @@ struct IsAssignable<T[size]>
 };
 
 
+template<typename T>
+struct IsDestructible
+{
+    static const bool value = true;
+};
+
+
+template<typename T, std::size_t size>
+struct IsDestructible<T[size]>
+{
+    static const bool value = false;
+};
+
+
 
 } // namespace extmr
 
