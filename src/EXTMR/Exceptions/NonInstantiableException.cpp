@@ -5,7 +5,6 @@
  * Created on May 1, 2013, 10:12 PM
  */
 
-#include <Common/Common.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
 #include <EXTMR/Exceptions/NonInstantiableException.hpp>
 

@@ -17,8 +17,7 @@ Type::Type(const string& name) :
     constructor_(NULL),
     copyConstructor_(NULL),
     destructor_(NULL),
-    assignOperator_(NULL),
-    category_(Primitive)
+    assignOperator_(NULL)
 {
 }
 
@@ -30,8 +29,7 @@ Type::Type(const type_info& cppType) :
     constructor_(NULL),
     copyConstructor_(NULL),
     destructor_(NULL),
-    assignOperator_(NULL),
-    category_(Primitive)
+    assignOperator_(NULL)
 {
 }
 
@@ -44,30 +42,16 @@ Type::Type
     Constructor* constructor,
     CopyConstructor* copyConstructor,
     Destructor* destructor,
-    AssignOperator* assignOperator,
-    const Type& relatedType,
-    bool isArray,
-    size_t arraySize
+    AssignOperator* assignOperator
 ) :
     name_(name),
-    category_(category_),
     size_(size),
     cppType_(cppType),
     constructor_(constructor),
     copyConstructor_(copyConstructor),
     destructor_(destructor),
-    assignOperator_(assignOperator),
-    relatedType_(&relatedType),
-    arraySize_(arraySize)
+    assignOperator_(assignOperator)
 {
-    if (this->relatedType_)
-    {
-        if (isArray)
-            category_ = Array;
-        else
-            category_ = Pointer;
-    }
-    else category_ = Primitive;
 }
 
 
@@ -133,7 +117,7 @@ void Type::assignInstance(void* lvaluePtr, const void* rvaluePtr) const
 
 Type::Category Type::getCategory() const
 {
-    return category_;
+    return static_cast<Type::Category>(0);
 }
 
 
@@ -152,30 +136,6 @@ std::size_t Type::getSize() const
 const type_info& Type::getCppType() const
 {
     return cppType_;
-}
-
-
-const Type& Type::getPointedType() const
-{
-    if (category_ == Pointer)
-        return *relatedType_;
-    else
-        return Type::Void;
-}
-
-
-const Type& Type::getArrayElementType() const
-{
-    if (category_ == Array)
-        return *relatedType_;
-    else
-        return Type::Void;
-}
-
-
-const std::size_t Type::getArraySize() const
-{
-    return arraySize_;
 }
 
 

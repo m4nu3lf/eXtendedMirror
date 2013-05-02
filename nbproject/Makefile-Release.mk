@@ -48,10 +48,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/Method.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o \
 	${OBJECTDIR}/src/EXTMR/Template.o \
+	${OBJECTDIR}/src/EXTMR/PrimitiveType.o \
+	${OBJECTDIR}/src/EXTMR/CompoundClass.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o \
-	${OBJECTDIR}/src/EXTMR/Class.o \
+	${OBJECTDIR}/src/EXTMR/ArrayType.o \
 	${OBJECTDIR}/src/EXTMR/Property.o \
-	${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o
+	${OBJECTDIR}/src/EXTMR/Class.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o \
+	${OBJECTDIR}/src/EXTMR/PointerType.o
 
 
 # C Compiler Flags
@@ -145,25 +149,45 @@ ${OBJECTDIR}/src/EXTMR/Template.o: src/EXTMR/Template.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Template.o src/EXTMR/Template.cpp
 
+${OBJECTDIR}/src/EXTMR/PrimitiveType.o: src/EXTMR/PrimitiveType.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/PrimitiveType.o src/EXTMR/PrimitiveType.cpp
+
+${OBJECTDIR}/src/EXTMR/CompoundClass.o: src/EXTMR/CompoundClass.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/CompoundClass.o src/EXTMR/CompoundClass.cpp
+
 ${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o: src/EXTMR/Exceptions/PropertyRangeException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o src/EXTMR/Exceptions/PropertyRangeException.cpp
 
-${OBJECTDIR}/src/EXTMR/Class.o: src/EXTMR/Class.cpp 
+${OBJECTDIR}/src/EXTMR/ArrayType.o: src/EXTMR/ArrayType.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Class.o src/EXTMR/Class.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/ArrayType.o src/EXTMR/ArrayType.cpp
 
 ${OBJECTDIR}/src/EXTMR/Property.o: src/EXTMR/Property.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Property.o src/EXTMR/Property.cpp
 
+${OBJECTDIR}/src/EXTMR/Class.o: src/EXTMR/Class.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Class.o src/EXTMR/Class.cpp
+
 ${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o: src/EXTMR/Exceptions/NonDestructibleException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o src/EXTMR/Exceptions/NonDestructibleException.cpp
+
+${OBJECTDIR}/src/EXTMR/PointerType.o: src/EXTMR/PointerType.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/PointerType.o src/EXTMR/PointerType.cpp
 
 # Subprojects
 .build-subprojects:

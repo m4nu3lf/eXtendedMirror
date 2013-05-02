@@ -88,14 +88,12 @@ public:
      */
     bool isAssignable();
     
-    
     /**
      * Ask if the type is destructible.
      * 
      * @return True if the type can be destroyed.
      */
     bool isDestructible();
-    
     
     /**
      * Construct a new instance of the type.
@@ -134,11 +132,11 @@ public:
     void assignInstance(void* lvalueAddr, const void* rvalueAddr) const;
     
     /**
-     * Get a value of Category that represent the type category.
+     * Get the type Category.
      * 
      * @return The type category of this type.
      */
-    Category getCategory() const;
+    virtual Category getCategory() const;
     
     /**
      * Get the name of this type.
@@ -162,37 +160,6 @@ public:
      */
     const std::type_info& getCppType() const;
     
-    /**
-     * Get the Type of the type pointed by this one.
-     * If the type is not a pointer then a NULL reference is returned.
-     * 
-     * @return The pointed Type.
-     */
-    const Type& getPointedType() const;
-    
-    /**
-     * Get the Type of the array elemets.
-     * If the type is not an array then a NULL reference is returned.
-     * 
-     * @return The element Type.
-     */
-    const Type& getArrayElementType() const;
-    
-    /**
-     * Get the size of the array.
-     * If the type is not an array then 0 is returned.
-     * 
-     * @return The type size.
-     */
-    const std::size_t getArraySize() const;
-    
-    /**
-     * Ask if the property is of a numerical type.
-     * 
-     * @return true if the property is of a numerical type.
-     */
-    // TODO: this method is not yet implemented. Decide whether and how to implement this method.
-    bool isNumerical() const;
     
     virtual ~Type();
     
@@ -214,11 +181,7 @@ protected:
      * @param constructor The type constructor wrapper function.
      * @param copyConstructor The type copy constructor wrapper function.
      * @param destructor The type destructor wrapper function.
-     * @param operatorAssign The type assign operator wrapper function.
-     * @param relatedType The Type of the type pointed by this 
-     * one or the array element type of this one depending of the next parameter.
-     * @param isArray If true relatedType is the array element type, otherwise is the pointed type.
-     * @param arraySize The size of the array.
+     * @param assignOperator The type assign operator wrapper function.
      */
     Type
     (
@@ -228,10 +191,7 @@ protected:
             Constructor* constructor,
             CopyConstructor* copyConstructor,
             Destructor* destructor,
-            AssignOperator* assignOperator,
-            const Type& relatedType = Type::Void,
-            bool isArray = false,
-            std::size_t arraySize = 0
+            AssignOperator* assignOperator
      );
     
     // The name of the type.
@@ -242,9 +202,6 @@ protected:
     
     // The type_info struct of the type.
     const std::type_info& cppType_;
-    
-    // The type category.
-    Category category_;
     
     // The constructor function object.
     Constructor* constructor_;
@@ -257,17 +214,6 @@ protected:
     
     // The assign operator function object.
     AssignOperator* assignOperator_;
-    
-    // A pointer to the Type object of the type pointed by this one or the one
-    // this type is an array of.
-    const Type* relatedType_;
-    
-    // The size of the array.
-    size_t arraySize_;
-    
-    // The type register is the factory for the type class and need to access
-    // the private constructor.
-    friend class TypeRegister;
     
     // The equal operator must be a friend to access the cppType field.
     friend bool operator==(const Type&, const Type&);

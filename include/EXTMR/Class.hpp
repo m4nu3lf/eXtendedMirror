@@ -37,24 +37,6 @@ public:
      */
     Class(const std::type_info& type);
     
-    /**
-     * Get the template descriptor of the template this class is an instance of.
-     * A NULL reference is returned if this class is not a template instance.
-     * 
-     * @return The template descriptor.
-     */
-    const Template& getTemplate() const;
-    
-    /**
-     * Get a vector containing the Type objects of the type arguments of the
-     * template.
-     * If this class is not a template instance, an empty vector will be
-     * returned.
-     * 
-     * @return The type descriptors vector.
-     */
-    const ConstTypeVector& getTemplateArgs() const;
-    
      /**
      * Retrieve all the base class descriptors.
      * 
@@ -188,22 +170,17 @@ protected:
      * @param constructor The class constructor wrapper function.
      * @param copyConstructor The type copy constructor wrapper function.
      * @param destructor The class destructor wrapper function.
-     * @param operatorAssign The class assign operator wrapper function.
-     * @param tempjate The template this class is an instance of.
-     * @param templateArgs The Type of the template arguments.
+     * @param assignOperator The class assign operator wrapper function.
      */
     Class
     (
             const std::string& name,
-            uint size,
+            std::size_t size,
             const std::type_info& cppType,
             Constructor* constructor,
             CopyConstructor* copyConstructor,
             Destructor* destructor,
-            AssignOperator* assignOperator,
-            const Template& tempjate = Template::None,
-            const std::vector<const Type*>& templateArgs =
-                        std::vector<const Type*>()
+            AssignOperator* assignOperator
      );
     
     /**
@@ -230,12 +207,6 @@ protected:
      */
     Class& operator <<(Method& method);
     
-    // The template descriptor of the template this class is an instance of.
-    const Template* tempjate_;
-    
-    // The type descriptors of the template arguments.
-    ConstTypeVector templateArgs_;
-    
     // The types object of the base classes sorted by the type_info structure
     // order.
     ConstClassSetById baseClasses_;
@@ -256,8 +227,7 @@ protected:
     // The methods of this class except those inherited form base classes.
     ConstMethodSet ownMethods_;
     
-    // The type register is the factory for the Class class and need to access
-    // the private constructor.
+    // TypeRegister is the factory class.
     friend class TypeRegister;
     
     // The ClassBuilder needs to call the stream operator.

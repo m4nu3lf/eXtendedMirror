@@ -4,7 +4,7 @@
  * 
  * Created on 3 September 2012, 12.50
  */
-#include <Common/Common.hpp>
+
 #include <EXTMR/ExtendedMirror.hpp>
 
 using namespace std;

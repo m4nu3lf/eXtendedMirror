@@ -105,8 +105,11 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
             targetType.getCategory() == Type::Pointer)
     {
         // get the pointed types
-        const Type& pointedType = type.getPointedType();
-        const Type& pointedTargetType = targetType.getPointedType();
+        const PointerType& ptrType = dynamic_cast<const PointerType&>(type);
+        const PointerType& ptrTargetType =
+                                   dynamic_cast<const PointerType&>(targetType);
+        const Type& pointedType = ptrType.getPointedType();
+        const Type& pointedTargetType = ptrTargetType.getPointedType();
 
         // are they objects?
         if (pointedType.getCategory() != Type::Class ||

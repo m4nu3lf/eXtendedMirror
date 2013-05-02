@@ -12,6 +12,8 @@
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 #include <EXTMR/Variant.hpp>
 
+#include "PointerType.hpp"
+
 namespace extmr{
 
 /**
@@ -150,7 +152,11 @@ Variant::operator T&() const
     // check for pointed type's constness correctness
     if (flags & PointerToConst &&
             !IsConst<typename RemovePointer<T>::Type>::value)
-        throw VariantCostnessException(type_->getPointedType());
+    {
+        const Type& pointedType =
+                dynamic_cast<const PointerType&>(*type_).getPointedType();
+        throw VariantCostnessException(pointedType);
+    }
 
     // return the data
     return *reinterpret_cast<T*>(data_);

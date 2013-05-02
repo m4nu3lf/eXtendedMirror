@@ -28,14 +28,12 @@ Class::Class(const type_info& type) : Type(type)
 Class::Class
 (
     const string& name,
-    uint size,
+    size_t size,
     const type_info& cppType,
     Constructor* constructor,
     CopyConstructor* copyConstructor,
     Destructor* destructor,
-    AssignOperator* assignOperator,
-    const Template& tempjate,
-    const std::vector<const Type*>& templateParamTypes
+    AssignOperator* assignOperator
 ) :
     Type
     (
@@ -46,24 +44,8 @@ Class::Class
         copyConstructor,
         destructor,
         assignOperator
-    ),
-    tempjate_(&tempjate),
-    templateArgs_(templateParamTypes)
+    )
 {
-    if (this->tempjate_) category_ = CompoundClass;
-    else category_ = Type::Class;
-}
-
-
-const Template& Class::getTemplate() const
-{
-    return *tempjate_;
-}
-
-
-const ConstTypeVector& Class::getTemplateArgs() const
-{
-    return templateArgs_;
 }
 
 

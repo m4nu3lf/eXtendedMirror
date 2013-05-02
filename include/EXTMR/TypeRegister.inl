@@ -50,10 +50,7 @@ const Type& TypeRegister::registerType()
 template<typename T>
 const Class& TypeRegister::registerClass()
 {
-    if (TypeRecognizer<T>::category | Type::Class)
-        return dynamic_cast<const Class&>(registerType<T>());
-    else
-        return getClass<void>();
+    return dynamic_cast<const Class&>(registerType<T>());
 }
 
 
@@ -75,7 +72,6 @@ Type& TypeRegister::registerNonQualifiedType()
     Destructor* destructor = NULL;
     AssignOperator* assignOperator = NULL;
     
-    
     // take the method wrappers
     if (IsInstantiable<T>::value)
         constructor = new extmr::ConstructorWrapper<T>;
@@ -89,30 +85,67 @@ Type& TypeRegister::registerNonQualifiedType()
     if (IsAssignable<T>::value)
         assignOperator = new extmr::AssignOperatorWrapper<T>;
     
-    if (category & Type::Class)
+    switch(category)
     {
-        // template this class is an instance of if any
-        Template* tempjate = NULL;
-    
-        // template type parameters if any
-        std::vector<const Type*> templateTypeArgs;
-        
-        // recursively register the types this class depends on
-        if(category == Type::CompoundClass)
+        case Type::Primitive:
+            type = new PrimitiveType(name, sizeof(T), typeid(T), constructor, 
+                    copyConstructor, destructor, assignOperator);
+            break;
+            
+        case Type::Pointer:
         {
-            const Type& type1 =
-                        registerType<typename TemplateRecognizer<T>::T1>();
-            const Type& type2 =
-                        registerType<typename TemplateRecognizer<T>::T2>();
-            const Type& type3 =
-                        registerType<typename TemplateRecognizer<T>::T3>();
-            const Type& type4 =
-                        registerType<typename TemplateRecognizer<T>::T4>();
+            const Type& pointedType =
+                                registerType<typename RemovePointer<T>::Type>();
+            
+            type = new PointerType(name, sizeof(T), typeid(T), constructor, 
+                    copyConstructor, destructor, assignOperator, pointedType);
+            break;
+        }
+            
+        case Type::Array:
+        {
+            std::size_t arraySize = ArraySize<T>::size;
+            const Type& elementType =
+                                registerType<typename RemoveExtent<T>::Type>();
+            
+            type = new ArrayType(name, sizeof(T), typeid(T), constructor, 
+                    copyConstructor, destructor, assignOperator, arraySize,
+                    elementType);
+            break;
+        }
+            
+        case Type::Class:
+            type = new Class(name, sizeof(T), typeid(T), constructor, 
+                    copyConstructor, destructor, assignOperator);
+            break;
+            
+        case Type::CompoundClass:
+        {
+            ConstTypeVector templateArgs;
+            const Type* tmpType;
 
-            if (&type1) templateTypeArgs.push_back(&type1);
-            if (&type2) templateTypeArgs.push_back(&type2); 
-            if (&type3) templateTypeArgs.push_back(&type3); 
-            if (&type4) templateTypeArgs.push_back(&type4); 
+            tmpType = &registerType<typename TemplateRecognizer<T>::T1>();
+            templateArgs.push_back(tmpType);
+            
+            if (TemplateRecognizer<T>::argN > 1)
+            {
+                tmpType = &registerType<typename TemplateRecognizer<T>::T2>();
+                templateArgs.push_back(tmpType);
+                
+                if (TemplateRecognizer<T>::argN > 2)
+                {
+                    tmpType =
+                            &registerType<typename TemplateRecognizer<T>::T3>();
+                    templateArgs.push_back(tmpType);
+                    
+                    if (TemplateRecognizer<T>::argN > 3)
+                    {
+                        tmpType =
+                            &registerType<typename TemplateRecognizer<T>::T4>();
+                        templateArgs.push_back(tmpType);
+                    }
+                }
+            }
 
             Template* tempjate = new Template(TemplateRecognizer<T>::getName(),
                     TemplateRecognizer<T>::argN);
@@ -127,24 +160,16 @@ Type& TypeRegister::registerNonQualifiedType()
                 delete tempjate;
                 tempjate = *ite;
             }
+            type = new CompoundClass(name, sizeof(T), typeid(T), constructor, 
+                    copyConstructor, destructor, assignOperator, *tempjate,
+                    templateArgs);
+            break;
         }
-        
-        // create the class object
-        Class* clazz = new Class
-                    (
-                            name,
-                            sizeof(T),
-                            typeid(T),
-                            constructor,
-                            copyConstructor,
-                            destructor,
-                            assignOperator,
-                            *tempjate,
-                            templateTypeArgs
-                    );
-        
-        // store the registered type
-        type = clazz;
+    }
+    
+    if (category & Type::Class)
+    {   
+        Class* clazz = dynamic_cast<Class*>(type);
         
         // call the ClassBuilder of this class to build the class info
         ClassBuilder<T> classBuilder;
@@ -153,43 +178,6 @@ Type& TypeRegister::registerNonQualifiedType()
         // push the class object into the class sets
         classesById_.insert(clazz);
         classesByName_.insert(clazz);
-    }
-    else
-    {
-        // the type this type point to of the array element type
-        const Type* relatedType = NULL;
-        
-        // whether the type is an array
-        bool isArray;
-        
-        // the array size
-        std::size_t arraySize = ArraySize<T>::size;
-        
-        // recursively register the pointed type or the array element type
-        if (category == Type::Pointer)
-        {
-            relatedType = &registerType<typename RemovePointer<T>::Type>();
-        }
-        else if (category == Type::Array)
-        {
-            relatedType = &registerType<typename RemoveExtent<T>::Type>();
-            isArray = true;
-        }
-        
-        // create the type object
-        type = new Type
-                (
-                        name,
-                        sizeof(T),
-                        typeid(T),
-                        constructor,
-                        copyConstructor,
-                        destructor,
-                        assignOperator,
-                        *relatedType,
-                        isArray,
-                        arraySize
-                );
     }
     
     // push the type object into the type sets

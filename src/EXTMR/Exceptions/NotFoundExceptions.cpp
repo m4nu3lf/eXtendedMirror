@@ -5,7 +5,6 @@
  * Created on April 30, 2013, 4:14 PM
  */
 
-#include <Common/Common.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
 #include <EXTMR/Exceptions/NotFoundExceptions.hpp>
 
@@ -27,26 +26,6 @@ const char* TypeNotFoundException::what() const throw()
 
 
 TypeNotFoundException::~TypeNotFoundException() throw()
-{
-    
-}
-
-
-ClassNotFoundException::ClassNotFoundException(const string& name) throw()
-        : name_(name)
-{
-    
-}
-
-
-const char* ClassNotFoundException::what() const throw()
-{
-    string s = "Class \"" + name_ + "\" is not registered.";
-    return s.c_str();
-}
-
-
-ClassNotFoundException::~ClassNotFoundException() throw()
 {
     
 }

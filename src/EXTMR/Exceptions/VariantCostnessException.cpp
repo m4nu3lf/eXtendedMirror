@@ -5,7 +5,6 @@
  * Created on 22 January 2013, 18.56
  */
 
-#include <Common/Common.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
 
 using namespace extmr;

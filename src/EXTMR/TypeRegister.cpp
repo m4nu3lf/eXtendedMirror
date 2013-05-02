@@ -56,21 +56,13 @@ const Type& TypeRegister::getType(const type_info& cppType) const
 
 const Class& TypeRegister::getClass(const string& className) const
 {
-    Class* clazz = ptrSet::findByKey(classesByName_, className);
-    if (clazz)
-        return *clazz;
-    else
-        throw ClassNotFoundException(className);
+    return dynamic_cast<const Class&>(getType(className));
 }
 
 
 const Class& TypeRegister::getClass(const type_info& cppType) const
 {
-    Class* clazz = ptrSet::findByKey(classesById_, cppType);
-    if (clazz)
-        return *clazz;
-    else
-        throw ClassNotFoundException(cppType.name());
+    return dynamic_cast<const Class&>(getType(cppType));
 }
 
 

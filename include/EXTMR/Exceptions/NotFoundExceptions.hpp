@@ -26,20 +26,6 @@ private:
 };
 
 
-class ClassNotFoundException : public std::exception
-{
-public:
-    ClassNotFoundException(const std::string& name) throw();
-    
-    const char* what() const throw();
-    
-   ~ClassNotFoundException() throw();
-    
-private:
-    std::string name_;
-};
-
-
 class TemplateNotFoundException : public std::exception
 {
 public:

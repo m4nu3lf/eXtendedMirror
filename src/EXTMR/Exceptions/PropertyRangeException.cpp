@@ -5,10 +5,8 @@
  * Created on 15 January 2013, 18.58
  */
 
-#include <sstream>
-
-#include <Common/Common.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
+
 using namespace std;
 using namespace extmr;
 
