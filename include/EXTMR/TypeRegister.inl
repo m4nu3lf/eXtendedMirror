@@ -4,8 +4,6 @@
 #include <EXTMR/MemberWrappers.hpp>
 #include <EXTMR/TypeCreationHelpers.hpp>
 
-#include "Type.hpp"
-
 namespace extmr{
 
 

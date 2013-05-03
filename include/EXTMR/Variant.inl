@@ -12,7 +12,6 @@
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 #include <EXTMR/Variant.hpp>
 
-#include "PointerType.hpp"
 
 namespace extmr{
 
@@ -58,29 +57,7 @@ struct VariantInitializer
 
 
 /**
- * If the type is a multidimensional array, remove one
- * extent from the type, construct an initializer for this type
- * and pass to the initializer the pointer of the first element
- * along the removed dimension.
- */
-template<typename T, std::size_t size1, std::size_t size2>
-struct VariantInitializer<T[size1][size2]>
-{
-    VariantInitializer(Variant& variant) : variant(variant){};
-    
-    void operator()(T data[size1][size2])
-    {
-        VariantInitializer<T[size2]> initializer(variant);
-        initializer(data[0]);
-    }
-    
-    // A reference to the variant that is being initialized
-    Variant& variant;
-};
-
-
-/**
- * If the type is a one-dimensional array, create an initializer
+ * If the type is an array, create an initializer
  * for a pointer to the element type, and pass it the address of the
  * first element.
  */
@@ -105,7 +82,7 @@ Variant::Variant(const T& data)
 : flags(0)
 {
     // if the type is a constant array, then the type will be converted to a
-    // pointer to constant, so remember this constness
+    // pointer to constant
     if (IsArray<T>::value) this->flags |= PointerToConst;
     
     VariantInitializer<T> initializer(*this);
@@ -124,7 +101,7 @@ Variant::Variant(T& data, char flags)
     if ((flags & Reference) && IsConst<T>::value) this->flags |= Const;
     
     // if the type is a constant array, then the type will be converted to a
-    // pointer to constant, so remember this constness
+    // pointer to constant
     if (IsArray<T>::value && IsConst<T>::value) this->flags |= PointerToConst;
     
     VariantInitializer<NonConstT> initializer(*this);

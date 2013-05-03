@@ -52,9 +52,7 @@ struct CreateType<T[size]>
         
         return new PointerType(GetTypeName<T[size]>()(), sizeof(T[size]),
                 typeid(T[size]), GetTypeConstructor<T[size]>()(),
-                GetTypeCopyConstructor<T[size]>()(),
-                GetTypeDestructor<T[size]>()(), 
-                GetTypeAssignOperator<T[size]>()(), elementType);
+                NULL, GetTypeDestructor<T[size]>()(), NULL, elementType);
     }
 };
 

@@ -35,13 +35,6 @@ struct Create : public Constructor
 };
 
 
-template<typename T, std::size_t size>
-struct Create<T[size]> : public Constructor
-{
-    void* operator()(void* destAddr){}
-};
-
-
 struct CopyConstructor
 {
     virtual void* operator()(const void* originAddr, void* destAddr) = 0;
@@ -67,13 +60,6 @@ struct Copy : public CopyConstructor
             return new T(origin);
         }
     }
-};
-
-
-template<typename T, std::size_t size>
-struct Copy<T[size]>: public CopyConstructor
-{
-    void* operator()(const void* originAddr, void* destAddr){}
 };
 
 
@@ -103,7 +89,13 @@ struct Destroy : public Destructor
 template<typename T, std::size_t size>
 struct Destroy<T[size]> : public Destructor
 {
-    void operator()(void* address, bool deallocate){}
+    void operator()(void* address, bool deallocate)
+    {
+        if (deallocate)
+        {
+            delete [] reinterpret_cast<T*>(address);
+        }
+    }
 };
 
 
@@ -118,15 +110,9 @@ struct Assign : public AssignOperator
 {
     void operator()(void* lvalueAddr, const void* rvalueAddr)
     {
-        *reinterpret_cast<T*>(lvalueAddr) = *reinterpret_cast<const T*>(rvalueAddr);
+        *reinterpret_cast<T*>(lvalueAddr) = 
+                *reinterpret_cast<const T*>(rvalueAddr);
     }
-};
-
-
-template<typename T, std::size_t size>
-struct Assign<T[size]> : public AssignOperator
-{
-    void operator()(void* lvalueAddr, const void* rvalueAddr){}
 };
 
 

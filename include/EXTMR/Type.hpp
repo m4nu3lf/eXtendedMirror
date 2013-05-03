@@ -118,16 +118,18 @@ public:
      * Destroy an instance of the type.
      * 
      * @param address The pointer to the instance to be deleted.
-     * @param dallocate If true the delete operator is called causing the memory to be deallocated otherwise the
-     * destructor is called explicity.
+     * @param dallocate If true the delete operator is called causing the memory
+     * to be deallocated otherwise the destructor is called explicity.
      */
     void deleteInstance(void* address, bool deallocate = true) const;
     
     /**
      * Perfor an assignment between two object instances of this type.
      * 
-     * @param lvalueAddr A pointer to an object of this type to be used as lvalue.
-     * @param rvalueAddr A pointer to an object of this type to be used as rvalue.
+     * @param lvalueAddr A pointer to an object of this type to be used as
+     * lvalue.
+     * @param rvalueAddr A pointer to an object of this type to be used as
+     * rvalue.
      */
     void assignInstance(void* lvalueAddr, const void* rvalueAddr) const;
     

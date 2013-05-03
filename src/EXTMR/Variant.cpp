@@ -104,6 +104,9 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
     if (type.getCategory() == Type::Pointer &&
             targetType.getCategory() == Type::Pointer)
     {
+        // is target of type void*?
+        if (targetType.getName() == "void*") return true;
+        
         // get the pointed types
         const PointerType& ptrType = dynamic_cast<const PointerType&>(type);
         const PointerType& ptrTargetType =

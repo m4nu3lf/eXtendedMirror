@@ -1,9 +1,0 @@
-. The newInstance() method of the Type/Class class should return a Variant object insteand of a void*.
-
-. The deleteInstance() method should take a Variant object holding a pointer to an object as parameter instad of a void*.
-
-. Redefine the ConstructorWrapper and the DestructorWrapper for array types so that an array is constructed/destructed and the pointer to the first element is returned.
-
-. Variant returned from a void method and variant nearly created should be of type void instead of non-valid.
-
-. The guide should be rewritten in part since it does not match the libray API anymore, and the limits of instantiable, copyable and destructable classes only has been removed.

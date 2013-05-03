@@ -72,6 +72,16 @@ struct GetTemplateArgs
 {};
 
 
+template<>
+struct GetTypeName<void>
+{
+    std::string operator()()
+    {
+        return "void";
+    }
+};
+
+
 template<typename T>
 struct GetTypeName<T*>
 {
@@ -79,6 +89,19 @@ struct GetTypeName<T*>
     {
         std::string str = GetTypeName<T>()();
         str += "*";
+        return str;
+    }
+};
+
+
+template<typename T, std::size_t size>
+struct GetTypeName<T(*)[size]>
+{
+    std::string operator()()
+    {
+        std::string str = GetTypeName<T>()();
+        str += "(*)";
+        str += GetArrayExtentsSignature<T[size]>()();
         return str;
     }
 };
