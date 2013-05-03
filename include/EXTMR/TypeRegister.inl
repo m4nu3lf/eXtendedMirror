@@ -74,7 +74,6 @@ Type& TypeRegister::registerType_()
         
         // push the class object into the class sets
         classesById_.insert(clazz);
-        classesByName_.insert(clazz);
     }
     
     // push the type object into the type sets

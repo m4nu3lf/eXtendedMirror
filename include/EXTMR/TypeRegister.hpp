@@ -219,10 +219,6 @@ private:
     TypeSetById typesById_;
     
     // A set containing the pointers to all the registered class descriptors
-    // sorted by type name.
-    ClassSetByName classesByName_;
-    
-    // A set containing the pointers to all the registered class descriptors
     // sorted by type_info struct order.
     ClassSetById classesById_;
     

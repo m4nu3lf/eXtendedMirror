@@ -24,19 +24,16 @@ TypeRegister::TypeRegister()
     registerType<ushort>();
     registerType<bool>();
     
-    // a void class is needed in the type register and Class::Void cannot be
-    // used since it may be still uninitialized
+    // a void class is needed in the type register
     Class* voidClass = new Class("void");
     typesByName_.insert(voidClass);
     typesById_.insert(voidClass);
-    classesByName_.insert(voidClass);
-    classesById_.insert(voidClass);
 }
 
 
 const Type& TypeRegister::getType(const string& typeName) const
 {
-    Type* type = ptrSet::findByKey(typesByName_, typeName);
+    const Type* type = ptrSet::findByKey(typesByName_, typeName);
     if (type)
         return *type;
     else
@@ -46,7 +43,7 @@ const Type& TypeRegister::getType(const string& typeName) const
 
 const Type& TypeRegister::getType(const type_info& cppType) const
 {
-    Type* type = ptrSet::findByKey(typesById_, cppType);
+    const Type* type = ptrSet::findByKey(typesById_, cppType);
     if (type)
         return *type;
     else
@@ -109,8 +106,7 @@ void TypeRegister::unregisterType(const std::string& typeName)
     
     if (type->getCategory() | Type::Class)
     {
-        Class* clazz = ptrSet::removeByKey(classesByName_, typeName);
-        ptrSet::removeByKey(classesById_, clazz->getCppType());
+        Class* clazz = ptrSet::removeByKey(classesById_, type->getCppType());
     }
     
     delete type;
@@ -126,8 +122,7 @@ void TypeRegister::unregisterType(const std::type_info& cppType)
     
     if (type->getCategory() | Type::Class)
     {
-        Class* clazz = ptrSet::removeByKey(classesById_, cppType);
-        ptrSet::removeByKey(classesByName_, clazz->getName());
+        ptrSet::removeByKey(classesById_, cppType);
     }
     
     delete type;

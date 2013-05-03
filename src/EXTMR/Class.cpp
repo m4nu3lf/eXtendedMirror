@@ -191,7 +191,7 @@ const Method& Class::getMethod(const string& methodName) const
     if (method)
         return *method;
     else
-        throw MethodNotFoundException(*method, name_);
+        throw MethodNotFoundException(methodName, name_);
 }
 
 
