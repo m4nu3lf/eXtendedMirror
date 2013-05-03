@@ -39,6 +39,12 @@ PointerType::PointerType
 }
 
 
+Type::Category PointerType::getCategory() const
+{
+    return Type::Pointer;
+}
+
+
 const Type& PointerType::getPointedType() const
 {
     return *pointedType_;

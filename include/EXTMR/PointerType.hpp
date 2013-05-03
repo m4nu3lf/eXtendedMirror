@@ -15,6 +15,13 @@ class PointerType : public Type
 {
 public:
     /**
+     * Get the type Category.
+     * 
+     * @return The type category of this type.
+     */
+    Category getCategory() const;
+    
+    /**
      * Get the Type of the type pointed by this one.
      * 
      * @return The pointed Type.
@@ -53,7 +60,8 @@ private:
     const Type* pointedType_;
     
     // TypeRegister is the factory class.
-    friend class TypeRegister;
+    template<typename T>
+    friend class CreateType;
 };
 
 

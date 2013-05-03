@@ -10,187 +10,170 @@
 
 
 /**
- * \def EXTMR_ENABLE_PRIMITIVE(primitive_type)
- * Specialize the TypeRecognizer class for the \a primitive_type
+ * \def EXTMR_ENABLE_PRIMITIVE(_primitive_type_)
+ * Specialize the GetTypeName class for the \a _primitive_type_
  */
-#define EXTMR_ENABLE_PRIMITIVE(primitive_type)                                 \
+#define EXTMR_ENABLE_PRIMITIVE(_primitive_type_)                               \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct TypeRecognizer<primitive_type>                                          \
+struct GetTypeName<_primitive_type_>                                           \
 {                                                                              \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        return #primitive_type;                                                \
+        return #_primitive_type_;                                              \
     }                                                                          \
-                                                                               \
-    static const Type::Category category = Type::Primitive;                    \
 };                                                                             \
                                                                                \
 } // namespace extmr
 
 
 /**
- * \def EXTMR_ENABLE_CLASS(reflected_class)
+ * \def EXTMR_ENABLE_CLASS(_class_)
  * 
- * TypeRecognizer template struct is specialized in order to define the right
+ * GetTypeName template struct is specialized in order to define the right
  * name and category for the type.
  * This information is used during the registration phase of this type.
  * 
- * Enables reflection for the class \a reflected_class.
- * Place this macro in the same header of the \a reflected_class declaration,
+ * Enables reflection for the class \a _class_.
+ * Place this macro in the same header of the \a _class_ declaration,
  * after the class declaration.
  */
-#define EXTMR_ENABLE_CLASS(reflected_class)                                    \
+#define EXTMR_ENABLE_CLASS(_class_)                                            \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct TypeRecognizer<reflected_class>                                         \
+struct GetTypeName<_class_>                                                    \
 {                                                                              \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        return #reflected_class;                                               \
+        return #_class_;                                                       \
     }                                                                          \
-                                                                               \
-    static const Type::Category category = Type::Class;                        \
 };                                                                             \
                                                                                \
 template<>                                                                     \
-struct ClassBuilder<reflected_class>                                           \
+struct BuildClass<_class_>                                                     \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
 };                                                                             \
                                                                                \
+template<>                                                                     \
+struct CreateType<_class_>                                                     \
+{                                                                              \
+    Type* operator()()                                                         \
+    {                                                                          \
+        return createClass<_class_>();                                         \
+    }                                                                          \
+};                                                                             \
+                                                                               \
 } // namespace extmr
 
 
-#define EXTMR_ASSUME_NON_COPYABLE(reflected_class)                             \
+#define EXTMR_ASSUME_NON_COPYABLE(_class_)                                     \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct CopyConstructorWrapper<reflected_class> : public CopyConstructor        \
+struct GetTypeCopyConstructor<_class_>                                         \
 {                                                                              \
-    void* operator()(const void* originAddr, void* destAddr)                   \
+    CopyConstructor* operator()()                                              \
     {                                                                          \
         return NULL;                                                           \
     }                                                                          \
 };                                                                             \
                                                                                \
-template<>                                                                     \
-struct IsCopyable<reflected_class>                                             \
-{                                                                              \
-    static const bool value = false;                                           \
-};                                                                             \
-                                                                               \
 } //namespace extmr
 
 
-#define EXTMR_ASSUME_NON_INSTANTIABLE(reflected_class)                         \
+#define EXTMR_ASSUME_NON_INSTANTIABLE(_class_)                                 \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct ConstructorWrapper<reflected_class> : public Constructor                \
+struct GetTypeConstructor<_class_>                                             \
 {                                                                              \
-    void* operator()(void* destAddr)                                           \
+    Constructor* operator()()                                                  \
     {                                                                          \
         return NULL;                                                           \
     }                                                                          \
 };                                                                             \
                                                                                \
-template<>                                                                     \
-struct IsInstantiable<reflected_class>                                         \
-{                                                                              \
-    static const bool value = false;                                           \
-};                                                                             \
-                                                                               \
 } //namespace extmr
 
 
-#define EXTMR_ASSUME_NON_ASSIGNABLE(reflected_class)                           \
+#define EXTMR_ASSUME_NON_ASSIGNABLE(_class_)                                   \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct AssignOperatorWrapper<reflected_class> : public AssignOperator          \
+struct GetTypeAssignOperator<_class_>                                          \
 {                                                                              \
-    void operator()(void* lvalueAddr, const void* rvalueAddr)                  \
+    AssignOperator* operator()()                                               \
     {                                                                          \
+        return NULL;                                                           \
     }                                                                          \
-};                                                                             \
-                                                                               \
-template<>                                                                     \
-struct IsAssignable<reflected_class>                                           \
-{                                                                              \
-    static const bool value = false;                                           \
 };                                                                             \
                                                                                \
 } //namespace extmr
 
 
-#define EXTMR_ASSUME_NON_DESTRUCTIBLE(reflected_class)                         \
+#define EXTMR_ASSUME_NON_DESTRUCTIBLE(_class_)                                 \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct DestructorWrapper<reflected_class> : public Destructor                  \
+struct GetTypeDestructor<_class_>                                              \
 {                                                                              \
-    void operator()(void* address, bool deallocate)                            \
+    Destructor* operator()()                                                   \
     {                                                                          \
+        return NULL;                                                           \
     }                                                                          \
-};                                                                             \
-                                                                               \
-template<>                                                                     \
-struct IsDestructible<reflected_class>                                         \
-{                                                                              \
-    static const bool value = false;                                           \
 };                                                                             \
                                                                                \
 } //namespace extmr
 
 
-#define EXTMR_ASSUME_ABSTRACT(reflected_class)                                 \
-EXTMR_ASSUME_NON_INSTANTIABLE(reflected_class)                                 \
-EXTMR_ASSUME_NON_ASSIGNABLE(reflected_class)                                   \
-EXTMR_ASSUME_NON_COPYABLE(reflected_class)
+#define EXTMR_ASSUME_ABSTRACT(_class_)                                         \
+EXTMR_ASSUME_NON_INSTANTIABLE(_class_)                                         \
+EXTMR_ASSUME_NON_ASSIGNABLE(_class_)                                           \
+EXTMR_ASSUME_NON_COPYABLE(_class_)
 
 
 /**
- * \def EXTMR_BUILD_CLASS(reflected_class)
+ * \def EXTMR_BUILD_CLASS(_class_)
  * 
  * Ensure the class will be registered at program start with no extra code.
  * \a relfected_class is the class to be build.
  */
 #define EXTMR_BUILD_CLASS(...)                                                 \
-void extmr::ClassBuilder<__VA_ARGS__>::operator()(Class& clazz) const
+void extmr::BuildClass<__VA_ARGS__>::operator()(Class& clazz) const
 
 
 /**
- * \def EXTMR_AUTOREG(reflected_class)
+ * \def EXTMR_AUTOREG(_class_)
  * 
  * Ensure the class will be registered at program startup, or when the shared
  * object is loaded dynamically, with no extra code.
  * \a relfected_class is the class to be registered.
  */
-#define EXTMR_AUTOREG(reflected_class)                                         \
-template class extmr::AutoRegisterer<reflected_class>;
+#define EXTMR_AUTOREG(_class_)                                                 \
+template class extmr::AutoRegisterer<_class_>;
 
 
 /**
- * \def EXTMR_ENABLE_TEMPLATE_1(reflected_template)
+ * \def EXTMR_ENABLE_TEMPLATE_1(_template_)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with one type parameter template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_TEMPLATE_1(reflected_template)                            \
+#define EXTMR_ENABLE_TEMPLATE_1(_template_)                                    \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1>                                                          \
-struct TypeRecognizer<reflected_template<T1> >                                 \
+struct GetTypeName<_template_<T1> >                                            \
 {                                                                              \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        std::string str = std::string(#reflected_template) + "<";              \
-        str += TypeRecognizer<T1>::getName();                                  \
+        std::string str = std::string(#_template_) + "<";                      \
+        str += GetTypeName<T1>()();                                            \
         if (str[str.length() - 1] == '>')                                      \
         {                                                                      \
             str += " ";                                                        \
@@ -198,52 +181,66 @@ struct TypeRecognizer<reflected_template<T1> >                                 \
         str += ">";                                                            \
         return str;                                                            \
     }                                                                          \
-                                                                               \
-    static const Type::Category category = Type::CompoundClass;                \
-};                                                                             \
-                                                                               \
-template<typename _T1>                                                         \
-struct TemplateRecognizer<reflected_template<_T1> >                            \
-{                                                                              \
-    typedef _T1 T1;                                                            \
-    typedef void T2;                                                           \
-    typedef void T3;                                                           \
-    typedef void T4;                                                           \
-    static std::string getName()                                               \
-    {                                                                          \
-        return #reflected_template;                                            \
-    }                                                                          \
-    static const uint argN = 1;                                                \
 };                                                                             \
                                                                                \
 template<typename T1>                                                          \
-struct ClassBuilder<reflected_template<T1> >                                   \
+struct GetTemplateName<_template_<T1> >                                        \
+{                                                                              \
+    std::string operator()()                                                   \
+    {                                                                          \
+        return #_template_;                                                    \
+    }                                                                          \
+};                                                                             \
+                                                                               \
+template<typename T1>                                                          \
+struct GetTemplateArgs<_template_<T1> >                                        \
+{                                                                              \
+    ConstTypeVector operator()()                                               \
+    {                                                                          \
+        ConstTypeVector templateArgs;                                          \
+        TypeRegister& typeReg = TypeRegister::getSingleton();                  \
+        templateArgs.push_back(&typeReg.registerType<T1>());                   \
+        return templateArgs;                                                   \
+    }                                                                          \
+};                                                                             \
+                                                                               \
+template<typename T1>                                                          \
+struct BuildClass<_template_<T1> >                                             \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
+};                                                                             \
+                                                                               \
+template<typename T1>                                                          \
+struct CreateType<_template_<T1> >                                             \
+{                                                                              \
+    Type* operator()()                                                         \
+    {                                                                          \
+        return createCompoundClass<_template_<T1> >();                         \
+    }                                                                          \
 };                                                                             \
                                                                                \
 } // namespace extmr
 
 
 /**
- * \def EXTMR_ENABLE_TEMPLATE_2(reflected_template)
+ * \def EXTMR_ENABLE_TEMPLATE_2(_template_)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_TEMPLATE_2(reflected_template)                            \
+#define EXTMR_ENABLE_TEMPLATE_2(_template_)                                    \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1, typename T2>                                             \
-struct TypeRecognizer<reflected_template<T1, T2> >                             \
+struct GetTypeName<_template_<T1, T2> >                                        \
 {                                                                              \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        std::string str = std::string(#reflected_template) + "<";              \
-        str += TypeRecognizer<T1>::getName();                                  \
-        str += ", " + TypeRecognizer<T2>::getName();                           \
+        std::string str = std::string(#_template_) + "<";                      \
+        str += GetTypeName<T1>()();                                            \
+        str += ", " + GetTypeName<T2>()();                                     \
         if (str[str.length() - 1] == '>')                                      \
         {                                                                      \
             str += " ";                                                        \
@@ -251,53 +248,68 @@ struct TypeRecognizer<reflected_template<T1, T2> >                             \
         str += ">";                                                            \
         return str;                                                            \
     }                                                                          \
-                                                                               \
-    static const Type::Category category = Type::CompoundClass;                \
 };                                                                             \
                                                                                \
-template<typename _T1, typename _T2>                                           \
-struct TemplateRecognizer<reflected_template<_T1, _T2> >                       \
+template<typename T1, typename T2>                                             \
+struct GetTemplateName<_template_<T1, T2> >                                    \
 {                                                                              \
-    typedef _T1 T1;                                                            \
-    typedef _T2 T2;                                                            \
-    typedef void T3;                                                           \
-    typedef void T4;                                                           \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        return #reflected_template;                                            \
+        return #_template_;                                                    \
     }                                                                          \
-    static const uint argN = 2;                                                \
+};                                                                             \
+                                                                               \
+template<typename T1, typename T2>                                             \
+struct GetTemplateArgs<_template_<T1, T2> >                                    \
+{                                                                              \
+    ConstTypeVector operator()()                                               \
+    {                                                                          \
+        ConstTypeVector templateArgs;                                          \
+        TypeRegister& typeReg = TypeRegister::getSingleton();                  \
+        templateArgs.push_back(&typeReg.registerType<T1>());                   \
+        templateArgs.push_back(&typeReg.registerType<T2>());                   \
+        return templateArgs;                                                   \
+    }                                                                          \
 };                                                                             \
                                                                                \
 template<typename T1,  typename T2>                                            \
-struct ClassBuilder<reflected_template<T1, T2> >                               \
+struct BuildClass<_template_<T1, T2> >                                         \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
+};                                                                             \
+                                                                               \
+template<typename T1, typename T2>                                             \
+struct CreateType<_template_<T1, T2> >                                         \
+{                                                                              \
+    Type* operator()()                                                         \
+    {                                                                          \
+        return createCompoundClass<_template_<T1, T2> >();                     \
+    }                                                                          \
 };                                                                             \
                                                                                \
 } // namespace extmr
 
 
 /**
- * \def EXTMR_ENABLE_TEMPLATE_3(reflected_template)
+ * \def EXTMR_ENABLE_TEMPLATE_3(_template_)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with three type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_TEMPLATE_3(reflected_template)                            \
+#define EXTMR_ENABLE_TEMPLATE_3(_template_)                                    \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1,  typename T2,  typename T3>                              \
-struct TypeRecognizer<reflected_template<T1, T2, T3> >                         \
+struct GetTypeName<_template_<T1, T2, T3> >                                    \
 {                                                                              \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        std::string str = std::string(#reflected_template) + "<";              \
-        str += TypeRecognizer<T1>::getName() + ", ";                           \
-        str += TypeRecognizer<T2>::getName() + ", ";                           \
-        str += TypeRecognizer<T3>::getName();                                  \
+        std::string str = std::string(#_template_) + "<";                      \
+        str += GetTypeName<T1>()() + ", ";                                     \
+        str += GetTypeName<T2>()() + ", ";                                     \
+        str += GetTypeName<T3>()();                                            \
         if (str[str.length() - 1] == '>')                                      \
         {                                                                      \
             str += " ";                                                        \
@@ -305,54 +317,71 @@ struct TypeRecognizer<reflected_template<T1, T2, T3> >                         \
         str += ">";                                                            \
         return str;                                                            \
     }                                                                          \
-                                                                               \
-    static const Type::Category category = Type::CompoundClass;                \
 };                                                                             \
                                                                                \
-template<typename _T1,  typename _T2,  typename _T3>                           \
-struct TemplateRecognizer<reflected_template<_T1, _T2, _T3> >                  \
+template<typename T1, typename T2, typename T3>                                \
+struct GetTemplateName<_template_<T1, T2, T3> >                                \
 {                                                                              \
-    typedef _T1 T1;                                                            \
-    typedef _T2 T2;                                                            \
-    typedef _T3 T3;                                                            \
-    typedef void T4;                                                           \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        return #reflected_template;                                            \
+        return #_template_;                                                    \
     }                                                                          \
-    static const uint argN = 3;                                                \
+};                                                                             \
+                                                                               \
+template<typename T1, typename T2, typename T3>                                \
+struct GetTemplateArgs<_template_<T1, T2, T3> >                                \
+{                                                                              \
+    ConstTypeVector operator()()                                               \
+    {                                                                          \
+        ConstTypeVector templateArgs;                                          \
+        TypeRegister& typeReg = TypeRegister::getSingleton();                  \
+        templateArgs.push_back(&typeReg.registerType<T1>());                   \
+        templateArgs.push_back(&typeReg.registerType<T2>());                   \
+        templateArgs.push_back(&typeReg.registerType<T3>());                   \
+        return templateArgs;                                                   \
+    }                                                                          \
 };                                                                             \
                                                                                \
 template<typename T1,  typename T2,  typename T3>                              \
-struct ClassBuilder<reflected_template<T1, T2, T3> >                           \
+struct BuildClass<_template_<T1, T2, T3> >                                     \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
 };                                                                             \
+                                                                               \
+template<typename T1, typename T2, typename T3>                                \
+struct CreateType<_template_<T1, T2, T3> >                                     \
+{                                                                              \
+    Type* operator()()                                                         \
+    {                                                                          \
+        return createCompoundClass<_template_<T1, T2, T3> >();                 \
+    }                                                                          \
+};                                                                             \
+                                                                               \
                                                                                \
 } // namespace extmr
 
 
 /**
- * \def EXTMR_ENABLE_TEMPLATE_4(reflected_template)
+ * \def EXTMR_ENABLE_TEMPLATE_4(_template_)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with four type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define EXTMR_ENABLE_TEMPLATE_4(reflected_template)                            \
+#define EXTMR_ENABLE_TEMPLATE_4(_template_)                                    \
 namespace extmr{                                                               \
                                                                                \
 template<typename T1,  typename T2,  typename T3,  typename T4>                \
-struct TypeRecognizer<reflected_template<T1, T2, T3, T4> >                     \
+struct GetTypeName<_template_<T1, T2, T3, T4> >                                \
 {                                                                              \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        std::string str = std::string(#reflected_template) + "<";              \
-        str += TypeRecognizer<T1>::getName() + ", ";                           \
-        str += TypeRecognizer<T2>::getName() + ", ";                           \
-        str += TypeRecognizer<T3>::getName() + ", ";                           \
-        str += TypeRecognizer<T4>::getName();                                  \
+        std::string str = std::string(#_template_) + "<";                      \
+        str += GetTypeName<T1>()() + ", ";                                     \
+        str += GetTypeName<T2>()() + ", ";                                     \
+        str += GetTypeName<T3>()() + ", ";                                     \
+        str += GetTypeName<T4>()();                                            \
         if (str[str.length() - 1] == '>')                                      \
         {                                                                      \
             str += " ";                                                        \
@@ -360,28 +389,45 @@ struct TypeRecognizer<reflected_template<T1, T2, T3, T4> >                     \
         str += ">";                                                            \
         return str;                                                            \
     }                                                                          \
-                                                                               \
-    static const Type::Category category = Type::CompoundClass;                \
 };                                                                             \
                                                                                \
-template<typename _T1,  typename _T2,  typename _T3,  typename _T4>            \
-struct TemplateRecognizer<reflected_template<_T1, _T2, _T3, _T4> >             \
+template<typename T1, typename T2, typename T3, typename T4>                   \
+struct GetTemplateName<_template_<T1, T2, T3, T4> >                            \
 {                                                                              \
-    typedef _T1 T1;                                                            \
-    typedef _T2 T2;                                                            \
-    typedef _T3 T3;                                                            \
-    typedef _T4 T4;                                                            \
-    static std::string getName()                                               \
+    std::string operator()()                                                   \
     {                                                                          \
-        return #reflected_template;                                            \
+        return #_template_;                                                    \
     }                                                                          \
-    static const uint argN = 4;                                                \
+};                                                                             \
+                                                                               \
+template<typename T1, typename T2, typename T3, typename T4>                   \
+struct GetTemplateArgs<_template_<T1, T2, T3, T4> >                            \
+{                                                                              \
+    ConstTypeVector operator()()                                               \
+    {                                                                          \
+        ConstTypeVector templateArgs;                                          \
+        TypeRegister& typeReg = TypeRegister::getSingleton();                  \
+        templateArgs.push_back(&typeReg.registerType<T1>());                   \
+        templateArgs.push_back(&typeReg.registerType<T2>());                   \
+        templateArgs.push_back(&typeReg.registerType<T3>());                   \
+        templateArgs.push_back(&typeReg.registerType<T4>());                   \
+        return templateArgs;                                                   \
+    }                                                                          \
 };                                                                             \
                                                                                \
 template<typename T1,  typename T2,  typename T3,  typename T4>                \
-struct ClassBuilder<reflected_template<T1, T2, T3, T4> >                       \
+struct BuildClass<_template_<T1, T2, T3, T4> >                                 \
 {                                                                              \
     void operator()(Class& clazz) const;                                       \
+};                                                                             \
+                                                                               \
+template<typename T1, typename T2, typename T3, typename T4>                   \
+struct CreateType<_template_<T1, T2, T3, T4> >                                 \
+{                                                                              \
+    Type* operator()()                                                         \
+    {                                                                          \
+        return createCompoundClass<_template_<T1, T2, T3, T4> >();             \
+    }                                                                          \
 };                                                                             \
                                                                                \
 } // namespace extmr

@@ -74,8 +74,9 @@ private:
     // The size of the array.
     size_t arraySize_;
     
-    // TypeRegister is the factory class.
-    friend class TypeRegister;
+    // Factory class
+    template<typename T>
+    friend class CreateType;
 };
 
 

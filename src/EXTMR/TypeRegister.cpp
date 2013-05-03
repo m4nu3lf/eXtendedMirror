@@ -5,7 +5,7 @@
 using namespace std;
 using namespace extmr;
 
-TypeRegister& TypeRegister::getTypeReg()
+TypeRegister& TypeRegister::getSingleton()
 {
     static TypeRegister typeReg;
     return typeReg;
@@ -66,9 +66,15 @@ const Class& TypeRegister::getClass(const type_info& cppType) const
 }
 
 
+void TypeRegister::addTemplate(const Template& tempjate)
+{
+    templates_.insert(&tempjate);
+}
+
+
 const Template& TypeRegister::getTemplate(const string& templateName) const
 {
-    Template* tempjate = ptrSet::findByKey(templates_, templateName);
+    const Template* tempjate = ptrSet::findByKey(templates_, templateName);
     if (tempjate)
         return *tempjate;
     else

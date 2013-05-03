@@ -10,160 +10,118 @@
 
 namespace extmr{
 
-/*
- * Utility templates for type recognition.
- */
 
-/**
- * Specialize for each supported type. Each specialization must provide at least
- * a static std::string getName() method a const Type::Category category
- * field.
- */
 template<typename T>
-struct TypeRecognizer
+struct GetTypeName
 {};
 
 
 /**
- * Specialize for each supported template type.
- * Each specialization must define the template parameters types
- * with names T1, T2, T3, T4, the constant uint argN and the static method 
- * std::string getName();
- * The types of this non specialized version or those unused in a specialization
- * must evaluate to void.
+ * The getSizeSignature method returns a string in the form [size_1][size_2]...[size_n]
+ * if type T is an array in the form T[size_1][size_2]...[size_n],
+ * an empty string if T is not an array.
  */
-template<class T>
-struct TemplateRecognizer
+template<typename T>
+struct GetArrayExtentsSignature
 {
-    typedef void T1;
-    typedef void T2;
-    typedef void T3;
-    typedef void T4;
-    static std::string getName()
+    std::string operator()()
     {
         return "";
     }
-    static const uint argN = 0;
 };
 
 
-/**
- * Partial template specialization of the TypeRecognizer struct for pointers.
- */
-template<typename T>
-struct TypeRecognizer<T*>
+template<typename T, std::size_t size>
+struct GetArrayExtentsSignature<T[size]>
 {
-    /**
-     * If TypeRecognizer<T>::getName() returns "SomeType" then this method
-     * returns "SomeType*".
-     * 
-     * @return The type name.
-     */
-    static std::string getName()
+    std::string operator()()
     {
-        std::string str = TypeRecognizer<T>::getName();
-        str += "*";
-        return str;
+        std::stringstream sstream;
+        sstream << "[" << size << "]" << GetArrayExtentsSignature<T>()();
+        return sstream.str();
     }
-    
-    static const Type::Category category = Type::Pointer;
 };
 
 
-/**
- * Partial template specialization of the TypeRecognizer struct for arrays.
- */
 template<typename T, uint size>
-struct TypeRecognizer<T[size]>
+struct GetTypeName<T[size]>
 {
     typedef typename RemoveAllExtents<T>::Type NonArrayT;
     
     /**
-     * If TypeRecognizer<T>::getName() returns "SomeType" then this method
+     * If GetTypeName<T>::getName() returns "SomeType" then this method
      * returns "SomeType[size_1][size_2]...[size_n]".
      * 
      * @return The type name.
      */
-    static std::string getName()
+    std::string operator()()
     {
-        return TypeRecognizer<NonArrayT>::getName() +
-                ArraySizeSignature<T[size]>::getSizeSignature();
+        return GetTypeName<NonArrayT>()() +
+                GetArrayExtentsSignature<T[size]>()();
     }
-    
-    static const Type::Category category = Type::Array;
-};
-
-
-/**
- * Check if a given type is instatiable.
- * Non array types are supposed to be instantiable by default.
- * Specialize this class for each non instantiable class.
- */
-template<typename T>
-struct IsInstantiable
-{
-    static const bool value = true;
-};
-
-
-template<typename T, std::size_t size>
-struct IsInstantiable<T[size]>
-{
-    static const bool value = false;
-};
-
-
-/**
- * Check if a given type is copyable.
- * Non array types are supposed to be copyable by default.
- * Specialize this class for each non copyable class.
- */
-template<typename T>
-struct IsCopyable
-{
-    static const bool value = true;
-};
-
-
-template<typename T, std::size_t size>
-struct IsCopyable<T[size]>
-{
-    static const bool value = false;
-};
-
-
-/**
- * Check if a given type is copyable.
- * Non array types are supposed to be lvalue by default.
- * Specialize this class for each non lvalue class.
- */
-template<typename T>
-struct IsAssignable
-{
-    static const bool value = true;
-};
-
-
-template<typename T, std::size_t size>
-struct IsAssignable<T[size]>
-{
-    static const bool value = false;
 };
 
 
 template<typename T>
-struct IsDestructible
+struct GetTemplateName
+{};
+
+
+template<typename T>
+struct GetTemplateArgs
+{};
+
+
+template<typename T>
+struct GetTypeName<T*>
 {
-    static const bool value = true;
+    std::string operator()()
+    {
+        std::string str = GetTypeName<T>()();
+        str += "*";
+        return str;
+    }
 };
 
 
-template<typename T, std::size_t size>
-struct IsDestructible<T[size]>
+template<typename T>
+struct GetTypeConstructor
 {
-    static const bool value = false;
+    Constructor* operator()()
+    {
+        return new Create<T>();
+    }
 };
 
+
+template<typename T>
+struct GetTypeCopyConstructor
+{
+    CopyConstructor* operator()()
+    {
+        return new Copy<T>();
+    }
+};
+
+
+template<typename T>
+struct GetTypeAssignOperator
+{
+    AssignOperator* operator()()
+    {
+        return new Assign<T>();
+    }
+};
+
+
+template<typename T>
+struct GetTypeDestructor
+{
+    Destructor* operator()()
+    {
+        return new Destroy<T>();
+    }
+};
 
 
 } // namespace extmr

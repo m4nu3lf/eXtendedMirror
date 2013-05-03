@@ -84,7 +84,7 @@ public:
     , constGetter_(constGetter)
     , setterWrapper_(setter)
     {
-         type_ = &TypeRegister::getTypeReg().getType<PropT>();
+         type_ = &TypeRegister::getSingleton().getType<PropT>();
         
         // if the setter is not null we can set the property
         if (setter) flags_ |= Settable;
@@ -117,7 +117,7 @@ public:
     , setterWrapper_(setter)
     , extrArg1_(extrArg1)
     {
-        type_ = &TypeRegister::getTypeReg().getType<PropT>();
+        type_ = &TypeRegister::getSingleton().getType<PropT>();
                 
         // if the setter is not null we can set the property
         if (setter) flags_ |= Settable;
@@ -153,7 +153,7 @@ public:
     , extrArg1_(extrArg1)
     , extrArg2_(extrArg2)
     {
-        type_ = &TypeRegister::getTypeReg().getType<PropT>();
+        type_ = &TypeRegister::getSingleton().getType<PropT>();
         
         // if the setter is not null we can set the property
         if (setter) flags_ |= Settable;

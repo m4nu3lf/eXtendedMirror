@@ -70,7 +70,7 @@ Method::Method
     Member(name),
     fullSignature_(true)
 {    
-    const TypeRegister& typeReg = TypeRegister::getTypeReg();
+    const TypeRegister& typeReg = TypeRegister::getSingleton();
     
     if (&retType)
         this->retType_ = &typeReg.getType(retType);

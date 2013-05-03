@@ -55,7 +55,7 @@ private:
 };
 
 
-typedef std::set<const Template*, PtrCmpByName<Type> > ConstTemplateSet;
+typedef std::set<const Template*, PtrCmpByName<Template> > ConstTemplateSet;
 typedef std::set<Template*, PtrCmpByName<Template> > TemplateSet;
 
 

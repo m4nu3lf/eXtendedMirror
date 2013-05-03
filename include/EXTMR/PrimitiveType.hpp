@@ -47,8 +47,9 @@ private:
             AssignOperator* assignOperator
      );
     
-    // TypeRegister is the factory class.
-    friend class TypeRegister;
+    // Factory class
+    template<typename T>
+    friend class CreateType;
 };
 
 

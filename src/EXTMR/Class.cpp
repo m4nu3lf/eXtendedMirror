@@ -12,7 +12,7 @@
 using namespace std;
 using namespace extmr;
 
-const Class Class::Void("void");
+const Class Class::Void = TypeRegister::getSingleton().getClass<void>();
 
 
 Class::Class(const string& name) : Type(name)
@@ -152,7 +152,7 @@ bool Class::hasMethod(const Method& method, bool inherited) const
 
 bool Class::inheritsFrom(const string& baseClassName) const
 {
-    const Type& baseClass = TypeRegister::getTypeReg().getType(baseClassName);
+    const Type& baseClass = TypeRegister::getSingleton().getType(baseClassName);
     
     if (baseClass.getCategory() != Type::Class)
         return false;

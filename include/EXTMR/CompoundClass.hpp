@@ -15,6 +15,13 @@ class CompoundClass : public Class
 {
 public:
     /**
+     * Get the type Category.
+     * 
+     * @return The type category of this type.
+     */
+    Category getCategory() const;
+    
+    /**
      * Get the template descriptor of the template this class is an instance of.
      * 
      * @return The template descriptor.
@@ -62,8 +69,9 @@ private:
     // The type descriptors of the template arguments.
     ConstTypeVector templateArgs_;
     
-    // TypeRegister is the factory class.
-    friend class TypeRegister;
+    // Factory function
+    template<class T>
+    friend Type* createCompoundClass();
 };
 
 

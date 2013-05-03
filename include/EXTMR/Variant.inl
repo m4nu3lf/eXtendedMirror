@@ -31,7 +31,7 @@ struct VariantInitializer
     void operator()(T& data)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
 
         // ensure the type of the data is registered and retrieve it
         variant.type_ = &typeReg.registerType<T>();
@@ -136,14 +136,14 @@ template<typename T>
 Variant::operator T&() const
 {
     // retrieve the type register
-    TypeRegister& typeReg = TypeRegister::getTypeReg();
+    TypeRegister& typeReg = TypeRegister::getSingleton();
 
     // ensure the type of the data is registered and retrieve it
     const Type& targetType = typeReg.registerType<T>();
     
     // check for type compatibility
     if (!canReinterpret(*type_, targetType))
-        throw VariantTypeException(*type_, targetType);
+        throw VariantTypeException(targetType, *type_);
     
     // check for constness correctness
     if (!IsConst<T>::value && flags & Const)
@@ -178,7 +178,7 @@ template<typename T>
 const T& Variant::operator=(const T& rvalue)
 {   
     // get the type register
-    TypeRegister& typeReg = TypeRegister::getTypeReg();
+    TypeRegister& typeReg = TypeRegister::getSingleton();
     
     // get the Type
     const Type& type = typeReg.getType<T>();

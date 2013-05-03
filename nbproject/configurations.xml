@@ -47,6 +47,7 @@
           <itemPath>include/EXTMR/Shortcuts.hpp</itemPath>
           <itemPath>include/EXTMR/Template.hpp</itemPath>
           <itemPath>include/EXTMR/Type.hpp</itemPath>
+          <itemPath>include/EXTMR/TypeCreationHelpers.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRecognition.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRegister.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRegister.inl</itemPath>

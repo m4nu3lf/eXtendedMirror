@@ -173,12 +173,12 @@ public:
      * 
      * @return The type register.
      */
-    static TypeRegister& getTypeReg();
+    static TypeRegister& getSingleton();
     
 private:
 
-     /**
-      * Singleton limitations
+     /*
+      * Singleton restrictions.
       */
     TypeRegister();
     
@@ -189,12 +189,18 @@ private:
     
     /**
      * This method is called by registerType, after the type qualifiers are
-     * removed
-     * from the type.
+     * removed from the type.
      * 
      * @return the registered type.
      */
-    template<typename T> Type& registerNonQualifiedType();
+    template<typename T> Type& registerType_();
+    
+    /**
+     * Add a template to the template set.
+     * 
+     * @param tempjate The template to add.
+     */
+    void addTemplate(const Template& tempjate);
     
     /**
      * Return the function pointer of the callback function to call after each
@@ -222,7 +228,11 @@ private:
     
     // A set containing the template descriptors of all the instantiated
     //templates.
-    TemplateSet templates_;
+    ConstTemplateSet templates_;
+    
+    // this function needs to add Templates to the register
+    template<typename T>
+    friend Type* createCompoundClass();
 };
 
 } // namespace extmr

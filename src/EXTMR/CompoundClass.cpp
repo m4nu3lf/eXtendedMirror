@@ -21,7 +21,7 @@ CompoundClass::CompoundClass
     Destructor* destructor,
     AssignOperator* assignOperator,
     const Template& tempjate,
-    const ConstTypeVector& templateParamTypes
+    const ConstTypeVector& templateArgs
 ) :
     Class
     (
@@ -34,8 +34,14 @@ CompoundClass::CompoundClass
         assignOperator
     ),
     tempjate_(&tempjate),
-    templateArgs_(templateParamTypes)
+    templateArgs_(templateArgs)
 {
+}
+
+
+Type::Category CompoundClass::getCategory() const
+{
+    return Type::CompoundClass;
 }
 
 

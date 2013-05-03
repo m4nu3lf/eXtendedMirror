@@ -17,7 +17,7 @@ struct Constructor
 
     
 template<typename T>
-struct ConstructorWrapper : public Constructor
+struct Create : public Constructor
 {
     void* operator()(void* destAddr)
     {
@@ -36,7 +36,7 @@ struct ConstructorWrapper : public Constructor
 
 
 template<typename T, std::size_t size>
-struct ConstructorWrapper<T[size]> : public Constructor
+struct Create<T[size]> : public Constructor
 {
     void* operator()(void* destAddr){}
 };
@@ -49,7 +49,7 @@ struct CopyConstructor
 
 
 template<typename T>
-struct CopyConstructorWrapper : public CopyConstructor
+struct Copy : public CopyConstructor
 {
 
     void* operator()(const void* originAddr, void* destAddr)
@@ -71,7 +71,7 @@ struct CopyConstructorWrapper : public CopyConstructor
 
 
 template<typename T, std::size_t size>
-struct CopyConstructorWrapper<T[size]>: public CopyConstructor
+struct Copy<T[size]>: public CopyConstructor
 {
     void* operator()(const void* originAddr, void* destAddr){}
 };
@@ -84,7 +84,7 @@ struct Destructor
 
 
 template<typename T>
-struct DestructorWrapper : public Destructor
+struct Destroy : public Destructor
 {
     void operator()(void* address, bool deallocate)
     {
@@ -101,7 +101,7 @@ struct DestructorWrapper : public Destructor
 
 
 template<typename T, std::size_t size>
-struct DestructorWrapper<T[size]> : public Destructor
+struct Destroy<T[size]> : public Destructor
 {
     void operator()(void* address, bool deallocate){}
 };
@@ -114,7 +114,7 @@ struct AssignOperator
 
 
 template<typename T>
-struct AssignOperatorWrapper : public AssignOperator
+struct Assign : public AssignOperator
 {
     void operator()(void* lvalueAddr, const void* rvalueAddr)
     {
@@ -124,7 +124,7 @@ struct AssignOperatorWrapper : public AssignOperator
 
 
 template<typename T, std::size_t size>
-struct AssignOperatorWrapper<T[size]> : public AssignOperator
+struct Assign<T[size]> : public AssignOperator
 {
     void operator()(void* lvalueAddr, const void* rvalueAddr){}
 };

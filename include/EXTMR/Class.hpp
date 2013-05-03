@@ -227,12 +227,13 @@ protected:
     // The methods of this class except those inherited form base classes.
     ConstMethodSet ownMethods_;
     
-    // TypeRegister is the factory class.
-    friend class TypeRegister;
-    
-    // The ClassBuilder needs to call the stream operator.
+    // Factory function
     template<class T>
-    friend class ClassBuilder;
+    friend Type* createClass();
+    
+    // The BuildClass needs to call the stream operator.
+    template<class T>
+    friend class BuildClass;
 };
 
 } // namespace extmr

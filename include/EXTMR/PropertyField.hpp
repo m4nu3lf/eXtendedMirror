@@ -45,7 +45,7 @@ public:
     {
         
         offset_ = (size_t) &(((ClassT*)NULL)->*field);
-        type_ = &TypeRegister::getTypeReg().getType<FieldT>();
+        type_ = &TypeRegister::getSingleton().getType<FieldT>();
         
         // initialize bounds
         getTypeBounds<FieldT>(minValue_, maxValue_);

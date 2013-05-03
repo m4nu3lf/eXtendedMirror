@@ -8,7 +8,7 @@
 using namespace std;
 using namespace extmr;
 
-const Type Type::Void("void");
+const Type Type::Void = TypeRegister::getSingleton().getType<void>();
 
 Type::Type(const string& name) : 
     name_(name),

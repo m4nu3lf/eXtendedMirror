@@ -20,7 +20,7 @@ class AutoRegisterer
 {
     AutoRegisterer()
     {
-        TypeRegister::getTypeReg().registerType<T>();\
+        TypeRegister::getSingleton().registerType<T>();\
     }
     
     static AutoRegisterer autoregisterer;
@@ -33,7 +33,7 @@ AutoRegisterer<T> AutoRegisterer<T>::autoregisterer;
  * This function object builds a class info.
  */
 template<class T>
-struct ClassBuilder
+struct BuildClass
 {
     void operator()(Class& clazz) const
     {

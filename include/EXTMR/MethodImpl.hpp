@@ -49,7 +49,7 @@ public:
     constant_(constant) 
     {
         // retrieve the type of the returning value
-        retType_ = &TypeRegister::getTypeReg().getType<RetT>();
+        retType_ = &TypeRegister::getSingleton().getType<RetT>();
         
         // method has full signature
         fullSignature_ = true;
@@ -70,7 +70,7 @@ public:
     constant_(constant)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
         
         // retrieve the type of the returning value
         retType_ = &typeReg.getType<RetT>();
@@ -99,7 +99,7 @@ public:
     constant_(constant)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
         
         // retrieve the type of the returning value
         retType_ = &typeReg.getType<RetT>();
@@ -132,7 +132,7 @@ public:
     constant_(constant)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
         
         // retrieve the type of the returning value
         retType_ = &typeReg.getType<RetT>();
@@ -167,7 +167,7 @@ public:
     constant_(constant)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
         
         // retrieve the type of the returning value
         retType_ = &typeReg.getType<RetT>();
@@ -206,7 +206,7 @@ public:
     constant_(constant)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
         
         // retrieve the type of the returning value
         retType_ = &typeReg.getType<RetT>();
@@ -249,7 +249,7 @@ public:
     constant_(constant)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
         
         // retrieve the type of the returning value
         retType_ = &typeReg.getType<RetT>();
@@ -295,7 +295,7 @@ public:
     constant_(constant)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
         
         // retrieve the type of the returning value
         retType_ = &typeReg.getType<RetT>();
@@ -344,7 +344,7 @@ public:
     constant_(constant)
     {
         // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getTypeReg();
+        TypeRegister& typeReg = TypeRegister::getSingleton();
         
         // retrieve the type of the returning value
         retType_ = &typeReg.getType<RetT>();

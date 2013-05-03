@@ -205,33 +205,6 @@ struct RemoveAllExtents<T[size]>
 
 
 /**
- * The getSizeSignature method returns a string in the form [size_1][size_2]...[size_n]
- * if type T is an array in the form T[size_1][size_2]...[size_n],
- * an empty string if T is not an array.
- */
-template<typename T>
-struct ArraySizeSignature
-{
-    static std::string getSizeSignature()
-    {
-        return "";
-    }
-};
-
-
-template<typename T, std::size_t size>
-struct ArraySizeSignature<T[size]>
-{
-    static std::string getSizeSignature()
-    {
-        std::stringstream sstream;
-        sstream << "[" << size << "]" << ArraySizeSignature<T>::getSizeSignature();
-        return sstream.str();
-    }
-};
-
-
-/**
  * Given the [size_1][size_2]...[size_n] array the size member
  * evaluate to size_1 or to zero if T is not an array.
  */

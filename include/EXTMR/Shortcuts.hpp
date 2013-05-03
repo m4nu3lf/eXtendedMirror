@@ -14,56 +14,56 @@ namespace extmr {
 template <typename T>
 const Type& registerType()
 {
-    return TypeRegister::getTypeReg().registerType<T>();
+    return TypeRegister::getSingleton().registerType<T>();
 }
 
 
 template <class C>
 const Class& registerClass()
 {
-    return TypeRegister::getTypeReg().registerClass<C>();
+    return TypeRegister::getSingleton().registerClass<C>();
 }
 
 
 template <typename T>
 const Type& getType()
 {
-    return TypeRegister::getTypeReg().getType<T>();
+    return TypeRegister::getSingleton().getType<T>();
 }
 
 
 inline
 const Type& getType(const std::string& name)
 {
-    return TypeRegister::getTypeReg().getType(name);
+    return TypeRegister::getSingleton().getType(name);
 }
 
 
 template <typename C>
 const Class& getClass()
 {
-    return TypeRegister::getTypeReg().registerClass<C>();
+    return TypeRegister::getSingleton().registerClass<C>();
 }
 
 
 inline
 const Class& getClass(const std::string& name)
 {
-    return TypeRegister::getTypeReg().getClass(name);
+    return TypeRegister::getSingleton().getClass(name);
 }
 
 
 template <typename T>
 const Type& getTypeOf(T& var)
 {
-    return TypeRegister::getTypeReg().getTypeOf<T>(var);
+    return TypeRegister::getSingleton().getTypeOf<T>(var);
 }
 
 
 template <typename C>
 const Class& getClassOf(C& object)
 {
-    return TypeRegister::getTypeReg().getClassOf<C>(object);
+    return TypeRegister::getSingleton().getClassOf<C>(object);
 }
 
 
@@ -81,14 +81,14 @@ bool is(const C& object, const Class& clazz)
 inline
 const void unregisterType(const std::string& name)
 {
-    return TypeRegister::getTypeReg().unregisterType(name);
+    return TypeRegister::getSingleton().unregisterType(name);
 }
 
 
 inline
 const void unregisterType(const std::type_info& typeId)
 {
-    return TypeRegister::getTypeReg().unregisterType(typeId);
+    return TypeRegister::getSingleton().unregisterType(typeId);
 }
 
 

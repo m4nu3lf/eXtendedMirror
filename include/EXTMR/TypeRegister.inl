@@ -2,6 +2,9 @@
 #define EXTMR_TYPEREGISTER_INL
 
 #include <EXTMR/MemberWrappers.hpp>
+#include <EXTMR/TypeCreationHelpers.hpp>
+
+#include "Type.hpp"
 
 namespace extmr{
 
@@ -43,7 +46,7 @@ const Type& TypeRegister::registerType()
     typedef typename RemoveAllCVQualifiers<NonRefT>::Type NonQualifiedT;
     
     // call the actual registration method with the unqualified type
-    return registerNonQualifiedType<NonQualifiedT>();
+    return registerType_<NonQualifiedT>();
 }
 
 
@@ -55,125 +58,19 @@ const Class& TypeRegister::registerClass()
 
 
 template<typename T>
-Type& TypeRegister::registerNonQualifiedType()
+Type& TypeRegister::registerType_()
 {
+    // store registered type for subsequent calls
     static Type* type = NULL;
     
     // check for already registered type
     if (type) return *type;
     
-    // retrieve type information
-    std::string name = TypeRecognizer<T>::getName();
-    Type::Category category = TypeRecognizer<T>::category;
+    type = CreateType<T>()();
     
-    // method wrappers
-    Constructor* constructor = NULL;
-    CopyConstructor* copyConstructor = NULL;
-    Destructor* destructor = NULL;
-    AssignOperator* assignOperator = NULL;
-    
-    // take the method wrappers
-    if (IsInstantiable<T>::value)
-        constructor = new extmr::ConstructorWrapper<T>;
-
-    if (IsCopyable<T>::value)
-        copyConstructor = new extmr::CopyConstructorWrapper<T>;
-    
-    if (IsDestructible<T>::value)
-        destructor = new extmr::DestructorWrapper<T>;
-
-    if (IsAssignable<T>::value)
-        assignOperator = new extmr::AssignOperatorWrapper<T>;
-    
-    switch(category)
-    {
-        case Type::Primitive:
-            type = new PrimitiveType(name, sizeof(T), typeid(T), constructor, 
-                    copyConstructor, destructor, assignOperator);
-            break;
-            
-        case Type::Pointer:
-        {
-            const Type& pointedType =
-                                registerType<typename RemovePointer<T>::Type>();
-            
-            type = new PointerType(name, sizeof(T), typeid(T), constructor, 
-                    copyConstructor, destructor, assignOperator, pointedType);
-            break;
-        }
-            
-        case Type::Array:
-        {
-            std::size_t arraySize = ArraySize<T>::size;
-            const Type& elementType =
-                                registerType<typename RemoveExtent<T>::Type>();
-            
-            type = new ArrayType(name, sizeof(T), typeid(T), constructor, 
-                    copyConstructor, destructor, assignOperator, arraySize,
-                    elementType);
-            break;
-        }
-            
-        case Type::Class:
-            type = new Class(name, sizeof(T), typeid(T), constructor, 
-                    copyConstructor, destructor, assignOperator);
-            break;
-            
-        case Type::CompoundClass:
-        {
-            ConstTypeVector templateArgs;
-            const Type* tmpType;
-
-            tmpType = &registerType<typename TemplateRecognizer<T>::T1>();
-            templateArgs.push_back(tmpType);
-            
-            if (TemplateRecognizer<T>::argN > 1)
-            {
-                tmpType = &registerType<typename TemplateRecognizer<T>::T2>();
-                templateArgs.push_back(tmpType);
-                
-                if (TemplateRecognizer<T>::argN > 2)
-                {
-                    tmpType =
-                            &registerType<typename TemplateRecognizer<T>::T3>();
-                    templateArgs.push_back(tmpType);
-                    
-                    if (TemplateRecognizer<T>::argN > 3)
-                    {
-                        tmpType =
-                            &registerType<typename TemplateRecognizer<T>::T4>();
-                        templateArgs.push_back(tmpType);
-                    }
-                }
-            }
-
-            Template* tempjate = new Template(TemplateRecognizer<T>::getName(),
-                    TemplateRecognizer<T>::argN);
-            TemplateSet::iterator ite;
-            ite = templates_.find(tempjate);
-            if (ite == templates_.end())
-            {
-                templates_.insert(tempjate);
-            }
-            else
-            {
-                delete tempjate;
-                tempjate = *ite;
-            }
-            type = new CompoundClass(name, sizeof(T), typeid(T), constructor, 
-                    copyConstructor, destructor, assignOperator, *tempjate,
-                    templateArgs);
-            break;
-        }
-    }
-    
-    if (category & Type::Class)
+    if (type->getCategory() & Type::Class)
     {   
         Class* clazz = dynamic_cast<Class*>(type);
-        
-        // call the ClassBuilder of this class to build the class info
-        ClassBuilder<T> classBuilder;
-        classBuilder(*clazz);
         
         // push the class object into the class sets
         classesById_.insert(clazz);
