@@ -45,8 +45,6 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/Class.hpp>
 #include <EXTMR/CompoundClass.hpp>
 #include <EXTMR/TypeRegister.hpp>
-#include <EXTMR/Registration.hpp>
-#include <EXTMR/TypeRecognition.hpp>
 #include <EXTMR/PropertyField.hpp>
 #include <EXTMR/PropertyArrayField.hpp>
 #include <EXTMR/PropertyGetterNSetter.hpp>

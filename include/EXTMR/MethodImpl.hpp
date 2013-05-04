@@ -430,7 +430,7 @@ public:
         ClassT& objRef = *objPtr.to<ClassT*>();
         
         // cannot call a non constant method of a constant instance
-        if (objPtr.isPointedConst() && !constant_)
+        if (objPtr.isPointerToConst() && !constant_)
             throw VariantCostnessException(objPtr.getType());
         
         Variant var = methodWrapper_(objRef, arg1, arg2, arg3, arg4, arg5, arg6,

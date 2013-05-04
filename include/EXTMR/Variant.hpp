@@ -42,7 +42,7 @@ public:
     };
     
     /**
-     * Build an invalid variant.
+     * Build a void variant.
      */
     Variant();
     
@@ -79,20 +79,13 @@ public:
     }
     
     /**
-     * Check if the variant is a valid one.
-     * 
-     * @return True if the variant is valid, false otherwise.
-     */
-    bool isValid();
-    
-    /**
      * Ask if this variant data is a reference to an external data.
      * 
      * @return true if the variant data is a reference, false otherwise.
      */
     bool isReference() const
     {
-        return flags & Reference;
+        return flags_ & Reference;
     }
     
     /**
@@ -102,7 +95,7 @@ public:
      */
     bool isConst() const
     {
-        return flags & Const;
+        return flags_ & Const;
     }
     
     /**
@@ -111,9 +104,9 @@ public:
      * @return true if the variant holds a pointer to constant data,
      * false otherwise.
      */
-    bool isPointedConst() const
+    bool isPointerToConst() const
     {
-        return flags & PointerToConst;
+        return flags_ & PointerToConst;
     }
     
     /**
@@ -122,7 +115,7 @@ public:
      */
     void setConst()
     {
-        flags |= Const;
+        flags_ |= Const;
     }
     
     /**
@@ -134,8 +127,8 @@ public:
      */
     void setCopyByRef(bool value = true)
     {
-        if (value) flags |= CopyByRef;
-        else flags &= ~CopyByRef;
+        if (value) flags_ |= CopyByRef;
+        else flags_ &= ~CopyByRef;
     }
     
     /**
@@ -206,7 +199,7 @@ public:
     
 private:
     /**
-     * Flags that don't have to passed to the constructor.
+     * Flags that should not be passed to the constructor.
      */
     enum
     {
@@ -230,14 +223,25 @@ private:
     // Pointer to the Type of the data.
     const Type* type_;
     
-    // This field store some variant flags.
-    char flags;
+    // Variant flags.
+    char flags_;
     
-    // The actual construction of the object is delegated to this function
-    // object.
+    /**
+     * Initialize a variant.
+     */
     template<typename T>
-    friend class VariantInitializer;
+    struct Initialize
+    {
+        Initialize(Variant& variant) : variant_(variant){};
+
+        void operator()(T& data);
+
+        // The variant that is being initialized
+        Variant& variant_;
+    };
+    
 };
+
 
 } // namespace extmr
 

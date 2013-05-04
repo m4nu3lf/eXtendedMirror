@@ -42,13 +42,11 @@
           <itemPath>include/EXTMR/PropertyArrayField.hpp</itemPath>
           <itemPath>include/EXTMR/PropertyField.hpp</itemPath>
           <itemPath>include/EXTMR/PropertyGetterNSetter.hpp</itemPath>
-          <itemPath>include/EXTMR/Registration.hpp</itemPath>
+          <itemPath>include/EXTMR/RegistrationHelpers.hpp</itemPath>
           <itemPath>include/EXTMR/RegistrationMacros.hpp</itemPath>
           <itemPath>include/EXTMR/Shortcuts.hpp</itemPath>
           <itemPath>include/EXTMR/Template.hpp</itemPath>
           <itemPath>include/EXTMR/Type.hpp</itemPath>
-          <itemPath>include/EXTMR/TypeCreationHelpers.hpp</itemPath>
-          <itemPath>include/EXTMR/TypeRecognition.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRegister.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRegister.inl</itemPath>
           <itemPath>include/EXTMR/TypeTraits.hpp</itemPath>

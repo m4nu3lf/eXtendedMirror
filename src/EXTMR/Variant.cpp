@@ -14,25 +14,25 @@ using namespace extmr;
 Variant::Variant()
 {
     data_ = NULL;
-    type_ = NULL;
+    type_ = &TypeRegister::getSingleton().getType<void>();
 }
 
 
-Variant::Variant(const Variant& orig) : flags(0)
+Variant::Variant(const Variant& orig) : flags_(0)
 {       
     // copy the Type pointer
     type_ = orig.type_;
     
-    if (orig.flags | CopyByRef)
+    if (orig.flags_ & CopyByRef)
     {
         // reference the data
         data_ = orig.data_;
         
         // copy constness
-        flags = orig.flags;
+        flags_ = orig.flags_;
         
         // mark the variant as a reference
-        flags |= Reference;
+        flags_ |= Reference;
     }
     else
     {
@@ -67,18 +67,12 @@ const Variant& Variant::operator=(const Variant& other)
 
 Variant::~Variant()
 {
-    if (!flags & Reference)
+    if (!flags_ & Reference)
     {        
         // deallocate the data
         if (data_)
             type_->deleteInstance(data_);
     }
-}
-
-
-bool Variant::isValid()
-{
-    return data_ && type_;
 }
 
 
@@ -133,9 +127,6 @@ bool Variant::canReinterpret(const Type& type, const Type& targetType)
     }
 }
 
-
-namespace extmr{
-
 // A variant can always be converted to an Empty object. 
 template<>
 Empty& Variant::to<Empty>() const
@@ -143,7 +134,4 @@ Empty& Variant::to<Empty>() const
     static Empty empty;
     return empty;
 }
-
-
-} // namespace extmr
 

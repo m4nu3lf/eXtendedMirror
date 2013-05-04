@@ -15,45 +15,30 @@
 
 namespace extmr{
 
-/**
- * Initialize a variant. If the type of the variant is an array
- * then the variant will store a pointer to the first element.
- * If the array is multidimensional the elements are considered the inner most
- * ones that are not array (i.e. all extents are removed).
- * In this case flags will be ignored and set to default.
- */
 template<typename T>
-struct VariantInitializer
+void Variant::Initialize<T>::operator()(T& data)
 {
-    VariantInitializer(Variant& variant) : variant(variant){};
-    
-    void operator()(T& data)
+    // retrieve the type register
+    TypeRegister& typeReg = TypeRegister::getSingleton();
+
+    // ensure the type of the data is registered and retrieve it
+    variant_.type_ = &typeReg.registerType<T>();
+
+    if (variant_.flags_ & Reference)
     {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-
-        // ensure the type of the data is registered and retrieve it
-        variant.type_ = &typeReg.registerType<T>();
-
-        if (variant.flags & Variant::Reference)
-        {
-            // store the pointer to the data
-            variant.data_ = &data;
-        }
-        else
-        {
-            // copy the data and store the pointer to it
-            variant.data_ = new T(data);
-        }
-        
-        // if the type is a pointer to a constant set the proper flag.
-        if (IsConst<typename RemovePointer<T>::Type>::value)
-            variant.flags |= Variant::PointerToConst;
+        // store the pointer to the data
+        variant_.data_ = &data;
     }
-    
-    // A reference to the variant that is being initialized
-    Variant& variant;
-};
+    else
+    {
+        // copy the data and store the pointer to it
+        variant_.data_ = new T(data);
+    }
+
+    // if the type is a pointer to a constant set the proper flag.
+    if (IsConst<typename RemovePointer<T>::Type>::value)
+        variant_.flags_ |= PointerToConst;
+}
 
 
 /**
@@ -62,50 +47,47 @@ struct VariantInitializer
  * first element.
  */
 template<typename T, std::size_t size>
-struct VariantInitializer<T[size]>
+struct Variant::Initialize<T[size]>
 {
-    VariantInitializer(Variant& variant) : variant(variant){};
+    Initialize(Variant& variant) : variant_(variant){};
     
     void operator()(T data[size])
     {
-        VariantInitializer<T*> initializer(variant);
-        initializer(data);
+        Initialize<T*>(variant_)(data);
     }
     
     // A reference to the variant that is being initialized
-    Variant& variant;
+    Variant& variant_;
 };
 
 
 template<typename T>
 Variant::Variant(const T& data)
-: flags(0)
+: flags_(0)
 {
     // if the type is a constant array, then the type will be converted to a
     // pointer to constant
-    if (IsArray<T>::value) this->flags |= PointerToConst;
+    if (IsArray<T>::value) flags_ |= PointerToConst;
     
-    VariantInitializer<T> initializer(*this);
-    initializer(const_cast<T&>(data));
+    Initialize<T>(*this)(const_cast<T&>(data));
 }
 
 
 template<typename T>
 Variant::Variant(T& data, char flags)
-: flags(flags)
+: flags_(flags)
 {
     typedef typename RemoveConst<T>::Type NonConstT;
     
     // if the type is a constant one, and a storing is performed by reference,
     // remember constness
-    if ((flags & Reference) && IsConst<T>::value) this->flags |= Const;
+    if ((flags & Reference) && IsConst<T>::value) flags_ |= Const;
     
     // if the type is a constant array, then the type will be converted to a
     // pointer to constant
-    if (IsArray<T>::value && IsConst<T>::value) this->flags |= PointerToConst;
+    if (IsArray<T>::value && IsConst<T>::value) flags_ |= PointerToConst;
     
-    VariantInitializer<NonConstT> initializer(*this);
-    initializer(const_cast<NonConstT&>(data));
+    Initialize<NonConstT>(*this)(const_cast<NonConstT&>(data));
 }
 
 
@@ -123,11 +105,11 @@ Variant::operator T&() const
         throw VariantTypeException(targetType, *type_);
     
     // check for constness correctness
-    if (!IsConst<T>::value && flags & Const)
+    if (!IsConst<T>::value && flags_ & Const)
         throw VariantCostnessException(*type_);
     
     // check for pointed type's constness correctness
-    if (flags & PointerToConst &&
+    if (flags_ & PointerToConst &&
             !IsConst<typename RemovePointer<T>::Type>::value)
     {
         const Type& pointedType =

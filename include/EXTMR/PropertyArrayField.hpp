@@ -76,7 +76,7 @@ public:
         // the pointer is summed to the the object pointer and converted to the field type
         FieldT& fieldRef = *reinterpret_cast<FieldT*>(byteObjPtr + offset);
         
-        if (objPtr.isPointedConst())
+        if (objPtr.isPointerToConst())
         {
             return Variant(const_cast<const FieldT&>(fieldRef), 0);
         }

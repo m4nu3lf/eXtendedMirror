@@ -130,7 +130,7 @@ public:
         
         // if the pointer to the instance is a pointer to a constant, return the
         // field data as a constant Variant
-        if (objPtr.isPointedConst())
+        if (objPtr.isPointerToConst())
             flags |= Variant::Const;
         
         // the data of the field is returned as a reference Variant
@@ -150,7 +150,7 @@ public:
         
         // check whether the pointer provided in not a pointer to a constant
         // object
-        if (objPtr.isPointedConst())
+        if (objPtr.isPointerToConst())
             throw VariantCostnessException(objPtr.getType());
         
         // retrieve the new data value

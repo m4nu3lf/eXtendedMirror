@@ -2,7 +2,7 @@
 #define EXTMR_TYPEREGISTER_INL
 
 #include <EXTMR/MemberWrappers.hpp>
-#include <EXTMR/TypeCreationHelpers.hpp>
+#include <EXTMR/RegistrationHelpers.hpp>
 
 namespace extmr{
 

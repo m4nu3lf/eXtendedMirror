@@ -243,7 +243,7 @@ public:
         ClassT& objRef = *objPtr.to<ClassT*>();
         
         // we cannot call a non constant getter of a constant instance
-        if (objPtr.isPointedConst() && !constGetter_)
+        if (objPtr.isPointerToConst() && !constGetter_)
             throw VariantCostnessException(objPtr.getType());
                 
         const PropT& data = getterWrapper_(objRef, extrArg1_, extrArg2_);
