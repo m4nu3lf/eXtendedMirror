@@ -1,8 +1,8 @@
-/* 
- * File:   Template.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on January 2, 2013, 13.23
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_TEMPLATE_HPP

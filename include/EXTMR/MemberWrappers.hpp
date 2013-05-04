@@ -1,8 +1,8 @@
-/* 
- * File:   MethodWrapper.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on December 27, 2012, 11.27
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_METHODWRAPPER_HPP

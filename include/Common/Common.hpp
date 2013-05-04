@@ -1,8 +1,8 @@
-/* 
- * File:   Common.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on 3 November 2012, 11.34
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef COMMON_HPP

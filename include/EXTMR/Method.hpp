@@ -1,8 +1,8 @@
-/* 
- * File:   Method.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on October 20, 2012, 21.55
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_METHOD_HPP

@@ -1,8 +1,8 @@
-/* 
- * File:   DebugUtils.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on 11 August 2012, 18.06
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef DEBUGUTILS_HPP

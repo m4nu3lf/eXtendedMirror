@@ -1,8 +1,8 @@
-/* 
- * File:   Parameter.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on January 26, 2013, 15.31
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef PARAMETER_HPP

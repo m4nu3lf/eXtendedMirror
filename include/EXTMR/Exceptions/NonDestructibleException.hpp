@@ -1,8 +1,8 @@
-/* 
- * File:   NonDestructibleException.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on May 1, 2013, 10:12 PM
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_NONDESTRUCTIBLEEXCEPTION_HPP

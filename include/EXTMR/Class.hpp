@@ -1,8 +1,8 @@
-/* 
- * File:   Class.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on December 26, 2012, 11.09
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_CLASS_HPP

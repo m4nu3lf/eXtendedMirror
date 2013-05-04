@@ -1,8 +1,8 @@
-/* 
- * File:   PrimitiveType.hpp
- * Author: manuele
- *
- * Created on May 2, 2013, 4:02 PM
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_PRIMITIVETYPE_HPP

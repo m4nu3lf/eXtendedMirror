@@ -1,8 +1,8 @@
-/* 
- * File:   PropertyGetterNSetter.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on February 2, 2013, 20.14
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_PROPERTYGETTERNSETTER_HPP

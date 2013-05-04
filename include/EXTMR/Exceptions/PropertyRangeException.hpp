@@ -1,8 +1,8 @@
-/* 
- * File:   PropertyRangeException.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on January 15, 2013, 18.58
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_PROPERTYRANGEEXCEPTION_HPP

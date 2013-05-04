@@ -1,3 +1,10 @@
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
+ */
+
 #include <Common/Common.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
 #include <EXTMR/Exceptions/NotFoundExceptions.hpp>

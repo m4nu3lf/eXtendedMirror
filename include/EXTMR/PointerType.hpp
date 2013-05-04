@@ -1,8 +1,8 @@
-/* 
- * File:   PointerType.hpp
- * Author: manuele
- *
- * Created on May 2, 2013, 3:59 PM
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_POINTERTYPE_HPP

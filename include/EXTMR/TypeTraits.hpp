@@ -1,8 +1,8 @@
-/* 
- * File:   TypeTraits.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on August 20, 2012, 15.30
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_TYPETRAITS_HPP

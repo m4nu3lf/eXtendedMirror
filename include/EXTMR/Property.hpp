@@ -1,3 +1,10 @@
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
+ */
+
 #ifndef EXTMR_PROPERTYDESC_HPP
 #define EXTMR_PROPERTYDESC_HPP
 

@@ -1,8 +1,8 @@
-/* 
- * File:   Misc.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on January 23, 2013, 13.19
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_MISC_HPP

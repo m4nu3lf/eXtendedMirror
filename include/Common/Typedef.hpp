@@ -1,8 +1,8 @@
-/* 
- * File:   Typedef.h
- * Author: Manuele Finocchiaro
- *
- * Created on 31 July 2012, 10.19
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef TYPEDEF_HPP

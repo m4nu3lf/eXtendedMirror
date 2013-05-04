@@ -1,8 +1,8 @@
-/* 
- * File:   VariantTypeException.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on September 3, 2012, 12.50
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_VARIANTTYPEEXCEPTION_HPP

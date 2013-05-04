@@ -1,8 +1,8 @@
-/* 
- * File:   ExtendedMirror.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on October 30, 2012, 17.38
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTENDEDMIRROR_HPP

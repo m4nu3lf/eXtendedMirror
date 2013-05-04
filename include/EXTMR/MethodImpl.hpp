@@ -1,8 +1,8 @@
-/* 
- * File:   MethodImpl.hpp
- * Author: Manuele Finocchiaro
- *
- * Created on October 20, 2012, 22.11
+/*
+ * Extended Mirror
+ * 
+ * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
+ * 
  */
 
 #ifndef EXTMR_METHODIMPL_HPP
