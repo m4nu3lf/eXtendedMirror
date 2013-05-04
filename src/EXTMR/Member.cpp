@@ -28,12 +28,6 @@ const Class& Member::getOwner() const
 }
 
 
-void Member::setOwner(const Class& owner)
-{
-    owner_ = &owner;
-}
-
-
 Member::~Member()
 {
 }

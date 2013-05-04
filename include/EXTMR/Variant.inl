@@ -61,8 +61,11 @@ void Variant::Initialize<T>::operator()(T& data)
     // retrieve the type register
     TypeRegister& typeReg = TypeRegister::getSingleton();
 
-    // ensure the type of the data is registered and retrieve it
-    variant_.type_ = &typeReg.registerType<T>();
+    // ensure the base type is registered.
+    typeReg.registerType<T>();
+    
+    // if type is polymorphic take the actual type of the object.
+    variant_.type_ = &typeReg.getTypeOf(data);
 
     if (variant_.flags_ & Reference)
     {
@@ -72,7 +75,7 @@ void Variant::Initialize<T>::operator()(T& data)
     else
     {
         // copy the data and store the pointer to it
-        variant_.data_ = new T(data);
+        variant_.data_ = variant_.type_->copyInstance(&data);
     }
 
     // if the type is a pointer to a constant set the proper flag.

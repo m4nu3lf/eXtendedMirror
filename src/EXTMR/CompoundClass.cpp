@@ -20,6 +20,7 @@ CompoundClass::CompoundClass
     CopyConstructor* copyConstructor,
     Destructor* destructor,
     AssignOperator* assignOperator,
+    bool isAbstract,
     const Template& tempjate,
     const ConstTypeVector& templateArgs
 ) :
@@ -31,7 +32,8 @@ CompoundClass::CompoundClass
         constructor,
         copyConstructor,
         destructor,
-        assignOperator
+        assignOperator,
+        isAbstract
     ),
     tempjate_(&tempjate),
     templateArgs_(templateArgs)

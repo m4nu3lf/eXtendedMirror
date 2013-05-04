@@ -43,7 +43,7 @@ struct GetTypeName<_primitive_type_>                                           \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeName<_class_>                                                    \
+struct GetTypeName<_class_ >                                                   \
 {                                                                              \
     std::string operator()()                                                   \
     {                                                                          \
@@ -62,7 +62,7 @@ struct CreateType<_class_>                                                     \
 {                                                                              \
     Type* operator()()                                                         \
     {                                                                          \
-        return createClass<_class_>();                                         \
+        return createClass<_class_ >();                                        \
     }                                                                          \
 };                                                                             \
                                                                                \
@@ -73,7 +73,7 @@ struct CreateType<_class_>                                                     \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeCopyConstructor<_class_>                                         \
+struct GetTypeCopyConstructor<_class_ >                                        \
 {                                                                              \
     CopyConstructor* operator()()                                              \
     {                                                                          \
@@ -88,7 +88,7 @@ struct GetTypeCopyConstructor<_class_>                                         \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeConstructor<_class_>                                             \
+struct GetTypeConstructor<_class_ >                                            \
 {                                                                              \
     Constructor* operator()()                                                  \
     {                                                                          \
@@ -103,7 +103,7 @@ struct GetTypeConstructor<_class_>                                             \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeAssignOperator<_class_>                                          \
+struct GetTypeAssignOperator<_class_ >                                         \
 {                                                                              \
     AssignOperator* operator()()                                               \
     {                                                                          \
@@ -118,7 +118,7 @@ struct GetTypeAssignOperator<_class_>                                          \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeDestructor<_class_>                                              \
+struct GetTypeDestructor<_class_ >                                             \
 {                                                                              \
     Destructor* operator()()                                                   \
     {                                                                          \
@@ -130,6 +130,12 @@ struct GetTypeDestructor<_class_>                                              \
 
 
 #define EXTMR_ASSUME_ABSTRACT(_class_)                                         \
+namespace extmr{                                                               \
+                                                                               \
+template<>                                                                     \
+struct IsAbstract<_class_ > : public TrueType{};                               \
+                                                                               \
+} /*namespace extmr*/                                                          \
 EXTMR_ASSUME_NON_INSTANTIABLE(_class_)                                         \
 EXTMR_ASSUME_NON_ASSIGNABLE(_class_)                                           \
 EXTMR_ASSUME_NON_COPYABLE(_class_)
@@ -153,7 +159,7 @@ void extmr::BuildClass<__VA_ARGS__>::operator()(Class& clazz) const
  * \a relfected_class is the class to be registered.
  */
 #define EXTMR_AUTOREG(_class_)                                                 \
-template class extmr::AutoRegisterer<_class_>;
+template class extmr::AutoRegisterer<_class_ >;
 
 
 /**

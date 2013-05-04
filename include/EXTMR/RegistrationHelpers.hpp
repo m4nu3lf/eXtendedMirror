@@ -193,6 +193,11 @@ struct CreateType<T[size]>
 
 
 template<class T>
+struct IsAbstract : public FalseType
+{};
+
+
+template<class T>
 struct BuildClass
 {
     void operator()(Class& clazz) const
@@ -217,10 +222,12 @@ struct BuildClass
 template<class T>
 Type* createClass()
 {    
+    TypeRegister& typeReg = TypeRegister::getSingleton();
+    
     Class* clazz = new Class(GetTypeName<T>()(), sizeof(T),
             typeid(T), GetTypeConstructor<T>()(),
             GetTypeCopyConstructor<T>()(), GetTypeDestructor<T>()(),
-            GetTypeAssignOperator<T>()());
+            GetTypeAssignOperator<T>()(), IsAbstract<T>::value);
     
     BuildClass<T>()(*clazz);
     
@@ -255,7 +262,8 @@ Type* createCompoundClass()
     Class* clazz = new CompoundClass(GetTypeName<T>()(), sizeof(T),
             typeid(T), GetTypeConstructor<T>()(),
             GetTypeCopyConstructor<T>()(), GetTypeDestructor<T>()(),
-            GetTypeAssignOperator<T>()(), *tempjate, templateArgs);
+            GetTypeAssignOperator<T>()(), IsAbstract<T>::value, *tempjate,
+            templateArgs);
     
     BuildClass<T>()(*clazz);
     

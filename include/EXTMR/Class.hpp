@@ -37,6 +37,13 @@ public:
      */
     Class(const std::type_info& type);
     
+    /**
+     * Ask if the class is abstract.
+     * 
+     * @return True if the class is abstract, false otherwise.
+     */
+    bool isAbstract() const;
+    
      /**
      * Retrieve all the base class descriptors.
      * 
@@ -171,6 +178,7 @@ protected:
      * @param copyConstructor The type copy constructor wrapper function.
      * @param destructor The class destructor wrapper function.
      * @param assignOperator The class assign operator wrapper function.
+     * @param isAbstract If the class is abstract.
      */
     Class
     (
@@ -180,7 +188,8 @@ protected:
             Constructor* constructor,
             CopyConstructor* copyConstructor,
             Destructor* destructor,
-            AssignOperator* assignOperator
+            AssignOperator* assignOperator,
+            bool isAbstract
      );
     
     /**
@@ -226,6 +235,9 @@ protected:
     
     // The methods of this class except those inherited form base classes.
     ConstMethodSet ownMethods_;
+    
+    // If the class is abstract
+    bool isAbstract_;
     
     // Factory function
     template<class T>

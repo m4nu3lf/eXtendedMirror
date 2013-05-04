@@ -33,7 +33,8 @@ Class::Class
     Constructor* constructor,
     CopyConstructor* copyConstructor,
     Destructor* destructor,
-    AssignOperator* assignOperator
+    AssignOperator* assignOperator,
+    bool isAbstract
 ) :
     Type
     (
@@ -44,8 +45,14 @@ Class::Class
         copyConstructor,
         destructor,
         assignOperator
-    )
+    ), isAbstract_(isAbstract)
 {
+}
+
+
+bool Class::isAbstract() const
+{
+    return isAbstract_;
 }
 
 
@@ -86,7 +93,7 @@ Class& Class::operator<<(Property& property)
     // remove previous inserted properties with the same name
     properties_.erase(&property);
     
-    property.setOwner(*this);
+    property.owner_ = this;
     
     properties_.insert(&property);
     return *this;
@@ -97,6 +104,8 @@ Class& Class::operator<<(Method& method)
 {
     // remove previous inserted methods with the same signature
     methods_.erase(&method);
+    
+    method.owner_ = this;
     
     methods_.insert(&method);
     return *this;

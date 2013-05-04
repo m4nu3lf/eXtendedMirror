@@ -39,12 +39,6 @@ public:
      */
     const Class& getOwner() const;
     
-    /**
-     * Set the owner Class of the member.
-     * 
-     * @param owner The owner Class.
-     */
-    void setOwner(const Class& owner);
 
     virtual ~Member();
     
@@ -54,6 +48,9 @@ protected:
     
     // The member owner class
     const Class* owner_;
+    
+    // Class needs to access the owner_ attribute.
+    friend class Class;
 };
 
 
