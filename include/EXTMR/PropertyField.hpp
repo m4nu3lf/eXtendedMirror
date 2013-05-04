@@ -126,7 +126,7 @@ public:
         
         // the flags to construct the returned Variant. The Variant is a
         // reference variant and it must by copied by reference
-        char flags = Variant::Reference | Variant::CopyByRef;
+        char flags = Variant::Reference;
         
         // if the pointer to the instance is a pointer to a constant, return the
         // field data as a constant Variant

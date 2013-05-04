@@ -11,10 +11,10 @@
 using namespace std;
 using namespace extmr;
 
-Variant::Variant()
+Variant::Variant() : flags_(0)
 {
     data_ = NULL;
-    type_ = &TypeRegister::getSingleton().getType<void>();
+    type_ = &Type::Void;
 }
 
 
@@ -23,22 +23,8 @@ Variant::Variant(const Variant& orig) : flags_(0)
     // copy the Type pointer
     type_ = orig.type_;
     
-    if (orig.flags_ & CopyByRef)
-    {
-        // reference the data
-        data_ = orig.data_;
-        
-        // copy constness
-        flags_ = orig.flags_;
-        
-        // mark the variant as a reference
-        flags_ |= Reference;
-    }
-    else
-    {
-        // copy the data
-        data_ = type_->newInstance(orig.data_);
-    }
+    // copy the data
+    data_ = type_->copyInstance(orig.data_);
 }
 
 

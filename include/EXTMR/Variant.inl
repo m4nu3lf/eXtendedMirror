@@ -14,6 +14,46 @@
 
 
 namespace extmr{
+    
+
+inline
+const Type& Variant::getType() const
+{
+    return *type_;
+}
+    
+
+inline
+bool Variant::isReference() const
+{
+    return flags_ & Reference;
+}
+    
+
+inline
+bool Variant::isConst() const
+{
+    return flags_ & Const;
+}
+    
+
+inline
+bool Variant::isPointerToConst() const
+{
+    return flags_ & PointerToConst;
+}
+    
+
+inline
+void Variant::setConst()
+{
+    flags_ |= Const;
+}
+    
+
+template<typename T>    
+Variant::Initialize<T>::Initialize(Variant& variant) : variant_(variant){};
+
 
 template<typename T>
 void Variant::Initialize<T>::operator()(T& data)
@@ -53,9 +93,11 @@ struct Variant::Initialize<T[size]>
     
     void operator()(T data[size])
     {
-        Initialize<T*>(variant_)(data);
+        Initialize<T*> initializer(variant_);
+        initializer(data);
     }
     
+private:
     // A reference to the variant that is being initialized
     Variant& variant_;
 };

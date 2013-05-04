@@ -34,11 +34,7 @@ public:
         Reference = 1,
         
         // The variant holds constant data
-        Const = 2,
-        
-        // When this variant is copied into another one,
-        // data will be referenced.
-        CopyByRef = 4
+        Const = 2
     };
     
     /**
@@ -73,30 +69,21 @@ public:
      * 
      * @return The Type.
      */
-    const Type& getType() const
-    {
-        return *type_;
-    }
+    const Type& getType() const;
     
     /**
      * Ask if this variant data is a reference to an external data.
      * 
      * @return true if the variant data is a reference, false otherwise.
      */
-    bool isReference() const
-    {
-        return flags_ & Reference;
-    }
+    bool isReference() const;
     
     /**
      * Ask if this variant holds constant data.
      * 
      * @return true if the variant holds constant data, false otherwise.
      */
-    bool isConst() const
-    {
-        return flags_ & Const;
-    }
+    bool isConst() const;
     
     /**
      * Ask if this variant holds a pointer to constant data.
@@ -104,32 +91,13 @@ public:
      * @return true if the variant holds a pointer to constant data,
      * false otherwise.
      */
-    bool isPointerToConst() const
-    {
-        return flags_ & PointerToConst;
-    }
+    bool isPointerToConst() const;
     
     /**
      * Set the variant data to be constant, after a variant has been marked as
      * constant, the constness cannot be removed anymore.
      */
-    void setConst()
-    {
-        flags_ |= Const;
-    }
-    
-    /**
-     * Set the variant data to be referenced when the variant is copied with the
-     * copy constructor.
-     * 
-     * @param value Whether data of the copied object should be a reference to
-     * this one.
-     */
-    void setCopyByRef(bool value = true)
-    {
-        if (value) flags_ |= CopyByRef;
-        else flags_ &= ~CopyByRef;
-    }
+    void setConst();
     
     /**
      * Cast operator, get the data of the variant by reference.
@@ -232,10 +200,11 @@ private:
     template<typename T>
     struct Initialize
     {
-        Initialize(Variant& variant) : variant_(variant){};
+        Initialize(Variant& variant);
 
         void operator()(T& data);
 
+    private:
         // The variant that is being initialized
         Variant& variant_;
     };
