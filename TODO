@@ -1,0 +1,22 @@
+1) Define a Reference class that inherits from Variant. This class must define:
+  . A constructor template that takes a value and make the Reference a Variant referencing that value calling the Variant constructor.
+  
+  . A constructor that takes a Variant and make the Reference a Variant 
+  referencing the value of the provided Variant.
+  
+  . An assignment operator template that takes a value and make the Reference a Variant referencing that value.
+  
+  . An assignment operator that takes a Variant and make the Reference a Variant referencing the value of the provided Variant.
+  
+2) In the Property::getData(), Property::setData() and Method::call() methods use a Reference as first parameter instead of a Variant. By now it takes a Variant containing a pointer but this pointer must be a pointer to the actual class the Property or the Method belongs to, instead I want to be able to call a method of a class given a pointer or a reference to the base class (pointing to the actual class). Using references should works since the reference when constructed takes as type the actual referenced type passes as value.
+
+----------------------- IMPORTANT ----------------------
+
+3) The use of reinterpret_cast<> to convert between related classes in a Variant cast is WRONG! dynamic_cast<> must be used, but, it cannot be called on a void*... I should register a wrapper of the dynamic_cast for every base/derived combination during the registration process.
+Each class hold a set of DynamicCaster functor that have a "virtual void* operator(void*)" containing the dynamic_cast<> wrapper from this class to a related class to this class, for each related (base and derived) class. Then is should define the void* Class::castTo(void*, const Class&) method and call this to cast in a Varinat cast operator.
+
+----------------------- OPTIONAL -----------------------
+
+4) For each class create a constructor and destructor wrapper that returns or takes Reference(s) instead of void*. Call this a RefConstructor/RefDestructor.
+The GetConstructor and GetDestructor functor templates should return in a pair both the Constructor and the RefConstructor. The same for destructors.
+Add a Class::newInstanceRef() and Class::deleteInstanceRef() for calling the RefConstructor and RefDestructor.
