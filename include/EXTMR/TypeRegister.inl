@@ -77,7 +77,7 @@ Type& TypeRegister::registerType_()
     {   
         Class* clazz = dynamic_cast<Class*>(type);
         
-        // push the class object into the class sets
+        // push the class object into the class set
         classesById_.insert(clazz);
     }
     

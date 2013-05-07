@@ -12,11 +12,22 @@
 
 ----------------------- IMPORTANT ----------------------
 
-3) The use of reinterpret_cast<> to convert between related classes in a Variant cast is WRONG! dynamic_cast<> must be used, but, it cannot be called on a void*... I should register a wrapper of the dynamic_cast for every base/derived combination during the registration process.
-Each class hold a set of DynamicCaster functor that have a "virtual void* operator(void*)" containing the dynamic_cast<> wrapper from this class to a related class to this class, for each related (base and derived) class. Then is should define the void* Class::castTo(void*, const Class&) method and call this to cast in a Varinat cast operator.
+3) The use of reinterpret_cast<> to convert between related classes in a Variant cast is WRONG! dynamic_cast<> must be used, but, it cannot be called on a void*... I should register a wrapper of the dynamic_cast for every base/derived combination during the registration process but this is not a viable solution.
+Instead I should use a template to register a dynamic_cast<> wrapper inside the ClassBuilder for the desired casts and provide a void* Class::castFrom(void*, const Class&) method to call a cast wrapper. The wrapper assume the void* is pointing to an object of the provided class. The return pointer is a pointer to the provided class if the cast wrapper for that type was present and if the cast succeded.
+
+Registartion of a cast could look like:
+
+EXTMR_BUILD_CLASS(MyClass)
+{
+  clazz << wrapDynamicCast<MyClass><MyBase>(); // MyBase could not be a direct base of MyClass
+}
+
+4) The Variant::Initialize function object should take the template argument as the Variant type with the TypeRegister::getType<>() and not the actual type referenced by a polymophic referece with TypeRegister::getTypeOf<>(). Infact in the second case, if the reference provided is polymorphic would be allowed a reinterpret_cast<> of a pointer to the base type to a pointer of the derived class when calling the cast operator of the Variant to such derived type.
 
 ----------------------- OPTIONAL -----------------------
 
-4) For each class create a constructor and destructor wrapper that returns or takes Reference(s) instead of void*. Call this a RefConstructor/RefDestructor.
+5) Add an exception NoDynamicCastException when calling Class::castFrom() method and no dynamic cast has been registered for that class.
+
+6) For each class create a constructor and destructor wrapper that returns or takes Reference(s) instead of void*. Call this a RefConstructor/RefDestructor.
 The GetConstructor and GetDestructor functor templates should return in a pair both the Constructor and the RefConstructor. The same for destructors.
 Add a Class::newInstanceRef() and Class::deleteInstanceRef() for calling the RefConstructor and RefDestructor.
