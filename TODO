@@ -10,9 +10,15 @@
   
 2) In the Property::getData(), Property::setData() and Method::call() methods use a Reference as first parameter instead of a Variant. By now it takes a Variant containing a pointer but this pointer must be a pointer to the actual class the Property or the Method belongs to, instead I want to be able to call a method of a class given a pointer or a reference to the base class (pointing to the actual class). Using references should works since the reference when constructed takes as type the actual referenced type passes as value.
 
+3) Should be possible to convert a Variant holding a pointer to a Referece to the pointed object. To do so a wrapper of the dereference operator should be provided for each pointer type, and stored in its PointerType. We can call this wrapper Dereferencer, with the operator
+void* Dereferencer::operator(void *) where the parameter is a pointer to pointer to an object and the return value is the pointer to the object. The void* PointerType::dereferece(void* ) method call the stored dereference wrapper.
+Finally add the method:
+Reference Variant::dereferenceVariant()
+to dereferece a Variant holding a pointer.
+
 ----------------------- IMPORTANT ----------------------
 
-3) The use of reinterpret_cast<> to convert between related classes in a Variant cast is WRONG! dynamic_cast<> must be used, but, it cannot be called on a void*... I should register a wrapper of the dynamic_cast for every base/derived combination during the registration process but this is not a viable solution.
+4) The use of reinterpret_cast<> to convert between related classes in a Variant cast is WRONG! dynamic_cast<> must be used, but, it cannot be called on a void*... I should register a wrapper of the dynamic_cast for every base/derived combination during the registration process but this is not a viable solution.
 Instead I should use a template to register a dynamic_cast<> wrapper inside the ClassBuilder for the desired casts and provide a void* Class::castFrom(void*, const Class&) method to call a cast wrapper. The wrapper assume the void* is pointing to an object of the provided class. The return pointer is a pointer to the provided class if the cast wrapper for that type was present and if the cast succeded.
 
 Registartion of a cast could look like:
@@ -22,12 +28,14 @@ EXTMR_BUILD_CLASS(MyClass)
   clazz << wrapDynamicCast<MyClass><MyBase>(); // MyBase could not be a direct base of MyClass
 }
 
-4) The Variant::Initialize function object should take the template argument as the Variant type with the TypeRegister::getType<>() and not the actual type referenced by a polymophic referece with TypeRegister::getTypeOf<>(). Infact in the second case, if the reference provided is polymorphic would be allowed a reinterpret_cast<> of a pointer to the base type to a pointer of the derived class when calling the cast operator of the Variant to such derived type.
+5) The Variant::Initialize function object should take the template argument as the Variant type with the TypeRegister::getType<>() and not the actual type referenced by a polymophic referece with TypeRegister::getTypeOf<>(). Infact in the second case, if the reference provided is polymorphic would be allowed a reinterpret_cast<> of a pointer to the base type to a pointer of the derived class when calling the cast operator of the Variant to such derived type.
 
 ----------------------- OPTIONAL -----------------------
 
-5) Add an exception NoDynamicCastException when calling Class::castFrom() method and no dynamic cast has been registered for that class.
+6) Add an exception NoDynamicCastException when calling Class::castFrom() method and no dynamic cast has been registered for that class.
 
-6) For each class create a constructor and destructor wrapper that returns or takes Reference(s) instead of void*. Call this a RefConstructor/RefDestructor.
+7) For each class create a constructor and destructor wrapper that returns or takes Reference(s) instead of void*. Call this a RefConstructor/RefDestructor.
 The GetConstructor and GetDestructor functor templates should return in a pair both the Constructor and the RefConstructor. The same for destructors.
 Add a Class::newInstanceRef() and Class::deleteInstanceRef() for calling the RefConstructor and RefDestructor.
+
+8) Remove the registration call back mechanism.
