@@ -13,7 +13,8 @@ namespace extmr{
 class VariantTypeException : public std::exception
 {
 public:
-    VariantTypeException(const Type& givenType,const Type& variantType) throw();
+    VariantTypeException(const Type& givenType,const Type& variantType)
+            throw();
     const char* what() const throw();
 private:
     const Type* givenType_;

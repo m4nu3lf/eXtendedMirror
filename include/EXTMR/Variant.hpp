@@ -38,7 +38,7 @@ public:
         Const = 2,
 
         /// The variant data is a pointer to a constant.
-        PointerToConst = 8
+        Ptr2Const = 8
     };
     
     /**
@@ -134,7 +134,7 @@ public:
      * @return The variant data.
      */
     template<typename T>
-    T& to() const;
+    T& as() const;
     
     /**
      * Copy constructor. The data is copied through the copy constructor.

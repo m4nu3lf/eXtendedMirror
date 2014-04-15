@@ -77,7 +77,7 @@ Variant::~Variant()
 
 // A variant can always be converted to an Empty object. 
 template<>
-Empty& Variant::to<Empty>() const
+Empty& Variant::as<Empty>() const
 {
     static Empty empty;
     return empty;

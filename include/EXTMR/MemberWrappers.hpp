@@ -216,14 +216,14 @@ public:
          */
         const NqRetT& returnValue = (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>(),
-            arg5.to<NqParamT5>(),
-            arg6.to<NqParamT6>(),
-            arg7.to<NqParamT7>(),
-            arg8.to<NqParamT8>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>(),
+            arg5.as<NqParamT5>(),
+            arg6.as<NqParamT6>(),
+            arg7.as<NqParamT7>(),
+            arg8.as<NqParamT8>()
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
@@ -293,14 +293,14 @@ public:
     {   
         (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>(),
-            arg5.to<NqParamT5>(),
-            arg6.to<NqParamT6>(),
-            arg7.to<NqParamT7>(),
-            arg8.to<NqParamT8>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>(),
+            arg5.as<NqParamT5>(),
+            arg6.as<NqParamT6>(),
+            arg7.as<NqParamT7>(),
+            arg8.as<NqParamT8>()
         );
         // return an invalid variant
         return Variant();
@@ -372,13 +372,13 @@ public:
     {   
         const NqRetT& returnValue = (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>(),
-            arg5.to<NqParamT5>(),
-            arg6.to<NqParamT6>(),
-            arg7.to<NqParamT7>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>(),
+            arg5.as<NqParamT5>(),
+            arg6.as<NqParamT6>(),
+            arg7.as<NqParamT7>()
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
@@ -445,13 +445,13 @@ public:
     {   
         (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>(),
-            arg5.to<NqParamT5>(),
-            arg6.to<NqParamT6>(),
-            arg7.to<NqParamT7>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>(),
+            arg5.as<NqParamT5>(),
+            arg6.as<NqParamT6>(),
+            arg7.as<NqParamT7>()
         );
         // return an invalid variant
         return Variant();
@@ -521,12 +521,12 @@ public:
     {   
         const NqRetT& returnValue = (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>(),
-            arg5.to<NqParamT5>(),
-            arg6.to<NqParamT6>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>(),
+            arg5.as<NqParamT5>(),
+            arg6.as<NqParamT6>()
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
@@ -590,12 +590,12 @@ public:
     {   
         (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>(),
-            arg5.to<NqParamT5>(),
-            arg6.to<NqParamT6>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>(),
+            arg5.as<NqParamT5>(),
+            arg6.as<NqParamT6>()
         );
         // return an invalid variant
         return Variant();
@@ -662,11 +662,11 @@ public:
     {   
         const NqRetT& returnValue = (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>(),
-            arg5.to<NqParamT5>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>(),
+            arg5.as<NqParamT5>()
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
@@ -727,11 +727,11 @@ public:
     {   
         (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>(),
-            arg5.to<NqParamT5>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>(),
+            arg5.as<NqParamT5>()
         );
         // return an invalid variant
         return Variant();
@@ -793,10 +793,10 @@ public:
     {   
         const NqRetT& returnValue = (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>()
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
@@ -853,10 +853,10 @@ public:
     {   
         (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>(),
-            arg4.to<NqParamT4>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>(),
+            arg4.as<NqParamT4>()
         );
         // return an invalid variant
         return Variant();
@@ -915,9 +915,9 @@ public:
     {   
         const NqRetT& returnValue = (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>()
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
@@ -971,9 +971,9 @@ public:
     {   
         (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>(),
-            arg3.to<NqParamT3>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>(),
+            arg3.as<NqParamT3>()
         );
         // return an invalid variant
         return Variant();
@@ -1029,8 +1029,8 @@ public:
     {   
         const NqRetT& returnValue = (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>()
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
@@ -1081,8 +1081,8 @@ public:
     {   
         (objRef.*(method))
         (
-            arg1.to<NqParamT1>(),
-            arg2.to<NqParamT2>()
+            arg1.as<NqParamT1>(),
+            arg2.as<NqParamT2>()
         );
         // return an invalid variant
         return Variant();
@@ -1135,7 +1135,7 @@ public:
     {   
         const NqRetT& returnValue = (objRef.*(method))
         (
-            arg1.to<NqParamT1>()
+            arg1.as<NqParamT1>()
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
@@ -1183,7 +1183,7 @@ public:
     {   
         (objRef.*(method))
         (
-            arg1.to<NqParamT1>()
+            arg1.as<NqParamT1>()
         );
         // return an invalid variant
         return Variant();

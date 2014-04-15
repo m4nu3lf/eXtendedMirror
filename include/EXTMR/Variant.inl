@@ -12,9 +12,6 @@
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 #include <EXTMR/Variant.hpp>
 
-#include "Type.hpp"
-#include "RefCaster.hpp"
-
 
 namespace extmr{
     
@@ -43,7 +40,7 @@ bool Variant::isConst() const
 inline
 bool Variant::isPointerToConst() const
 {
-    return flags_ & PointerToConst;
+    return flags_ & Ptr2Const;
 }
     
 
@@ -65,10 +62,7 @@ void Variant::Initialize<T>::operator()(T& data)
     TypeRegister& typeReg = TypeRegister::getSingleton();
 
     // ensure the base type is registered.
-    typeReg.registerType<T>();
-    
-    // if type is polymorphic take the actual type of the object.
-    variant_.type_ = &typeReg.getTypeOf(data);
+    variant_.type_ = &typeReg.registerType<T>();
 
     if (variant_.flags_ & Reference)
     {
@@ -83,7 +77,7 @@ void Variant::Initialize<T>::operator()(T& data)
 
     // if the type is a pointer to a constant set the proper flag.
     if (IsConst<typename RemovePointer<T>::Type>::value)
-        variant_.flags_ |= PointerToConst;
+        variant_.flags_ |= Ptr2Const;
 }
 
 
@@ -115,7 +109,7 @@ Variant::Variant(T data)
 {
     // if the type is a constant array, then the type will be converted to a
     // pointer to constant
-    if (IsArray<T>::value) flags_ |= PointerToConst;
+    if (IsArray<T>::value) flags_ |= Ptr2Const;
     
     // Call initizlier functor
     Initialize<T>(*this)(const_cast<T&>(data));
@@ -134,7 +128,7 @@ Variant::Variant(T& data, char flags)
     
     // if the type is a constant array, then the type will be converted to a
     // pointer to constant
-    if (IsArray<T>::value && IsConst<T>::value) flags_ |= PointerToConst;
+    if (IsArray<T>::value && IsConst<T>::value) flags_ |= Ptr2Const;
     
     // Call initializer functor
     Initialize<NonConstT>(*this)(const_cast<NonConstT&>(data));
@@ -155,7 +149,7 @@ Variant::operator T&() const
         throw VariantCostnessException(*type_);
     
     // check for pointed type's constness correctness
-    if (flags_ & PointerToConst &&
+    if (flags_ & Ptr2Const &&
             !IsConst<typename RemovePointer<T>::Type>::value)
     {
         const Type& pointedType =
@@ -187,7 +181,14 @@ Variant::operator T&() const
         // if caster found, cast this variant and return
         if (caster)
         {
-            return caster->cast(*this).to<T>();
+            try
+            {
+                return caster->cast(*this).as<T>();
+            }
+            catch(std::bad_cast)
+            {
+                throw VariantTypeException(targetType, *type_);
+            }
         }
         else
         {
@@ -197,7 +198,7 @@ Variant::operator T&() const
             {
                 try
                 {
-                    return (*ite)->cast(*this).to<T>();
+                    return (*ite)->cast(*this).as<T>();
                 }
                 catch (VariantTypeException)
                 {}
@@ -212,14 +213,14 @@ Variant::operator T&() const
 
 
 template<typename T>
-inline T& Variant::to() const
+inline T& Variant::as() const
 {
     return *this;
 }
 
 
 template<>
-Empty& Variant::to<Empty>() const;
+Empty& Variant::as<Empty>() const;
 
 
 template<typename T>

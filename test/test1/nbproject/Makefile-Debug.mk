@@ -52,37 +52,35 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../extendedmirror/dist/Debug/GNU-Linux-x86/libextendedmirror.a
+LDLIBSOPTIONS=../../dist/Debug/GNU-Linux-x86/libextendedmirror.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/extmr_test
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/test1
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/extmr_test: ../extendedmirror/dist/Debug/GNU-Linux-x86/libextendedmirror.a
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/test1: ../../dist/Debug/GNU-Linux-x86/libextendedmirror.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/extmr_test: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/test1: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/extmr_test ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/test1 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../extendedmirror/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../../include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../extendedmirror && ${MAKE}  -f Makefile CONF=Debug
-	cd ../extendedmirror && ${MAKE}  -f Makefile CONF=Debug
+	cd ../.. && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/extmr_test
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/test1
 
 # Subprojects
 .clean-subprojects:
-	cd ../extendedmirror && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../extendedmirror && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../.. && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

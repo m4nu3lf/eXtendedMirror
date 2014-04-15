@@ -241,7 +241,7 @@ public:
     Variant getData(const Variant& objPtr) const
     {
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = *objPtr.to<ClassT*>();
+        ClassT& objRef = *objPtr.as<ClassT*>();
         
         // we cannot call a non constant getter of a constant instance
         if (objPtr.isPointerToConst() && !constGetter_)
@@ -260,10 +260,10 @@ public:
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = *objPtr.to<ClassT*>();
+        ClassT& objRef = *objPtr.as<ClassT*>();
         
         // retrieve the new data value
-        PropT& extractedValue = data.to<PropT>();
+        PropT& extractedValue = data.as<PropT>();
         
         // check whether the new value is into the specified bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_)) return;

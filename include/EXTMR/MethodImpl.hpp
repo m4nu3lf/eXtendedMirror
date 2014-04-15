@@ -427,7 +427,7 @@ public:
         const Variant& arg8 = Variant()
      ) const
     {        
-        ClassT& objRef = *objPtr.to<ClassT*>();
+        ClassT& objRef = *objPtr.as<ClassT*>();
         
         // cannot call a non constant method of a constant instance
         if (objPtr.isPointerToConst() && !constant_)

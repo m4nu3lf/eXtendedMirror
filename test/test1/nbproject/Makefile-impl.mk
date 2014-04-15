@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=extmr_test
+PROJECTNAME=test1
 
 # Active Configuration
 DEFAULTCONF=Debug

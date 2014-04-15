@@ -67,7 +67,7 @@ public:
     {
         // the value is retrieved as a constant to prevent exception throwing
         // if the passed Variant is a constant Variant.
-        const ClassT& constObj = *objPtr.to<const ClassT*>();
+        const ClassT& constObj = *objPtr.as<const ClassT*>();
         
         // remove constness, the costness is however handled successively
         ClassT& obj = const_cast<ClassT&>(constObj);

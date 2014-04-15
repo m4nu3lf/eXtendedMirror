@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=extmr_test
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/extmr_test
+CND_ARTIFACT_NAME_Debug=test1
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/test1
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=extmrtest.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/extmrtest.tar
+CND_PACKAGE_NAME_Debug=test1.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/test1.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=extmr_test
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/extmr_test
+CND_ARTIFACT_NAME_Release=test1
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/test1
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=extmrtest.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/extmrtest.tar
+CND_PACKAGE_NAME_Release=test1.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/test1.tar
 #
 # include compiler specific variables
 #

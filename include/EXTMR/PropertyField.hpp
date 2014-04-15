@@ -114,7 +114,7 @@ public:
     {            
         // the value is retrieved as a constant to prevent exception throwing
         // if the passed Variant is a constant Variant.
-        const ClassT& constObj = *objPtr.to<const ClassT*>();
+        const ClassT& constObj = *objPtr.as<const ClassT*>();
         
         // remove constness, the costness is however handled successively
         ClassT& obj = const_cast<ClassT&>(constObj);
@@ -146,7 +146,7 @@ public:
         
         // the pointer is retrieved from the variant and converted to a raw char
         // pointer
-        char* byteObjPtr = reinterpret_cast<char*>(objPtr.to<ClassT*>());
+        char* byteObjPtr = reinterpret_cast<char*>(objPtr.as<ClassT*>());
         
         // check whether the pointer provided in not a pointer to a constant
         // object
@@ -154,7 +154,7 @@ public:
             throw VariantCostnessException(objPtr.getType());
         
         // retrieve the new data value
-        const PropT extractedValue = data.to<const PropT>();
+        const PropT extractedValue = data.as<const PropT>();
         
         // check whether the new value is within bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_))

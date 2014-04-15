@@ -58,6 +58,8 @@ EXTMR_BUILD_CLASS(Base2)
 class Derived: public Base1, public Base2
 {
 public:
+    Derived(){a = 20;}
+    float a;
     virtual ~Derived(){};
 };
 
@@ -67,6 +69,9 @@ EXTMR_BUILD_CLASS(Derived)
     clazz & const_cast<Class&>(extmr::registerClass<Base1>());
     clazz & *new extmr::RefCasterImpl<Derived,Base1>();
     
+    const_cast<Class&>(extmr::registerClass<Base1>()) &
+            *new extmr::RefCasterImpl<Base1,Derived>(clazz);
+            
     clazz & const_cast<Class&>(extmr::registerClass<Base2>());
     clazz & *new extmr::RefCasterImpl<Derived,Base2>();
 }
@@ -83,13 +88,17 @@ EXTMR_BUILD_CLASS(Derived2)
 {
     clazz & const_cast<Class&>(extmr::registerClass<Derived>());
     clazz & *new extmr::RefCasterImpl<Derived2,Derived>();
+    
+    const_cast<Class&>(extmr::registerClass<Derived>()) &
+            *new extmr::RefCasterImpl<Derived, Derived2>(clazz);
+    
 }
 
 
 int main(int argc, char** argv)
 {    
-    Derived d;
-    Variant v = d;
-    cout << v.to<Base0>().a << endl;
+    Derived2 d;
+    RefVariant v = static_cast<Base1&>(d);
+    cout << v.as<Derived2>().a << endl;
 }
 

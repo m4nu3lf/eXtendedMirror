@@ -98,9 +98,6 @@ Class& Class::operator&(RefCaster& refCaster)
 {
     refCaster.srcType_ = this;
     refCasters_.insert(&refCaster);
-    
-    std::cout << "src: " << refCaster.getSrcType().getName() << std::endl;
-    std::cout << "dst: " << refCaster.getDstType().getName() << std::endl;
     return *this;
 }
 
