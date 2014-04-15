@@ -11,6 +11,7 @@
 namespace extmr{
 
 class Type;
+class RefVariant;
 
 /**
  * This class can store data from each type that is registrable or already
@@ -34,7 +35,10 @@ public:
         Reference = 1,
         
         // The variant holds constant data
-        Const = 2
+        Const = 2,
+
+        /// The variant data is a pointer to a constant.
+        PointerToConst = 8
     };
     
     /**
@@ -50,7 +54,7 @@ public:
      * @param data
      */
     template<typename T>
-    Variant(const T& data);
+    Variant(const T data);
     
     /**
      * Construct a variant from the given object.
@@ -70,6 +74,13 @@ public:
      * @return The Type.
      */
     const Type& getType() const;
+    
+    /*
+     * Create and return a RefVariant to the content.
+     * 
+     * @return The RefVariant
+     */
+    RefVariant getRefVariant() const;
     
     /**
      * Ask if this variant data is a reference to an external data.
@@ -165,33 +176,14 @@ public:
      */
     virtual ~Variant();
     
-private:
-    /**
-     * Flags that should not be passed to the constructor.
-     */
-    enum
-    {
-        /// The variant data is a pointer to a constant.
-        PointerToConst = 8
-    };
-    
-    /**
-     * Determine if a reinterpret_cast from a reference to the original type
-     * to a reference to the target type would lead to a meaningful result.
-     * 
-     * @param type The original type.
-     * @param targettype The target type.
-     * @return true if the types are compatible for reinterpret_cast.
-     */
-    static bool canReinterpret(const Type& type, const Type& targetType);
-    
-    // Pointer to the data.
+protected:
+    // Pointer the data.
     void* data_;
     
-    // Pointer to the Type of the data.
+    // Pointer to the Type of data.
     const Type* type_;
     
-    // Variant flags.
+    // Some flags
     char flags_;
     
     /**

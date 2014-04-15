@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=extendedmirror
+PROJECTNAME=extmr_test
 
 # Active Configuration
 DEFAULTCONF=Debug

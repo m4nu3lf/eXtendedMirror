@@ -12,6 +12,9 @@
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 #include <EXTMR/Variant.hpp>
 
+#include "Type.hpp"
+#include "RefCaster.hpp"
+
 
 namespace extmr{
     
@@ -107,13 +110,14 @@ private:
 
 
 template<typename T>
-Variant::Variant(const T& data)
+Variant::Variant(T data)
 : flags_(0)
 {
     // if the type is a constant array, then the type will be converted to a
     // pointer to constant
     if (IsArray<T>::value) flags_ |= PointerToConst;
     
+    // Call initizlier functor
     Initialize<T>(*this)(const_cast<T&>(data));
 }
 
@@ -132,6 +136,7 @@ Variant::Variant(T& data, char flags)
     // pointer to constant
     if (IsArray<T>::value && IsConst<T>::value) flags_ |= PointerToConst;
     
+    // Call initializer functor
     Initialize<NonConstT>(*this)(const_cast<NonConstT&>(data));
 }
 
@@ -145,10 +150,6 @@ Variant::operator T&() const
     // ensure the type of the data is registered and retrieve it
     const Type& targetType = typeReg.registerType<T>();
     
-    // check for type compatibility
-    if (!canReinterpret(*type_, targetType))
-        throw VariantTypeException(targetType, *type_);
-    
     // check for constness correctness
     if (!IsConst<T>::value && flags_ & Const)
         throw VariantCostnessException(*type_);
@@ -161,9 +162,52 @@ Variant::operator T&() const
                 dynamic_cast<const PointerType&>(*type_).getPointedType();
         throw VariantCostnessException(pointedType);
     }
-
-    // return the data
-    return *reinterpret_cast<T*>(data_);
+    
+    // check for type compatibility
+    if (targetType == *type_)
+    {
+        // just reinterpret pointer
+        return *reinterpret_cast<T*>(data_);
+    }
+    else
+    {
+        // check if objects
+        if (!(targetType.getCategory() & Type::Class
+            && type_->getCategory() & Type::Class))
+            throw VariantTypeException(targetType, *type_);
+        
+        // cast to Class object
+        const Class& clazz = dynamic_cast<const Class&>(*type_);
+        
+        // retrieve direct caster if any
+        Const_RefCaster_Set casters = clazz.getRefCasters();
+        const RefCaster* caster = 
+                ptrSet::findByKey(casters, std::make_pair(type_, &targetType));
+        
+        // if caster found, cast this variant and return
+        if (caster)
+        {
+            return caster->cast(*this).to<T>();
+        }
+        else
+        {
+            // for every ref caster, cast to that, then try to recast to T
+            Const_RefCaster_Set::iterator ite = casters.begin();
+            while(ite != casters.end())
+            {
+                try
+                {
+                    return (*ite)->cast(*this).to<T>();
+                }
+                catch (VariantTypeException)
+                {}
+                catch (std::bad_cast)
+                {}
+                ite ++;
+            }
+            throw VariantTypeException(targetType, *type_);
+        }
+    }
 }
 
 

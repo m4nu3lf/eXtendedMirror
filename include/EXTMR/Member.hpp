@@ -12,6 +12,7 @@ namespace extmr {
 
 class Class;
 
+
 /**
  * Describes a member of a class.
  */
@@ -23,7 +24,7 @@ public:
      * 
      * @param name The member name.
      */
-    Member(const std::string& name = "");
+    Member(const Class& owner, const std::string& name);
     
     /**
      * Get the name of the member.
@@ -51,6 +52,8 @@ protected:
     
     // Class needs to access the owner_ attribute.
     friend class Class;
+    
+    friend bool operator<(const Member& m1, const Member& m2);
 };
 
 

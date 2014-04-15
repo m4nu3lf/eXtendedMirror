@@ -34,7 +34,7 @@ public:
      * 
      * @return The type descriptors vector.
      */
-    const ConstTypeVector& getTemplateArgs() const;
+    const Const_Type_Vector& getTemplateArgs() const;
         
 private:
     /**
@@ -62,14 +62,14 @@ private:
             AssignOperator* assignOperator,
             bool isAbstract,
             const Template& tempjate,
-            const ConstTypeVector& templateArgs
+            const Const_Type_Vector& templateArgs
      );
     
     // The template descriptor of the template this class is an instance of.
     const Template* tempjate_;
     
     // The type descriptors of the template arguments.
-    ConstTypeVector templateArgs_;
+    Const_Type_Vector templateArgs_;
     
     // Factory function
     template<class T>

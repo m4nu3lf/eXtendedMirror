@@ -53,7 +53,15 @@ public:
      * 
      * @param name The property name.
      */
-    Property(const std::string& name = "");
+    Property(const std::string& name);
+    
+    /**
+     * Basic constructor for initialization.
+     * 
+     * @param owner The property owner.
+     * @param name The property name.
+     */
+    Property(const Class& owner, const std::string& name);
     
     /**
      * Get the Type of the property type.
@@ -157,8 +165,14 @@ protected:
     char flags_;
 };
 
-typedef std::set<Property*, PtrCmpByName<Property> > PropertySet;
-typedef std::set<const Property*, PtrCmpByName<Property> > ConstPropertySet;
+
+bool inline operator<(const Property& p1, const Property& p2)
+{
+    return static_cast<const Member&>(p1) < static_cast<const Member&>(p2);
+}
+
+typedef std::set<Property*, PtrCmpByVal<Property> > Property_Set;
+typedef std::set<const Property*, PtrCmpByVal<Property> > Const_Property_Set;
 
 } // namespace extmr
 

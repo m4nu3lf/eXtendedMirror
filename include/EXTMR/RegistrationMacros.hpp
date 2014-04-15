@@ -141,12 +141,6 @@ EXTMR_ASSUME_NON_ASSIGNABLE(_class_)                                           \
 EXTMR_ASSUME_NON_COPYABLE(_class_)
 
 
-/**
- * \def EXTMR_BUILD_CLASS(_class_)
- * 
- * Ensure the class will be registered at program start with no extra code.
- * \a relfected_class is the class to be build.
- */
 #define EXTMR_BUILD_CLASS(...)                                                 \
 void extmr::BuildClass<__VA_ARGS__>::operator()(Class& clazz) const
 
@@ -201,9 +195,9 @@ struct GetTemplateName<_template_<T1> >                                        \
 template<typename T1>                                                          \
 struct GetTemplateArgs<_template_<T1> >                                        \
 {                                                                              \
-    ConstTypeVector operator()()                                               \
+    Const_Type_Vector operator()()                                             \
     {                                                                          \
-        ConstTypeVector templateArgs;                                          \
+        Const_Type_Vector templateArgs;                                        \
         TypeRegister& typeReg = TypeRegister::getSingleton();                  \
         templateArgs.push_back(&typeReg.registerType<T1>());                   \
         return templateArgs;                                                   \
@@ -268,9 +262,9 @@ struct GetTemplateName<_template_<T1, T2> >                                    \
 template<typename T1, typename T2>                                             \
 struct GetTemplateArgs<_template_<T1, T2> >                                    \
 {                                                                              \
-    ConstTypeVector operator()()                                               \
+    Const_Type_Vector operator()()                                             \
     {                                                                          \
-        ConstTypeVector templateArgs;                                          \
+        Const_Type_Vector templateArgs;                                        \
         TypeRegister& typeReg = TypeRegister::getSingleton();                  \
         templateArgs.push_back(&typeReg.registerType<T1>());                   \
         templateArgs.push_back(&typeReg.registerType<T2>());                   \
@@ -337,9 +331,9 @@ struct GetTemplateName<_template_<T1, T2, T3> >                                \
 template<typename T1, typename T2, typename T3>                                \
 struct GetTemplateArgs<_template_<T1, T2, T3> >                                \
 {                                                                              \
-    ConstTypeVector operator()()                                               \
+    Const_Type_Vector operator()()                                             \
     {                                                                          \
-        ConstTypeVector templateArgs;                                          \
+        Const_Type_Vector templateArgs;                                        \
         TypeRegister& typeReg = TypeRegister::getSingleton();                  \
         templateArgs.push_back(&typeReg.registerType<T1>());                   \
         templateArgs.push_back(&typeReg.registerType<T2>());                   \
@@ -409,9 +403,9 @@ struct GetTemplateName<_template_<T1, T2, T3, T4> >                            \
 template<typename T1, typename T2, typename T3, typename T4>                   \
 struct GetTemplateArgs<_template_<T1, T2, T3, T4> >                            \
 {                                                                              \
-    ConstTypeVector operator()()                                               \
+    Const_Type_Vector operator()()                                             \
     {                                                                          \
-        ConstTypeVector templateArgs;                                          \
+        Const_Type_Vector templateArgs;                                        \
         TypeRegister& typeReg = TypeRegister::getSingleton();                  \
         templateArgs.push_back(&typeReg.registerType<T1>());                   \
         templateArgs.push_back(&typeReg.registerType<T2>());                   \

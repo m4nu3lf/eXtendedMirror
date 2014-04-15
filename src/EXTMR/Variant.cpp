@@ -18,6 +18,19 @@ Variant::Variant() : flags_(0)
 }
 
 
+RefVariant Variant::getRefVariant() const
+{
+    RefVariant refVar;
+    refVar.data_ = data_;
+    refVar.type_ = type_;
+    refVar.flags_ = flags_ | Reference;
+    
+    // need a const cast to help compiler choose the copy constructor
+    // instead of the template constructor
+    return const_cast<const RefVariant&>(refVar);
+}
+
+
 Variant::Variant(const Variant& orig) : flags_(0)
 {       
     // copy the Type pointer
@@ -61,57 +74,6 @@ Variant::~Variant()
     }
 }
 
-
-bool Variant::canReinterpret(const Type& type, const Type& targetType)
-{
-    // are they the same type?
-    if (type == targetType) return true;
-
-    // are they objects?
-    if (type.getCategory() == Type::Class &&
-            targetType.getCategory() == Type::Class)
-    {
-        // cast to the respective class descriptors
-        const Class& clazz = dynamic_cast<const Class&>(type);
-        const Class& targetClass = dynamic_cast<const Class&>(targetType);
-
-        // is the target type a base class of the contained data type?
-        if (clazz.inheritsFrom(targetClass)) return true;
-        else return false;
-    }
-        
-    // are they pointers?
-    if (type.getCategory() == Type::Pointer &&
-            targetType.getCategory() == Type::Pointer)
-    {
-        // is target of type void*?
-        if (targetType.getName() == "void*") return true;
-        
-        // get the pointed types
-        const PointerType& ptrType = dynamic_cast<const PointerType&>(type);
-        const PointerType& ptrTargetType =
-                                   dynamic_cast<const PointerType&>(targetType);
-        const Type& pointedType = ptrType.getPointedType();
-        const Type& pointedTargetType = ptrTargetType.getPointedType();
-
-        // are they objects?
-        if (pointedType.getCategory() != Type::Class ||
-                pointedTargetType.getCategory() != Type::Class)
-            return false;
-
-        // are they the same type?
-        if (pointedType == pointedTargetType) return true;
-
-        // cast to the respective class descriptors
-        const Class& pointedClass = dynamic_cast<const Class&>(pointedType);
-        const Class& pointedTargetClass =
-                dynamic_cast<const Class&>(pointedTargetType);
-        
-        // is the target pointed class a base class of the pointed class?
-        if (pointedClass.inheritsFrom(pointedTargetClass)) return true;
-        else return false;
-    }
-}
 
 // A variant can always be converted to an Empty object. 
 template<>

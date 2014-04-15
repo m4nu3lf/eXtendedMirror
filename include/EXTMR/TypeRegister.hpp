@@ -116,7 +116,7 @@ public:
      * 
      * @return The Type pointer set. 
      */
-    const ConstTypeSetById& getTypes() const;
+    const Const_Type_SetById& getTypes() const;
     
     /**
      * Get a set containing the pointers to the class descriptors of all
@@ -124,7 +124,7 @@ public:
      * 
      * @return The Class pointer set. 
      */
-    const ConstClassSetById& getClasses() const;
+    const Const_Class_SetById& getClasses() const;
     
     /**
      * Get a set containing the pointers to the template descriptors of all
@@ -219,15 +219,15 @@ private:
 
     // A set containing the pointers to all the registered type descriptors
     //sorted by type name.
-    TypeSetByName typesByName_;
+    Type_Set_ByName typesByName_;
     
     // A set containing the pointers to all the registered type descriptors
     //sorted by type_info struct order.
-    TypeSetById typesById_;
+    Type_SetById typesById_;
     
     // A set containing the pointers to all the registered class descriptors
     // sorted by type_info struct order.
-    ClassSetById classesById_;
+    Class_SetById classesById_;
     
     // A set containing the template descriptors of all the instantiated
     //templates.

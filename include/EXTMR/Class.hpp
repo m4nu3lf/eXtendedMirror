@@ -14,11 +14,11 @@ namespace extmr
 
 class Class;
     
-typedef std::set<const Class*, PtrCmpByVal<Type> > ConstClassSetById;
-typedef std::set<Class*, PtrCmpByVal<Type> > ClassSetById;
-typedef std::set<const Class*, PtrCmpByName<Type> > ConstClassSetByName;
-typedef std::set<Class*, PtrCmpByName<Type> > ClassSetByName;
-    
+typedef std::set<const Class*, PtrCmpByVal<Type> > Const_Class_SetById;
+typedef std::set<Class*, PtrCmpByVal<Type> > Class_SetById;
+typedef std::set<const Class*, PtrCmpByName<Type> > Const_Class_SetByName;
+typedef std::set<Class*, PtrCmpByName<Type> > Class_SetByName;
+
 class Class : public Type
 {
 public:
@@ -47,16 +47,23 @@ public:
      /**
      * Retrieve all the base class descriptors.
      * 
-     * @return A set containing the pointers to the base Classes.
+     * @return A set containing the pointers to the base classes.
      */
-    const ConstClassSetById& getBaseClasses() const;
+    const Const_Class_SetById& getBaseClasses() const;
+    
+    /**
+     * Retrieve all the reference casters.
+     * 
+     * @return A set containing the pointers to the reference casters.
+     */
+    const Const_RefCaster_Set& getRefCasters() const;
     
     /**
      * Retrieve all the derived class descriptors.
      * 
      * @return A set containing the pointers to the derived Classes.
      */
-    const ConstClassSetById& getDerivedClasses() const;
+    const Const_Class_SetById& getDerivedClasses() const;
     
     /**
      * Retrieve all the property descriptors of this class. Note that the
@@ -65,7 +72,7 @@ public:
      * @param inherited Whether to include inherited properties.
      * @return A set containing the pointers to the class property objects.
      */
-    const ConstPropertySet& getProperties(bool inherited = true) const;
+    const Const_Property_Set& getProperties(bool inherited = true) const;
     
     /**
      * Retrieve all the Methods of this class.
@@ -73,7 +80,7 @@ public:
      * @param inherited Whether to include inherited methods.
      * @return A set containing the pointers to the class method objects.
      */
-    const ConstMethodSet& getMethods(bool inherited = true) const;
+    const Const_Method_Set& getMethods(bool inherited = true) const;
     
     /**
      * Check whether or not the class has a Property with the given name.
@@ -157,6 +164,13 @@ public:
      */
     const Method& getMethod(const Method& method) const;
     
+    /**
+     * Get the type Category.
+     * 
+     * @return The type category of this type.
+     */
+    Category getCategory() const;
+    
     virtual ~Class();
     
     /**
@@ -198,7 +212,15 @@ protected:
      * @param type The base Class.
      * @return This class.
      */
-    Class& operator << (const Class& baseClass);
+    Class& operator&(Class& baseClass);
+    
+    /**
+     * Add a caster to a base Class.
+     * 
+     * @param refCaster The RefCaster
+     * @return This class.
+     */
+    Class& operator&(RefCaster& refCaster);
     
     /**
      * Add a property to this class.
@@ -206,7 +228,7 @@ protected:
      * @param property The Property.
      * @return This class.
      */
-    Class& operator << (Property& property);
+    Class& operator&(Property& property);
     
     /**
      * Add a method to this class.
@@ -214,27 +236,30 @@ protected:
      * @param method The Method.
      * @return This class.
      */
-    Class& operator <<(Method& method);
+    Class& operator&(Method& method);
     
     // The types object of the base classes sorted by the type_info structure
     // order.
-    ConstClassSetById baseClasses_;
+    Const_Class_SetById baseClasses_;
+    
+    // These are usually used to cast refs to this class to base class refs.
+    Const_RefCaster_Set refCasters_;
 
     // The types object of the derived classes sorted by the type_info structure
     // order.
-    ConstClassSetById derivedClasses_;
+    Const_Class_SetById derivedClasses_;
 
     // The properties of this class.
-    ConstPropertySet properties_;
+    Const_Property_Set properties_;
     
     // The properties of this class except those inherited from base classes.
-    ConstPropertySet ownProperties_;
+    Const_Property_Set ownProperties_;
     
     // The methods of this class.
-    ConstMethodSet methods_;
+    Const_Method_Set methods_;
     
     // The methods of this class except those inherited form base classes.
-    ConstMethodSet ownMethods_;
+    Const_Method_Set ownMethods_;
     
     // If the class is abstract
     bool isAbstract_;

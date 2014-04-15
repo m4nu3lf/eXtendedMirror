@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="84">
+<configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -30,6 +30,7 @@
           <itemPath>include/EXTMR/EnableStd.hpp</itemPath>
           <itemPath>include/EXTMR/ExtendedMirror.hpp</itemPath>
           <itemPath>include/EXTMR/Member.hpp</itemPath>
+          <itemPath>include/EXTMR/Member.inl</itemPath>
           <itemPath>include/EXTMR/MemberMakeUtils.hpp</itemPath>
           <itemPath>include/EXTMR/MemberWrappers.hpp</itemPath>
           <itemPath>include/EXTMR/Method.hpp</itemPath>
@@ -42,6 +43,10 @@
           <itemPath>include/EXTMR/PropertyArrayField.hpp</itemPath>
           <itemPath>include/EXTMR/PropertyField.hpp</itemPath>
           <itemPath>include/EXTMR/PropertyGetterNSetter.hpp</itemPath>
+          <itemPath>include/EXTMR/RefCaster.hpp</itemPath>
+          <itemPath>include/EXTMR/RefCasterImpl.hpp</itemPath>
+          <itemPath>include/EXTMR/RefVariant.hpp</itemPath>
+          <itemPath>include/EXTMR/RefVariant.inl</itemPath>
           <itemPath>include/EXTMR/RegistrationHelpers.hpp</itemPath>
           <itemPath>include/EXTMR/RegistrationMacros.hpp</itemPath>
           <itemPath>include/EXTMR/Shortcuts.hpp</itemPath>
@@ -83,6 +88,8 @@
           <itemPath>src/EXTMR/PointerType.cpp</itemPath>
           <itemPath>src/EXTMR/PrimitiveType.cpp</itemPath>
           <itemPath>src/EXTMR/Property.cpp</itemPath>
+          <itemPath>src/EXTMR/RefCaster.cpp</itemPath>
+          <itemPath>src/EXTMR/RefVariant.cpp</itemPath>
           <itemPath>src/EXTMR/Template.cpp</itemPath>
           <itemPath>src/EXTMR/Type.cpp</itemPath>
           <itemPath>src/EXTMR/TypeRegister.cpp</itemPath>
@@ -110,8 +117,9 @@
   <confs>
     <conf name="Debug" type="3">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -122,11 +130,218 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="include/Common/Common.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/Common/ContainerUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/Common/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/Common/Typedef.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Empty.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/EnableStd.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NonAssignableException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NonCopyableException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NonDestructibleException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NonInstantiableException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NotFoundExceptions.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/PropertyRangeException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/PropertySetException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/VariantCostnessException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/VariantTypeException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/ExtendedMirror.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/MemberMakeUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/MemberWrappers.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Parameter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/PointerType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/PrimitiveType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Property.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/PropertyArrayField.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/PropertyField.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/PropertyGetterNSetter.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/RefCaster.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/RefVariant.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/RefVariant.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/RegistrationHelpers.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/RegistrationMacros.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Template.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Type.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/TypeRegister.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/TypeRegister.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Variant.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Variant.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EXTMR/ArrayType.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Class.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/CompoundClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NonAssignableException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NonCopyableException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NonDestructibleException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NonInstantiableException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NotFoundExceptions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/PropertyRangeException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/PropertySetException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/VariantCostnessException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/VariantTypeException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Member.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Method.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/PointerType.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/PrimitiveType.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Property.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/RefCaster.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/RefVariant.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Template.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Type.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/TypeRegister.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Variant.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -144,6 +359,212 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="include/Common/Common.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/Common/ContainerUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/Common/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/Common/Typedef.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Empty.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/EnableStd.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NonAssignableException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NonCopyableException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NonDestructibleException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NonInstantiableException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/NotFoundExceptions.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/PropertyRangeException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/PropertySetException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/VariantCostnessException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Exceptions/VariantTypeException.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/ExtendedMirror.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/MemberMakeUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/MemberWrappers.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Parameter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/PointerType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/PrimitiveType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Property.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/PropertyArrayField.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/PropertyField.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/PropertyGetterNSetter.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/RefCaster.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/RefVariant.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/RefVariant.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/RegistrationHelpers.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/RegistrationMacros.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Template.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Type.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/TypeRegister.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/TypeRegister.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Variant.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Variant.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EXTMR/ArrayType.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Class.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/CompoundClass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NonAssignableException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NonCopyableException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NonDestructibleException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NonInstantiableException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/NotFoundExceptions.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/PropertyRangeException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/PropertySetException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/VariantCostnessException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Exceptions/VariantTypeException.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/EXTMR/Member.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Method.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/PointerType.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/PrimitiveType.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Property.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/RefCaster.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/RefVariant.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Template.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Type.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/TypeRegister.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/Variant.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

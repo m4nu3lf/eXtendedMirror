@@ -56,63 +56,72 @@ bool Class::isAbstract() const
 }
 
 
-const ConstClassSetById& Class::getBaseClasses() const
+const Const_Class_SetById& Class::getBaseClasses() const
 {
     return baseClasses_;
 }
 
 
-const ConstClassSetById& Class::getDerivedClasses() const
+const Const_RefCaster_Set& Class::getRefCasters() const
+{
+    return refCasters_;
+}
+
+
+const Const_Class_SetById& Class::getDerivedClasses() const
 {
     return derivedClasses_;
 }
 
 
-Class& Class::operator<<(const Class& baseClass)
+Class& Class::operator&(Class& baseClass)
 {    
     // put this class into the derived list of the base Class
-    const_cast<Class&>(baseClass).derivedClasses_.insert(this);
+    baseClass.derivedClasses_.insert(this);
     
     // put the base class into the base list of this Class
     baseClasses_.insert(&baseClass);
     
     // insert all the base class properties into the properties set
-    const ConstPropertySet& baseClassProperties = baseClass.getProperties();
+    const Const_Property_Set& baseClassProperties = baseClass.getProperties();
     properties_.insert(baseClassProperties.begin(), baseClassProperties.end());
     
     // insert all the base class method descriptors into the methods set
-    const ConstMethodSet& baseClassMethods = baseClass.getMethods();
+    const Const_Method_Set& baseClassMethods = baseClass.getMethods();
     methods_.insert(baseClassMethods.begin(), baseClassMethods.end());
     
     return *this;
 }
 
 
-Class& Class::operator<<(Property& property)
+Class& Class::operator&(RefCaster& refCaster)
 {
-    // remove previous inserted properties with the same name
-    properties_.erase(&property);
+    refCaster.srcType_ = this;
+    refCasters_.insert(&refCaster);
     
-    property.owner_ = this;
-    
+    std::cout << "src: " << refCaster.getSrcType().getName() << std::endl;
+    std::cout << "dst: " << refCaster.getDstType().getName() << std::endl;
+    return *this;
+}
+
+
+Class& Class::operator&(Property& property)
+{
+    property.owner_ = this;   
     properties_.insert(&property);
     return *this;
 }
 
 
-Class& Class::operator<<(Method& method)
+Class& Class::operator&(Method& method)
 {
-    // remove previous inserted methods with the same signature
-    methods_.erase(&method);
-    
-    method.owner_ = this;
-    
+    method.owner_ = this;   
     methods_.insert(&method);
     return *this;
 }
 
 
-const ConstPropertySet& Class::getProperties(bool inherited) const
+const Const_Property_Set& Class::getProperties(bool inherited) const
 {
     if (inherited)
     {
@@ -122,7 +131,7 @@ const ConstPropertySet& Class::getProperties(bool inherited) const
 }
 
 
-const ConstMethodSet& Class::getMethods(bool inherited) const
+const Const_Method_Set& Class::getMethods(bool inherited) const
 {
     if (inherited)
     {
@@ -166,13 +175,13 @@ bool Class::inheritsFrom(const string& baseClassName) const
     if (baseClass.getCategory() != Type::Class)
         return false;
     else
-        return inheritsFrom(reinterpret_cast<const Class&>(baseClass));
+        return inheritsFrom(dynamic_cast<const Class&>(baseClass));
 }
 
 
 bool Class::inheritsFrom(const Class& baseClass) const
 {    
-    ConstClassSetById::iterator ite = baseClasses_.begin();
+    Const_Class_SetById::iterator ite = baseClasses_.begin();
     while(ite != baseClasses_.end())
     {
         if (**ite == *this || (*ite)->inheritsFrom(*this))
@@ -206,11 +215,17 @@ const Method& Class::getMethod(const string& methodName) const
 
 const Method& Class::getMethod(const Method& method) const
 {
-    ConstMethodSet::iterator ite;
+    Const_Method_Set::iterator ite;
     ite = methods_.find(&method);
     if (ite != methods_.end()) return **ite;
     
     throw MethodNotFoundException(method, name_);
+}
+
+
+Type::Category Class::getCategory() const
+{
+    return Type::Class;
 }
 
 
@@ -219,7 +234,7 @@ Class::~Class()
     ptrSet::deleteAll(ownProperties_);
     ptrSet::deleteAll(ownMethods_);
     
-    ConstClassSetById::iterator ite = baseClasses_.begin();
+    Const_Class_SetById::iterator ite = baseClasses_.begin();
     
     while(ite != baseClasses_.end())
     {

@@ -22,7 +22,7 @@ CompoundClass::CompoundClass
     AssignOperator* assignOperator,
     bool isAbstract,
     const Template& tempjate,
-    const ConstTypeVector& templateArgs
+    const Const_Type_Vector& templateArgs
 ) :
     Class
     (
@@ -53,7 +53,7 @@ const Template& CompoundClass::getTemplate() const
 }
 
 
-const ConstTypeVector& CompoundClass::getTemplateArgs() const
+const Const_Type_Vector& CompoundClass::getTemplateArgs() const
 {
     return templateArgs_;
 }

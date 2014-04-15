@@ -4,8 +4,14 @@
 using namespace std;
 using namespace extmr;
 
-Property::Property(const std::string& name) : Member(name), type_(NULL),
-        flags_(0)
+Property::Property(const std::string& name) :
+        Member(Class::Void, name), type_(NULL), flags_(0)
+{
+}
+
+
+Property::Property(const Class& owner, const std::string& name = "") :
+        Member(owner, name), type_(NULL), flags_(0)
 {
 }
 

@@ -251,12 +251,12 @@ bool inline operator<(const Type& t1, const Type& t2)
     return t1.cppType_.before(t2.cppType_);
 }
 
-typedef std::set<const Type*, PtrCmpByVal<Type> > ConstTypeSetById;
-typedef std::set<Type*, PtrCmpByVal<Type> > TypeSetById;
-typedef std::set<const Type*, PtrCmpByName<Type> > ConstTypeSetByName;
-typedef std::set<Type*, PtrCmpByName<Type> > TypeSetByName;
-typedef std::vector<const Type*> ConstTypeVector;
-typedef std::vector<Type*> TypeVector;
+typedef std::set<const Type*, PtrCmpByVal<Type> > Const_Type_SetById;
+typedef std::set<Type*, PtrCmpByVal<Type> > Type_SetById;
+typedef std::set<const Type*, PtrCmpByName<Type> > Const_Type_SetByName;
+typedef std::set<Type*, PtrCmpByName<Type> > Type_Set_ByName;
+typedef std::vector<const Type*> Const_Type_Vector;
+typedef std::vector<Type*> Type_Vector;
 
 } // namespace extmr
 

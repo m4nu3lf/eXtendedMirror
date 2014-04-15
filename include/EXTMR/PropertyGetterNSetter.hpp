@@ -85,6 +85,7 @@ public:
     , setterWrapper_(setter)
     {
          type_ = &TypeRegister::getSingleton().getType<PropT>();
+         owner_ = &TypeRegister::getSingleton().getClass<ClassT>();
         
         // if the setter is not null we can set the property
         if (setter) flags_ |= Settable;

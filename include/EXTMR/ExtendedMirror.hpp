@@ -22,7 +22,7 @@
  * @return The callback function
  */
 
-
+#define DEBUG
 
 #include <Common/Common.hpp>
 namespace extmr {
@@ -33,8 +33,10 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/TypeTraits.hpp>
 #include <EXTMR/Empty.hpp>
 #include <EXTMR/Variant.hpp>
+#include <EXTMR/RefVariant.hpp>
 #include <EXTMR/MemberWrappers.hpp>
 #include <EXTMR/Type.hpp>
+#include <EXTMR/RefCaster.hpp>
 #include <EXTMR/PrimitiveType.hpp>
 #include <EXTMR/PointerType.hpp>
 #include <EXTMR/ArrayType.hpp>
@@ -43,13 +45,16 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/Method.hpp>
 #include <EXTMR/Template.hpp>
 #include <EXTMR/Class.hpp>
+#include <EXTMR/Member.inl>
 #include <EXTMR/CompoundClass.hpp>
 #include <EXTMR/TypeRegister.hpp>
 #include <EXTMR/PropertyField.hpp>
 #include <EXTMR/PropertyArrayField.hpp>
 #include <EXTMR/PropertyGetterNSetter.hpp>
 #include <EXTMR/Variant.inl>
+#include <EXTMR/RefVariant.inl>
 #include <EXTMR/MethodImpl.hpp>
+#include <EXTMR/RefCasterImpl.hpp>
 #include <EXTMR/TypeRegister.inl>
 #include <EXTMR/MemberMakeUtils.hpp>
 #include <EXTMR/RegistrationMacros.hpp>

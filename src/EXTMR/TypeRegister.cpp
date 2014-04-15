@@ -86,15 +86,15 @@ const Template& TypeRegister::getTemplate(const string& templateName) const
 }
 
 
-const ConstTypeSetById& TypeRegister::getTypes() const
+const Const_Type_SetById& TypeRegister::getTypes() const
 {
-    return reinterpret_cast<const ConstTypeSetById&>(typesById_);
+    return reinterpret_cast<const Const_Type_SetById&>(typesById_);
 }
 
 
-const ConstClassSetById& TypeRegister::getClasses() const
+const Const_Class_SetById& TypeRegister::getClasses() const
 {
-    return reinterpret_cast<const ConstClassSetById&>(classesById_);
+    return reinterpret_cast<const Const_Class_SetById&>(classesById_);
 }
 
 

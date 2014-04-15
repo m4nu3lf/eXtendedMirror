@@ -11,7 +11,8 @@
 using namespace std;
 using namespace extmr;
 
-Member::Member(const string& name) : name_(name), owner_(&Class::Void)
+Member::Member(const Class& owner, const string& name) :
+        owner_(&owner), name_(name)
 {
 }
 

@@ -35,11 +35,20 @@ public:
     };
     
     /**
-     * Construct a method with no full signature, just the name.
+     * Construct a method with just the name.
      * 
      * @param name The method name.
      */
     Method(const std::string& name);
+    
+    
+    /**
+     * Construct a method with just the owner and the name.
+     * 
+     * @param owner The owner class.
+     * @param name The method name.
+     */
+    Method(const Class& owner, const std::string& name);
     
     /**
      * Construct a Method with the given given signature.
@@ -70,32 +79,34 @@ public:
     );
     
     /**
-     * Construct a Method with the given given signature.
+     * Construct a Method with the given owner and given signature.
      * 
      * @param name The name of the method.
-     * @param retType The type_info struct of the returned type.
-     * @param paramType1 The type_info struct of the first parameter type.
-     * @param paramType2 The type_info struct of the second parameter type.
-     * @param paramType3 The type_info struct of the third parameter type.
-     * @param paramType4 The type_info struct of the fourth parameter type.
-     * @param paramType5 The type_info struct of the fifth parameter type.
-     * @param paramType6 The type_info struct of the sixth parameter type.
-     * @param paramType7 The type_info struct of the seventh parameter type.
-     * @param paramType8 The type_info struct of the eighth parameter type.
+     * @param retType The Type of the returned type.
+     * @param paramType1 The Type of the first parameter type.
+     * @param paramType2 The Type of the second parameter type.
+     * @param paramType3 The Type of the third parameter type.
+     * @param paramType4 The Type of the fourth parameter type.
+     * @param paramType5 The Type of the fifth parameter type.
+     * @param paramType6 The Type of the sixth parameter type.
+     * @param paramType7 The Type of the seventh parameter type.
+     * @param paramType8 The Type of the eighth parameter type.
      */
     Method
     (
+        const Class& owner,
         const std::string& name,
-        const std::type_info& retType,
-        const std::type_info& paramType1 = typeid(void),
-        const std::type_info& paramType2 = typeid(void),
-        const std::type_info& paramType3 = typeid(void),
-        const std::type_info& paramType4 = typeid(void),
-        const std::type_info& paramType5 = typeid(void),
-        const std::type_info& paramType6 = typeid(void),
-        const std::type_info& paramType7 = typeid(void),
-        const std::type_info& paramType8 = typeid(void)
+        const Type& retType,
+        const Type& paramType1 = Type::Void,
+        const Type& paramType2 = Type::Void,
+        const Type& paramType3 = Type::Void,
+        const Type& paramType4 = Type::Void,
+        const Type& paramType5 = Type::Void,
+        const Type& paramType6 = Type::Void,
+        const Type& paramType7 = Type::Void,
+        const Type& paramType8 = Type::Void
     );
+    
     
     /**
      * Add an other parameter to the parameter list.
@@ -163,35 +174,6 @@ public:
         return Variant();
     }
     
-    /** 
-     * This function object is used to compare two pointers to this class by the
-     * signature of the pointed Method objects.
-     * If one of the comparing Method has no full signature defined then is only
-     * performed a name comparison.
-     */
-    struct PtrCmp
-    {
-        bool operator()(const Method* methodPtr1, const Method* methodPtr2)
-        const
-        {
-                if (methodPtr1->name_ < methodPtr2->name_)
-                    return true;
-                if (!methodPtr1->fullSignature_ || methodPtr2->fullSignature_)
-                    return false;
-                ushort paramN1 = methodPtr1->params_.size();
-                ushort paramN2 = methodPtr2->params_.size();
-                ushort paramN = std::min(paramN1, paramN2);
-                for (uint i = 0; i < paramN; i++)
-                {
-                    if (methodPtr1->params_[i]->type
-                        < methodPtr2->params_[i]->type)
-                        return true;
-                }
-                if (paramN1 < paramN2) return true;
-                return false;
-        }
-    };
-    
 protected:
     // The returned type
     const Type* retType_;
@@ -205,10 +187,38 @@ protected:
     
     // Need to know if the method has a full signature
     friend class MethodNotFoundException;
+    
+    friend bool operator<(const Method& m1, const Method& m2);
 };
 
-typedef std::set<Method*, Method::PtrCmp> MethodSet;
-typedef std::set<const Method*, Method::PtrCmp> ConstMethodSet;
+
+bool inline operator<(const Method& m1, const Method& m2)
+{
+    if (static_cast<const Member&>(m1) < static_cast<const Member&>(m2))
+        return true;
+    
+    if (static_cast<const Member&>(m2) < static_cast<const Member&>(m1))
+        return false;
+    
+    if (!m1.fullSignature_ || !m2.fullSignature_)
+        return false;
+    
+    ushort paramN1 = m1.params_.size();
+    ushort paramN2 = m2.params_.size();
+    ushort paramN = std::min(paramN1, paramN2);
+    for (uint i = 0; i < paramN; i++)
+    {
+        if (m1.params_[i]->type
+            < m2.params_[i]->type)
+            return true;
+    }
+    if (paramN1 < paramN2) return true;
+    return false;
+}
+
+
+typedef std::set<Method*, PtrCmpByVal<Method> > Method_Set;
+typedef std::set<const Method*, PtrCmpByVal<Method> > Const_Method_Set;
 
 } // namespace extmr
 

@@ -3,24 +3,23 @@
     <type>org.netbeans.modules.cnd.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>ExtendedMirror</name>
+            <name>extmr_test</name>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
-            <header-extensions>hpp,inl</header-extensions>
+            <header-extensions/>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects/>
-            <sourceRootList>
-                <sourceRootElem>include</sourceRootElem>
-                <sourceRootElem>src</sourceRootElem>
-            </sourceRootList>
+            <make-dep-projects>
+                <make-dep-project>../extendedmirror</make-dep-project>
+            </make-dep-projects>
+            <sourceRootList/>
             <confList>
                 <confElem>
                     <name>Debug</name>
-                    <type>3</type>
+                    <type>1</type>
                 </confElem>
                 <confElem>
                     <name>Release</name>
-                    <type>3</type>
+                    <type>1</type>
                 </confElem>
             </confList>
             <formatting>

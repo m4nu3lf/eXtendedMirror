@@ -42,10 +42,10 @@ struct ThrowawayKeyClass
     
 
 template<class T, class C, typename K>
-T* findByKey(std::set<T*, C> set, const K& key)
+T* findByKey(const std::set<T*, C>& set, const K& key)
 {
     typename ThrowawayKeyClass<T>::Type keyObj(key);
-    typename std::set<T*, C>::iterator ite;
+    typename std::set<T*, C>::const_iterator ite;
     ite = set.find(&keyObj);
     if (ite == set.end())
         return NULL;
@@ -54,7 +54,7 @@ T* findByKey(std::set<T*, C> set, const K& key)
 
 
 template<class T, class C, typename K>
-T* removeByKey(std::set<T*, C> set, const K& key)
+T* removeByKey(std::set<T*, C>& set, const K& key)
 {
     typename ThrowawayKeyClass<T>::Type keyObj(key);
     typename std::set<T*, C>::iterator ite;
@@ -68,7 +68,7 @@ T* removeByKey(std::set<T*, C> set, const K& key)
 
 
 template<class T, class C>
-T* deleteAll(std::set<T*, C> set)
+T* deleteAll(std::set<T*, C>& set)
 {
     typename std::set<T*, C>::iterator ite = set.begin();
     while(ite != set.end())

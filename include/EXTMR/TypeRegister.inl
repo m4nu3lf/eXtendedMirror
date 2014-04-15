@@ -85,9 +85,7 @@ Type& TypeRegister::registerType_()
     typesById_.insert(type);
     typesByName_.insert(type);
     
-    // call the function registered for call back
-    if (getRegCallBack())
-        getRegCallBack()(*type);
+    DEBUG_MSG("type \"" << type->getName() << "\" registered")
     
     // return the type
     return *type;

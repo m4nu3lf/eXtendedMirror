@@ -35,27 +35,29 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o \
+	${OBJECTDIR}/src/EXTMR/ArrayType.o \
+	${OBJECTDIR}/src/EXTMR/Class.o \
+	${OBJECTDIR}/src/EXTMR/CompoundClass.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o \
-	${OBJECTDIR}/src/EXTMR/Variant.o \
-	${OBJECTDIR}/src/EXTMR/Type.o \
-	${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o \
-	${OBJECTDIR}/src/EXTMR/Member.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o \
-	${OBJECTDIR}/src/EXTMR/TypeRegister.o \
-	${OBJECTDIR}/src/EXTMR/Method.o \
-	${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o \
-	${OBJECTDIR}/src/EXTMR/Template.o \
-	${OBJECTDIR}/src/EXTMR/PrimitiveType.o \
-	${OBJECTDIR}/src/EXTMR/CompoundClass.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o \
-	${OBJECTDIR}/src/EXTMR/ArrayType.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o \
+	${OBJECTDIR}/src/EXTMR/Member.o \
+	${OBJECTDIR}/src/EXTMR/Method.o \
+	${OBJECTDIR}/src/EXTMR/PointerType.o \
+	${OBJECTDIR}/src/EXTMR/PrimitiveType.o \
 	${OBJECTDIR}/src/EXTMR/Property.o \
-	${OBJECTDIR}/src/EXTMR/Class.o \
-	${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o \
-	${OBJECTDIR}/src/EXTMR/PointerType.o
+	${OBJECTDIR}/src/EXTMR/RefCaster.o \
+	${OBJECTDIR}/src/EXTMR/RefVariant.o \
+	${OBJECTDIR}/src/EXTMR/Template.o \
+	${OBJECTDIR}/src/EXTMR/Type.o \
+	${OBJECTDIR}/src/EXTMR/TypeRegister.o \
+	${OBJECTDIR}/src/EXTMR/Variant.o
 
 
 # C Compiler Flags
@@ -84,110 +86,120 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libextendedmirror.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libextendedmirror.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libextendedmirror.a
 
-${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o: src/EXTMR/Exceptions/VariantTypeException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o src/EXTMR/Exceptions/VariantTypeException.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o: src/EXTMR/Exceptions/NonAssignableException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o src/EXTMR/Exceptions/NonAssignableException.cpp
-
-${OBJECTDIR}/src/EXTMR/Variant.o: src/EXTMR/Variant.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Variant.o src/EXTMR/Variant.cpp
-
-${OBJECTDIR}/src/EXTMR/Type.o: src/EXTMR/Type.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Type.o src/EXTMR/Type.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o: src/EXTMR/Exceptions/PropertySetException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o src/EXTMR/Exceptions/PropertySetException.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o: src/EXTMR/Exceptions/NonCopyableException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o src/EXTMR/Exceptions/NonCopyableException.cpp
-
-${OBJECTDIR}/src/EXTMR/Member.o: src/EXTMR/Member.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Member.o src/EXTMR/Member.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o: src/EXTMR/Exceptions/NonInstantiableException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o src/EXTMR/Exceptions/NonInstantiableException.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o: src/EXTMR/Exceptions/NotFoundExceptions.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o src/EXTMR/Exceptions/NotFoundExceptions.cpp
-
-${OBJECTDIR}/src/EXTMR/TypeRegister.o: src/EXTMR/TypeRegister.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/TypeRegister.o src/EXTMR/TypeRegister.cpp
-
-${OBJECTDIR}/src/EXTMR/Method.o: src/EXTMR/Method.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Method.o src/EXTMR/Method.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o: src/EXTMR/Exceptions/VariantCostnessException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o src/EXTMR/Exceptions/VariantCostnessException.cpp
-
-${OBJECTDIR}/src/EXTMR/Template.o: src/EXTMR/Template.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Template.o src/EXTMR/Template.cpp
-
-${OBJECTDIR}/src/EXTMR/PrimitiveType.o: src/EXTMR/PrimitiveType.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/PrimitiveType.o src/EXTMR/PrimitiveType.cpp
-
-${OBJECTDIR}/src/EXTMR/CompoundClass.o: src/EXTMR/CompoundClass.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/CompoundClass.o src/EXTMR/CompoundClass.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o: src/EXTMR/Exceptions/PropertyRangeException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o src/EXTMR/Exceptions/PropertyRangeException.cpp
-
 ${OBJECTDIR}/src/EXTMR/ArrayType.o: src/EXTMR/ArrayType.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/ArrayType.o src/EXTMR/ArrayType.cpp
-
-${OBJECTDIR}/src/EXTMR/Property.o: src/EXTMR/Property.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Property.o src/EXTMR/Property.cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/ArrayType.o src/EXTMR/ArrayType.cpp
 
 ${OBJECTDIR}/src/EXTMR/Class.o: src/EXTMR/Class.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Class.o src/EXTMR/Class.cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Class.o src/EXTMR/Class.cpp
+
+${OBJECTDIR}/src/EXTMR/CompoundClass.o: src/EXTMR/CompoundClass.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/CompoundClass.o src/EXTMR/CompoundClass.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o: src/EXTMR/Exceptions/NonAssignableException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o src/EXTMR/Exceptions/NonAssignableException.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o: src/EXTMR/Exceptions/NonCopyableException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o src/EXTMR/Exceptions/NonCopyableException.cpp
 
 ${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o: src/EXTMR/Exceptions/NonDestructibleException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o src/EXTMR/Exceptions/NonDestructibleException.cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o src/EXTMR/Exceptions/NonDestructibleException.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o: src/EXTMR/Exceptions/NonInstantiableException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o src/EXTMR/Exceptions/NonInstantiableException.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o: src/EXTMR/Exceptions/NotFoundExceptions.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o src/EXTMR/Exceptions/NotFoundExceptions.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o: src/EXTMR/Exceptions/PropertyRangeException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o src/EXTMR/Exceptions/PropertyRangeException.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o: src/EXTMR/Exceptions/PropertySetException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o src/EXTMR/Exceptions/PropertySetException.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o: src/EXTMR/Exceptions/VariantCostnessException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o src/EXTMR/Exceptions/VariantCostnessException.cpp
+
+${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o: src/EXTMR/Exceptions/VariantTypeException.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o src/EXTMR/Exceptions/VariantTypeException.cpp
+
+${OBJECTDIR}/src/EXTMR/Member.o: src/EXTMR/Member.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Member.o src/EXTMR/Member.cpp
+
+${OBJECTDIR}/src/EXTMR/Method.o: src/EXTMR/Method.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Method.o src/EXTMR/Method.cpp
 
 ${OBJECTDIR}/src/EXTMR/PointerType.o: src/EXTMR/PointerType.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
-	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EXTMR/PointerType.o src/EXTMR/PointerType.cpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/PointerType.o src/EXTMR/PointerType.cpp
+
+${OBJECTDIR}/src/EXTMR/PrimitiveType.o: src/EXTMR/PrimitiveType.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/PrimitiveType.o src/EXTMR/PrimitiveType.cpp
+
+${OBJECTDIR}/src/EXTMR/Property.o: src/EXTMR/Property.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Property.o src/EXTMR/Property.cpp
+
+${OBJECTDIR}/src/EXTMR/RefCaster.o: src/EXTMR/RefCaster.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/RefCaster.o src/EXTMR/RefCaster.cpp
+
+${OBJECTDIR}/src/EXTMR/RefVariant.o: src/EXTMR/RefVariant.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/RefVariant.o src/EXTMR/RefVariant.cpp
+
+${OBJECTDIR}/src/EXTMR/Template.o: src/EXTMR/Template.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Template.o src/EXTMR/Template.cpp
+
+${OBJECTDIR}/src/EXTMR/Type.o: src/EXTMR/Type.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Type.o src/EXTMR/Type.cpp
+
+${OBJECTDIR}/src/EXTMR/TypeRegister.o: src/EXTMR/TypeRegister.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/TypeRegister.o src/EXTMR/TypeRegister.cpp
+
+${OBJECTDIR}/src/EXTMR/Variant.o: src/EXTMR/Variant.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Variant.o src/EXTMR/Variant.cpp
 
 # Subprojects
 .build-subprojects:

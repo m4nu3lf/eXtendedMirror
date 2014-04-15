@@ -245,7 +245,7 @@ Type* createCompoundClass()
 {
     TypeRegister& typeReg = TypeRegister::getSingleton();
                 
-    ConstTypeVector templateArgs = GetTemplateArgs<T>()();
+    Const_Type_Vector templateArgs = GetTemplateArgs<T>()();
     
     const Template* tempjate;
     
