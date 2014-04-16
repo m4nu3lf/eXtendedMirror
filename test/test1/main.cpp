@@ -14,91 +14,124 @@
 using namespace std;
 using namespace extmr;
 
-class Base0
+char c;
+
+
+template<typename T>
+class ClassTemplate
 {
 public:
-    Base0(){a = 0;};
-    float a;
-    virtual ~Base0(){};
+    T val;
 };
 
-EXTMR_ENABLE_CLASS(Base0)
-EXTMR_BUILD_CLASS(Base0)
+EXTMR_ENABLE_TEMPLATE_1(ClassTemplate)
+template<typename T>
+EXTMR_BUILD_CLASS(ClassTemplate<T>)
 {
-    
+    clazz & makeProperty("val", &ClassTemplate<T>::val);
 }
 
-class Base1 : public Base0
+class Uninstantiable
+{
+private:
+    Uninstantiable();
+};
+
+EXTMR_ENABLE_CLASS(Uninstantiable)
+EXTMR_ASSUME_NON_INSTANTIABLE(Uninstantiable)
+EXTMR_BUILD_CLASS(Uninstantiable){}
+EXTMR_AUTOREG(Uninstantiable)
+
+class Base
 {
 public:
-    Base1(){a = 1;};
-    float a;
+    virtual void method() = 0;
+    virtual ~Base(){};
+private:
 };
 
-EXTMR_ENABLE_CLASS(Base1)
-EXTMR_BUILD_CLASS(Base1)
-{
-    clazz & const_cast<Class&>(registerClass<Base0>());
-    clazz & *new extmr::RefCasterImpl<Base1, Base0>();
-}
+EXTMR_ENABLE_CLASS(Base)
+EXTMR_ASSUME_ABSTRACT(Base)
+EXTMR_BUILD_CLASS(Base){}
 
-class Base2
+class CopyNotify
 {
 public:
-    Base2(){a = 2;};
-    float a;
+    CopyNotify()
+    {
+        
+    }
+    CopyNotify(const CopyNotify& orig)
+    {
+        cout << "object copy" << endl;
+    }
 };
 
-EXTMR_ENABLE_CLASS(Base2)
-EXTMR_BUILD_CLASS(Base2)
-{
-    
-}
+EXTMR_ENABLE_CLASS(CopyNotify)
+EXTMR_BUILD_CLASS(CopyNotify){}
 
-class Derived: public Base1, public Base2
+class Dummy : public Base
 {
 public:
-    Derived(){a = 20;}
-    float a;
-    virtual ~Derived(){};
+    void method(){};
+    void doSomething(int i, int j)
+    {
+        field_ = i * j;
+    }
+    int& getField()
+    {
+        return field_;
+    }
+    void doNothingUseful(int& i)
+    {
+        i++;
+    }
+    CopyNotify& getSomething()
+    {
+        static CopyNotify copyNotify;
+        return copyNotify;
+    }
+    ClassTemplate<int> templateInstance;
+    int a[10][10];
+private:
+    int field_;
 };
 
-EXTMR_ENABLE_CLASS(Derived)
-EXTMR_BUILD_CLASS(Derived)
+EXTMR_ENABLE_CLASS(Dummy)
+EXTMR_BUILD_CLASS(Dummy)
 {
-    clazz & const_cast<Class&>(extmr::registerClass<Base1>());
-    clazz & *new extmr::RefCasterImpl<Derived,Base1>();
-    
-    const_cast<Class&>(extmr::registerClass<Base1>()) &
-            *new extmr::RefCasterImpl<Base1,Derived>(clazz);
-            
-    clazz & const_cast<Class&>(extmr::registerClass<Base2>());
-    clazz & *new extmr::RefCasterImpl<Derived,Base2>();
+    clazz & const_cast<Class&>(registerClass<Base>());
+    clazz & makeProperty("templateInstance", &Dummy::templateInstance);
+    clazz & makeProperty("a", &Dummy::a);
+    clazz & makeMethod("doNothingUseful", &Dummy::doNothingUseful);
+    clazz & makeMethod("getSomething", &Dummy::getSomething);
+    clazz & makeProperty("copyCount", &Dummy::getSomething);
 }
+EXTMR_AUTOREG(Dummy)
 
-class Derived2: public Derived
-{
-public:
-    Derived2() {a = 50;}
-    float a;
-};
-
-EXTMR_ENABLE_CLASS(Derived2)
-EXTMR_BUILD_CLASS(Derived2)
-{
-    clazz & const_cast<Class&>(extmr::registerClass<Derived>());
-    clazz & *new extmr::RefCasterImpl<Derived2,Derived>();
-    
-    const_cast<Class&>(extmr::registerClass<Derived>()) &
-            *new extmr::RefCasterImpl<Derived, Derived2>(clazz);
-    
-}
-
-
+/*
+ * 
+ */
 int main(int argc, char** argv)
 {    
-    Derived2 d;
-    RefVariant v = static_cast<Base1&>(d);
-    cout << v.as<Derived2>().a << endl;
+    Dummy dummy;
+    Dummy& d = dummy;
+    
+    int i = 0;
+    getClass("Dummy").getMethod("doNothingUseful").call(d, RefVariant(i));
+    getClass("ClassTemplate<int>").getProperty("val").setData(d.templateInstance, 5);
+ 
+    cout << i << endl;
+    cout << d.templateInstance.val << endl;
+
+    Base* b = new Dummy();
+    //cout << is(*b, getClass<Dummy>()) << endl;
+    getClass("Dummy").getMethod("getSomething").call(d);
+    
+    d.a[2][2] = 50;
+    cout << getClass("Dummy").getProperty("a").getData(d).as<void*>() << endl;
+    cout << getClass("Base").isAbstract() << endl;
 }
+
+
 

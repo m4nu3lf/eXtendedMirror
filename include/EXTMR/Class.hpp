@@ -12,12 +12,6 @@
 namespace extmr
 {
 
-class Class;
-    
-typedef std::set<const Class*, PtrCmpByVal<Type> > Const_Class_SetById;
-typedef std::set<Class*, PtrCmpByVal<Type> > Class_SetById;
-typedef std::set<const Class*, PtrCmpByName<Type> > Const_Class_SetByName;
-typedef std::set<Class*, PtrCmpByName<Type> > Class_SetByName;
 
 class Class : public Type
 {
@@ -204,13 +198,6 @@ public:
     Category getCategory() const;
     
     virtual ~Class();
-    
-    /**
-     * Non valid Class.
-     * This Class can be used where ever a reference to a non valid Class is
-     * needed.
-     */
-    static const Class Void;
     
 protected:
     

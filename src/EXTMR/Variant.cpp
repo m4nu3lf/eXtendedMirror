@@ -16,7 +16,7 @@ const Variant Variant::Null = Variant();
 Variant::Variant() : flags_(0)
 {
     data_ = NULL;
-    type_ = &Type::Void;
+    type_ = &extmr::getType<void>();
 }
 
 
@@ -121,6 +121,8 @@ const Variant& Variant::operator=(const Variant& other)
 
 Variant::~Variant()
 {
+    if(!data_) return;
+    
     if (!flags_ & Reference)
     {        
         const Class* clazz = dynamic_cast<const Class*>(type_);

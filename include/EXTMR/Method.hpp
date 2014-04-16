@@ -70,14 +70,14 @@ public:
     (
         const std::string& name,
         const Type& retType,
-        const Type& paramType1 = Type::Void,
-        const Type& paramType2 = Type::Void,
-        const Type& paramType3 = Type::Void,
-        const Type& paramType4 = Type::Void,
-        const Type& paramType5 = Type::Void,
-        const Type& paramType6 = Type::Void,
-        const Type& paramType7 = Type::Void,
-        const Type& paramType8 = Type::Void
+        const Type& paramType1 = getType<void>(),
+        const Type& paramType2 = getType<void>(),
+        const Type& paramType3 = getType<void>(),
+        const Type& paramType4 = getType<void>(),
+        const Type& paramType5 = getType<void>(),
+        const Type& paramType6 = getType<void>(),
+        const Type& paramType7 = getType<void>(),
+        const Type& paramType8 = getType<void>()
     );
     
     /**
@@ -99,14 +99,14 @@ public:
         const Class& owner,
         const std::string& name,
         const Type& retType,
-        const Type& paramType1 = Type::Void,
-        const Type& paramType2 = Type::Void,
-        const Type& paramType3 = Type::Void,
-        const Type& paramType4 = Type::Void,
-        const Type& paramType5 = Type::Void,
-        const Type& paramType6 = Type::Void,
-        const Type& paramType7 = Type::Void,
-        const Type& paramType8 = Type::Void
+        const Type& paramType1 = getType<void>(),
+        const Type& paramType2 = getType<void>(),
+        const Type& paramType3 = getType<void>(),
+        const Type& paramType4 = getType<void>(),
+        const Type& paramType5 = getType<void>(),
+        const Type& paramType6 = getType<void>(),
+        const Type& paramType7 = getType<void>(),
+        const Type& paramType8 = getType<void>()
     );
     
     
@@ -162,7 +162,7 @@ public:
      */
     Variant call
     (
-        const Variant& self,
+        const RefVariant& self,
         const Variant& arg1 = Variant::Null,
         const Variant& arg2 = Variant::Null,
         const Variant& arg3 = Variant::Null,
@@ -180,7 +180,7 @@ public:
      * @param args A vector containing the arguments of the method.
      * @return A Variant containing the return value.
      */
-    Variant callV(const Variant& self, std::vector<Variant> args)
+    Variant callV(const RefVariant& self, std::vector<Variant> args)
     const;
     
     /**
@@ -203,7 +203,7 @@ public:
 protected:
     virtual Variant callImpl
     (
-        const Variant& objPtr,
+        const RefVariant& objPtr,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,

@@ -73,12 +73,10 @@ struct CreateType<_class_>                                                     \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeCopyConstructor<_class_ >                                        \
+class CopyConstructorImpl<_class_ > : public CopyConstructor                   \
 {                                                                              \
-    CopyConstructor* operator()()                                              \
-    {                                                                          \
-        return NULL;                                                           \
-    }                                                                          \
+public:                                                                        \
+    CopyConstructorImpl(const Class& owner) : CopyConstructor(owner) {};       \
 };                                                                             \
                                                                                \
 } //namespace extmr
@@ -88,12 +86,10 @@ struct GetTypeCopyConstructor<_class_ >                                        \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeConstructor<_class_ >                                            \
+class ConstructorImpl<_class_ > : public Constructor                           \
 {                                                                              \
-    Constructor* operator()()                                                  \
-    {                                                                          \
-        return NULL;                                                           \
-    }                                                                          \
+public:                                                                        \
+    ConstructorImpl(const Class& owner) : Constructor(owner) {};               \
 };                                                                             \
                                                                                \
 } //namespace extmr
@@ -103,12 +99,10 @@ struct GetTypeConstructor<_class_ >                                            \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeAssignOperator<_class_ >                                         \
+class AssignOperatorImpl<_class_ > : public AssignOperator                     \
 {                                                                              \
-    AssignOperator* operator()()                                               \
-    {                                                                          \
-        return NULL;                                                           \
-    }                                                                          \
+public:                                                                        \
+    AssignOperatorImpl(const Class& owner) : AssignOperator(owner) {};         \
 };                                                                             \
                                                                                \
 } //namespace extmr
@@ -118,12 +112,10 @@ struct GetTypeAssignOperator<_class_ >                                         \
 namespace extmr{                                                               \
                                                                                \
 template<>                                                                     \
-struct GetTypeDestructor<_class_ >                                             \
+class DestructorImpl<_class_ > : public Constructor                            \
 {                                                                              \
-    Destructor* operator()()                                                   \
-    {                                                                          \
-        return NULL;                                                           \
-    }                                                                          \
+public:                                                                        \
+    DestructorImpl(const Class& owner) : DestructorImpl(owner) {};             \
 };                                                                             \
                                                                                \
 } //namespace extmr

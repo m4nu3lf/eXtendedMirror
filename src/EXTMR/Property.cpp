@@ -5,7 +5,7 @@ using namespace std;
 using namespace extmr;
 
 Property::Property(const std::string& name) :
-        Member(Class::Void, name), type_(NULL), flags_(0)
+        Member(getClass<void>(), name), type_(NULL), flags_(0)
 {
 }
 
@@ -70,7 +70,11 @@ Property::SetMode Property::getSetMode()
 }
 
 
-Variant Property::getData(const Variant& objPtr) const
+const Variant& Property::getData(const RefVariant& self) const
 {
-    return Variant();
+    return Variant::Null;
 };
+
+
+void Property::setData(const RefVariant& self, const Variant& data) const
+{};

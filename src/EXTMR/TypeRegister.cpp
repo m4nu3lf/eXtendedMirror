@@ -98,9 +98,9 @@ const Const_Class_SetById& TypeRegister::getClasses() const
 }
 
 
-const ConstTemplateSet& TypeRegister::getTemplates() const
+const Const_Template_Set& TypeRegister::getTemplates() const
 {
-    return reinterpret_cast<const ConstTemplateSet&>(templates_);
+    return reinterpret_cast<const Const_Template_Set&>(templates_);
 }
 
 

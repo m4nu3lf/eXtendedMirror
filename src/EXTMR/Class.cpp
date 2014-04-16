@@ -11,8 +11,6 @@
 using namespace std;
 using namespace extmr;
 
-const Class Class::Void = TypeRegister::getSingleton().getClass<void>();
-
 
 Class::Class(const string& name) :
         Type(name),
@@ -137,7 +135,7 @@ Class& Class::operator&(RefCaster& refCaster)
 
 Class& Class::operator&(Property& property)
 {
-    property.owner_ = this;   
+    property.owner_ = this;
     properties_.insert(&property);
     return *this;
 }
@@ -200,7 +198,7 @@ bool Class::hasMethod(const Method& method, bool inherited) const
 
 bool Class::inheritsFrom(const string& baseClassName) const
 {
-    const Type& baseClass = TypeRegister::getSingleton().getType(baseClassName);
+    const Type& baseClass = getType(baseClassName);
     
     if (baseClass.getCategory() != Type::Class)
         return false;

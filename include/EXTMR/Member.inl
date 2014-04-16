@@ -13,7 +13,7 @@ namespace extmr {
     
 bool inline operator<(const Member& m1, const Member& m2)
 {
-    if (*m1.owner_ != Class::Void and *m2.owner_ != Class::Void)
+    if (*m1.owner_ != getClass<void>() and *m2.owner_ != getClass<void>())
     {
         if (*m1.owner_ < *m2.owner_)
             return true;

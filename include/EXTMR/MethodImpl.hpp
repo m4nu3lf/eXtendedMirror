@@ -25,34 +25,20 @@ MethodImpl(const std::string& name,                                            \
     constant_(constant)                                                        \
 {                                                                              \
 }
-    
-
-template<typename T>
-struct VoidToEmpty
-{
-    typedef T Type;
-};
-
-
-template<>
-struct VoidToEmpty<void>
-{
-    typedef Empty Type;
-};
 
 
 template
 <
         class ClassT,
         typename RetT,
-        typename ParamT1 = void,
-        typename ParamT2 = void,
-        typename ParamT3 = void,
-        typename ParamT4 = void,
-        typename ParamT5 = void,
-        typename ParamT6 = void,
-        typename ParamT7 = void,
-        typename ParamT8 = void
+        typename ParamT1 = Empty,
+        typename ParamT2 = Empty,
+        typename ParamT3 = Empty,
+        typename ParamT4 = Empty,
+        typename ParamT5 = Empty,
+        typename ParamT6 = Empty,
+        typename ParamT7 = Empty,
+        typename ParamT8 = Empty
 >
 class MethodImpl : public Method
 {
@@ -99,7 +85,7 @@ public:
     
     Variant callImpl
     (
-        const Variant& self,
+        const RefVariant& self,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
@@ -128,14 +114,14 @@ private:
     <
             ClassT,
             RetT,
-            typename VoidToEmpty<ParamT1>::Type,
-            typename VoidToEmpty<ParamT2>::Type,
-            typename VoidToEmpty<ParamT3>::Type,
-            typename VoidToEmpty<ParamT4>::Type,
-            typename VoidToEmpty<ParamT5>::Type,
-            typename VoidToEmpty<ParamT6>::Type,
-            typename VoidToEmpty<ParamT7>::Type,
-            typename VoidToEmpty<ParamT8>::Type
+            ParamT1,
+            ParamT2,
+            ParamT3,
+            ParamT4,
+            ParamT5,
+            ParamT6,
+            ParamT7,
+            ParamT8
     > methodWrapper_;
     
     /// Whether the method is constant.

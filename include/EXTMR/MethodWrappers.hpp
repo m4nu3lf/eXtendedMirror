@@ -19,7 +19,7 @@ template<typename T>
 struct ReturnVariantFlags
 {
     static const char flags =
-        (IsReference<T>::value * Variant::Reference) |
+        (IsReference<T>::value * (Variant::Reference | Variant::CpyByRef)) |
         (IsConst<T>::value * Variant::Const);
 };
 
@@ -80,7 +80,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -173,7 +173,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -252,7 +252,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -325,7 +325,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -401,7 +401,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -470,7 +470,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -542,7 +542,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -607,7 +607,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -673,7 +673,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -733,7 +733,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -795,7 +795,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -851,7 +851,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -909,7 +909,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -961,7 +961,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -1015,7 +1015,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -1063,7 +1063,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -1111,7 +1111,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,
@@ -1148,7 +1148,7 @@ public:
     MethodWrapper(GeneralMethod method)
     : method(reinterpret_cast<MethodType>(method)){}
     
-    Variant operator()
+    const Variant& operator()
     (
         ClassT& objRef,
         const Variant& arg1,

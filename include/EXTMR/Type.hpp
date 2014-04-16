@@ -105,13 +105,6 @@ public:
     
     virtual ~Type();
     
-    /**
-     * Non valid Type.
-     * This Type can be used where ever a reference to a non valid Type is
-     * needed.
-     */
-    static const Type Void;
-    
 protected:
     
     /**
@@ -160,10 +153,7 @@ bool inline operator<(const Type& t1, const Type& t2)
     return t1.cppType_.before(t2.cppType_);
 }
 
-typedef std::set<const Type*, PtrCmpByVal<Type> > Const_Type_SetById;
-typedef std::set<Type*, PtrCmpByVal<Type> > Type_SetById;
-typedef std::set<const Type*, PtrCmpByName<Type> > Const_Type_SetByName;
-typedef std::set<Type*, PtrCmpByName<Type> > Type_Set_ByName;
+
 typedef std::vector<const Type*> Const_Type_Vector;
 typedef std::vector<Type*> Type_Vector;
 

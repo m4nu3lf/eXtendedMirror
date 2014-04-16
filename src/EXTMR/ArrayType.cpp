@@ -17,7 +17,7 @@ ArrayType::ArrayType
         size_t size,
         const type_info& cppType,
         size_t arraySize,
-        const Type& elementType = Type::Void
+        const Type& elementType = getType<void>()
  )
         : Type(name, size, cppType), arraySize_(arraySize),
         elementType_(&elementType)

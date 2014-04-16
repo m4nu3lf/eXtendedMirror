@@ -12,13 +12,14 @@ using namespace std;
 using namespace extmr;
 
 Method::Method(const std::string& name) :
-        Member(Class::Void, name), retType_(&Type::Void), fullSignature_(false)
+        Member(getClass<void>(), name), retType_(&getType<void>()),
+        fullSignature_(false)
 {
 }
 
 
 Method::Method(const Class& owner, const std::string& name) :
-        Member(owner, name), retType_(&Type::Void), fullSignature_(false)
+        Member(owner, name), retType_(&getType<void>()), fullSignature_(false)
 {
 }
 
@@ -36,26 +37,26 @@ Method::Method
     const Type& paramType7,
     const Type& paramType8
 ) :
-    Member(Class::Void, name),
+    Member(getClass<void>(), name),
     retType_(&retType),
     fullSignature_(true)
 {
     this->retType_ = &retType;
-    if (paramType1 != Type::Void)
+    if (paramType1 != getType<void>())
         params_.push_back(new Parameter(paramType1));
-    if (paramType2 != Type::Void)
+    if (paramType2 != getType<void>())
         params_.push_back(new Parameter(paramType2));
-    if (paramType3 != Type::Void)
+    if (paramType3 != getType<void>())
         params_.push_back(new Parameter(paramType3));
-    if (paramType4 != Type::Void)
+    if (paramType4 != getType<void>())
         params_.push_back(new Parameter(paramType4));
-    if (paramType5 != Type::Void)
+    if (paramType5 != getType<void>())
         params_.push_back(new Parameter(paramType5));
-    if (paramType6 != Type::Void)
+    if (paramType6 != getType<void>())
         params_.push_back(new Parameter(paramType6));
-    if (paramType7 != Type::Void)
+    if (paramType7 != getType<void>())
         params_.push_back(new Parameter(paramType7));
-    if (paramType8 != Type::Void)
+    if (paramType8 != getType<void>())
         params_.push_back(new Parameter(paramType8));
 }
 
@@ -79,21 +80,21 @@ Method::Method
     fullSignature_(true)
 {
     this->retType_ = &retType;
-    if (paramType1 != Type::Void)
+    if (paramType1 != getType<void>())
         params_.push_back(new Parameter(paramType1));
-    if (paramType2 != Type::Void)
+    if (paramType2 != getType<void>())
         params_.push_back(new Parameter(paramType2));
-    if (paramType3 != Type::Void)
+    if (paramType3 != getType<void>())
         params_.push_back(new Parameter(paramType3));
-    if (paramType4 != Type::Void)
+    if (paramType4 != getType<void>())
         params_.push_back(new Parameter(paramType4));
-    if (paramType5 != Type::Void)
+    if (paramType5 != getType<void>())
         params_.push_back(new Parameter(paramType5));
-    if (paramType6 != Type::Void)
+    if (paramType6 != getType<void>())
         params_.push_back(new Parameter(paramType6));
-    if (paramType7 != Type::Void)
+    if (paramType7 != getType<void>())
         params_.push_back(new Parameter(paramType7));
-    if (paramType8 != Type::Void)
+    if (paramType8 != getType<void>())
         params_.push_back(new Parameter(paramType8));
 }
 
@@ -130,7 +131,7 @@ bool Method::isConst() const
 
 Variant Method::call
 (
-    const Variant& self,
+    const RefVariant& self,
     const Variant& arg1,
     const Variant& arg2,
     const Variant& arg3,
@@ -189,7 +190,7 @@ Variant Method::call
 }
 
 
-Variant Method::callV(const Variant& self, vector<Variant> args) const
+Variant Method::callV(const RefVariant& self, vector<Variant> args) const
 {
     args.resize(EXTMR_METHOD_PARAM_MAX, Variant::Null);
     return call(self, args[0], args[1], args[2], args[3], args[4], args[5],
@@ -199,7 +200,7 @@ Variant Method::callV(const Variant& self, vector<Variant> args) const
 
 Variant Method::callImpl
 (
-    const Variant& self,
+    const RefVariant& self,
     const Variant& arg1,
     const Variant& arg2,
     const Variant& arg3,

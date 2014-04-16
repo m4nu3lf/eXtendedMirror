@@ -84,8 +84,7 @@ public:
     , constGetter_(constGetter)
     , setterWrapper_(setter)
     {
-         type_ = &TypeRegister::getSingleton().getType<PropT>();
-         owner_ = &TypeRegister::getSingleton().getClass<ClassT>();
+         type_ = &extmr::getType<PropT>();
         
         // if the setter is not null we can set the property
         if (setter) flags_ |= Settable;
@@ -118,7 +117,7 @@ public:
     , setterWrapper_(setter)
     , extrArg1_(extrArg1)
     {
-        type_ = &TypeRegister::getSingleton().getType<PropT>();
+        type_ = &extmr::getType<PropT>();
                 
         // if the setter is not null we can set the property
         if (setter) flags_ |= Settable;
@@ -154,7 +153,7 @@ public:
     , extrArg1_(extrArg1)
     , extrArg2_(extrArg2)
     {
-        type_ = &TypeRegister::getSingleton().getType<PropT>();
+        type_ = &extmr::getType<PropT>();
         
         // if the setter is not null we can set the property
         if (setter) flags_ |= Settable;
@@ -238,14 +237,14 @@ public:
     }
     
     
-    Variant getData(const Variant& objPtr) const
+    const Variant& getData(const RefVariant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = *objPtr.as<ClassT*>();
+        ClassT& objRef = self.as<ClassT>();
         
         // we cannot call a non constant getter of a constant instance
-        if (objPtr.isPointerToConst() && !constGetter_)
-            throw VariantCostnessException(objPtr.getType());
+        if (self.isConst() && !constGetter_)
+            throw VariantCostnessException(self.getType());
                 
         const PropT& data = getterWrapper_(objRef, extrArg1_, extrArg2_);
         return Variant(const_cast<PropT&>(data),
@@ -253,14 +252,14 @@ public:
     }
     
     
-    void setData(const Variant& objPtr, const Variant& data) const
+    void setData(const RefVariant& self, const Variant& data) const
     {
         // check whether the property is settable
         if (!setterWrapper_.setter)
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = *objPtr.as<ClassT*>();
+        ClassT& objRef = self.as<ClassT>();
         
         // retrieve the new data value
         PropT& extractedValue = data.as<PropT>();

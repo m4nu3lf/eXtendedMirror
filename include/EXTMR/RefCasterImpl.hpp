@@ -16,7 +16,7 @@ class RefCasterImpl : public RefCaster
 public:
 	RefCasterImpl()
 	{
-            dstType_ = &TypeRegister::getSingleton().registerType<D>();
+            dstType_ = &registerType<D>();
         }
         
         RefCasterImpl(const Class& dstType)

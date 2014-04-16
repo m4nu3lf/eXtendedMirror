@@ -31,7 +31,7 @@ public:
     {
         
         offset = (size_t) &(((ClassT*)NULL)->*field);
-        type_ = &TypeRegister::getSingleton().getType<FieldT>();
+        type_ = &extmr::getType<FieldT>();
     }
     
     
@@ -63,11 +63,11 @@ public:
     }
     
     
-    Variant getData(const Variant& objPtr) const
+    const Variant& getData(const RefVariant& self) const
     {
         // the value is retrieved as a constant to prevent exception throwing
         // if the passed Variant is a constant Variant.
-        const ClassT& constObj = *objPtr.as<const ClassT*>();
+        const ClassT& constObj = self.as<const ClassT>();
         
         // remove constness, the costness is however handled successively
         ClassT& obj = const_cast<ClassT&>(constObj);
@@ -76,7 +76,7 @@ public:
         // the pointer is summed to the the object pointer and converted to the field type
         FieldT& fieldRef = *reinterpret_cast<FieldT*>(byteObjPtr + offset);
         
-        if (objPtr.isPointerToConst())
+        if (self.isConst())
         {
             return Variant(const_cast<const FieldT&>(fieldRef), 0);
         }
@@ -87,7 +87,7 @@ public:
     }
     
     
-    void setData(const Variant& objPtr, const Variant& data) const
+    void setData(const RefVariant& self, const Variant& data) const
     {
         // cannot set an array
         throw PropertySetException(*this);

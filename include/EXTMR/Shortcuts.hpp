@@ -67,17 +67,6 @@ const Class& getClassOf(C& object)
 }
 
 
-template<class C>
-bool is(const C& object, const Class& clazz)
-{
-    const Class& c = getClassOf(object);
-
-    if (c == clazz)
-        return true;
-    return c.inheritsFrom(clazz);
-}
-
-
 inline
 const void unregisterType(const std::string& name)
 {

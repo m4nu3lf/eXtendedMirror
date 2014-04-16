@@ -126,7 +126,7 @@ private:
 
 
 template<typename T>
-Variant::Variant(T data)
+Variant::Variant(const T& data)
 : flags_(0)
 {
     // if the type is a constant array, then the type will be converted to a

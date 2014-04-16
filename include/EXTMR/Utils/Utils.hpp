@@ -14,6 +14,8 @@
 #include<vector>
 #include<set>
 
+#define DEBUG
+
 #include <EXTMR/Utils/DebugUtils.hpp>
 #include <EXTMR/Utils/ContainerUtils.hpp>
 #include <EXTMR/Utils/Typedef.hpp>

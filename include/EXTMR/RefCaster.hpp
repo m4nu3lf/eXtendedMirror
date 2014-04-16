@@ -8,8 +8,6 @@
 #ifndef EXTMR_REFCASTER_HPP
 #define	EXTMR_REFCASTER_HPP
 
-#include "Type.hpp"
-
 
 namespace extmr {
 
@@ -17,8 +15,8 @@ namespace extmr {
 class RefCaster
 {
 public:
-    RefCaster(const Type& srcType = Type::Void,
-            const Type& dstType = Type::Void);
+    RefCaster(const Type& srcType = getType<void>(),
+            const Type& dstType = getType<void>());
     
     RefCaster(std::pair<const Type*, const Type*> srcNdstTypes);
     

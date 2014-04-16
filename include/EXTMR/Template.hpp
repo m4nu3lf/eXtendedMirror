@@ -55,10 +55,6 @@ private:
 };
 
 
-typedef std::set<const Template*, PtrCmpByName<Template> > ConstTemplateSet;
-typedef std::set<Template*, PtrCmpByName<Template> > TemplateSet;
-
-
 } // namespace extmr
 
 #endif	/* EXTMR_TEMPLATE_HPP */

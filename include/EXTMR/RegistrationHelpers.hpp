@@ -10,6 +10,8 @@
 
 #include <EXTMR/Exceptions/NotFoundExceptions.hpp>
 
+#include "TypeTraits.hpp"
+
 
 namespace extmr {
     
@@ -124,7 +126,7 @@ struct CreateType<T*>
 {
     Type* operator()()
     {
-        const Type& pointedType = TypeRegister::getSingleton().registerType<T>();
+        const Type& pointedType = registerType<T>();
         
         return new PointerType(GetTypeName<T*>()(), sizeof(T*), typeid(T*),
                 pointedType);
@@ -137,11 +139,10 @@ struct CreateType<T[size]>
 {
     Type* operator()()
     {
-        const Type& elementType =
-                        TypeRegister::getSingleton().registerType<T>();
+        const Type& elementType = registerType<T>();
         
-        return new PointerType(GetTypeName<T[size]>()(), sizeof(T[size]),
-                typeid(T[size]), elementType);
+        return new ArrayType(GetTypeName<T[size]>()(), sizeof(T[size]),
+                typeid(T[size]), size, elementType);
     }
 };
 
@@ -220,9 +221,9 @@ Type* createCompoundClass()
             ::operator new(sizeof(CompoundClass)));
     
     new (clazz) CompoundClass(GetTypeName<T>()(), sizeof(T),
-            typeid(T), *new ConstructorImpl<T>(clazz),
-            *new CopyConstructorImpl<T>(clazz), *new DestructorImpl<T>(clazz),
-            *new AssignOperatorImpl<T>(clazz), IsAbstract<T>::value, *tempjate,
+            typeid(T), *new ConstructorImpl<T>(*clazz),
+            *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
+            *new AssignOperatorImpl<T>(*clazz), IsAbstract<T>::value, *tempjate,
             templateArgs);
     
     BuildClass<T>()(*clazz);
@@ -241,7 +242,7 @@ class AutoRegisterer
 {
     AutoRegisterer()
     {
-        TypeRegister::getSingleton().registerType<T>();\
+        registerType<T>();\
     }
     
     static AutoRegisterer autoregisterer;

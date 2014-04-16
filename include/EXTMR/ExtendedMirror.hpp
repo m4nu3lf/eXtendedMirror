@@ -22,7 +22,6 @@
  * @return The callback function
  */
 
-#define DEBUG
 
 #include <EXTMR/Utils/Utils.hpp>
 
@@ -30,7 +29,8 @@ namespace extmr {
 DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 };
 
-        
+#include <EXTMR/TypeRegister.hpp>
+#include <EXTMR/Shortcuts.hpp>        
 #include <EXTMR/TypeTraits.hpp>
 #include <EXTMR/Empty.hpp>
 #include <EXTMR/Variant.hpp>
@@ -49,7 +49,6 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/Class.hpp>
 #include <EXTMR/Member.inl>
 #include <EXTMR/CompoundClass.hpp>
-#include <EXTMR/TypeRegister.hpp>
 #include <EXTMR/Shortcuts.hpp>
 #include <EXTMR/PropertyField.hpp>
 #include <EXTMR/PropertyArrayField.hpp>

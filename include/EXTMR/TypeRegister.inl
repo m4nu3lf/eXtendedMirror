@@ -104,6 +104,17 @@ inline const Type& TypeRegister::registerType<void>()
 }
 
 
+/* This specialization is needed because during method registration Empty
+ is used as a place holder type for parameters.
+ getType is then called on all the parameters types, so Empty too, and the
+ result must be Type::Void*/
+template<>
+inline const Type& TypeRegister::getType<Empty>() const
+{   
+    return getType<void>();
+}
+
+
 } // namespca extmr
 
 #endif // EXTMR_TYPEREGISTER_INL

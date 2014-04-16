@@ -144,18 +144,18 @@ public:
     /**
      * Get the data through variant objects.
      * 
-     * @param objPtr Pointer to an object which type has this property. 
+     * @param self Reference variant of an object which type has this property. 
      * @return Variant containing the property data.
      */
-    virtual Variant getData(const Variant& objPtr) const;
+    virtual const Variant& getData(const RefVariant& self) const;
     
     /**
      * Set the data through variant objects.
      * 
-     * @param objPtr Pointer to an object which type has this property. 
+     * @param self reference variant of an object which type has this property. 
      * @param data Variant containing the data to be set.
      */
-    virtual void setData(const Variant& objPtr, const Variant& data) const {};
+    virtual void setData(const RefVariant& self, const Variant& data) const;
     
 protected:
     // The property Type.

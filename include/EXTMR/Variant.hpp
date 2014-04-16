@@ -57,7 +57,7 @@ public:
      * @param data
      */
     template<typename T>
-    Variant(const T data);
+    Variant(const T& data);
     
     /**
      * Construct a variant from the given object.

@@ -45,7 +45,7 @@ public:
     {
         
         offset_ = (size_t) &(((ClassT*)NULL)->*field);
-        type_ = &TypeRegister::getSingleton().getType<FieldT>();
+        type_ = &extmr::getType<FieldT>();
         
         // initialize bounds
         getTypeBounds<FieldT>(minValue_, maxValue_);
@@ -110,11 +110,11 @@ public:
     }
     
     
-    Variant getData(const Variant& objPtr) const
+    const Variant& getData(const RefVariant& self) const
     {            
         // the value is retrieved as a constant to prevent exception throwing
         // if the passed Variant is a constant Variant.
-        const ClassT& constObj = *objPtr.as<const ClassT*>();
+        const ClassT& constObj = self.as<const ClassT>();
         
         // remove constness, the costness is however handled successively
         ClassT& obj = const_cast<ClassT&>(constObj);
@@ -130,7 +130,7 @@ public:
         
         // if the pointer to the instance is a pointer to a constant, return the
         // field data as a constant Variant
-        if (objPtr.isPointerToConst())
+        if (self.isConst())
             flags |= Variant::Const;
         
         // the data of the field is returned as a reference Variant
@@ -138,20 +138,21 @@ public:
     }
     
     
-    void setData(const Variant& objPtr, const Variant& data) const
+    void setData(const RefVariant& self, const Variant& data) const
     {   
+        std::cout << "here" << std::endl;
         // check whether the property is settable
         if (!flags_ & Settable)
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and converted to a raw char
         // pointer
-        char* byteObjPtr = reinterpret_cast<char*>(objPtr.as<ClassT*>());
+        char* byteObjPtr = reinterpret_cast<char*>(&self.as<ClassT>());
         
         // check whether the pointer provided in not a pointer to a constant
         // object
-        if (objPtr.isPointerToConst())
-            throw VariantCostnessException(objPtr.getType());
+        if (self.isConst())
+            throw VariantCostnessException(self.getType());
         
         // retrieve the new data value
         const PropT extractedValue = data.as<const PropT>();

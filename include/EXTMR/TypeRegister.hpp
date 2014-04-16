@@ -9,6 +9,22 @@
 #define EXTMR_TYPEEXTMR_HPP
 
 namespace extmr{
+    
+class Type;
+class Class;
+class Template;
+
+typedef std::set<const Type*, PtrCmpByVal<Type> > Const_Type_SetById;
+typedef std::set<Type*, PtrCmpByVal<Type> > Type_SetById;
+typedef std::set<const Type*, PtrCmpByName<Type> > Const_Type_SetByName;
+typedef std::set<Type*, PtrCmpByName<Type> > Type_Set_ByName;
+typedef std::set<const Class*, PtrCmpByVal<Type> > Const_Class_SetById;
+typedef std::set<Class*, PtrCmpByVal<Type> > Class_SetById;
+typedef std::set<const Class*, PtrCmpByName<Type> > Const_Class_SetByName;
+typedef std::set<Class*, PtrCmpByName<Type> > Class_SetByName;
+typedef std::set<const Template*, PtrCmpByName<Template> > Const_Template_Set;
+//typedef std::set<Template*, PtrCmpByName<Template> > Template_Set;
+
 
 /**
  * Holds all the type descriptors of the registered types and provide
@@ -132,7 +148,7 @@ public:
      * 
      * @return The template descriptor pointer set. 
      */
-    const ConstTemplateSet& getTemplates() const;
+    const Const_Template_Set& getTemplates() const;
     
     /**
      * Start the registration mechanism for the given type.
@@ -231,7 +247,7 @@ private:
     
     // A set containing the template descriptors of all the instantiated
     //templates.
-    ConstTemplateSet templates_;
+    Const_Template_Set templates_;
     
     // this function needs to add Templates to the register
     template<typename T>
