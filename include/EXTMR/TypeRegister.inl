@@ -8,7 +8,7 @@
 #ifndef EXTMR_TYPEREGISTER_INL
 #define EXTMR_TYPEREGISTER_INL
 
-#include <EXTMR/MemberWrappers.hpp>
+#include <EXTMR/MethodWrappers.hpp>
 #include <EXTMR/RegistrationHelpers.hpp>
 
 namespace extmr{

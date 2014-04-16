@@ -5,8 +5,8 @@
  * 
  */
 
-#ifndef SHORTCUTS_HPP
-#define	SHORTCUTS_HPP
+#ifndef EXTMR_SHORTCUTS_HPP
+#define	EXTMR_SHORTCUTS_HPP
 
 namespace extmr {
 
@@ -95,5 +95,5 @@ const void unregisterType(const std::type_info& typeId)
 } //namespace extmr
 
 
-#endif	/* SHORTCUTS_HPP */
+#endif	/* EXTMR_SHORTCUTS_HPP */
 

@@ -5,8 +5,8 @@
  * 
  */
 
-#ifndef PARAMETER_HPP
-#define	PARAMETER_HPP
+#ifndef EXTMR_PARAMETER_HPP
+#define	EXTMR_PARAMETER_HPP
 
 namespace extmr{
 
@@ -27,10 +27,10 @@ struct Parameter
 };
 
 
-typedef std::vector<const Parameter*> ConstPrameterVector;
+typedef std::vector<const Parameter*> Const_Prameter_Vector;
 
 
 } //namespace extmr
 
-#endif	/* PARAMETER_HPP */
+#endif	/* EXTMR_PARAMETER_HPP */
 

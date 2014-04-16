@@ -31,14 +31,17 @@ public:
      */
     enum Flags
     {
-        // The variant data is a reference to external data.
+        // Variant data is a reference to external data.
         Reference = 1,
         
-        // The variant holds constant data
+        // Variant holds constant data
         Const = 2,
 
-        /// The variant data is a pointer to a constant.
-        Ptr2Const = 8
+        // Variant data is a pointer to a constant.
+        Ptr2Const = 4,
+        
+        // Variant get copied by ref.
+        CpyByRef = 8
     };
     
     /**
@@ -171,10 +174,14 @@ public:
     template<typename T>
     const T& operator=(const T& rvalue);
     
+    //TODO: add support for all others operators
+    
     /**
      * Destructor. The data is deallocated calling the destructor.
      */
     virtual ~Variant();
+    
+    static const Variant Null;
     
 protected:
     // Pointer the data.

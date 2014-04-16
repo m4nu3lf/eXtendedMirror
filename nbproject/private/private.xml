@@ -9,39 +9,58 @@
         <group>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RegistrationHelpers.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Member.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Type.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Utils/ContainerUtils.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PrimitiveType.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RegistrationMacros.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/CompoundClass.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Variant.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/RefCaster.cpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyGetterNSetter.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Property.cpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Variant.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Property.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefCasterImpl.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Member.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Method.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/Common/ContainerUtils.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/MethodWrappers.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Exceptions/PropertySetException.cpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyField.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Class.cpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Method.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Utils/Typedef.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/OtherMembers.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Class.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/TypeRegister.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefVariant.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/ArrayType.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Shortcuts.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/TypeRegister.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefVariant.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/CompoundClass.cpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/ArrayType.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/RefVariant.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefCaster.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/Common/DebugUtils.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Member.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/PointerType.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/MethodImpl.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/TypeRegister.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/ExtendedMirror.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/TypeTraits.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Exceptions/NonAssignableException.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Type.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/CompoundClass.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Property.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyGetterNSetter.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Variant.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Member.inl</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Exceptions/NonCopyableException.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyField.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/PrimitiveType.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Utils/Utils.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Class.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Template.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Method.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/TypeRegister.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/ArrayType.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefVariant.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Exceptions/VariantTypeException.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Exceptions/NonDestructibleException.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/ArrayType.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/RefVariant.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Variant.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Member.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Parameter.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Exceptions/VariantCostnessException.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyArrayField.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/MemberMakeUtils.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Exceptions/NonInstantiableException.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Utils/DebugUtils.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Type.cpp</file>
         </group>
     </open-files>

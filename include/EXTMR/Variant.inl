@@ -10,7 +10,11 @@
 
 #include <EXTMR/Exceptions/VariantTypeException.hpp>
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
+#include <EXTMR/Exceptions/NonCopyableException.hpp>
+#include <EXTMR/Exceptions/NonAssignableException.hpp>
 #include <EXTMR/Variant.hpp>
+
+#include <cstring>
 
 
 namespace extmr{
@@ -58,24 +62,42 @@ Variant::Initialize<T>::Initialize(Variant& variant) : variant_(variant){};
 template<typename T>
 void Variant::Initialize<T>::operator()(T& data)
 {
-    // retrieve the type register
-    TypeRegister& typeReg = TypeRegister::getSingleton();
-
-    // ensure the base type is registered.
-    variant_.type_ = &typeReg.registerType<T>();
+    // ensure type is registered.
+    variant_.type_ = &registerType<T>();
 
     if (variant_.flags_ & Reference)
     {
-        // store the pointer to the data
+        // store pointer to the data
         variant_.data_ = &data;
     }
     else
     {
-        // copy the data and store the pointer to it
-        variant_.data_ = variant_.type_->copyInstance(&data);
+        // allocate memory TODO: allow custom allocator
+        variant_.data_ = ::operator new(sizeof(data));
+        const Class* clazz = dynamic_cast<const Class*>(variant_.type_);
+        
+        if (clazz)
+        {
+            // copy data trough copy constructor
+            try
+            {
+                clazz->getCopyConstructor().copy(variant_, RefVariant(data));
+            }
+            catch(NonCopyableException& e)
+            {
+                // deallocate memory if cannot copy
+                ::operator delete(variant_.data_);
+                throw e;
+            }
+        }
+        else
+        {
+            // copy raw data
+            std::memcpy(variant_.data_, &data, sizeof(data));
+        }
     }
 
-    // if the type is a pointer to a constant set the proper flag.
+    // if the type is a pointer to a constant, set the proper flag.
     if (IsConst<typename RemovePointer<T>::Type>::value)
         variant_.flags_ |= Ptr2Const;
 }
@@ -111,7 +133,7 @@ Variant::Variant(T data)
     // pointer to constant
     if (IsArray<T>::value) flags_ |= Ptr2Const;
     
-    // Call initizlier functor
+    // Call initializer functor
     Initialize<T>(*this)(const_cast<T&>(data));
 }
 
@@ -225,28 +247,52 @@ Empty& Variant::as<Empty>() const;
 
 template<typename T>
 const T& Variant::operator=(const T& rvalue)
-{   
-    // get the type register
-    TypeRegister& typeReg = TypeRegister::getSingleton();
-    
+{       
     // get the Type
-    const Type& type = typeReg.getType<T>();
+    const Type& rtype = extmr::getType<T>();
+    const Class* clazz = dynamic_cast<const Class*>(type_);
     
     // check if types are the same
-    if (!type_ || type != *type_)
+    if (!type_ || rtype != *type_)
     {
-        // remove the previously allocated data if any
-        if (data_ && type_) type_->deleteInstance(data_);
+        // call destructor if class
+        if (clazz)
+        {
+            const Destructor& destructor = clazz->getDestructor();
+            destructor.destroy(*this);
+        }
+        
+        // free memory
+        ::operator delete(data_); // TODO: allow custom deallocator
         
         // set the new Type
-        type_ = &type;
+        type_ = &rtype;
         
-        // allocate a new object
-        data_ = new T();
+        // allocate new memory
+        ::operator new(sizeof(T)); // TODO: allow custom allocator
+        
+        // call copy constructor if any
+        clazz = dynamic_cast<const Class*>(type_);
+        if (clazz)
+        {
+            const CopyConstructor& cpyC = clazz->getCopyConstructor();
+            cpyC.copy(*this, RefVariant(rvalue));
+        }
     }
-    
-    // call the assignment operator
-    type_->assignInstance(data_, &rvalue);
+    else
+    {
+        // call assign operator if class
+        if (clazz)
+        {
+            const AssignOperator& assignOp = clazz->getAssignOperator();
+            assignOp.assign(*this, RefVariant(rvalue));
+        }
+        else
+        {
+            // raw copy memory
+            std::memcpy(data_, &rvalue, sizeof(T));
+        }
+    }
     
     // return the rvalue
     return rvalue;

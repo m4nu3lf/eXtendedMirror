@@ -459,6 +459,12 @@ void (*TypeRegister::getRegCallBack())(const Type&)                            \
 #define EXTMR_GET_N_SET_EXTRA_PARAM_MAX 3
 
 
+/** \def EXTMR_FUNC_PARAM_MAX
+ * The maximum number of parameters for supported methods
+ */ 
+#define EXTMR_FUNC_PARAM_MAX 8
+
+
 /** \def EXTMR_METHOD_PARAM_MAX
  * The maximum number of parameters for supported methods
  */ 

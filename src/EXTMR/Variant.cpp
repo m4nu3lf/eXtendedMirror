@@ -5,11 +5,13 @@
  * Created on 3 September 2012, 12.04
  */
 
-#include <Common/Common.hpp>
+#include <EXTMR/Utils/Utils.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
 
 using namespace std;
 using namespace extmr;
+
+const Variant Variant::Null = Variant();
 
 Variant::Variant() : flags_(0)
 {
@@ -32,35 +34,88 @@ RefVariant Variant::getRefVariant() const
 
 
 Variant::Variant(const Variant& orig) : flags_(0)
-{       
-    // copy the Type pointer
-    type_ = orig.type_;
-    
-    // copy the data
-    data_ = type_->copyInstance(orig.data_);
+{
+    if (orig.flags_ | CpyByRef)
+    {
+        // copy by reference
+        data_ = orig.data_;
+        type_ = orig.type_;
+        flags_ = orig.flags_;
+        flags_ |= Reference;
+    }
+    else
+    {
+        std::size_t size = orig.type_->getSize();
+        
+        //TODO: allow custom allocator
+        // allocate memory
+        data_ = ::operator new(size);
+        
+        // if class copy with copy constructor
+        const Class* clazz = dynamic_cast<const Class*>(orig.type_);
+        if (clazz)
+        {
+            const CopyConstructor& cpyC = clazz->getCopyConstructor();
+            
+            try
+            {
+                cpyC.copy(*this, orig);
+            }
+            catch(NonCopyableException& e)
+            {
+                ::operator delete(data_); //TODO allow custom allocator
+                throw e;
+            }
+        }
+        else
+        {
+            // perform raw memory copy
+            std::memcpy(data_, orig.data_, size);
+        }
+    }
 }
 
 
 const Variant& Variant::operator=(const Variant& other)
 {
-    // check if the type are different
-    if (*other.type_ != *type_)
+    if (flags_ | Reference)
     {
-        // deallocate previous data if any
-        if (data_) type_->deleteInstance(data_);
-
-        // copy the Type pointer
+        // copy reference
+        data_ = other.data_;
         type_ = other.type_;
-        
-        // allocate the new type data
-        data_ = type_->newInstance();
+        flags_ = other.flags_;
+        flags_ |= Reference;
     }
-    // if no data has yet been allocated, allocate it now
-    else if(!data_)
-        data_ = type_->newInstance();
-    
-    // perform assignment
-    type_->assignInstance(data_, other.data_);
+    else
+    {
+        std::size_t size = other.type_->getSize();
+        
+        //TODO: allow custom allocator
+        // allocate memory
+        data_ = ::operator new(size);
+        
+        // if class, assign with assign operator
+        const Class* clazz = dynamic_cast<const Class*>(other.type_);
+        if (clazz)
+        {
+            const AssignOperator& assignOp = clazz->getAssignOperator();
+            
+            try
+            {
+                assignOp.assign(*this, other);
+            }
+            catch(NonAssignableException& e)
+            {
+                ::operator delete(data_); //TODO allow custom allocator
+                throw e;
+            }
+        }
+        else
+        {
+            // perform raw memory copy
+            std::memcpy(data_, other.data_, size);
+        }
+    }
 }
 
 
@@ -68,9 +123,15 @@ Variant::~Variant()
 {
     if (!flags_ & Reference)
     {        
-        // deallocate the data
-        if (data_)
-            type_->deleteInstance(data_);
+        const Class* clazz = dynamic_cast<const Class*>(type_);
+        if (clazz)
+        {
+            // call destructor
+            clazz->getDestructor().destroy(*this);
+        }
+        
+        //TODO: allow custom allocator
+        ::operator delete(data_);
     }
 }
 

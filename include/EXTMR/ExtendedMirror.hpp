@@ -24,7 +24,8 @@
 
 #define DEBUG
 
-#include <Common/Common.hpp>
+#include <EXTMR/Utils/Utils.hpp>
+
 namespace extmr {
 DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 };
@@ -34,7 +35,7 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/Empty.hpp>
 #include <EXTMR/Variant.hpp>
 #include <EXTMR/RefVariant.hpp>
-#include <EXTMR/MemberWrappers.hpp>
+#include <EXTMR/MethodWrappers.hpp>
 #include <EXTMR/Type.hpp>
 #include <EXTMR/RefCaster.hpp>
 #include <EXTMR/PrimitiveType.hpp>
@@ -43,11 +44,13 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/Member.hpp>
 #include <EXTMR/Property.hpp>
 #include <EXTMR/Method.hpp>
+#include <EXTMR/OtherMembers.hpp>
 #include <EXTMR/Template.hpp>
 #include <EXTMR/Class.hpp>
 #include <EXTMR/Member.inl>
 #include <EXTMR/CompoundClass.hpp>
 #include <EXTMR/TypeRegister.hpp>
+#include <EXTMR/Shortcuts.hpp>
 #include <EXTMR/PropertyField.hpp>
 #include <EXTMR/PropertyArrayField.hpp>
 #include <EXTMR/PropertyGetterNSetter.hpp>
@@ -58,7 +61,6 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/TypeRegister.inl>
 #include <EXTMR/MemberMakeUtils.hpp>
 #include <EXTMR/RegistrationMacros.hpp>
-#include <EXTMR/Shortcuts.hpp>
 
 
 // Specialize the type recognizer for each primitive type

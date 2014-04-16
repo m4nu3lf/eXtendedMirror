@@ -10,6 +10,8 @@
 
 #include <EXTMR/Parameter.hpp>
 
+#include "Variant.hpp"
+
 namespace extmr{
 
 // we need some forward declarations
@@ -135,7 +137,7 @@ public:
      * 
      * @return A vector containing the Parameters.
      */
-    const ConstPrameterVector& getParameters() const;
+    const Const_Prameter_Vector& getParameters() const;
     
     /**
      * Ask if the method is constant.
@@ -147,7 +149,7 @@ public:
     /**
      * Call the method.
      * 
-     * @param objPtr A pointer to an object of the class this method belongs to.
+     * @param self A reference to an object.
      * @param arg1 Argument 1.
      * @param arg2 Argument 2.
      * @param arg3 Argument 3.
@@ -158,23 +160,60 @@ public:
      * @param arg8 Argument 8.
      * @return A Variant containing the return value.
      */
-    virtual Variant call
+    Variant call
     (
-        const Variant& objPtr,
-        const Variant& arg1 = Variant(),
-        const Variant& arg2 = Variant(),
-        const Variant& arg3 = Variant(),
-        const Variant& arg4 = Variant(),
-        const Variant& arg5 = Variant(),
-        const Variant& arg6 = Variant(),
-        const Variant& arg7 = Variant(),
-        const Variant& arg8 = Variant()
-    ) const
-    {
-        return Variant();
-    }
+        const Variant& self,
+        const Variant& arg1 = Variant::Null,
+        const Variant& arg2 = Variant::Null,
+        const Variant& arg3 = Variant::Null,
+        const Variant& arg4 = Variant::Null,
+        const Variant& arg5 = Variant::Null,
+        const Variant& arg6 = Variant::Null,
+        const Variant& arg7 = Variant::Null,
+        const Variant& arg8 = Variant::Null
+    ) const;
+    
+    /**
+     * Call the method.
+     * 
+     * @param self A reference to an object.
+     * @param args A vector containing the arguments of the method.
+     * @return A Variant containing the return value.
+     */
+    Variant callV(const Variant& self, std::vector<Variant> args)
+    const;
+    
+    /**
+     * Set the default argument list.
+     * 
+     * @param arg# the nth default argument.
+     */
+    void setDefaultArgs
+    (
+        const Variant& arg1 = Variant::Null,
+        const Variant& arg2 = Variant::Null,
+        const Variant& arg3 = Variant::Null,
+        const Variant& arg4 = Variant::Null,
+        const Variant& arg5 = Variant::Null,
+        const Variant& arg6 = Variant::Null,
+        const Variant& arg7 = Variant::Null,
+        const Variant& arg8 = Variant::Null
+    );
     
 protected:
+    virtual Variant callImpl
+    (
+        const Variant& objPtr,
+        const Variant& arg1,
+        const Variant& arg2,
+        const Variant& arg3,
+        const Variant& arg4,
+        const Variant& arg5,
+        const Variant& arg6,
+        const Variant& arg7,
+        const Variant& arg8
+    ) const;
+    
     // The returned type
     const Type* retType_;
     
@@ -183,7 +222,9 @@ protected:
     bool fullSignature_;
     
     // The parameter list
-    ConstPrameterVector params_;
+    Const_Prameter_Vector params_;
+    
+    std::vector<Variant> defaults_;
     
     // Need to know if the method has a full signature
     friend class MethodNotFoundException;

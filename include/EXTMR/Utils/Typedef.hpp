@@ -5,14 +5,18 @@
  * 
  */
 
-#ifndef TYPEDEF_HPP
-#define	TYPEDEF_HPP
+#ifndef EXTMR_TYPEDEF_HPP
+#define	EXTMR_TYPEDEF_HPP
+
+namespace extmr {
 
 typedef unsigned char uchar;
 typedef unsigned char uint8;
 typedef unsigned short ushort;
 typedef unsigned int uint;
 typedef unsigned long ulong;
+
+} // namespace extmr
 
 #endif	/* TYPEDEF_HPP */
 

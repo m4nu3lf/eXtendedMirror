@@ -11,7 +11,6 @@
 namespace extmr{
 
 class TypeRegister;
-class Method;
 
 /**
  * Holds information about a registered type for the reflection mechanism.
@@ -75,72 +74,6 @@ public:
     Type(const std::type_info& cppType);
     
     /**
-     * Ask if the type is instantiable.
-     * 
-     * @return True if the type is instatiable.
-     */
-    bool isInstatiable();
-    
-    /**
-     * Ask if the type is copyable.
-     * 
-     * @return True if the type is copyable.
-     */
-    bool isCopyable();
-    
-    /**
-     * Ask if the type can be assigned to.
-     * 
-     * @return True if the type can be assigned to.
-     */
-    bool isAssignable();
-    
-    /**
-     * Ask if the type is destructible.
-     * 
-     * @return True if the type can be destroyed.
-     */
-    bool isDestructible();
-    
-    /**
-     * Construct a new instance of the type.
-     * 
-     * @param addres If not NULL the placement constructor is called to this
-     * address.
-     * @return The pointer to the new instance.
-     */
-    void* newInstance(void* address = NULL) const;
-    
-    /**
-     * Copy an instance of the type.
-     * 
-     * @param originAddr The address of the instance to be copied.
-     * @param destAddr If not NULL the placement copy constructor is called to
-     * this address.
-     * @return The pointer of the new copied instance.
-     */
-    void* copyInstance(void* originAddr, void* destAddr = NULL) const;
-    
-    /**
-     * Destroy an instance of the type.
-     * 
-     * @param address The pointer to the instance to be deleted.
-     * @param dallocate If true the delete operator is called causing the memory
-     * to be deallocated otherwise the destructor is called explicity.
-     */
-    void deleteInstance(void* address, bool deallocate = true) const;
-    
-    /**
-     * Perfor an assignment between two object instances of this type.
-     * 
-     * @param lvalueAddr A pointer to an object of this type to be used as
-     * lvalue.
-     * @param rvalueAddr A pointer to an object of this type to be used as
-     * rvalue.
-     */
-    void assignInstance(void* lvalueAddr, const void* rvalueAddr) const;
-    
-    /**
      * Get the type Category.
      * 
      * @return The type category of this type.
@@ -187,21 +120,9 @@ protected:
      * @param name The type name.
      * @param size The type size.
      * @param cppType The type_info struct of the type.
-     * @param constructor The type constructor wrapper function.
-     * @param copyConstructor The type copy constructor wrapper function.
-     * @param destructor The type destructor wrapper function.
-     * @param assignOperator The type assign operator wrapper function.
      */
-    Type
-    (
-            const std::string& name,
-            std::size_t size,
-            const std::type_info& cppType,
-            Constructor* constructor,
-            CopyConstructor* copyConstructor,
-            Destructor* destructor,
-            AssignOperator* assignOperator
-     );
+    Type(const std::string& name, std::size_t size,
+            const std::type_info& cppType);
     
     // The name of the type.
     std::string name_;
@@ -211,18 +132,6 @@ protected:
     
     // The type_info struct of the type.
     const std::type_info& cppType_;
-    
-    // The constructor function object.
-    Constructor* constructor_;
-    
-    // The copy constructor function object.
-    CopyConstructor* copyConstructor_;
-    
-    // The destructor function object.
-    Destructor* destructor_;
-    
-    // The assign operator function object.
-    AssignOperator* assignOperator_;
     
     // The equal operator must be a friend to access the cppType field.
     friend bool operator==(const Type&, const Type&);

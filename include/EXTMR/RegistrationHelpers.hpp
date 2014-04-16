@@ -110,54 +110,11 @@ struct GetTypeName<T(*)[size]>
 
 
 template<typename T>
-struct GetTypeConstructor
-{
-    Constructor* operator()()
-    {
-        return new Create<T>();
-    }
-};
-
-
-template<typename T>
-struct GetTypeCopyConstructor
-{
-    CopyConstructor* operator()()
-    {
-        return new Copy<T>();
-    }
-};
-
-
-template<typename T>
-struct GetTypeAssignOperator
-{
-    AssignOperator* operator()()
-    {
-        return new Assign<T>();
-    }
-};
-
-
-template<typename T>
-struct GetTypeDestructor
-{
-    Destructor* operator()()
-    {
-        return new Destroy<T>();
-    }
-};
-
-
-template<typename T>
 struct CreateType
 {
     Type* operator()()
     {
-        return new PrimitiveType(GetTypeName<T>()(), sizeof(T),
-                typeid(T), GetTypeConstructor<T>()(),
-                GetTypeCopyConstructor<T>()(), GetTypeDestructor<T>()(),
-                GetTypeAssignOperator<T>()());
+        return new PrimitiveType(GetTypeName<T>()(), sizeof(T), typeid(T));
     }
 };
 
@@ -169,10 +126,8 @@ struct CreateType<T*>
     {
         const Type& pointedType = TypeRegister::getSingleton().registerType<T>();
         
-        return new PointerType(GetTypeName<T*>()(), sizeof(T*),
-                typeid(T*), GetTypeConstructor<T*>()(),
-                GetTypeCopyConstructor<T*>()(), GetTypeDestructor<T*>()(),
-                GetTypeAssignOperator<T*>()(), pointedType);
+        return new PointerType(GetTypeName<T*>()(), sizeof(T*), typeid(T*),
+                pointedType);
     }
 };
 
@@ -186,8 +141,7 @@ struct CreateType<T[size]>
                         TypeRegister::getSingleton().registerType<T>();
         
         return new PointerType(GetTypeName<T[size]>()(), sizeof(T[size]),
-                typeid(T[size]), GetTypeConstructor<T[size]>()(),
-                NULL, GetTypeDestructor<T[size]>()(), NULL, elementType);
+                typeid(T[size]), elementType);
     }
 };
 
@@ -221,13 +175,15 @@ struct BuildClass
 
 template<class T>
 Type* createClass()
-{    
-    TypeRegister& typeReg = TypeRegister::getSingleton();
+{
+    // Allocate memory for class
+    Class* clazz = reinterpret_cast<Class*>(::operator new(sizeof(Class)));
     
-    Class* clazz = new Class(GetTypeName<T>()(), sizeof(T),
-            typeid(T), GetTypeConstructor<T>()(),
-            GetTypeCopyConstructor<T>()(), GetTypeDestructor<T>()(),
-            GetTypeAssignOperator<T>()(), IsAbstract<T>::value);
+    // Call constructor
+    new (clazz) Class(GetTypeName<T>()(), sizeof(T),
+            typeid(T), *new ConstructorImpl<T>(*clazz),
+            *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
+            *new AssignOperatorImpl<T>(*clazz), IsAbstract<T>::value);
     
     BuildClass<T>()(*clazz);
     
@@ -259,10 +215,14 @@ Type* createCompoundClass()
         typeReg.addTemplate(*tempjate);
     }
     
-    Class* clazz = new CompoundClass(GetTypeName<T>()(), sizeof(T),
-            typeid(T), GetTypeConstructor<T>()(),
-            GetTypeCopyConstructor<T>()(), GetTypeDestructor<T>()(),
-            GetTypeAssignOperator<T>()(), IsAbstract<T>::value, *tempjate,
+    // Allocate memory for class
+    CompoundClass* clazz = reinterpret_cast<CompoundClass*>(
+            ::operator new(sizeof(CompoundClass)));
+    
+    new (clazz) CompoundClass(GetTypeName<T>()(), sizeof(T),
+            typeid(T), *new ConstructorImpl<T>(clazz),
+            *new CopyConstructorImpl<T>(clazz), *new DestructorImpl<T>(clazz),
+            *new AssignOperatorImpl<T>(clazz), IsAbstract<T>::value, *tempjate,
             templateArgs);
     
     BuildClass<T>()(*clazz);

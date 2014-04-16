@@ -5,12 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="include" displayName="include" projectFiles="true">
-        <logicalFolder name="Common" displayName="Common" projectFiles="true">
-          <itemPath>include/Common/Common.hpp</itemPath>
-          <itemPath>include/Common/ContainerUtils.hpp</itemPath>
-          <itemPath>include/Common/DebugUtils.hpp</itemPath>
-          <itemPath>include/Common/Typedef.hpp</itemPath>
-        </logicalFolder>
         <logicalFolder name="EXTMR" displayName="EXTMR" projectFiles="true">
           <logicalFolder name="Exceptions" displayName="Exceptions" projectFiles="true">
             <itemPath>include/EXTMR/Exceptions/NonAssignableException.hpp</itemPath>
@@ -23,6 +17,12 @@
             <itemPath>include/EXTMR/Exceptions/VariantCostnessException.hpp</itemPath>
             <itemPath>include/EXTMR/Exceptions/VariantTypeException.hpp</itemPath>
           </logicalFolder>
+          <logicalFolder name="Common" displayName="Utils" projectFiles="true">
+            <itemPath>include/EXTMR/Utils/ContainerUtils.hpp</itemPath>
+            <itemPath>include/EXTMR/Utils/DebugUtils.hpp</itemPath>
+            <itemPath>include/EXTMR/Utils/Typedef.hpp</itemPath>
+            <itemPath>include/EXTMR/Utils/Utils.hpp</itemPath>
+          </logicalFolder>
           <itemPath>include/EXTMR/ArrayType.hpp</itemPath>
           <itemPath>include/EXTMR/Class.hpp</itemPath>
           <itemPath>include/EXTMR/CompoundClass.hpp</itemPath>
@@ -32,10 +32,11 @@
           <itemPath>include/EXTMR/Member.hpp</itemPath>
           <itemPath>include/EXTMR/Member.inl</itemPath>
           <itemPath>include/EXTMR/MemberMakeUtils.hpp</itemPath>
-          <itemPath>include/EXTMR/MemberWrappers.hpp</itemPath>
           <itemPath>include/EXTMR/Method.hpp</itemPath>
           <itemPath>include/EXTMR/MethodImpl.hpp</itemPath>
+          <itemPath>include/EXTMR/MethodWrappers.hpp</itemPath>
           <itemPath>include/EXTMR/NumericalUtils.hpp</itemPath>
+          <itemPath>include/EXTMR/OtherMembers.hpp</itemPath>
           <itemPath>include/EXTMR/Parameter.hpp</itemPath>
           <itemPath>include/EXTMR/PointerType.hpp</itemPath>
           <itemPath>include/EXTMR/PrimitiveType.hpp</itemPath>
@@ -85,6 +86,7 @@
           <itemPath>src/EXTMR/CompoundClass.cpp</itemPath>
           <itemPath>src/EXTMR/Member.cpp</itemPath>
           <itemPath>src/EXTMR/Method.cpp</itemPath>
+          <itemPath>src/EXTMR/OtherMembers.cpp</itemPath>
           <itemPath>src/EXTMR/PointerType.cpp</itemPath>
           <itemPath>src/EXTMR/PrimitiveType.cpp</itemPath>
           <itemPath>src/EXTMR/Property.cpp</itemPath>
@@ -130,14 +132,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="include/Common/Common.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/Common/ContainerUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/Common/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/Common/Typedef.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
@@ -201,13 +195,15 @@
       </item>
       <item path="include/EXTMR/MemberMakeUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/MemberWrappers.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/MethodWrappers.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Parameter.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -258,6 +254,17 @@
       <item path="include/EXTMR/TypeRegister.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Utils/ContainerUtils.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Utils/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Utils/Typedef.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Utils/Utils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Variant.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -317,6 +324,8 @@
       <item path="src/EXTMR/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EXTMR/Method.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/OtherMembers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EXTMR/PointerType.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -359,14 +368,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="include/Common/Common.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/Common/ContainerUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/Common/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/Common/Typedef.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
@@ -430,13 +431,15 @@
       </item>
       <item path="include/EXTMR/MemberMakeUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/MemberWrappers.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/MethodWrappers.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Parameter.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -487,6 +490,17 @@
       <item path="include/EXTMR/TypeRegister.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Utils/ContainerUtils.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/Utils/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Utils/Typedef.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Utils/Utils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Variant.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -546,6 +560,8 @@
       <item path="src/EXTMR/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EXTMR/Method.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EXTMR/OtherMembers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EXTMR/PointerType.cpp" ex="false" tool="1" flavor2="0">
       </item>

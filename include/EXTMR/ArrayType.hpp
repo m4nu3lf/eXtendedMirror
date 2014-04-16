@@ -47,25 +47,12 @@ private:
      * @param name The type name.
      * @param size The type size.
      * @param cppType The type_info struct of the type.
-     * @param constructor The type constructor wrapper function.
-     * @param copyConstructor The type copy constructor wrapper function.
-     * @param destructor The type destructor wrapper function.
-     * @param assignOperator The type assign operator wrapper function.
      * @param arraySize The length of the array.
      * @param elementType The type of the array elements.
      */
-    ArrayType
-    (
-            const std::string& name,
-            std::size_t size,
-            const std::type_info& cppType,
-            Constructor* constructor,
-            CopyConstructor* copyConstructor,
-            Destructor* destructor,
-            AssignOperator* assignOperator,
-            std::size_t arraySize,
-            const Type& elementType
-     );
+    ArrayType(const std::string& name, std::size_t size,
+            const std::type_info& cppType, std::size_t arraySize,
+            const Type& elementType);
     
     
     // The array elements type.

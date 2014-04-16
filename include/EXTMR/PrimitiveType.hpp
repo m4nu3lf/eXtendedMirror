@@ -14,38 +14,13 @@ namespace extmr {
 class PrimitiveType : public Type
 {
 public:
-    /**
-     * Get the type Category.
-     * 
-     * @return The type category of this type.
-     */
     Category getCategory() const;
     
     virtual ~PrimitiveType();
     
 private:
-    
-    /**
-     * Constructor for full initialization.
-     * 
-     * @param name The type name.
-     * @param size The type size.
-     * @param cppType The type_info struct of the type.
-     * @param constructor The type constructor wrapper function.
-     * @param copyConstructor The type copy constructor wrapper function.
-     * @param destructor The type destructor wrapper function.
-     * @param assignOperator The type assign operator wrapper function.
-     */
-    PrimitiveType
-    (
-            const std::string& name,
-            std::size_t size,
-            const std::type_info& cppType,
-            Constructor* constructor,
-            CopyConstructor* copyConstructor,
-            Destructor* destructor,
-            AssignOperator* assignOperator
-     );
+    PrimitiveType(const std::string& name, std::size_t size,
+            const std::type_info& cppType);
     
     // Factory class
     template<typename T>

@@ -44,6 +44,38 @@ public:
      */
     bool isAbstract() const;
     
+    /**
+     * Get the constructor of the class.
+     * 
+     * @throws NonInstantiableException
+     * @return The class constructor.
+     */
+    const Constructor& getConstructor() const;
+    
+    /**
+     * Get the copy constructor of the class.
+     * 
+     * @throws NonCopyableException.
+     * @return The class copy constructor.
+     */
+    const CopyConstructor& getCopyConstructor() const;
+    
+    /**
+     * Get the assign operator of the class.
+     * 
+     * @throws NonAssignableException.
+     * @return The class assign operator constructor.
+     */
+    const AssignOperator& getAssignOperator() const;
+    
+    /**
+     * Get the destructor of the class.
+     * 
+     * @throws NonDestructibleException.
+     * @return The class assign operator constructor.
+     */
+    const Destructor& getDestructor() const;
+    
      /**
      * Retrieve all the base class descriptors.
      * 
@@ -199,10 +231,10 @@ protected:
             const std::string& name,
             std::size_t size,
             const std::type_info& cppType,
-            Constructor* constructor,
-            CopyConstructor* copyConstructor,
-            Destructor* destructor,
-            AssignOperator* assignOperator,
+            const Constructor& constructor,
+            const CopyConstructor& copyConstructor,
+            const Destructor& destructor,
+            const AssignOperator& assignOperator,
             bool isAbstract
      );
     
@@ -238,6 +270,14 @@ protected:
      */
     Class& operator&(Method& method);
     
+    const Constructor* constructor_;
+    
+    const CopyConstructor* copyConstructor_;
+    
+    const Destructor* destructor_;
+    
+    const AssignOperator* assignOperator_;
+    
     // The types object of the base classes sorted by the type_info structure
     // order.
     Const_Class_SetById baseClasses_;
@@ -261,7 +301,6 @@ protected:
     // The methods of this class except those inherited form base classes.
     Const_Method_Set ownMethods_;
     
-    // If the class is abstract
     bool isAbstract_;
     
     // Factory function

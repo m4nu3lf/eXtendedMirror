@@ -10,27 +10,9 @@
 using namespace std;
 using namespace extmr;
 
-PrimitiveType::PrimitiveType
-(
-        const string& name,
-        size_t size,
-        const type_info& cppType,
-        Constructor* constructor,
-        CopyConstructor* copyConstructor,
-        Destructor* destructor,
-        AssignOperator* assignOperator
- )
-    : 
-    Type 
-    (
-        name,
-        size,
-        cppType,
-        constructor,
-        copyConstructor,
-        destructor,
-        assignOperator
-    )
+PrimitiveType::PrimitiveType(const string& name, size_t size, 
+        const type_info& cppType): 
+    Type(name, size, cppType)
 {
     
 }

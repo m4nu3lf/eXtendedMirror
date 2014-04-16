@@ -38,10 +38,6 @@ private:
      * @param name The type name.
      * @param size The type size.
      * @param cppType The type_info struct of the type.
-     * @param constructor The type constructor wrapper function.
-     * @param copyConstructor The type copy constructor wrapper function.
-     * @param destructor The type destructor wrapper function.
-     * @param assignOperator The type assign operator wrapper function.
      * @param pointedType The type pointed by this one.
      */
     PointerType
@@ -49,10 +45,6 @@ private:
             const std::string& name,
             std::size_t size,
             const std::type_info& cppType,
-            Constructor* constructor,
-            CopyConstructor* copyConstructor,
-            Destructor* destructor,
-            AssignOperator* assignOperator,
             const Type& pointedType
      );
     

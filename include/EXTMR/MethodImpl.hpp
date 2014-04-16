@@ -8,24 +8,51 @@
 #ifndef EXTMR_METHODIMPL_HPP
 #define	EXTMR_METHODIMPL_HPP
 
-#include <EXTMR/MemberWrappers.hpp>
+#include <EXTMR/MethodWrappers.hpp>
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 
 
 namespace extmr{
+    
+#define _EXTMR_NORMALMETHOD_CONSTRUCTOR(...)                                   \
+MethodImpl(const std::string& name,                                            \
+           RetT (ClassT::*method)(__VA_ARGS__),                                \
+           bool constant = false) :                                            \
+    Method(name, getType<RetT>(), getType<ParamT1>(), getType<ParamT2>(),      \
+        getType<ParamT3>(), getType<ParamT4>(), getType<ParamT5>(),            \
+        getType<ParamT6>(), getType<ParamT7>(), getType<ParamT8>()),           \
+    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),                   \
+    constant_(constant)                                                        \
+{                                                                              \
+}
+    
+
+template<typename T>
+struct VoidToEmpty
+{
+    typedef T Type;
+};
+
+
+template<>
+struct VoidToEmpty<void>
+{
+    typedef Empty Type;
+};
+
 
 template
 <
         class ClassT,
         typename RetT,
-        typename ParamT1 = Empty,
-        typename ParamT2 = Empty,
-        typename ParamT3 = Empty,
-        typename ParamT4 = Empty,
-        typename ParamT5 = Empty,
-        typename ParamT6 = Empty,
-        typename ParamT7 = Empty,
-        typename ParamT8 = Empty
+        typename ParamT1 = void,
+        typename ParamT2 = void,
+        typename ParamT3 = void,
+        typename ParamT4 = void,
+        typename ParamT5 = void,
+        typename ParamT6 = void,
+        typename ParamT7 = void,
+        typename ParamT8 = void
 >
 class MethodImpl : public Method
 {
@@ -35,349 +62,19 @@ public:
     typedef void (ClassT::*GeneralMethod)(...);
     
     
-    /**
-     * Constructor for a method with no parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name, RetT (ClassT::*method)(),
-            bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant) 
-    {
-        // retrieve the type of the returning value
-        retType_ = &TypeRegister::getSingleton().getType<RetT>();
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
-    
-    
-    /**
-     * Constructor for a method with one parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name, RetT (ClassT::*method)(ParamT1),
-            bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant)
-    {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-        
-        // retrieve the type of the returning value
-        retType_ = &typeReg.getType<RetT>();
-        
-        // build and store the Parameters
-        Parameter* param1 = new Parameter(typeReg.getType<ParamT1>(),
-                IsNonConstReference<ParamT1>::value);
-        params_.push_back(param1);
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
-    
-    
-    /**
-     * Constructor for a method with two parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name,
-            RetT (ClassT::*method)(ParamT1, ParamT2), bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant)
-    {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-        
-        // retrieve the type of the returning value
-        retType_ = &typeReg.getType<RetT>();
-        
-        // build and store the Parameters
-        Parameter* param1 = new Parameter(typeReg.getType<ParamT1>(),
-                IsNonConstReference<ParamT1>::value);
-        Parameter* param2 = new Parameter(typeReg.getType<ParamT2>(),
-                IsNonConstReference<ParamT2>::value);
-        params_.push_back(param1);
-        params_.push_back(param2);
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
-    
-    
-    /**
-     * Constructor for a method with three parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name,
-            RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3),
-            bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant)
-    {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-        
-        // retrieve the type of the returning value
-        retType_ = &typeReg.getType<RetT>();
-        
-        // build and store the Parameters
-        Parameter* param1 = new Parameter(typeReg.getType<ParamT1>(),
-                IsNonConstReference<ParamT1>::value);
-        Parameter* param2 = new Parameter(typeReg.getType<ParamT2>(),
-                IsNonConstReference<ParamT2>::value);
-        Parameter* param3 = new Parameter(typeReg.getType<ParamT3>(),
-                IsNonConstReference<ParamT3>::value);
-        params_.push_back(param1);
-        params_.push_back(param2);
-        params_.push_back(param3);
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
-    
-    /**
-     * Constructor for a method with four parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name,
-            RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4),
-            bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant)
-    {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-        
-        // retrieve the type of the returning value
-        retType_ = &typeReg.getType<RetT>();
-        
-        // build and store the Parameters
-        Parameter* param1 = new Parameter(typeReg.getType<ParamT1>(),
-                IsNonConstReference<ParamT1>::value);
-        Parameter* param2 = new Parameter(typeReg.getType<ParamT2>(),
-                IsNonConstReference<ParamT2>::value);
-        Parameter* param3 = new Parameter(typeReg.getType<ParamT3>(),
-                IsNonConstReference<ParamT3>::value);
-        Parameter* param4 = new Parameter(typeReg.getType<ParamT4>(),
-                IsNonConstReference<ParamT4>::value);
-        params_.push_back(param1);
-        params_.push_back(param2);
-        params_.push_back(param3);
-        params_.push_back(param4);
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
-    
-    
-    /**
-     * Constructor for a method with five parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name,
-            RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5),
-            bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant)
-    {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-        
-        // retrieve the type of the returning value
-        retType_ = &typeReg.getType<RetT>();
-        
-        // build and store the Parameters
-        Parameter* param1 = new Parameter(typeReg.getType<ParamT1>(),
-                IsNonConstReference<ParamT1>::value);
-        Parameter* param2 = new Parameter(typeReg.getType<ParamT2>(),
-                IsNonConstReference<ParamT2>::value);
-        Parameter* param3 = new Parameter(typeReg.getType<ParamT3>(),
-                IsNonConstReference<ParamT3>::value);
-        Parameter* param4 = new Parameter(typeReg.getType<ParamT4>(),
-                IsNonConstReference<ParamT4>::value);
-        Parameter* param5 = new Parameter(typeReg.getType<ParamT5>(),
-                IsNonConstReference<ParamT5>::value);
-        params_.push_back(param1);
-        params_.push_back(param2);
-        params_.push_back(param3);
-        params_.push_back(param4);
-        params_.push_back(param5);
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
-    
-    
-    /**
-     * Constructor for a method with six parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name,
-            RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
-            ParamT6),
-            bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant)
-    {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-        
-        // retrieve the type of the returning value
-        retType_ = &typeReg.getType<RetT>();
-        
-        // build and store the Parameters
-        Parameter* param1 = new Parameter(typeReg.getType<ParamT1>(),
-                IsNonConstReference<ParamT1>::value);
-        Parameter* param2 = new Parameter(typeReg.getType<ParamT2>(),
-                IsNonConstReference<ParamT2>::value);
-        Parameter* param3 = new Parameter(typeReg.getType<ParamT3>(),
-                IsNonConstReference<ParamT3>::value);
-        Parameter* param4 = new Parameter(typeReg.getType<ParamT4>(),
-                IsNonConstReference<ParamT4>::value);
-        Parameter* param5 = new Parameter(typeReg.getType<ParamT5>(),
-                IsNonConstReference<ParamT5>::value);
-        Parameter* param6 = new Parameter(typeReg.getType<ParamT6>(),
-                IsNonConstReference<ParamT6>::value);
-        params_.push_back(param1);
-        params_.push_back(param2);
-        params_.push_back(param3);
-        params_.push_back(param4);
-        params_.push_back(param5);
-        params_.push_back(param6);
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
-    
-    
-    /**
-     * Constructor for a method with seven parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name,
-            RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
-            ParamT6, ParamT7),
-            bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant)
-    {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-        
-        // retrieve the type of the returning value
-        retType_ = &typeReg.getType<RetT>();
-        
-        // build and store the Parameters
-        Parameter* param1 = new Parameter(typeReg.getType<ParamT1>(),
-                IsNonConstReference<ParamT1>::value);
-        Parameter* param2 = new Parameter(typeReg.getType<ParamT2>(),
-                IsNonConstReference<ParamT2>::value);
-        Parameter* param3 = new Parameter(typeReg.getType<ParamT3>(),
-                IsNonConstReference<ParamT3>::value);
-        Parameter* param4 = new Parameter(typeReg.getType<ParamT4>(),
-                IsNonConstReference<ParamT4>::value);
-        Parameter* param5 = new Parameter(typeReg.getType<ParamT5>(),
-                IsNonConstReference<ParamT5>::value);
-        Parameter* param6 = new Parameter(typeReg.getType<ParamT6>(),
-                IsNonConstReference<ParamT6>::value);
-        Parameter* param7 = new Parameter(typeReg.getType<ParamT7>(),
-                IsNonConstReference<ParamT7>::value);
-        params_.push_back(param1);
-        params_.push_back(param2);
-        params_.push_back(param3);
-        params_.push_back(param4);
-        params_.push_back(param5);
-        params_.push_back(param6);
-        params_.push_back(param7);
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
-    
-    
-    /**
-     * Constructor for a method with eight parameters.
-     * 
-     * @param name The method name.
-     * @param method The method pointer.
-     * @param constant Whether the method is constant.
-     */
-    MethodImpl(const std::string& name,
-            RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
-            ParamT6, ParamT7, ParamT8),
-            bool constant = false)
-    : Method(name),
-    methodWrapper_(reinterpret_cast<GeneralMethod>(method)),
-    constant_(constant)
-    {
-        // retrieve the type register
-        TypeRegister& typeReg = TypeRegister::getSingleton();
-        
-        // retrieve the type of the returning value
-        retType_ = &typeReg.getType<RetT>();
-        
-        // build and store the Parameters
-        Parameter* param1 = new Parameter(typeReg.getType<ParamT1>(),
-                IsNonConstReference<ParamT1>::value);
-        Parameter* param2 = new Parameter(typeReg.getType<ParamT2>(),
-                IsNonConstReference<ParamT2>::value);
-        Parameter* param3 = new Parameter(typeReg.getType<ParamT3>(),
-                IsNonConstReference<ParamT3>::value);
-        Parameter* param4 = new Parameter(typeReg.getType<ParamT4>(),
-                IsNonConstReference<ParamT4>::value);
-        Parameter* param5 = new Parameter(typeReg.getType<ParamT5>(),
-                IsNonConstReference<ParamT5>::value);
-        Parameter* param6 = new Parameter(typeReg.getType<ParamT6>(),
-                IsNonConstReference<ParamT6>::value);
-        Parameter* param7 = new Parameter(typeReg.getType<ParamT7>(),
-                IsNonConstReference<ParamT7>::value);
-        Parameter* param8 = new Parameter(typeReg.getType<ParamT8>(),
-                IsNonConstReference<ParamT8>::value);
-        params_.push_back(param1);
-        params_.push_back(param2);
-        params_.push_back(param3);
-        params_.push_back(param4);
-        params_.push_back(param5);
-        params_.push_back(param6);
-        params_.push_back(param7);
-        params_.push_back(param8);
-        
-        // method has full signature
-        fullSignature_ = true;
-    }
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR()
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR(ParamT1)
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR(ParamT1, ParamT2)
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR(ParamT1, ParamT2, ParamT3)
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR(ParamT1, ParamT2, ParamT3, ParamT4)
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR(ParamT1, ParamT2, ParamT3, ParamT4,
+             ParamT5)
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR(ParamT1, ParamT2, ParamT3, ParamT4,
+             ParamT5, ParamT6)
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR(ParamT1, ParamT2, ParamT3, ParamT4,
+             ParamT5, ParamT6, ParamT7)
+     _EXTMR_NORMALMETHOD_CONSTRUCTOR(ParamT1, ParamT2, ParamT3, ParamT4,
+             ParamT5, ParamT6, ParamT7, ParamT8)
     
     
     Method::ReturnMode getReturnMode() const
@@ -400,38 +97,24 @@ public:
     }
     
     
-    /**
-     * Call the method.
-     * 
-     * @param objPtr A pointer to an object of the class this method belongs to.
-     * @param arg1 Argument 1.
-     * @param arg2 Argument 2.
-     * @param arg3 Argument 3.
-     * @param arg4 Argument 4.
-     * @param arg5 Argument 5.
-     * @param arg6 Argument 6.
-     * @param arg7 Argument 7.
-     * @param arg8 Argument 8.
-     * @return A Variant object containing the return value.
-     */
-    Variant call
+    Variant callImpl
     (
-        const Variant& objPtr,
-        const Variant& arg1 = Variant(),
-        const Variant& arg2 = Variant(),
-        const Variant& arg3 = Variant(),
-        const Variant& arg4 = Variant(),
-        const Variant& arg5 = Variant(),
-        const Variant& arg6 = Variant(),
-        const Variant& arg7 = Variant(),
-        const Variant& arg8 = Variant()
+        const Variant& self,
+        const Variant& arg1,
+        const Variant& arg2,
+        const Variant& arg3,
+        const Variant& arg4,
+        const Variant& arg5,
+        const Variant& arg6,
+        const Variant& arg7,
+        const Variant& arg8
      ) const
     {        
-        ClassT& objRef = *objPtr.as<ClassT*>();
+        ClassT& objRef = self.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (objPtr.isPointerToConst() && !constant_)
-            throw VariantCostnessException(objPtr.getType());
+        if (self.isConst() && !constant_)
+            throw VariantCostnessException(self.getType());
         
         Variant var = methodWrapper_(objRef, arg1, arg2, arg3, arg4, arg5, arg6,
                 arg7, arg8);
@@ -445,14 +128,14 @@ private:
     <
             ClassT,
             RetT,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5,
-            ParamT6,
-            ParamT7,
-            ParamT8
+            typename VoidToEmpty<ParamT1>::Type,
+            typename VoidToEmpty<ParamT2>::Type,
+            typename VoidToEmpty<ParamT3>::Type,
+            typename VoidToEmpty<ParamT4>::Type,
+            typename VoidToEmpty<ParamT5>::Type,
+            typename VoidToEmpty<ParamT6>::Type,
+            typename VoidToEmpty<ParamT7>::Type,
+            typename VoidToEmpty<ParamT8>::Type
     > methodWrapper_;
     
     /// Whether the method is constant.

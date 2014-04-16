@@ -115,7 +115,7 @@ const char* MethodNotFoundException::what() const throw()
         
         signature += method_->getName() + "(";
         
-        ConstPrameterVector params = method_->getParameters();            
+        Const_Prameter_Vector params = method_->getParameters();            
         for (uint i = 0; i < params.size(); i++)
         {
             const Parameter* param = params[i];

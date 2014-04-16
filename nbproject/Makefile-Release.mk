@@ -49,6 +49,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o \
 	${OBJECTDIR}/src/EXTMR/Member.o \
 	${OBJECTDIR}/src/EXTMR/Method.o \
+	${OBJECTDIR}/src/EXTMR/OtherMembers.o \
 	${OBJECTDIR}/src/EXTMR/PointerType.o \
 	${OBJECTDIR}/src/EXTMR/PrimitiveType.o \
 	${OBJECTDIR}/src/EXTMR/Property.o \
@@ -155,6 +156,11 @@ ${OBJECTDIR}/src/EXTMR/Method.o: src/EXTMR/Method.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Method.o src/EXTMR/Method.cpp
+
+${OBJECTDIR}/src/EXTMR/OtherMembers.o: src/EXTMR/OtherMembers.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/OtherMembers.o src/EXTMR/OtherMembers.cpp
 
 ${OBJECTDIR}/src/EXTMR/PointerType.o: src/EXTMR/PointerType.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR

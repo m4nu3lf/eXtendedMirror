@@ -18,13 +18,13 @@ class Class;
  */
 class Member
 {
-public:
+public:    
     /**
      * Basic constructor for initialization.
      * 
      * @param name The member name.
      */
-    Member(const Class& owner, const std::string& name);
+    Member(const Class& owner, const std::string& name = "");
     
     /**
      * Get the name of the member.

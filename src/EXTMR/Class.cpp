@@ -5,9 +5,8 @@
  * Created on 29 dicembre 2012, 11.09
  */
 
-#include <Common/Common.hpp>
+#include <EXTMR/Utils/Utils.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
-#include <EXTMR/Exceptions/NotFoundExceptions.hpp>
 
 using namespace std;
 using namespace extmr;
@@ -15,12 +14,22 @@ using namespace extmr;
 const Class Class::Void = TypeRegister::getSingleton().getClass<void>();
 
 
-Class::Class(const string& name) : Type(name)
+Class::Class(const string& name) :
+        Type(name),
+        constructor_(new Constructor(*this)),
+        copyConstructor_(new CopyConstructor(*this)),
+        destructor_(new Destructor(*this)),
+        assignOperator_(new AssignOperator(*this))
 {
 }
 
 
-Class::Class(const type_info& type) : Type(type)
+Class::Class(const type_info& type) :
+        Type(type),
+        constructor_(new Constructor(*this)),
+        copyConstructor_(new CopyConstructor(*this)),
+        destructor_(new Destructor(*this)),
+        assignOperator_(new AssignOperator(*this))
 {
 }
 
@@ -30,22 +39,22 @@ Class::Class
     const string& name,
     size_t size,
     const type_info& cppType,
-    Constructor* constructor,
-    CopyConstructor* copyConstructor,
-    Destructor* destructor,
-    AssignOperator* assignOperator,
+    const Constructor& constructor,
+    const CopyConstructor& copyConstructor,
+    const Destructor& destructor,
+    const AssignOperator& assignOperator,
     bool isAbstract
 ) :
     Type
     (
         name,
         size,
-        cppType,
-        constructor,
-        copyConstructor,
-        destructor,
-        assignOperator
-    ), isAbstract_(isAbstract)
+        cppType
+    ), isAbstract_(isAbstract),
+    constructor_(new Constructor(*this)),
+    copyConstructor_(new CopyConstructor(*this)),
+    destructor_(new Destructor(*this)),
+    assignOperator_(new AssignOperator(*this))
 {
 }
 
@@ -53,6 +62,30 @@ Class::Class
 bool Class::isAbstract() const
 {
     return isAbstract_;
+}
+
+
+const Constructor& Class::getConstructor() const
+{
+    return *constructor_;
+}
+
+
+const CopyConstructor& Class::getCopyConstructor() const
+{
+    return *copyConstructor_;
+}
+
+
+const AssignOperator& Class::getAssignOperator() const
+{
+    return *assignOperator_;
+}
+
+
+const Destructor& Class::getDestructor() const
+{
+    return *destructor_;
 }
 
 
