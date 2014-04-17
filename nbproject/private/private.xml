@@ -8,8 +8,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RegistrationHelpers.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Utils/ContainerUtils.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Member.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Type.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RegistrationMacros.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Variant.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyGetterNSetter.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Property.cpp</file>
@@ -18,6 +20,7 @@
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Member.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Method.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/MethodWrappers.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Utils/Typedef.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/OtherMembers.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyField.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Template.hpp</file>
@@ -31,6 +34,7 @@
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/ArrayType.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/TypeRegister.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefVariant.inl</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/ArrayType.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefCaster.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Variant.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/MethodImpl.hpp</file>

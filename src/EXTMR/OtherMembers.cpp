@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: RefVariant.inl                                       *
+ *      Extended Mirror: OtherMembers.cpp                                     *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -29,26 +29,50 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
+#include <EXTMR/ExtendedMirror.hpp>
+#include <EXTMR/Exceptions/NotFoundExceptions.hpp>
+#include <EXTMR/Exceptions/NonInstantiableException.hpp>
+#include <EXTMR/Exceptions/NonCopyableException.hpp>
+#include <EXTMR/Exceptions/NonAssignableException.hpp>
+#include <EXTMR/Exceptions/NonDestructibleException.hpp>
 
-#ifndef EXTMR_REFVARIANT_INL
-#define	EXTMR_REFVARIANT_INL
+using namespace extmr;
 
-#include <EXTMR/Exceptions/VariantTypeException.hpp>
-#include <EXTMR/Exceptions/VariantCostnessException.hpp>
-#include <EXTMR/RefVariant.hpp>
-
-#include "Variant.hpp"
-
-
-namespace extmr{
+Constructor::Constructor(const Class& owner) : Member(owner){};
 
 
-template<typename T>
-RefVariant::RefVariant(T& data) : Variant(data, Reference)
+void Constructor::init(const Variant& var) const
 {
+    if (owner_)
+        throw NonInstantiableException(*owner_);
 }
 
 
-} // namespace extmr
+CopyConstructor::CopyConstructor(const Class& owner) : Member(owner){};
 
-#endif /* EXTMR_REFVARIANT_INL */
+
+void CopyConstructor::copy(const Variant& copy, const Variant& orig) const
+{
+    if (owner_)
+        throw NonCopyableException(*owner_);
+}
+
+
+Destructor::Destructor(const Class& owner) : Member(owner){};
+
+
+void Destructor::destroy(const Variant& var) const
+{
+    if (owner_)
+        throw NonDestructibleException(*owner_);
+}
+
+
+AssignOperator::AssignOperator(const Class& owner) : Member(owner){};
+
+
+void AssignOperator::assign(const Variant& lvar, const Variant& rvar) const
+{
+    if (owner_)
+        throw NonAssignableException(*owner_);
+}

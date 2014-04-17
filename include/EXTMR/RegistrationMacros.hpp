@@ -1,9 +1,34 @@
-/*
- * Extended Mirror
- * 
- * Copyright (c) 2012-2013 Manuele Finocchiaro (m4nu3lf@gmail.com)
- * 
- */
+/******************************************************************************      
+ *      Extended Mirror: RegistrationMacros.hpp                               *
+ ******************************************************************************
+ *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
+ *      All rights reserved.                                                  *
+ ******************************************************************************
+ * Redistribution and use in source and binary forms, with or without         *
+ * modification, are permitted provided that the following conditions         *
+ * are met:                                                                   *
+ *                                                                            *
+ *    1. Redistributions of source code must retain the above copyright       *
+ *       notice, this list of conditions and the following disclaimer.        *
+ *                                                                            *
+ *    2. Redistributions in binary form must reproduce the above copyright    *
+ *       notice, this list of conditions and the following disclaimer in      *
+ *       the documentation and/or other materials provided with the           *
+ *       distribution.                                                        *
+ *                                                                            *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"* 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE  *
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE *
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE  *
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR        *
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF       *
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS   *
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN    *
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)    *
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF     *
+ * THE POSSIBILITY OF SUCH DAMAGE.                                            *
+ *****************************************************************************/
+
 
 #ifndef EXTMR_MACROS_HPP
 #define	EXTMR_MACROS_HPP
@@ -54,13 +79,16 @@ struct GetTypeName<_class_ >                                                   \
 template<>                                                                     \
 struct BuildClass<_class_>                                                     \
 {                                                                              \
-    void operator()(Class& clazz) const;                                       \
+    typedef _class_ ClassT;                                                    \
+    BuildClass(Class& clazz) : clazz(clazz){}                                 \
+    void operator()();                                                        \
+    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<>                                                                     \
 struct CreateType<_class_>                                                     \
 {                                                                              \
-    Type* operator()()                                                         \
+    Type* operator()()                                                        \
     {                                                                          \
         return createClass<_class_ >();                                        \
     }                                                                          \
@@ -133,9 +161,20 @@ EXTMR_ASSUME_NON_ASSIGNABLE(_class_)                                           \
 EXTMR_ASSUME_NON_COPYABLE(_class_)
 
 
-#define EXTMR_BUILD_CLASS(...)                                                 \
-void extmr::BuildClass<__VA_ARGS__>::operator()(Class& clazz) const
+#define EXTMR_BUILD_CLASS(...) void extmr::BuildClass<__VA_ARGS__>::operator()()
+#define EXTMR_MNP(member) #member, &ClassT::member
+#define EXTMR_BIND_PROP clazz & makeProperty
+#define EXTMR_BIND_METH clazz & makeMethod
 
+#define EXTMR_BIND_BASE(BaseT)                                                 \
+clazz & const_cast<Class&>(getClass<BaseT>());                                 \
+clazz & *new RefCasterImpl<ClassT, BaseT>();
+
+// polymorphic base
+#define EXTMR_BIND_PASE(BaseT)                                                 \
+clazz & const_cast<Class&>(getClass<BaseT>());                                 \
+clazz & *new RefCasterImpl<ClassT, BaseT>();                                   \
+const_cast<Class&>(getClass<BaseT>()) & *new RefCasterImpl<BaseT, ClassT>();
 
 /**
  * \def EXTMR_AUTOREG(_class_)
@@ -199,7 +238,10 @@ struct GetTemplateArgs<_template_<T1> >                                        \
 template<typename T1>                                                          \
 struct BuildClass<_template_<T1> >                                             \
 {                                                                              \
-    void operator()(Class& clazz) const;                                       \
+    typedef _template_<T1> ClassT;                                             \
+    BuildClass(Class& clazz) : clazz(clazz){}                                  \
+    void operator()();                                                         \
+    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<typename T1>                                                          \
@@ -267,7 +309,10 @@ struct GetTemplateArgs<_template_<T1, T2> >                                    \
 template<typename T1,  typename T2>                                            \
 struct BuildClass<_template_<T1, T2> >                                         \
 {                                                                              \
-    void operator()(Class& clazz) const;                                       \
+    typedef _template_<T1, T2> ClassT;                                         \
+    BuildClass(Class& clazz) : clazz(clazz){}                                  \
+    void operator()();                                                         \
+    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<typename T1, typename T2>                                             \
@@ -337,7 +382,10 @@ struct GetTemplateArgs<_template_<T1, T2, T3> >                                \
 template<typename T1,  typename T2,  typename T3>                              \
 struct BuildClass<_template_<T1, T2, T3> >                                     \
 {                                                                              \
-    void operator()(Class& clazz) const;                                       \
+    typedef _template_<T1, T2, T3> ClassT;                                     \
+    BuildClass(Class& clazz) : clazz(clazz){}                                  \
+    void operator()();                                                         \
+    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<typename T1, typename T2, typename T3>                                \
@@ -410,7 +458,10 @@ struct GetTemplateArgs<_template_<T1, T2, T3, T4> >                            \
 template<typename T1,  typename T2,  typename T3,  typename T4>                \
 struct BuildClass<_template_<T1, T2, T3, T4> >                                 \
 {                                                                              \
-    void operator()(Class& clazz) const;                                       \
+    typedef _template_<T1, T2, T3, T4> ClassT;                                 \
+    BuildClass(Class& clazz) : clazz(clazz){}                                  \
+    void operator()();                                                         \
+    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<typename T1, typename T2, typename T3, typename T4>                   \
@@ -425,36 +476,10 @@ struct CreateType<_template_<T1, T2, T3, T4> >                                 \
 } // namespace extmr
 
 
-/**
- * \def EXTMR_SETCALLBACK(fnc)
- * Set the call back function to call every time a type is registered.
- * Put this macro into a cpp file.
- * 
- * \a fnc The function for callback. The function must take a const Type
- * reference as argument and have a void return value.
- * 
- */
-#define EXTMR_SETCALLBACK(fnc)                                                 \
-namespace extmr {                                                              \
-                                                                               \
-void (*TypeRegister::getRegCallBack())(const Type&)                            \
-{                                                                              \
-    return fnc;                                                                \
-}                                                                              \
-                                                                               \
-} // namespace extmr
-
-
 /** \def EXTMR_GET_N_SET_EXTRA_PARAM_MAX
  * The maximum number of supported extra parameter for getters and setters
  */ 
 #define EXTMR_GET_N_SET_EXTRA_PARAM_MAX 3
-
-
-/** \def EXTMR_FUNC_PARAM_MAX
- * The maximum number of parameters for supported methods
- */ 
-#define EXTMR_FUNC_PARAM_MAX 8
 
 
 /** \def EXTMR_METHOD_PARAM_MAX

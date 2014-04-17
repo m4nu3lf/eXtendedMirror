@@ -1,9 +1,34 @@
-/* 
- * File:   Method.cpp
- * Author: Manuele Finocchiaro
- * 
- * Created on 20 ottobre 2012, 21.55
- */
+/******************************************************************************      
+ *      Extended Mirror: Method.cpp                                         *
+ ******************************************************************************
+ *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
+ *      All rights reserved.                                                  *
+ ******************************************************************************
+ * Redistribution and use in source and binary forms, with or without         *
+ * modification, are permitted provided that the following conditions         *
+ * are met:                                                                   *
+ *                                                                            *
+ *    1. Redistributions of source code must retain the above copyright       *
+ *       notice, this list of conditions and the following disclaimer.        *
+ *                                                                            *
+ *    2. Redistributions in binary form must reproduce the above copyright    *
+ *       notice, this list of conditions and the following disclaimer in      *
+ *       the documentation and/or other materials provided with the           *
+ *       distribution.                                                        *
+ *                                                                            *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"* 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE  *
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE *
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE  *
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR        *
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF       *
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS   *
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN    *
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)    *
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF     *
+ * THE POSSIBILITY OF SUCH DAMAGE.                                            *
+ *****************************************************************************/
+
 
 #include <EXTMR/Utils/Utils.hpp>
 #include <EXTMR/ExtendedMirror.hpp>
@@ -24,6 +49,26 @@ Method::Method(const Class& owner, const std::string& name) :
 }
 
 
+#define _EXTMR_METHOD_PUSH_PARAMS                       \
+this->retType_ = &retType;                              \
+if (paramType1 != getType<void>())                      \
+    params_.push_back(new Parameter(paramType1));       \
+if (paramType2 != getType<void>())                      \
+    params_.push_back(new Parameter(paramType2));       \
+if (paramType3 != getType<void>())                      \
+    params_.push_back(new Parameter(paramType3));       \
+if (paramType4 != getType<void>())                      \
+    params_.push_back(new Parameter(paramType4));       \
+if (paramType5 != getType<void>())                      \
+    params_.push_back(new Parameter(paramType5));       \
+if (paramType6 != getType<void>())                      \
+    params_.push_back(new Parameter(paramType6));       \
+if (paramType7 != getType<void>())                      \
+    params_.push_back(new Parameter(paramType7));       \
+if (paramType8 != getType<void>())                      \
+    params_.push_back(new Parameter(paramType8));
+
+
 Method::Method
 (
     const string& name,
@@ -41,23 +86,7 @@ Method::Method
     retType_(&retType),
     fullSignature_(true)
 {
-    this->retType_ = &retType;
-    if (paramType1 != getType<void>())
-        params_.push_back(new Parameter(paramType1));
-    if (paramType2 != getType<void>())
-        params_.push_back(new Parameter(paramType2));
-    if (paramType3 != getType<void>())
-        params_.push_back(new Parameter(paramType3));
-    if (paramType4 != getType<void>())
-        params_.push_back(new Parameter(paramType4));
-    if (paramType5 != getType<void>())
-        params_.push_back(new Parameter(paramType5));
-    if (paramType6 != getType<void>())
-        params_.push_back(new Parameter(paramType6));
-    if (paramType7 != getType<void>())
-        params_.push_back(new Parameter(paramType7));
-    if (paramType8 != getType<void>())
-        params_.push_back(new Parameter(paramType8));
+        _EXTMR_METHOD_PUSH_PARAMS
 }
 
 
@@ -79,23 +108,7 @@ Method::Method
     retType_(&retType),
     fullSignature_(true)
 {
-    this->retType_ = &retType;
-    if (paramType1 != getType<void>())
-        params_.push_back(new Parameter(paramType1));
-    if (paramType2 != getType<void>())
-        params_.push_back(new Parameter(paramType2));
-    if (paramType3 != getType<void>())
-        params_.push_back(new Parameter(paramType3));
-    if (paramType4 != getType<void>())
-        params_.push_back(new Parameter(paramType4));
-    if (paramType5 != getType<void>())
-        params_.push_back(new Parameter(paramType5));
-    if (paramType6 != getType<void>())
-        params_.push_back(new Parameter(paramType6));
-    if (paramType7 != getType<void>())
-        params_.push_back(new Parameter(paramType7));
-    if (paramType8 != getType<void>())
-        params_.push_back(new Parameter(paramType8));
+        _EXTMR_METHOD_PUSH_PARAMS
 }
 
 
