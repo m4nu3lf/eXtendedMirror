@@ -53,7 +53,7 @@ EXTMR_ENABLE_TEMPLATE_1(ClassTemplate)
 template<typename T>
 EXTMR_BUILD_CLASS(ClassTemplate<T>)
 {
-    clazz & makeProperty("val", &ClassTemplate<T>::val);
+    bindProperty("val", &ClassTemplate<T>::val);
 }
 
 class Uninstantiable
@@ -130,11 +130,12 @@ EXTMR_ENABLE_CLASS(Dummy)
 EXTMR_BUILD_CLASS(Dummy)
 {
     EXTMR_BIND_PASE(Base);
-    EXTMR_BIND_PROP(EXTMR_MNP(templateInstance));
-    EXTMR_BIND_PROP(EXTMR_MNP(a));
-    EXTMR_BIND_METH(EXTMR_MNP(self));
-    EXTMR_BIND_METH(EXTMR_MNP(doNothingUseful));
-    EXTMR_BIND_PROP("copyCount", &Dummy::getSomething);
+    bindProperty(EXTMR_MNP(templateInstance));
+    bindProperty(EXTMR_MNP(a));
+    bindMethod(EXTMR_MNP(self));
+    bindMethod(EXTMR_MNP(doNothingUseful));
+    bindMethod(EXTMR_MNP(getSomething));
+    bindProperty("copyCount", &Dummy::getSomething);
 }
 EXTMR_AUTOREG(Dummy)
 

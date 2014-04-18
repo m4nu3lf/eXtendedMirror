@@ -24,6 +24,7 @@
             <itemPath>include/EXTMR/Utils/Utils.hpp</itemPath>
           </logicalFolder>
           <itemPath>include/EXTMR/ArrayType.hpp</itemPath>
+          <itemPath>include/EXTMR/Bind.hpp</itemPath>
           <itemPath>include/EXTMR/Class.hpp</itemPath>
           <itemPath>include/EXTMR/CompoundClass.hpp</itemPath>
           <itemPath>include/EXTMR/Empty.hpp</itemPath>
@@ -31,7 +32,6 @@
           <itemPath>include/EXTMR/ExtendedMirror.hpp</itemPath>
           <itemPath>include/EXTMR/Member.hpp</itemPath>
           <itemPath>include/EXTMR/Member.inl</itemPath>
-          <itemPath>include/EXTMR/MemberMakeUtils.hpp</itemPath>
           <itemPath>include/EXTMR/Method.hpp</itemPath>
           <itemPath>include/EXTMR/MethodImpl.hpp</itemPath>
           <itemPath>include/EXTMR/MethodWrappers.hpp</itemPath>
@@ -134,6 +134,8 @@
       </compileType>
       <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/Bind.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
@@ -192,8 +194,6 @@
       <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/MemberMakeUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -370,6 +370,8 @@
       </compileType>
       <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/Bind.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
@@ -428,8 +430,6 @@
       <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/MemberMakeUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>

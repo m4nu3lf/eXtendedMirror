@@ -83,7 +83,7 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/MethodImpl.hpp>
 #include <EXTMR/RefCasterImpl.hpp>
 #include <EXTMR/TypeRegister.inl>
-#include <EXTMR/MemberMakeUtils.hpp>
+#include <EXTMR/Bind.hpp>
 #include <EXTMR/RegistrationMacros.hpp>
 
 

@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: MemberMakeUtils.hpp                                  *
+ *      Extended Mirror: Bind.hpp                                  *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,59 +30,95 @@
  *****************************************************************************/
 
 
-#ifndef EXTMR_MEMBERMAKEUTILS_HPP
-#define	EXTMR_MEMBERMAKEUTILS_HPP
+#ifndef EXTMR_BIND_HPP
+#define	EXTMR_BIND_HPP
+
+ 
+#define EXTMR_GET_N_SET_EXTRA_PARAM_MAX 3
+#define EXTMR_METHOD_PARAM_MAX 8
+
+
+#define EXTMR_MNP(member) #member, &ClassT::member
+#define EXTMR_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
+#define EXTMR_BIND_PASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base
+
+
+namespace extmr{
+
+
+template<class ClassT, class BaseT>
+void bindBase()
+{
+    // ensure that base class is registered
+    registerType<BaseT>();
+    
+    Class& clazz = const_cast<Class&>(getClass<ClassT>());
+    Class& base = const_cast<Class&>(getClass<BaseT>());
+    
+    // bind them together
+    clazz & base;
+    
+    // bind RefCaster to base
+    clazz & *new RefCasterImpl<ClassT, BaseT>();
+}
+
+
+template<class ClassT, class BaseT>
+void bindPmBase()
+{
+    bindBase<ClassT, BaseT>();
+    
+    // bind RefCast from BaseT to CassT
+    const_cast<Class&>(getClass<BaseT>()) & *new RefCasterImpl<BaseT, ClassT>();
+}
+
 
 /*
  * Collection of functions to allow registration of properties and methods
  * through the parameter type deduction mechanism.
  */
-namespace extmr{
 
-//TODO: Consider using a bindProperty/bindMethod/bindBase method that does all
-// the dirty work of binding things togheter, and remove the & operator,
-// so the makeXXX methods.
-// These method can be made part of the ClassBuild() functor to have access
-// to the static type of the class being registered.
-
-/*
- * Methods for property building through type deduction 
- */
 template<class ClassT, typename FieldT>
-Property& makeProperty(const std::string& name, FieldT ClassT::* field)
+Property& bindProperty(const std::string& name, FieldT ClassT::* field)
 {
     // ensure that the type is registered
     registerType<FieldT>();
     
     // build the Property  and add it to the Class
-    return *new PropertyField<ClassT, FieldT>(name, field);
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyField<ClassT, FieldT>(name, field);
 }
 
+
 template<class ClassT, typename FieldT, std::size_t size>
-Property& makeProperty(const std::string& name,
+Property& bindProperty(const std::string& name,
         FieldT (ClassT::* field) [size])
 {
     // ensure that the type is registered
     registerType<FieldT[size]>();
     
     // build the Property  and add it to the Class
-    return *new PropertyArrayField<ClassT, FieldT[size]>(name, field);
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyArrayField<ClassT, FieldT[size]>(name, field);
 }
 
+
 template<class ClassT, typename RetT, typename ParamT>
-Property& makeProperty(const std::string& name, RetT (ClassT::*getter)(),
+Property& bindProperty(const std::string& name, RetT (ClassT::*getter)(),
         void (ClassT::*setter)(ParamT))
 {   
     // ensure that the type is registered
     registerType<RetT>();
     
     // build the Property
-    return *new PropertyGetterNSetter<ClassT, RetT, ParamT>(name, getter, false,
-            setter);
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, ParamT>(name, getter,
+            false, setter);
 }
 
+
 template<class ClassT, typename RetT, typename ParamT>
-Property& makeProperty(const std::string& name, RetT (ClassT::*getter)() const,
+Property& bindProperty(const std::string& name, RetT (ClassT::*getter)() const,
         void (ClassT::*setter)(ParamT))
 {
     // ensure that the type is registered
@@ -92,18 +128,21 @@ Property& makeProperty(const std::string& name, RetT (ClassT::*getter)() const,
     RetT (ClassT::*getter_nc)() = reinterpret_cast<RetT (ClassT::*)()>(getter);
     
     // build the Property
-    return *new PropertyGetterNSetter<ClassT, RetT, ParamT>(name, getter_nc,
+    return const_cast<Class&>(getClass<ClassT>()) 
+            & *new PropertyGetterNSetter<ClassT, RetT, ParamT>(name, getter_nc,
             true, setter);
 }
 
+
 template<class ClassT, typename RetT>
-Property& makeProperty(const std::string& name, RetT (ClassT::*getter)())
+Property& bindProperty(const std::string& name, RetT (ClassT::*getter)())
 {
     // ensure that the type is registered
     registerType<RetT>();
     
     // build the Property with a null setter pointer
-    return *new PropertyGetterNSetter<ClassT, RetT, Empty>
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, Empty>
             (
                 name,
                 getter,
@@ -112,8 +151,9 @@ Property& makeProperty(const std::string& name, RetT (ClassT::*getter)())
             );
 }
 
+
 template<class ClassT, typename RetT>
-Property& makeProperty(const std::string& name, RetT (ClassT::*getter)() const)
+Property& bindProperty(const std::string& name, RetT (ClassT::*getter)() const)
 {
     // ensure that the type is registered
     registerType<RetT>();
@@ -122,7 +162,8 @@ Property& makeProperty(const std::string& name, RetT (ClassT::*getter)() const)
     RetT (ClassT::*getter_nc)() = reinterpret_cast<RetT (ClassT::*)()>(getter);
     
     // build the Property with a null setter pointer
-    return *new PropertyGetterNSetter<ClassT, RetT, Empty>
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, Empty>
             (
                 name,
                 getter_nc,
@@ -131,8 +172,9 @@ Property& makeProperty(const std::string& name, RetT (ClassT::*getter)() const)
             );
 }
 
+
 template<class ClassT, typename RetT, typename ParamT, typename ExtrParamT>
-Property& makeProperty
+Property& bindProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT),
@@ -144,7 +186,8 @@ Property& makeProperty
     registerType<RetT>();
    
     // build the Property
-    return *new PropertyGetterNSetter<ClassT, RetT, ParamT, ExtrParamT>
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, ParamT, ExtrParamT>
             (
                 name,
                 getter,
@@ -154,8 +197,9 @@ Property& makeProperty
             );
 }
     
+
 template<class ClassT, typename RetT, typename ParamT, typename ExtrParamT>
-Property& makeProperty
+Property& bindProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT) const,
@@ -171,7 +215,8 @@ Property& makeProperty
             reinterpret_cast<RetT (ClassT::*)(ExtrParamT)>(getter);
     
     // build the Property
-    return *new PropertyGetterNSetter<ClassT, RetT, ParamT, ExtrParamT>
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, ParamT, ExtrParamT>
             (
                 name,
                 getter_nc,
@@ -181,15 +226,17 @@ Property& makeProperty
             );
 }
 
+
 template<class ClassT, typename RetT, typename ExtrParamT>
-Property& makeProperty(const std::string& name,
+Property& bindProperty(const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT), ExtrParamT extrArg)
 {
     // ensure that the type is registered
     registerType<RetT>();
     
     // build the Property with a null setter pointer
-    return *new PropertyGetterNSetter<ClassT, RetT, Empty, ExtrParamT>
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, Empty, ExtrParamT>
             (
                 name,
                 getter,
@@ -199,8 +246,9 @@ Property& makeProperty(const std::string& name,
             );
 }
 
+
 template<class ClassT, typename RetT, typename ExtrParamT>
-Property& makeProperty(const std::string& name,
+Property& bindProperty(const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT) const, ExtrParamT extrArg)
 {
     // ensure that the type is registered
@@ -211,7 +259,8 @@ Property& makeProperty(const std::string& name,
             reinterpret_cast<RetT (ClassT::*)(ExtrParamT)>(getter);
     
     // build the Property with a null setter pointer
-    return *new PropertyGetterNSetter<ClassT, RetT, Empty, ExtrParamT>
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, Empty, ExtrParamT>
             (
                 name,
                 getter_nc,
@@ -221,9 +270,10 @@ Property& makeProperty(const std::string& name,
             );
 }
 
+
 template<class ClassT, typename RetT, typename ParamT, typename ExtrParamT1,
         typename ExtrParamT2>
-Property& makeProperty
+Property& bindProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT1, ExtrParamT2),
@@ -236,7 +286,8 @@ Property& makeProperty
     registerType<ParamT>();
     
     // build the Property
-    return *new PropertyGetterNSetter<ClassT, RetT, ParamT, ExtrParamT1,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, ParamT, ExtrParamT1,
             ExtrParamT2>
             (
                 name,
@@ -248,9 +299,10 @@ Property& makeProperty
             );
 }
 
+
 template<class ClassT, typename RetT, typename ParamT, typename ExtrParamT1,
         typename ExtrParamT2>
-Property& makeProperty
+Property& bindProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT1, ExtrParamT2) const,
@@ -268,7 +320,8 @@ Property& makeProperty
             ExtrParamT2)>(getter);
     
     // build the Property
-    return *new PropertyGetterNSetter<ClassT, RetT, ParamT, ExtrParamT1,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, ParamT, ExtrParamT1,
             ExtrParamT2>
             (
                 name,
@@ -280,9 +333,10 @@ Property& makeProperty
             );
 }
 
+
 template<class ClassT, typename RetT, typename ExtrParamT1,
         typename ExtrParamT2>
-Property& makeProperty
+Property& bindProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT1, ExtrParamT2),
@@ -294,7 +348,8 @@ Property& makeProperty
     registerType<RetT>();
     
     // build the Property with a null setter pointer
-    return *new PropertyGetterNSetter<ClassT, RetT, Empty, ExtrParamT1,
+   return  const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, Empty, ExtrParamT1,
             ExtrParamT2>
             (
                 name,
@@ -306,9 +361,10 @@ Property& makeProperty
             );
 }
 
+
 template<class ClassT, typename RetT, typename ExtrParamT1,
         typename ExtrParamT2>
-Property& makeProperty
+Property& bindProperty
 (
         const std::string& name,
         RetT (ClassT::*getter)(ExtrParamT1, ExtrParamT2) const,
@@ -324,7 +380,8 @@ Property& makeProperty
         reinterpret_cast<RetT (ClassT::*)(ExtrParamT1, ExtrParamT2)>(getter);
     
     // build the Property with a null setter pointer
-    return *new PropertyGetterNSetter<ClassT, RetT, Empty, ExtrParamT1,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new PropertyGetterNSetter<ClassT, RetT, Empty, ExtrParamT1,
             ExtrParamT2>
             (
                 name,
@@ -336,22 +393,20 @@ Property& makeProperty
             );
 }
 
-/*
- * Methods for methods building through type deduction 
- */
 
 template<class ClassT, typename RetT>
-Method& makeMethod(const std::string& name, RetT (ClassT::*method)())
+Method& bindMethod(const std::string& name, RetT (ClassT::*method)())
 {
     // ensure the RetT is registered
     registerType<RetT>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT>(name, method);
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT>(name, method);
 }
 
 template<class ClassT, typename RetT>
-Method& makeMethod(const std::string& name, RetT (ClassT::*method)() const)
+Method& bindMethod(const std::string& name, RetT (ClassT::*method)() const)
 {
     // ensure the RetT is registered
     registerType<RetT>();
@@ -360,22 +415,24 @@ Method& makeMethod(const std::string& name, RetT (ClassT::*method)() const)
     RetT (ClassT::*method_nc)() = reinterpret_cast<RetT (ClassT::*)()>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT>(name, method_nc, true);
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT>(name, method_nc, true);
 }
     
 template<class ClassT, typename RetT, typename ParamT1>
-Method& makeMethod(const std::string& name, RetT (ClassT::*method)(ParamT1))
+Method& bindMethod(const std::string& name, RetT (ClassT::*method)(ParamT1))
 {
     // ensure the types are registered
     registerType<RetT>();
     registerType<ParamT1>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1>(name, method);
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1>(name, method);
 }
 
 template<class ClassT, typename RetT, typename ParamT1>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1) const)
 {
     // ensure the types are registered
@@ -387,11 +444,12 @@ Method& makeMethod(const std::string& name,
             reinterpret_cast<RetT (ClassT::*)(ParamT1)>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1>(name, method_nc, true);
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1>(name, method_nc, true);
 }
     
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2))
 {
     // ensure the types are registered
@@ -400,11 +458,12 @@ Method& makeMethod(const std::string& name,
     registerType<ParamT2>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2>(name, method);   
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2>(name, method);   
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2) const)
 {
     // ensure the types are registered
@@ -417,13 +476,14 @@ Method& makeMethod(const std::string& name,
             reinterpret_cast<RetT (ClassT::*)(ParamT1, ParamT2)>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2>(name, method_nc,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2>(name, method_nc,
             true);
 }
     
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3))
 {
     // ensure the types are registered
@@ -433,13 +493,14 @@ Method& makeMethod(const std::string& name,
     registerType<ParamT3>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3>(name,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3>(name,
             method);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3) const)
 {
     // ensure the types are registered
@@ -454,13 +515,14 @@ Method& makeMethod(const std::string& name,
             ParamT3)>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3>(name,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3>(name,
             method_nc, true);
 }
     
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4))
 {
     // ensure the types are registered
@@ -471,13 +533,14 @@ Method& makeMethod(const std::string& name,
     registerType<ParamT4>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3,
             ParamT4>(name, method);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4) const)
 {
     // ensure the types are registered
@@ -493,13 +556,14 @@ Method& makeMethod(const std::string& name,
             ParamT4)>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3,
             ParamT4>(name, method_nc, true);
 }
     
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5))
 {
     // ensure the types are registered
@@ -511,13 +575,14 @@ Method& makeMethod(const std::string& name,
     registerType<ParamT5>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
             ParamT5>(name, method);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4,
         ParamT5) const)
 {
@@ -535,13 +600,14 @@ Method& makeMethod(const std::string& name,
             ParamT4, ParamT5)>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
             ParamT5>(name, method_nc, true);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6))
 {
@@ -555,13 +621,14 @@ Method& makeMethod(const std::string& name,
     registerType<ParamT6>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
             ParamT5, ParamT6>(name, method);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6) const)
 {
@@ -580,14 +647,15 @@ Method& makeMethod(const std::string& name,
             ParamT4, ParamT5, ParamT6)>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
             ParamT5, ParamT6>(name, method_nc, true);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6,
         typename ParamT7>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6, ParamT7))
 {
@@ -602,14 +670,15 @@ Method& makeMethod(const std::string& name,
     registerType<ParamT7>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
             ParamT5, ParamT6, ParamT7>(name, method);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6,
         typename ParamT7>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6, ParamT7) const)
 {
@@ -629,14 +698,15 @@ Method& makeMethod(const std::string& name,
             ParamT4, ParamT5, ParamT6, ParamT7)>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
             ParamT5, ParamT6, ParamT7>(name, method_nc, true);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6,
         typename ParamT7, typename ParamT8>
-Method& makeMethod(const std::string& name,
+Method& bindMethod(const std::string& name,
         RetT (ClassT::*method)(ParamT1, ParamT2, ParamT3, ParamT4, ParamT5,
         ParamT6, ParamT7, ParamT8))
 {   
@@ -652,14 +722,15 @@ Method& makeMethod(const std::string& name,
     registerType<ParamT8>();
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
             ParamT5, ParamT6, ParamT7, ParamT8>(name, method);
 }
 
 template<class ClassT, typename RetT, typename ParamT1, typename ParamT2,
         typename ParamT3, typename ParamT4, typename ParamT5, typename ParamT6,
         typename ParamT7, typename ParamT8>
-Method& makeMethod(const std::string& name, RetT (ClassT::*method)(ParamT1,
+Method& bindMethod(const std::string& name, RetT (ClassT::*method)(ParamT1,
         ParamT2, ParamT3, ParamT4, ParamT5, ParamT6, ParamT7, ParamT8) const)
 {   
     // ensure the types are registered
@@ -679,11 +750,12 @@ Method& makeMethod(const std::string& name, RetT (ClassT::*method)(ParamT1,
             ParamT4, ParamT5, ParamT6, ParamT7, ParamT8)>(method);
     
     // create the proper Method
-    return *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
+    return const_cast<Class&>(getClass<ClassT>())
+            & *new MethodImpl<ClassT, RetT, ParamT1, ParamT2, ParamT3, ParamT4,
             ParamT5, ParamT6, ParamT7, ParamT8>(name, method_nc, true);
 }
 
 } // namespace extmr
 
-#endif	/* EXTMR_MEMBERMAKEUTILS_HPP */
+#endif	/* EXTMR_BIND_HPP */
 

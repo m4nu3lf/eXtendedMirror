@@ -109,8 +109,8 @@ Type& TypeRegister::registerType_()
         classesById_.insert(clazz);
         
         // build class members
-        BuildClass<T> build(*clazz);
-        build();
+        BuildClass<T> buildClass;
+        buildClass();
     }
     
     DEBUG_MSG("type \"" << type->getName() << "\" registered")

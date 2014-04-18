@@ -224,6 +224,17 @@ public:
      */
     Category getCategory() const;
     
+    Class& operator&(Class& baseClass);
+    
+
+    RefCaster& operator&(RefCaster& refCaster);
+    
+
+    Property& operator&(Property& property);
+    
+
+    Method& operator&(Method& method);
+    
     virtual ~Class();
     
 protected:
@@ -252,38 +263,6 @@ protected:
             bool isAbstract
      );
     
-    /**
-     * Add a base class to this one.
-     * 
-     * @param type The base Class.
-     * @return This class.
-     */
-    Class& operator&(Class& baseClass);
-    
-    /**
-     * Add a caster to a base Class.
-     * 
-     * @param refCaster The RefCaster
-     * @return This class.
-     */
-    Class& operator&(RefCaster& refCaster);
-    
-    /**
-     * Add a property to this class.
-     * 
-     * @param property The Property.
-     * @return This class.
-     */
-    Class& operator&(Property& property);
-    
-    /**
-     * Add a method to this class.
-     * 
-     * @param method The Method.
-     * @return This class.
-     */
-    Class& operator&(Method& method);
-    
     const Constructor* constructor_;
     
     const CopyConstructor* copyConstructor_;
@@ -292,15 +271,10 @@ protected:
     
     const AssignOperator* assignOperator_;
     
-    // The types object of the base classes sorted by the type_info structure
-    // order.
     Const_Class_SetById baseClasses_;
     
-    // These are usually used to cast refs to this class to base class refs.
     Const_RefCaster_Set refCasters_;
 
-    // The types object of the derived classes sorted by the type_info structure
-    // order.
     Const_Class_SetById derivedClasses_;
 
     // The properties of this class.

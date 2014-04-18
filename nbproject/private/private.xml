@@ -13,10 +13,12 @@
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Type.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RegistrationMacros.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Variant.inl</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/RefCaster.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyGetterNSetter.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Property.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Variant.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Property.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefCasterImpl.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Member.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Method.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/MethodWrappers.hpp</file>
@@ -34,6 +36,7 @@
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/ArrayType.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/TypeRegister.inl</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefVariant.inl</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Bind.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/ArrayType.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/RefCaster.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Variant.cpp</file>
@@ -41,7 +44,6 @@
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/TypeRegister.cpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/ExtendedMirror.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/PropertyArrayField.hpp</file>
-            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/MemberMakeUtils.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/EXTMR/Utils/DebugUtils.hpp</file>
             <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/EXTMR/Type.cpp</file>
         </group>

@@ -150,27 +150,27 @@ Class& Class::operator&(Class& baseClass)
 }
 
 
-Class& Class::operator&(RefCaster& refCaster)
+RefCaster& Class::operator&(RefCaster& refCaster)
 {
     if (refCaster.getSrcType() == *this)
         refCasters_.insert(&refCaster);
-    return *this;
+    return refCaster;
 }
 
 
-Class& Class::operator&(Property& property)
+Property& Class::operator&(Property& property)
 {
     if (property.getOwner() == *this)
         properties_.insert(&property);
-    return *this;
+    return property;
 }
 
 
-Class& Class::operator&(Method& method)
+Method& Class::operator&(Method& method)
 { 
     if (method.getOwner() == *this)
         methods_.insert(&method);
-    return *this;
+    return method;
 }
 
 

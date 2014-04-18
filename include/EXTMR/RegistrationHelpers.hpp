@@ -92,13 +92,11 @@ struct GetTypeName<T[size]>
 
 
 template<typename T>
-struct GetTemplateName
-{};
+struct GetTemplateName {};
 
 
 template<typename T>
-struct GetTemplateArgs
-{};
+struct GetTemplateArgs {};
 
 
 template<>
@@ -173,17 +171,13 @@ struct CreateType<T[size]>
 
 
 template<class T>
-struct IsAbstract : public FalseType
-{};
+struct IsAbstract : public FalseType {};
 
 
 template<class T>
 struct BuildClass
 {
-    BuildClass(Class& clazz){}
-    void operator()()
-    {
-    }
+    void operator()(){}
 };
 
 

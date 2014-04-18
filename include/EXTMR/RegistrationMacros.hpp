@@ -80,15 +80,13 @@ template<>                                                                     \
 struct BuildClass<_class_>                                                     \
 {                                                                              \
     typedef _class_ ClassT;                                                    \
-    BuildClass(Class& clazz) : clazz(clazz){}                                 \
-    void operator()();                                                        \
-    Class& clazz;                                                              \
+    void operator()();                                                         \
 };                                                                             \
                                                                                \
 template<>                                                                     \
 struct CreateType<_class_>                                                     \
 {                                                                              \
-    Type* operator()()                                                        \
+    Type* operator()()                                                         \
     {                                                                          \
         return createClass<_class_ >();                                        \
     }                                                                          \
@@ -162,19 +160,7 @@ EXTMR_ASSUME_NON_COPYABLE(_class_)
 
 
 #define EXTMR_BUILD_CLASS(...) void extmr::BuildClass<__VA_ARGS__>::operator()()
-#define EXTMR_MNP(member) #member, &ClassT::member
-#define EXTMR_BIND_PROP clazz & makeProperty
-#define EXTMR_BIND_METH clazz & makeMethod
 
-#define EXTMR_BIND_BASE(BaseT)                                                 \
-clazz & const_cast<Class&>(getClass<BaseT>());                                 \
-clazz & *new RefCasterImpl<ClassT, BaseT>();
-
-// polymorphic base
-#define EXTMR_BIND_PASE(BaseT)                                                 \
-clazz & const_cast<Class&>(getClass<BaseT>());                                 \
-clazz & *new RefCasterImpl<ClassT, BaseT>();                                   \
-const_cast<Class&>(getClass<BaseT>()) & *new RefCasterImpl<BaseT, ClassT>();
 
 /**
  * \def EXTMR_AUTOREG(_class_)
@@ -186,6 +172,8 @@ const_cast<Class&>(getClass<BaseT>()) & *new RefCasterImpl<BaseT, ClassT>();
 #define EXTMR_AUTOREG(_class_)                                                 \
 template class extmr::AutoRegisterer<_class_ >;
 
+
+#define EXTMR_TEMPLATE_PARAM_MAX 4
 
 /**
  * \def EXTMR_ENABLE_TEMPLATE_1(_template_)
@@ -239,9 +227,7 @@ template<typename T1>                                                          \
 struct BuildClass<_template_<T1> >                                             \
 {                                                                              \
     typedef _template_<T1> ClassT;                                             \
-    BuildClass(Class& clazz) : clazz(clazz){}                                  \
     void operator()();                                                         \
-    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<typename T1>                                                          \
@@ -310,9 +296,7 @@ template<typename T1,  typename T2>                                            \
 struct BuildClass<_template_<T1, T2> >                                         \
 {                                                                              \
     typedef _template_<T1, T2> ClassT;                                         \
-    BuildClass(Class& clazz) : clazz(clazz){}                                  \
     void operator()();                                                         \
-    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<typename T1, typename T2>                                             \
@@ -383,9 +367,7 @@ template<typename T1,  typename T2,  typename T3>                              \
 struct BuildClass<_template_<T1, T2, T3> >                                     \
 {                                                                              \
     typedef _template_<T1, T2, T3> ClassT;                                     \
-    BuildClass(Class& clazz) : clazz(clazz){}                                  \
     void operator()();                                                         \
-    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<typename T1, typename T2, typename T3>                                \
@@ -459,9 +441,7 @@ template<typename T1,  typename T2,  typename T3,  typename T4>                \
 struct BuildClass<_template_<T1, T2, T3, T4> >                                 \
 {                                                                              \
     typedef _template_<T1, T2, T3, T4> ClassT;                                 \
-    BuildClass(Class& clazz) : clazz(clazz){}                                  \
     void operator()();                                                         \
-    Class& clazz;                                                              \
 };                                                                             \
                                                                                \
 template<typename T1, typename T2, typename T3, typename T4>                   \
@@ -474,24 +454,6 @@ struct CreateType<_template_<T1, T2, T3, T4> >                                 \
 };                                                                             \
                                                                                \
 } // namespace extmr
-
-
-/** \def EXTMR_GET_N_SET_EXTRA_PARAM_MAX
- * The maximum number of supported extra parameter for getters and setters
- */ 
-#define EXTMR_GET_N_SET_EXTRA_PARAM_MAX 3
-
-
-/** \def EXTMR_METHOD_PARAM_MAX
- * The maximum number of parameters for supported methods
- */ 
-#define EXTMR_METHOD_PARAM_MAX 8
-
-
-/** \def EXTMR_TEMPLATE_PARAM_MAX
- * The maximum number of parameter for supported template classes
- */ 
-#define EXTMR_TEMPLATE_PARAM_MAX 4
 
 
 #endif	/* EXTMR_MACROS_HPP */
