@@ -60,7 +60,6 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 #include <EXTMR/Empty.hpp>
 #include <EXTMR/Variant.hpp>
 #include <EXTMR/RefVariant.hpp>
-#include <EXTMR/MethodWrappers.hpp>
 #include <EXTMR/Type.hpp>
 #include <EXTMR/RefCaster.hpp>
 #include <EXTMR/PrimitiveType.hpp>

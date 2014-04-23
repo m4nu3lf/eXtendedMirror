@@ -56,9 +56,10 @@ class Method : public Member
 public:
     enum ReturnMode
     {
-        Value = 0,
-        Reference = 1,
-        ConstReference = 3
+        None = 0,
+        Value = 1,
+        Reference = 2,
+        ConstReference = 6
     };
     
     /**
@@ -67,7 +68,6 @@ public:
      * @param name The method name.
      */
     Method(const std::string& name);
-    
     
     /**
      * Construct a method with just the owner and the name.
@@ -250,6 +250,9 @@ protected:
     Const_Prameter_Vector params_;
     
     std::vector<Variant> defaults_;
+
+    /// Whether the method is constant.
+    bool constant_;
     
     // Need to know if the method has a full signature
     friend class MethodNotFoundException;

@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef EXTMR_PROPERTYDESC_HPP
-#define EXTMR_PROPERTYDESC_HPP
+#ifndef EXTMR_PROPERTY_HPP
+#define EXTMR_PROPERTY_HPP
 
 namespace extmr{
 
@@ -201,4 +201,4 @@ typedef std::set<const Property*, PtrCmpByVal<Property> > Const_Property_Set;
 
 } // namespace extmr
 
-#endif // EXTMR_PROPERTYDESC_HPP
+#endif // EXTMR_PROPERTY_HPP

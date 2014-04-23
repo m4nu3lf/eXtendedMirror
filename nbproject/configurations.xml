@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="94">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -34,7 +34,6 @@
           <itemPath>include/EXTMR/Member.inl</itemPath>
           <itemPath>include/EXTMR/Method.hpp</itemPath>
           <itemPath>include/EXTMR/MethodImpl.hpp</itemPath>
-          <itemPath>include/EXTMR/MethodWrappers.hpp</itemPath>
           <itemPath>include/EXTMR/NumericalUtils.hpp</itemPath>
           <itemPath>include/EXTMR/OtherMembers.hpp</itemPath>
           <itemPath>include/EXTMR/Parameter.hpp</itemPath>
@@ -198,8 +197,6 @@
       <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/MethodWrappers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -434,8 +431,6 @@
       <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/MethodWrappers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
