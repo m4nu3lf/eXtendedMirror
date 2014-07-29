@@ -95,7 +95,7 @@ Type& TypeRegister::registerType_()
     // check for already registered type
     if (type) return *type;
     
-    type = CreateType<T>()();
+    type = &CreateType<T>()();
     
     // push the type object into the type sets
     typesById_.insert(type);

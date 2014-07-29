@@ -293,7 +293,11 @@ protected:
     
     // Factory function
     template<class T>
-    friend Type* createClass();
+    static Class& create();
+    
+    // Factory class ( calls create() )
+    template<typename T>
+    friend class CreateType;
     
     // The BuildClass needs to call the & operator.
     template<class T>

@@ -1,6 +1,6 @@
 content ="""
 /******************************************************************************      
- *      Extended Mirror: Bind.hpp                                             *
+ *      Extended Mirror: BindGetNSetProperty.hpp                              *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -32,85 +32,22 @@ content ="""
 
 """ + WARNING_MESSAGE + """
 
-#ifndef EXTMR_BIND_HPP
-#define	EXTMR_BIND_HPP
+#ifndef EXTMR_BINDGETNSETPROPERTY_HPP
+#define	EXTMR_BINDGETNSETPROPERTY_HPP
 
 
 #define EXTMR_GET_N_SET_EXTRA_PARAM_MAX """ + \
 str(EXTMR_GET_N_SET_EXTRA_PARAM_MAX) + """
-#define EXTMR_METHOD_PARAM_MAX """ + \
-str(EXTMR_METHOD_PARAM_MAX) + """
-
-
-#define EXTMR_MNP(member) #member, &ClassT::member
-#define EXTMR_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
-#define EXTMR_BIND_PASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base
 
 
 namespace extmr{
-
-
-template<class ClassT, class BaseT>
-void bindBase()
-{
-    // ensure that base class is registered
-    registerType<BaseT>();
-    
-    Class& clazz = const_cast<Class&>(getClass<ClassT>());
-    Class& base = const_cast<Class&>(getClass<BaseT>());
-    
-    // bind them together
-    clazz & base;
-    
-    // bind RefCaster to base
-    clazz & *new RefCasterImpl<ClassT, BaseT>();
-}
-
-
-template<class ClassT, class BaseT>
-void bindPmBase()
-{
-    bindBase<ClassT, BaseT>();
-    
-    // bind RefCast from BaseT to CassT
-    const_cast<Class&>(getClass<BaseT>()) & *new RefCasterImpl<BaseT, ClassT>();
-}
-
-
-/*
- * Collection of functions to allow registration of properties and methods
- * through the parameter type deduction mechanism.
- */
-
-template<class ClassT, typename FieldT>
-Property& bindProperty(const std::string& name, FieldT ClassT::* field)
-{
-    // ensure that the type is registered
-    registerType<FieldT>();
-    
-    // build the Property  and add it to the Class
-    return const_cast<Class&>(getClass<ClassT>())
-            & *new PropertyField<ClassT, FieldT>(name, field);
-}
-
-
-template<class ClassT, typename FieldT, std::size_t size>
-Property& bindProperty(const std::string& name,
-        FieldT (ClassT::* field) [size])
-{
-    // ensure that the type is registered
-    registerType<FieldT[size]>();
-    
-    // build the Property  and add it to the Class
-    return const_cast<Class&>(getClass<ClassT>())
-            & *new PropertyArrayField<ClassT, FieldT[size]>(name, field);
-}
 
 """
 for n_extr_params in range(EXTMR_GET_N_SET_EXTRA_PARAM_MAX + 1):
     for has_setter in range(2):
         for has_const_getter in range(2):
             content +="""
+
 template
 <
     class ClassT,
@@ -174,59 +111,9 @@ Property& bindProperty(
 
 """
 
-for n_params in range(EXTMR_METHOD_PARAM_MAX + 1):
-    for is_const in range(2):
-        content += """
-template
-<
-    class ClassT,
-    typename RetT""" + gen_seq(""",
-    typename ParamT$""", n_params) + """
->
-Method& bindMethod
-(
-    const std::string& name,
-    RetT (ClassT::*method)
-    ( """ + gen_seq("""
-        ParamT$""", n_params, ",") + """
-    ) """ + ("const" if is_const else "") + """
-)
-{
-    // ensure the types are registered
-    registerType<RetT>();""" + gen_seq("""
-    registerType<ParamT$>();""", n_params) + """
-    """ + (("""
-    // remove the constness from the method
-    RetT (ClassT::*method_nc)() =
-        reinterpret_cast
-        <
-            RetT (ClassT::*)
-            (""" + gen_seq("""
-                ParamT$""", n_params, ",") + """
-            )
-        >(method);
-    """) if is_const else "") + """
-    // create the proper Method
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new MethodImpl_""" + str(n_params) + """_Params
-        <
-            ClassT,
-            RetT""" + gen_seq(""",
-            ParamT$""", n_params) + """
-        >
-        (
-            name""" + (""",
-            method_nc,
-            true""" if is_const else """,
-            method,
-            false""") + """
-        );
-}
-
-"""
-
 content += """
+
 } // namespace extmr
 
-#endif	/* EXTMR_BIND_HPP */"""
+#endif	/* EXTMR_BINDGETNSETPROPERTY_HPP */"""
 

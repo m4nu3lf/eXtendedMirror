@@ -22,6 +22,8 @@
           </logicalFolder>
           <itemPath>include/EXTMR/ArrayType.hpp</itemPath>
           <itemPath>include/EXTMR/Bind.hpp</itemPath>
+          <itemPath>include/EXTMR/BindGetNSetProperty.hpp</itemPath>
+          <itemPath>include/EXTMR/BindMethod.hpp</itemPath>
           <itemPath>include/EXTMR/Class.hpp</itemPath>
           <itemPath>include/EXTMR/CompoundClass.hpp</itemPath>
           <itemPath>include/EXTMR/Empty.hpp</itemPath>
@@ -48,6 +50,7 @@
           <itemPath>include/EXTMR/RegistrationMacros.hpp</itemPath>
           <itemPath>include/EXTMR/Shortcuts.hpp</itemPath>
           <itemPath>include/EXTMR/Template.hpp</itemPath>
+          <itemPath>include/EXTMR/TemplateRegistrationMacros.hpp</itemPath>
           <itemPath>include/EXTMR/Type.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRegister.hpp</itemPath>
           <itemPath>include/EXTMR/TypeRegister.inl</itemPath>
@@ -129,6 +132,13 @@
       <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Bind.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/BindGetNSetProperty.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/BindMethod.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -223,6 +233,11 @@
       <item path="include/EXTMR/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Template.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/TemplateRegistrationMacros.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/EXTMR/Type.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -334,6 +349,13 @@
       </item>
       <item path="include/EXTMR/Bind.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/BindGetNSetProperty.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/EXTMR/BindMethod.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
@@ -427,6 +449,11 @@
       <item path="include/EXTMR/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Template.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/TemplateRegistrationMacros.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="include/EXTMR/Type.hpp" ex="false" tool="3" flavor2="0">
       </item>

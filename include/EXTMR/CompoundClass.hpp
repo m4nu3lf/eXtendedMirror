@@ -98,7 +98,11 @@ private:
     
     // Factory function
     template<class T>
-    friend Type* createCompoundClass();
+    static CompoundClass& create();
+    
+    // Factory class ( calls create() )
+    template<typename T>
+    friend class CreateType;
 };
 
 

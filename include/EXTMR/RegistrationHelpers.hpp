@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: RegistrationHelpers.hpp                              *
+ *      Extended Mirror: GetTypeName.hpp                                      *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -137,9 +137,9 @@ struct GetTypeName<T(*)[size]>
 template<typename T>
 struct CreateType
 {
-    Type* operator()()
+    Type& operator()()
     {
-        return new PrimitiveType(GetTypeName<T>()(), sizeof(T), typeid(T));
+        return *new PrimitiveType(GetTypeName<T>()(), sizeof(T), typeid(T));
     }
 };
 
@@ -147,11 +147,11 @@ struct CreateType
 template<typename T>
 struct CreateType<T*>
 {
-    Type* operator()()
+    Type& operator()()
     {
         const Type& pointedType = registerType<T>();
         
-        return new PointerType(GetTypeName<T*>()(), sizeof(T*), typeid(T*),
+        return *new PointerType(GetTypeName<T*>()(), sizeof(T*), typeid(T*),
                 pointedType);
     }
 };
@@ -160,11 +160,11 @@ struct CreateType<T*>
 template<typename T, std::size_t size>
 struct CreateType<T[size]>
 {
-    Type* operator()()
+    Type& operator()()
     {
         const Type& elementType = registerType<T>();
         
-        return new ArrayType(GetTypeName<T[size]>()(), sizeof(T[size]),
+        return *new ArrayType(GetTypeName<T[size]>()(), sizeof(T[size]),
                 typeid(T[size]), size, elementType);
     }
 };
@@ -185,22 +185,16 @@ struct BuildClass
  * This helper function is called from the CreateType functor when registering
  * a non compound class. This function is provided to keep the all the possible
  * code outside of macros.
- * 
- * As a side effect, this function allow the GetConstructor, GetCopyConstructor,
- * GetDestructor and GetAssingOperator to be specialized after CreateType
- * because gcc seems to postpone the function templates instantiations after all
- * the class template specializations are available.
- * However I don't konw if this is a standard behavior.
  */
 
 template<class T>
-Type* createClass()
+Class& Class::create()
 {
     // Allocate memory for class
     Class* clazz = reinterpret_cast<Class*>(::operator new(sizeof(Class)));
     
     // Call constructor
-    return new (clazz) Class(GetTypeName<T>()(), sizeof(T),
+    return *new (clazz) Class(GetTypeName<T>()(), sizeof(T),
             typeid(T), *new ConstructorImpl<T>(*clazz),
             *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
             *new AssignOperatorImpl<T>(*clazz), IsAbstract<T>::value);
@@ -213,7 +207,7 @@ Type* createClass()
  * code outside of macros.
  */
 template<class T>
-Type* createCompoundClass()
+CompoundClass& CompoundClass::create()
 {
     TypeRegister& typeReg = TypeRegister::getSingleton();
                 
@@ -235,7 +229,7 @@ Type* createCompoundClass()
     CompoundClass* clazz = reinterpret_cast<CompoundClass*>(
             ::operator new(sizeof(CompoundClass)));
     
-    return new (clazz) CompoundClass(GetTypeName<T>()(), sizeof(T),
+    return *new (clazz) CompoundClass(GetTypeName<T>()(), sizeof(T),
             typeid(T), *new ConstructorImpl<T>(*clazz),
             *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
             *new AssignOperatorImpl<T>(*clazz), IsAbstract<T>::value, *tempjate,
