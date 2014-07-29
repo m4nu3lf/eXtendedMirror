@@ -186,7 +186,7 @@ public:
     }
     
     
-    Variant getData(const RefVariant& self) const
+    Variant getData(RefVariant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
         ClassT& objRef = self.as<ClassT>();
@@ -203,7 +203,7 @@ public:
     }
     
     
-    void setData(const RefVariant& self, const Variant& data) const
+    void setData(RefVariant& self, Variant& data) const
     {
         // check whether the property is settable
         if (!setter_)
@@ -372,7 +372,7 @@ public:
     }
     
     
-    Variant getData(const RefVariant& self) const
+    Variant getData(RefVariant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
         ClassT& objRef = self.as<ClassT>();
@@ -390,7 +390,7 @@ public:
     }
     
     
-    void setData(const RefVariant& self, const Variant& data) const
+    void setData(RefVariant& self, Variant& data) const
     {
         // check whether the property is settable
         if (!setter_)
@@ -566,7 +566,7 @@ public:
     }
     
     
-    Variant getData(const RefVariant& self) const
+    Variant getData(RefVariant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
         ClassT& objRef = self.as<ClassT>();
@@ -585,7 +585,7 @@ public:
     }
     
     
-    void setData(const RefVariant& self, const Variant& data) const
+    void setData(RefVariant& self, Variant& data) const
     {
         // check whether the property is settable
         if (!setter_)
@@ -768,7 +768,7 @@ public:
     }
     
     
-    Variant getData(const RefVariant& self) const
+    Variant getData(RefVariant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
         ClassT& objRef = self.as<ClassT>();
@@ -788,7 +788,7 @@ public:
     }
     
     
-    void setData(const RefVariant& self, const Variant& data) const
+    void setData(RefVariant& self, Variant& data) const
     {
         // check whether the property is settable
         if (!setter_)

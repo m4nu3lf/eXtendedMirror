@@ -249,5 +249,5 @@ void Method::setDefaultArgs
     defaults_[4] = arg5;
     defaults_[5] = arg6;
     defaults_[6] = arg7;
-    defaults_[8] = arg7;
+    defaults_[7] = arg8;
 }

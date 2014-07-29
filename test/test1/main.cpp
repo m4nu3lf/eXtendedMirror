@@ -35,6 +35,7 @@
 #include <sstream>
 #include <typeinfo>
 #include "EXTMR/ExtendedMirror.hpp"
+#include "EXTMR/EnableStd.hpp"
 
 using namespace std;
 using namespace extmr;
@@ -111,6 +112,10 @@ public:
     {
         i++;
     }
+    void doNothingUseful(std::string& s)
+    {
+        cout << s << endl;
+    }
     CopyNotify& getSomething()
     {
         static CopyNotify copyNotify;
@@ -133,7 +138,8 @@ EXTMR_BUILD_CLASS(Dummy)
     bindProperty(EXTMR_MNP(templateInstance));
     bindProperty(EXTMR_MNP(a));
     bindMethod(EXTMR_MNP(self));
-    bindMethod(EXTMR_MNP(doNothingUseful));
+    bindMethod<Dummy, void, int&>(EXTMR_MNP(doNothingUseful));
+    bindMethod<Dummy, void, string&>(EXTMR_MNP(doNothingUseful));
     bindMethod(EXTMR_MNP(getSomething));
     bindProperty("copyCount", &Dummy::getSomething);
 }
@@ -148,7 +154,9 @@ int main(int argc, char** argv)
     Dummy& d = dummy;
     
     int i = 0;
+    RefVariant(d).call("doNothingUseful", RefVariant(i));
     getClass("Dummy").getMethod("doNothingUseful").call(d, RefVariant(i));
+    RefVariant(d).call("doNothingUseful", string("ciao"));
     getClass("ClassTemplate<int>").getProperty("val").setData(d.templateInstance, 5);
  
     cout << i << endl;

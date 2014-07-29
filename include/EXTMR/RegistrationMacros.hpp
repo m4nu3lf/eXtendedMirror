@@ -179,128 +179,6 @@ template class extmr::AutoRegisterer<_class_ >;
 
 
 /**
- * \def EXTMR_ENABLE_TEMPLATE_0(_template_)
- * 
- * Use to enable instances of template class to be registered as such.
- * 
- * Works only with two type parameters template classes.
- * After this macro, specify the body of the building function.
- */
-#define EXTMR_ENABLE_TEMPLATE_0(_template_)     \
-namespace extmr{                                                             \
-                                                                             \
-template                                                                     \
-<                                                                            \
-  typename T0                     \
->                                                                            \
-struct GetTypeName                                                           \
-<                                                                            \
-    _template_                                                               \
-    <                                                                        \
-        T0                                     \
-    >                                                                        \
->                                                                            \
-{                                                                            \
-    std::string operator()()                                                 \
-    {                                                                        \
-        std::string str = std::string(#_template_) + "<";                    \
-        str += GetTypeName<T0>()();     \
-        if (str[str.length() - 1] == '>')                                    \
-        {                                                                    \
-            str += " ";                                                      \
-        }                                                                    \
-        str += ">";                                                          \
-        return str;                                                          \
-    }                                                                        \
-};                                                                           \
-                                                                             \
-template                                                                     \
-<                                                                            \
-    typename T0                                \
->                                                                            \
-struct GetTemplateName                                                       \
-<                                                                            \
-    _template_                                                               \
-    <                                                                        \
-        T0                                     \
-    >                                                                        \
->                                                                            \
-{                                                                            \
-    std::string operator()()                                                 \
-    {                                                                        \
-        return #_template_;                                                  \
-    }                                                                        \
-};                                                                           \
-                                                                             \
-template                                                                     \
-<                                                                            \
-    typename T0                                \
->                                                                            \
-struct GetTemplateArgs                                                       \
-<                                                                            \
-    _template_                                                               \
-    <                                                                        \
-        T0                                     \
-    >                                                                        \
->                                                                            \
-{                                                                            \
-    Const_Type_Vector operator()()                                           \
-    {                                                                        \
-        Const_Type_Vector templateArgs;                                      \
-        TypeRegister& typeReg = TypeRegister::getSingleton();                \
-        templateArgs.push_back(&typeReg.registerType<T0>()); \
-        return templateArgs;                                                 \
-    }                                                                        \
-};                                                                           \
-                                                                             \
-template                                                                     \
-<                                                                            \
-    typename T0                                \
->                                                                            \
-struct BuildClass                                                            \
-<                                                                            \
-    _template_                                                               \
-    <                                                                        \
-        T0                                     \
-    >                                                                        \
->                                                                            \
-{                                                                            \
-    typedef _template_                                                       \
-    <                                                                        \
-        T0                                     \
-    > ClassT;                                                                \
-    void operator()();                                                       \
-};                                                                           \
-                                                                             \
-template                                                                     \
-<                                                                            \
-    typename T0                                \
->                                                                            \
-struct CreateType                                                            \
-<                                                                            \
-    _template_                                                               \
-    <                                                                        \
-        T0                                     \
-    >                                                                        \
->                                                                            \
-{                                                                            \
-    Type* operator()()                                                       \
-    {                                                                        \
-        return createCompoundClass                                           \
-                <                                                            \
-                    _template_                                               \
-                    <                                                        \
-                        T0                     \
-                    >                                                        \
-                >();                                                         \
-    }                                                                        \
-};                                                                           \
-                                                                             \
-} // namespace extmr
-
-
-
-/**
  * \def EXTMR_ENABLE_TEMPLATE_1(_template_)
  * 
  * Use to enable instances of template class to be registered as such.
@@ -313,7 +191,7 @@ namespace extmr{                                                             \
                                                                              \
 template                                                                     \
 <                                                                            \
-  typename T0                     \
+  typename T0                                  \
 >                                                                            \
 struct GetTypeName                                                           \
 <                                                                            \
@@ -436,7 +314,7 @@ namespace extmr{                                                             \
 template                                                                     \
 <                                                                            \
   typename T0,                                              \
-  typename T1           \                     \
+  typename T1                                  \
 >                                                                            \
 struct GetTypeName                                                           \
 <                                                                            \
@@ -500,7 +378,7 @@ struct GetTemplateArgs                                                       \
         Const_Type_Vector templateArgs;                                      \
         TypeRegister& typeReg = TypeRegister::getSingleton();                \
         templateArgs.push_back(&typeReg.registerType<T0>());\
-        templateArgs.push_back(&typeReg.registerType<T1>>()); \
+        templateArgs.push_back(&typeReg.registerType<T1>()); \
         return templateArgs;                                                 \
     }                                                                        \
 };                                                                           \
@@ -572,8 +450,8 @@ namespace extmr{                                                             \
 template                                                                     \
 <                                                                            \
   typename T0,                                              \
-  typename T1           \,                                              \
-  typename T2           \                     \
+  typename T1,                                              \
+  typename T2                                  \
 >                                                                            \
 struct GetTypeName                                                           \
 <                                                                            \
@@ -643,8 +521,8 @@ struct GetTemplateArgs                                                       \
         Const_Type_Vector templateArgs;                                      \
         TypeRegister& typeReg = TypeRegister::getSingleton();                \
         templateArgs.push_back(&typeReg.registerType<T0>());\
-        templateArgs.push_back(&typeReg.registerType<T1>>());\
-        templateArgs.push_back(&typeReg.registerType<T2>>()); \
+        templateArgs.push_back(&typeReg.registerType<T1>());\
+        templateArgs.push_back(&typeReg.registerType<T2>()); \
         return templateArgs;                                                 \
     }                                                                        \
 };                                                                           \
@@ -699,6 +577,170 @@ struct CreateType                                                            \
                         T0,                                 \
                         T1,                                 \
                         T2                     \
+                    >                                                        \
+                >();                                                         \
+    }                                                                        \
+};                                                                           \
+                                                                             \
+} // namespace extmr
+
+
+
+/**
+ * \def EXTMR_ENABLE_TEMPLATE_4(_template_)
+ * 
+ * Use to enable instances of template class to be registered as such.
+ * 
+ * Works only with two type parameters template classes.
+ * After this macro, specify the body of the building function.
+ */
+#define EXTMR_ENABLE_TEMPLATE_4(_template_)     \
+namespace extmr{                                                             \
+                                                                             \
+template                                                                     \
+<                                                                            \
+  typename T0,                                              \
+  typename T1,                                              \
+  typename T2,                                              \
+  typename T3                                  \
+>                                                                            \
+struct GetTypeName                                                           \
+<                                                                            \
+    _template_                                                               \
+    <                                                                        \
+        T0,                                                 \
+        T1,                                                 \
+        T2,                                                 \
+        T3                                     \
+    >                                                                        \
+>                                                                            \
+{                                                                            \
+    std::string operator()()                                                 \
+    {                                                                        \
+        std::string str = std::string(#_template_) + "<";                    \
+        str += GetTypeName<T0>()();                         \
+        str += ", " + GetTypeName<T1>()();                         \
+        str += ", " + GetTypeName<T2>()();                         \
+        str += ", " + GetTypeName<T3>()();     \
+        if (str[str.length() - 1] == '>')                                    \
+        {                                                                    \
+            str += " ";                                                      \
+        }                                                                    \
+        str += ">";                                                          \
+        return str;                                                          \
+    }                                                                        \
+};                                                                           \
+                                                                             \
+template                                                                     \
+<                                                                            \
+    typename T0,                                            \
+    typename T1,                                            \
+    typename T2,                                            \
+    typename T3                                \
+>                                                                            \
+struct GetTemplateName                                                       \
+<                                                                            \
+    _template_                                                               \
+    <                                                                        \
+        T0,                                                 \
+        T1,                                                 \
+        T2,                                                 \
+        T3                                     \
+    >                                                                        \
+>                                                                            \
+{                                                                            \
+    std::string operator()()                                                 \
+    {                                                                        \
+        return #_template_;                                                  \
+    }                                                                        \
+};                                                                           \
+                                                                             \
+template                                                                     \
+<                                                                            \
+    typename T0,                                            \
+    typename T1,                                            \
+    typename T2,                                            \
+    typename T3                                \
+>                                                                            \
+struct GetTemplateArgs                                                       \
+<                                                                            \
+    _template_                                                               \
+    <                                                                        \
+        T0,                                                 \
+        T1,                                                 \
+        T2,                                                 \
+        T3                                     \
+    >                                                                        \
+>                                                                            \
+{                                                                            \
+    Const_Type_Vector operator()()                                           \
+    {                                                                        \
+        Const_Type_Vector templateArgs;                                      \
+        TypeRegister& typeReg = TypeRegister::getSingleton();                \
+        templateArgs.push_back(&typeReg.registerType<T0>());\
+        templateArgs.push_back(&typeReg.registerType<T1>());\
+        templateArgs.push_back(&typeReg.registerType<T2>());\
+        templateArgs.push_back(&typeReg.registerType<T3>()); \
+        return templateArgs;                                                 \
+    }                                                                        \
+};                                                                           \
+                                                                             \
+template                                                                     \
+<                                                                            \
+    typename T0,                                            \
+    typename T1,                                            \
+    typename T2,                                            \
+    typename T3                                \
+>                                                                            \
+struct BuildClass                                                            \
+<                                                                            \
+    _template_                                                               \
+    <                                                                        \
+        T0,                                                 \
+        T1,                                                 \
+        T2,                                                 \
+        T3                                     \
+    >                                                                        \
+>                                                                            \
+{                                                                            \
+    typedef _template_                                                       \
+    <                                                                        \
+        T0,                                                 \
+        T1,                                                 \
+        T2,                                                 \
+        T3                                     \
+    > ClassT;                                                                \
+    void operator()();                                                       \
+};                                                                           \
+                                                                             \
+template                                                                     \
+<                                                                            \
+    typename T0,                                            \
+    typename T1,                                            \
+    typename T2,                                            \
+    typename T3                                \
+>                                                                            \
+struct CreateType                                                            \
+<                                                                            \
+    _template_                                                               \
+    <                                                                        \
+        T0,                                                 \
+        T1,                                                 \
+        T2,                                                 \
+        T3                                     \
+    >                                                                        \
+>                                                                            \
+{                                                                            \
+    Type* operator()()                                                       \
+    {                                                                        \
+        return createCompoundClass                                           \
+                <                                                            \
+                    _template_                                               \
+                    <                                                        \
+                        T0,                                 \
+                        T1,                                 \
+                        T2,                                 \
+                        T3                     \
                     >                                                        \
                 >();                                                         \
     }                                                                        \

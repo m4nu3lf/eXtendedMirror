@@ -222,7 +222,7 @@ Variant::operator T&() const
     // check for type compatibility
     if (targetType == *type_)
     {
-        if (sizeof(T) > sizeof(data_))
+        if ((flags_ & Reference) || (sizeof(T) > sizeof(data_)))
             // just reinterpret pointer
             return *reinterpret_cast<T*>(data_);
         else

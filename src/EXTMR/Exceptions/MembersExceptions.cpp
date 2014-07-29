@@ -42,7 +42,7 @@ MemberException::MemberException(const Type& type,
 {
     if (adjective_.length() > 0)
     {
-        switch (article_[0])
+        switch (adjective_[0])
         {
             case 'a':
             case 'e':
@@ -67,10 +67,10 @@ MemberException::~MemberException() throw()
     
 }
 
-#define _EXTMR_IMPLEMENT_MEMBER_EXCEPTION(_name_, _verb_, _adjective)          \
+#define _EXTMR_IMPLEMENT_MEMBER_EXCEPTION(_name_, _verb_, _adjective_)         \
                                                                                \
 Non##_name_##Exception::Non##_name_##Exception(const Type& type) throw()       \
-        : MemberException(type, "#_verb", "#adjective")                        \
+        : MemberException(type, #_verb_, #_adjective_)                         \
 {}                                                                             \
                                                                                \
 Non##_name_##Exception::~Non##_name_##Exception() throw()                      \

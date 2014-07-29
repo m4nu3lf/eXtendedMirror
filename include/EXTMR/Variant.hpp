@@ -206,6 +206,43 @@ public:
     //TODO: add support for all others operators
     
     /**
+     * Call a method, if the variant is a class instance
+     * 
+     * @param methodName Method name.
+     * @param arg1 Argument 1.
+     * @param arg2 Argument 2.
+     * @param arg3 Argument 3.
+     * @param arg4 Argument 4.
+     * @param arg5 Argument 5.
+     * @param arg6 Argument 6.
+     * @param arg7 Argument 7.
+     * @param arg8 Argument 8.
+     * @return A Variant containing the return value.
+     */
+    Variant call
+    (
+        const std::string& methodName,
+        const Variant& arg1 = Variant::Null,
+        const Variant& arg2 = Variant::Null,
+        const Variant& arg3 = Variant::Null,
+        const Variant& arg4 = Variant::Null,
+        const Variant& arg5 = Variant::Null,
+        const Variant& arg6 = Variant::Null,
+        const Variant& arg7 = Variant::Null,
+        const Variant& arg8 = Variant::Null
+    ) const;
+    
+    /**
+     * Call a method, if the variant is a class instance
+     * 
+     * @param methodName Method name.
+     * @param args A vector containing the arguments of the method.
+     * @return A Variant containing the return value.
+     */
+    Variant callV(const std::string& methodName, std::vector<Variant> args)
+    const;
+    
+    /**
      * Destructor. The data is deallocated calling the destructor.
      */
     virtual ~Variant();

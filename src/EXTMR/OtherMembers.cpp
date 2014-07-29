@@ -102,5 +102,5 @@ void DereferenceOperator::dereference(const Variant& lvar,
         const Variant& rvar) const
 {
     if (owner_)
-        throw NonAddressableException(*owner_);
+        throw NonDereferenceableException(*owner_);
 }

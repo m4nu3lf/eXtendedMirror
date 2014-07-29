@@ -178,7 +178,7 @@ template class extmr::AutoRegisterer<_class_ >;
 #define EXTMR_TEMPLATE_PARAM_MAX """ + str(EXTMR_TEMPLATE_PARAM_MAX) + """
 """
 
-for n_temp_params in range(EXTMR_TEMPLATE_PARAM_MAX):
+for n_temp_params in range(1, EXTMR_TEMPLATE_PARAM_MAX + 1):
     content += """
 
 /**
@@ -195,7 +195,7 @@ namespace extmr{                                                             \\
 template                                                                     \\
 <                                                                            \\
   typename T0""" + gen_seq(""",                                              \\
-  typename T$           \\""", (1, n_temp_params)) + """                     \\
+  typename T$""", (1, n_temp_params)) + """                                  \\
 >                                                                            \\
 struct GetTypeName                                                           \\
 <                                                                            \\
@@ -259,7 +259,7 @@ struct GetTemplateArgs                                                       \\
         Const_Type_Vector templateArgs;                                      \\
         TypeRegister& typeReg = TypeRegister::getSingleton();                \\
         templateArgs.push_back(&typeReg.registerType<T0>());""" + gen_seq("""\\
-        templateArgs.push_back(&typeReg.registerType<T$>>());""", \
+        templateArgs.push_back(&typeReg.registerType<T$>());""", \
         (1, n_temp_params)) + """ \\
         return templateArgs;                                                 \\
     }                                                                        \\
