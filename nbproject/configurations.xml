@@ -7,10 +7,7 @@
       <logicalFolder name="include" displayName="include" projectFiles="true">
         <logicalFolder name="EXTMR" displayName="EXTMR" projectFiles="true">
           <logicalFolder name="Exceptions" displayName="Exceptions" projectFiles="true">
-            <itemPath>include/EXTMR/Exceptions/NonAssignableException.hpp</itemPath>
-            <itemPath>include/EXTMR/Exceptions/NonCopyableException.hpp</itemPath>
-            <itemPath>include/EXTMR/Exceptions/NonDestructibleException.hpp</itemPath>
-            <itemPath>include/EXTMR/Exceptions/NonInstantiableException.hpp</itemPath>
+            <itemPath>include/EXTMR/Exceptions/MembersExceptions.hpp</itemPath>
             <itemPath>include/EXTMR/Exceptions/NotFoundExceptions.hpp</itemPath>
             <itemPath>include/EXTMR/Exceptions/PropertyRangeException.hpp</itemPath>
             <itemPath>include/EXTMR/Exceptions/PropertySetException.hpp</itemPath>
@@ -70,10 +67,7 @@
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="EXTMR" displayName="EXTMR" projectFiles="true">
           <logicalFolder name="Exceptions" displayName="Exceptions" projectFiles="true">
-            <itemPath>src/EXTMR/Exceptions/NonAssignableException.cpp</itemPath>
-            <itemPath>src/EXTMR/Exceptions/NonCopyableException.cpp</itemPath>
-            <itemPath>src/EXTMR/Exceptions/NonDestructibleException.cpp</itemPath>
-            <itemPath>src/EXTMR/Exceptions/NonInstantiableException.cpp</itemPath>
+            <itemPath>src/EXTMR/Exceptions/MembersExceptions.cpp</itemPath>
             <itemPath>src/EXTMR/Exceptions/NotFoundExceptions.cpp</itemPath>
             <itemPath>src/EXTMR/Exceptions/PropertyRangeException.cpp</itemPath>
             <itemPath>src/EXTMR/Exceptions/PropertySetException.cpp</itemPath>
@@ -127,6 +121,7 @@
           <incDir>
             <pElem>include</pElem>
           </incDir>
+          <commandLine>-std=c++11</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -143,22 +138,7 @@
       </item>
       <item path="include/EXTMR/EnableStd.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/NonAssignableException.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Exceptions/NonCopyableException.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Exceptions/NonDestructibleException.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Exceptions/NonInstantiableException.hpp"
+      <item path="include/EXTMR/Exceptions/MembersExceptions.hpp"
             ex="false"
             tool="3"
             flavor2="0">
@@ -273,22 +253,7 @@
       </item>
       <item path="src/EXTMR/CompoundClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/NonAssignableException.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/EXTMR/Exceptions/NonCopyableException.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/EXTMR/Exceptions/NonDestructibleException.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/EXTMR/Exceptions/NonInstantiableException.cpp"
+      <item path="src/EXTMR/Exceptions/MembersExceptions.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -377,22 +342,7 @@
       </item>
       <item path="include/EXTMR/EnableStd.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/NonAssignableException.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Exceptions/NonCopyableException.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Exceptions/NonDestructibleException.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Exceptions/NonInstantiableException.hpp"
+      <item path="include/EXTMR/Exceptions/MembersExceptions.hpp"
             ex="false"
             tool="3"
             flavor2="0">
@@ -507,22 +457,7 @@
       </item>
       <item path="src/EXTMR/CompoundClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/NonAssignableException.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/EXTMR/Exceptions/NonCopyableException.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/EXTMR/Exceptions/NonDestructibleException.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/EXTMR/Exceptions/NonInstantiableException.cpp"
+      <item path="src/EXTMR/Exceptions/MembersExceptions.cpp"
             ex="false"
             tool="1"
             flavor2="0">

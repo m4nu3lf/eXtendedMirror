@@ -39,6 +39,7 @@
           <incDir>
             <pElem>../../include</pElem>
           </incDir>
+          <commandLine>-std=c++11</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>

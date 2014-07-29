@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: NonAssignableException.hpp                           *
+ *      Extended Mirror: NonInstantiableException.cpp                         *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,27 +30,56 @@
  *****************************************************************************/
 
 
-#ifndef EXTMR_NONASSIGNABLEEXCEPTION_HPP
-#define	EXTMR_NONASSIGNABLEEXCEPTION_HPP
+#include <EXTMR/ExtendedMirror.hpp>
+#include <EXTMR/Exceptions/MembersExceptions.hpp>
 
-namespace extmr {
+using namespace extmr;
 
-    
-class NonAssignableException : public std::exception
+
+MemberException::MemberException(const Type& type,
+        const std::string& verb, const std::string& adjective) throw()
+        : type_(&type), verb_(verb), article_("a"), adjective_(adjective)
 {
-public:
-    NonAssignableException(const Type& type) throw();
+    if (adjective_.length() > 0)
+    {
+        switch (article_[0])
+        {
+            case 'a':
+            case 'e':
+            case 'i':
+            case 'o':
+            case 'u':
+                article_ += "n";
+        }
+    }
+}
+
+
+const char* MemberException::what() const throw()
+{
+    return ("Trying to " + verb_ + " object of type\"" + type_->getName()
+        + "\" that is not " + article_ + " " + adjective_ + " type").c_str();
+}
+
+
+MemberException::~MemberException() throw()
+{
     
-    const char* what() const throw();
-    
-    virtual ~NonAssignableException() throw();
-    
-private:
-    const Type* type_;
-};
+}
 
+#define _EXTMR_IMPLEMENT_MEMBER_EXCEPTION(_name_, _verb_, _adjective)          \
+                                                                               \
+Non##_name_##Exception::Non##_name_##Exception(const Type& type) throw()       \
+        : MemberException(type, "#_verb", "#adjective")                        \
+{}                                                                             \
+                                                                               \
+Non##_name_##Exception::~Non##_name_##Exception() throw()                      \
+{}
 
-} // namespace extmr
-
-#endif	/* EXTMR_NONASSIGNABLEEXCEPTION_HPP */
-
+_EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Instantiable, instantiate, instantiable)
+_EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Copyable, copy, copyable)
+_EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Moveable, move, moveable)
+_EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Destructible, destroy, destructible)
+_EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Assignable, assign, assignable)
+_EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Addressable, take address of, addressable)
+_EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Dereferenceable, dereference, dereferenceable)

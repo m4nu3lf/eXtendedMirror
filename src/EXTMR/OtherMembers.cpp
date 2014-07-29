@@ -31,10 +31,7 @@
 
 #include <EXTMR/ExtendedMirror.hpp>
 #include <EXTMR/Exceptions/NotFoundExceptions.hpp>
-#include <EXTMR/Exceptions/NonInstantiableException.hpp>
-#include <EXTMR/Exceptions/NonCopyableException.hpp>
-#include <EXTMR/Exceptions/NonAssignableException.hpp>
-#include <EXTMR/Exceptions/NonDestructibleException.hpp>
+#include <EXTMR/Exceptions/MembersExceptions.hpp>
 
 using namespace extmr;
 
@@ -58,6 +55,16 @@ void CopyConstructor::copy(const Variant& copy, const Variant& orig) const
 }
 
 
+MoveConstructor::MoveConstructor(const Class& owner) : Member(owner){};
+
+
+void MoveConstructor::move(const Variant& dest, const Variant& orig) const
+{
+    if (owner_)
+        throw NonMoveableException(*owner_);
+}
+
+
 Destructor::Destructor(const Class& owner) : Member(owner){};
 
 
@@ -75,4 +82,25 @@ void AssignOperator::assign(const Variant& lvar, const Variant& rvar) const
 {
     if (owner_)
         throw NonAssignableException(*owner_);
+}
+
+AddressOfOperator::AddressOfOperator(const Class& owner) : Member(owner){};
+
+
+void AddressOfOperator::addressOf(const Variant& lvar,
+        const Variant& rvar) const
+{
+    if (owner_)
+        throw NonAddressableException(*owner_);
+}
+
+
+DereferenceOperator::DereferenceOperator(const Class& owner) : Member(owner){};
+
+
+void DereferenceOperator::dereference(const Variant& lvar,
+        const Variant& rvar) const
+{
+    if (owner_)
+        throw NonAddressableException(*owner_);
 }

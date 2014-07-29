@@ -76,6 +76,26 @@ public:
 };
 
 
+class MoveConstructor : public Member
+{
+public:
+    MoveConstructor(const Class& owner);
+    virtual void move(const Variant& copy, const Variant& orig) const;
+};
+
+
+template<class C>
+class MoveConstructorImpl : public MoveConstructor
+{
+public:
+    MoveConstructorImpl(const Class& owner) : MoveConstructor(owner) {};
+    void move(const Variant& dest, const Variant& orig) const
+    {
+        new (&dest.as<C>()) C(std::move(orig.as<C>()));
+    }
+};
+
+
 class Destructor : Member
 {
 public:
@@ -112,6 +132,44 @@ public:
     void assign(const Variant& lvar, const Variant& rvar) const
     {
         lvar.as<C>() = rvar.as<C>();
+    }
+};
+
+class AddressOfOperator : public Member
+{
+public:
+    AddressOfOperator(const Class& owner);
+    virtual void addressOf(const Variant& lvar, const Variant& rvar) const;
+};
+
+
+template<typename C>
+class AddressOfOperatorImpl : public AddressOfOperator
+{
+public:
+    AddressOfOperatorImpl(const Class& owner) : AddressOfOperator(owner) {}
+    void addressOf(const Variant& lvar, const Variant& rvar) const
+    {
+        lvar.as<C*>() = &rvar.as<C>();
+    }
+};
+
+class DereferenceOperator : public Member
+{
+public:
+    DereferenceOperator(const Class& owner);
+    virtual void dereference(const Variant& lvar, const Variant& rvar) const;
+};
+
+
+template<typename C>
+class DereferenceOperatorImpl : public DereferenceOperator
+{
+public:
+    DereferenceOperatorImpl(const Class& owner) : DereferenceOperator(owner) {}
+    void dereference(const Variant& lvar, const Variant& rvar) const
+    {
+        lvar.as<C>() = *rvar.as<C*>();
     }
 };
 

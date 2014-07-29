@@ -35,8 +35,7 @@
 
 #include <EXTMR/Exceptions/VariantTypeException.hpp>
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
-#include <EXTMR/Exceptions/NonCopyableException.hpp>
-#include <EXTMR/Exceptions/NonAssignableException.hpp>
+#include <EXTMR/Exceptions/MembersExceptions.hpp>
 #include <EXTMR/Variant.hpp>
 
 #include <cstring>

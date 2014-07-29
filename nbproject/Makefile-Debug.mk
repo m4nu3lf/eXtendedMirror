@@ -38,10 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/ArrayType.o \
 	${OBJECTDIR}/src/EXTMR/Class.o \
 	${OBJECTDIR}/src/EXTMR/CompoundClass.o \
-	${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o \
-	${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o \
-	${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o \
-	${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o \
+	${OBJECTDIR}/src/EXTMR/Exceptions/MembersExceptions.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertyRangeException.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o \
@@ -65,8 +62,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-std=c++11
+CXXFLAGS=-std=c++11
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -102,25 +99,10 @@ ${OBJECTDIR}/src/EXTMR/CompoundClass.o: src/EXTMR/CompoundClass.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/CompoundClass.o src/EXTMR/CompoundClass.cpp
 
-${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o: src/EXTMR/Exceptions/NonAssignableException.cpp 
+${OBJECTDIR}/src/EXTMR/Exceptions/MembersExceptions.o: src/EXTMR/Exceptions/MembersExceptions.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonAssignableException.o src/EXTMR/Exceptions/NonAssignableException.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o: src/EXTMR/Exceptions/NonCopyableException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonCopyableException.o src/EXTMR/Exceptions/NonCopyableException.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o: src/EXTMR/Exceptions/NonDestructibleException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonDestructibleException.o src/EXTMR/Exceptions/NonDestructibleException.cpp
-
-${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o: src/EXTMR/Exceptions/NonInstantiableException.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/NonInstantiableException.o src/EXTMR/Exceptions/NonInstantiableException.cpp
+	$(COMPILE.cc) -g -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/MembersExceptions.o src/EXTMR/Exceptions/MembersExceptions.cpp
 
 ${OBJECTDIR}/src/EXTMR/Exceptions/NotFoundExceptions.o: src/EXTMR/Exceptions/NotFoundExceptions.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions

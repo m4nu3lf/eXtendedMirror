@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: NonInstantiableException.cpp                         *
+ *      Extended Mirror: NonAssignableException.hpp                           *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,28 +30,53 @@
  *****************************************************************************/
 
 
-#include <EXTMR/ExtendedMirror.hpp>
-#include <EXTMR/Exceptions/NonInstantiableException.hpp>
+#ifndef EXTMR_MEMBERSEXCEPTIONS_HPP
+#define	EXTMR_MEMBERSEXCEPTIONS_HPP
 
-using namespace extmr;
+namespace extmr {
 
 
-NonInstantiableException::NonInstantiableException(const Type& type) throw()
-        : type_(&type)
+class MemberException : public std::exception
 {
+public:
+    MemberException(const Type& type, const std::string& verb,
+            const std::string& adjective) throw();
     
-}
-
-
-const char* NonInstantiableException::what() const throw()
-{
-    return ("Trying to instantiate \"" + type_->getName() +
-            "\" that is not an instantiable type").c_str();
-}
-
-
-NonInstantiableException::~NonInstantiableException() throw()
-{
+    const char* what() const throw();
     
-}
+    virtual ~MemberException() throw();
+
+private:
+    const Type* type_;
+    
+    std::string verb_;
+    std::string article_;
+    std::string adjective_;
+    
+};
+
+#define _EXTMR_DECLARE_MEMBER_EXCEPTION(_name_)                                \
+                                                                               \
+class Non##_name_##Exception : public MemberException                          \
+{                                                                              \
+public:                                                                        \
+    Non##_name_##Exception(const Type& type) throw();                          \
+                                                                               \
+    virtual ~Non##_name_##Exception() throw();                                 \
+                                                                               \
+};
+
+
+_EXTMR_DECLARE_MEMBER_EXCEPTION(Instantiable)
+_EXTMR_DECLARE_MEMBER_EXCEPTION(Copyable)
+_EXTMR_DECLARE_MEMBER_EXCEPTION(Moveable)
+_EXTMR_DECLARE_MEMBER_EXCEPTION(Destructible)
+_EXTMR_DECLARE_MEMBER_EXCEPTION(Assignable)
+_EXTMR_DECLARE_MEMBER_EXCEPTION(Addressable)
+_EXTMR_DECLARE_MEMBER_EXCEPTION(Dereferenceable)
+
+
+} // namespace extmr
+
+#endif	/* EXTMR_MEMBERSEXCEPTIONS_HPP */
 
