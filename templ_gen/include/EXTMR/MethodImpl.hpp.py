@@ -108,8 +108,8 @@ public: """ + ("""
     
     Variant callImpl
     (
-        const RefVariant& self""" + gen_seq(""",
-        const Variant& arg$""", EXTMR_METHOD_PARAM_MAX) + """
+        RefVariant& self""" + gen_seq(""",
+        Variant& arg$""", EXTMR_METHOD_PARAM_MAX) + """
         
     ) const
     {

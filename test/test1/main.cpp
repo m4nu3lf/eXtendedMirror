@@ -159,7 +159,7 @@ int main(int argc, char** argv)
     getClass("Dummy").getMethod("getSomething").call(d);
     
     d.a[2][2] = 50;
-    cout << getClass("Dummy").getProperty("a").getData(d).as<void*>() << endl;
+    cout << getClass("Dummy").getProperty("a").getData(d).as<int(*)[10]>() << endl;
     cout << getClass("Base").isAbstract() << endl;
 }
 

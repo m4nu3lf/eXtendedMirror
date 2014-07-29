@@ -41,6 +41,8 @@
 
 #include <cstring>
 
+#include "Type.hpp"
+
 
 namespace extmr{
     
@@ -92,33 +94,47 @@ void Variant::Initialize<T>::operator()(T& data)
 
     if (variant_.flags_ & Reference)
     {
-        // store pointer to the data
+        // store pointer to data
         variant_.data_ = &data;
     }
     else
     {
-        // allocate memory TODO: allow custom allocator
-        variant_.data_ = ::operator new(sizeof(data));
-        const Class* clazz = dynamic_cast<const Class*>(variant_.type_);
+        void* destPtr;
+
+        if (sizeof(data) > sizeof(variant_.data_))
+        {
+            // allocate memory TODO: allow custom allocator
+            variant_.data_ = ::operator new(sizeof(data));
+            
+            destPtr = variant_.data_;
+        }
+        else
+        {
+            destPtr = reinterpret_cast<void*>(&variant_.data_);
+        }
+            
         
+        const Class* clazz = dynamic_cast<const Class*>(variant_.type_);
+
         if (clazz)
         {
-            // copy data trough copy constructor
+            // copy data through copy constructor
             try
             {
                 clazz->getCopyConstructor().copy(variant_, RefVariant(data));
             }
             catch(NonCopyableException& e)
             {
-                // deallocate memory if cannot copy
-                ::operator delete(variant_.data_);
+                if (sizeof(data) > sizeof(variant_.data_))
+                    // deallocate memory if cannot copy
+                    ::operator delete(variant_.data_);
                 throw e;
             }
         }
         else
         {
             // copy raw data
-            std::memcpy(variant_.data_, &data, sizeof(data));
+            std::memcpy(destPtr, &data, sizeof(data));
         }
     }
 
@@ -207,8 +223,11 @@ Variant::operator T&() const
     // check for type compatibility
     if (targetType == *type_)
     {
-        // just reinterpret pointer
-        return *reinterpret_cast<T*>(data_);
+        if (sizeof(T) > sizeof(data_))
+            // just reinterpret pointer
+            return *reinterpret_cast<T*>(data_);
+        else
+            return const_cast<T&>(reinterpret_cast<const T&>(data_));
     }
     else
     {

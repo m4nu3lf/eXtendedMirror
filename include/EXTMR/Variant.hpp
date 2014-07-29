@@ -161,7 +161,7 @@ public:
     operator T&() const;
     
     /**
-     * This is just a shortcut to static_cast<T>(*this)
+     * Shortcut to static_cast<T>(*this)
      * 
      * @return The variant data.
      */
@@ -213,7 +213,7 @@ public:
     static const Variant Null;
     
 protected:
-    // Pointer the data.
+    // Pointer the data / data
     void* data_;
     
     // Pointer to the Type of data.

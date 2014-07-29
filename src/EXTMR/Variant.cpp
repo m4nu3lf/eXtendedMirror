@@ -157,8 +157,11 @@ Variant::~Variant()
             clazz->getDestructor().destroy(*this);
         }
         
-        //TODO: allow custom allocator
-        ::operator delete(data_);
+        if (type_->getSize() > sizeof(data_))
+        {
+            //TODO: allow custom allocator
+            ::operator delete(data_);
+        }
     }
 }
 

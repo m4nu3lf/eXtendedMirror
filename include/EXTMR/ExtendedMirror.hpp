@@ -39,15 +39,6 @@
 #include <map>
 #include <vector>
 
-/**
- * This function returns a function pointer to the callback function
- * to call on type registration. This function is used to retrieve the call
- * back function on the TypeRegister singleton instantiation.
- * 
- * @return The callback function
- */
-
-
 #include <EXTMR/Utils/Utils.hpp>
 
 namespace extmr {
