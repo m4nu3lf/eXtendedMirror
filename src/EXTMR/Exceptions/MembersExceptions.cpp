@@ -78,7 +78,6 @@ Non##_name_##Exception::~Non##_name_##Exception() throw()                      \
 
 _EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Instantiable, instantiate, instantiable)
 _EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Copyable, copy, copyable)
-_EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Moveable, move, moveable)
 _EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Destructible, destroy, destructible)
 _EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Assignable, assign, assignable)
 _EXTMR_IMPLEMENT_MEMBER_EXCEPTION(Addressable, take address of, addressable)

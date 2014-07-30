@@ -55,16 +55,6 @@ void CopyConstructor::copy(const Variant& copy, const Variant& orig) const
 }
 
 
-MoveConstructor::MoveConstructor(const Class& owner) : Member(owner){};
-
-
-void MoveConstructor::move(const Variant& dest, const Variant& orig) const
-{
-    if (owner_)
-        throw NonMoveableException(*owner_);
-}
-
-
 Destructor::Destructor(const Class& owner) : Member(owner){};
 
 

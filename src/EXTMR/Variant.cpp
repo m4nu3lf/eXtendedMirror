@@ -101,6 +101,14 @@ Variant::Variant(const Variant& orig) : flags_(0)
 }
 
 
+Variant::Variant(Variant&& orig)
+{
+    std::swap(data_, orig.data_);
+    std::swap(flags_, orig.flags_);
+    std::swap(type_, orig.type_);
+}
+
+
 const Variant& Variant::operator=(const Variant& other)
 {
     if (flags_ | Reference)

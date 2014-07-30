@@ -176,6 +176,13 @@ public:
     Variant(const Variant& orig);
     
     /**
+     * Move constructor. The data of the variants is swapped.
+     * 
+     * @param orig The variant to move.
+     */
+    Variant(Variant&& orig);
+    
+    /**
      * Operator for assignment.
      * The data is copied through the type assign operator.
      * If the data of the lvalue variant has not yet been allocated is then

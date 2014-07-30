@@ -69,7 +69,6 @@ public:                                                                        \
 
 _EXTMR_DECLARE_MEMBER_EXCEPTION(Instantiable)
 _EXTMR_DECLARE_MEMBER_EXCEPTION(Copyable)
-_EXTMR_DECLARE_MEMBER_EXCEPTION(Moveable)
 _EXTMR_DECLARE_MEMBER_EXCEPTION(Destructible)
 _EXTMR_DECLARE_MEMBER_EXCEPTION(Assignable)
 _EXTMR_DECLARE_MEMBER_EXCEPTION(Addressable)

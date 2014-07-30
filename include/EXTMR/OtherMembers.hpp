@@ -76,26 +76,6 @@ public:
 };
 
 
-class MoveConstructor : public Member
-{
-public:
-    MoveConstructor(const Class& owner);
-    virtual void move(const Variant& copy, const Variant& orig) const;
-};
-
-
-template<class C>
-class MoveConstructorImpl : public MoveConstructor
-{
-public:
-    MoveConstructorImpl(const Class& owner) : MoveConstructor(owner) {};
-    void move(const Variant& dest, const Variant& orig) const
-    {
-        new (&dest.as<C>()) C(std::move(orig.as<C>()));
-    }
-};
-
-
 class Destructor : Member
 {
 public:
