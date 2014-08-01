@@ -100,11 +100,11 @@ Property::SetMode Property::getSetMode()
 }
 
 
-Variant Property::getData(const RefVariant& self) const
+Variant Property::getData(const Variant& self) const
 {
     return Variant::Null;
 };
 
 
-void Property::setData(const RefVariant& self, const Variant& data) const
+void Property::setData(const Variant& self, const Variant& data) const
 {};

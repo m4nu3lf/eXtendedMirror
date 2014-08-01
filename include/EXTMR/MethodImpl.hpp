@@ -37,7 +37,6 @@
 
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 
-
 namespace extmr{
 
 
@@ -64,6 +63,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
     }
 
     
@@ -87,26 +87,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (
         );
         return Variant(const_cast<NqRetT&>(returnValue),
@@ -148,6 +146,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
     }
 
     
@@ -164,26 +163,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (
         );
         return Variant::Null;
@@ -227,6 +224,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
     }
 
@@ -251,26 +249,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>()
         );
@@ -319,6 +315,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
     }
 
@@ -336,26 +333,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>()
         );
@@ -405,6 +400,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
     }
@@ -430,26 +426,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>()
@@ -505,6 +499,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
     }
@@ -523,26 +518,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>()
@@ -598,6 +591,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -624,26 +618,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -706,6 +698,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -725,26 +718,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -806,6 +797,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -833,26 +825,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -922,6 +912,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -942,26 +933,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -1029,6 +1018,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -1057,26 +1047,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -1153,6 +1141,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -1174,26 +1163,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -1267,6 +1254,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -1296,26 +1284,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -1399,6 +1385,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -1421,26 +1408,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -1520,6 +1505,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -1550,26 +1536,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -1660,6 +1644,7 @@ public:
         method_(method),
         constant_(constant)
     {
+        addParameter(*new Parameter(getType<ClassT>())); 
         addParameter(*new Parameter(getType<ParamT0>()));
         addParameter(*new Parameter(getType<ParamT1>()));
         addParameter(*new Parameter(getType<ParamT2>()));
@@ -1683,26 +1668,24 @@ public:
     
     
     Variant callImpl
-    (
-        const RefVariant& self,
+    (   
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
         const Variant& arg3,
         const Variant& arg4,
         const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg6
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (
             arg0.as<NqParamT0>(),
             arg1.as<NqParamT1>(),
@@ -1726,285 +1709,6 @@ private:
         ParamT4,
         ParamT5,
         ParamT6
-    );
-
-    /// Whether the method is constant.
-    bool constant_;
-};
-
-
-template
-<
-    class ClassT,
-    typename RetT,
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4,
-    typename ParamT5,
-    typename ParamT6,
-    typename ParamT7
->
-class MethodImpl_8_Params  : public Method
-{
-public: 
-    /// type of the return value without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
-        NqRetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
-        NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
-        NqParamT6;
-    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
-        NqParamT7;
-    
-    MethodImpl_8_Params(const std::string& name,
-        RetT (ClassT::*method)
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5,
-            ParamT6,
-            ParamT7
-        ),
-        bool constant = false) :
-        Method(getClass<ClassT>(), name),
-        method_(method),
-        constant_(constant)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-        addParameter(*new Parameter(getType<ParamT5>()));
-        addParameter(*new Parameter(getType<ParamT6>()));
-        addParameter(*new Parameter(getType<ParamT7>()));
-    }
-
-    
-    Method::ReturnMode getReturnMode() const
-    {
-        if (IsReference<RetT>::value)
-        {
-            if (IsConst<RetT>::value)
-                return ConstReference;
-            else
-                return Reference;
-        }
-        else
-            return Value;
-    }
-    
-    bool isConst() const
-    {
-        return constant_;
-    }
-    
-    
-    Variant callImpl
-    (
-        const RefVariant& self,
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        ClassT& objRef = self.as<ClassT>();
-        
-        // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
-        
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>(),
-            arg5.as<NqParamT5>(),
-            arg6.as<NqParamT6>(),
-            arg7.as<NqParamT7>()
-        );
-        return Variant(const_cast<NqRetT&>(returnValue),
-                ReturnVariantFlags<RetT>::flags);
-        
-    }
-
-private:
-    RetT (ClassT::*method_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4,
-        ParamT5,
-        ParamT6,
-        ParamT7
-    );
-
-    /// Whether the method is constant.
-    bool constant_;
-};
-
-
-template
-<
-    class ClassT,
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4,
-    typename ParamT5,
-    typename ParamT6,
-    typename ParamT7
->
-class MethodImpl_8_Params
-<
-    ClassT,
-    void,
-    ParamT0,
-    ParamT1,
-    ParamT2,
-    ParamT3,
-    ParamT4,
-    ParamT5,
-    ParamT6,
-    ParamT7
->  : public Method
-{
-public: 
-        typedef void RetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
-        NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
-        NqParamT6;
-    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
-        NqParamT7;
-    
-    MethodImpl_8_Params(const std::string& name,
-        RetT (ClassT::*method)
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5,
-            ParamT6,
-            ParamT7
-        ),
-        bool constant = false) :
-        Method(getClass<ClassT>(), name),
-        method_(method),
-        constant_(constant)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-        addParameter(*new Parameter(getType<ParamT5>()));
-        addParameter(*new Parameter(getType<ParamT6>()));
-        addParameter(*new Parameter(getType<ParamT7>()));
-    }
-
-    
-    Method::ReturnMode getReturnMode() const
-    {
-        return None;
-    }
-    
-    
-    bool isConst() const
-    {
-        return constant_;
-    }
-    
-    
-    Variant callImpl
-    (
-        const RefVariant& self,
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        ClassT& objRef = self.as<ClassT>();
-        
-        // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
-        
-        (self.as<ClassT>().*method_)
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>(),
-            arg5.as<NqParamT5>(),
-            arg6.as<NqParamT6>(),
-            arg7.as<NqParamT7>()
-        );
-        return Variant::Null;
-        
-    }
-
-private:
-    RetT (ClassT::*method_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4,
-        ParamT5,
-        ParamT6,
-        ParamT7
     );
 
     /// Whether the method is constant.

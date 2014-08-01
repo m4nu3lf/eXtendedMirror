@@ -37,13 +37,13 @@ content ="""
 
 
 #define EXTMR_METHOD_PARAM_MAX """ + \
-str(EXTMR_METHOD_PARAM_MAX) + """
+str(EXTMR_FUNCTION_PARAM_MAX-1) + """
 
 
 namespace extmr{
 
 """
-for n_params in range(EXTMR_METHOD_PARAM_MAX + 1):
+for n_params in range(EXTMR_FUNCTION_PARAM_MAX):
     for is_const in range(2):
         content += """
 
@@ -100,4 +100,3 @@ content += """
 } // namespace extmr
 
 #endif	/* EXTMR_BINDMETHOD_HPP */"""
-

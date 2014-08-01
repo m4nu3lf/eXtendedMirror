@@ -37,11 +37,10 @@ content = """
 
 #include <EXTMR/Exceptions/VariantCostnessException.hpp>
 
-
 namespace extmr{
 
 """
-for n_params in range(EXTMR_METHOD_PARAM_MAX + 1):
+for n_params in range(EXTMR_FUNCTION_PARAM_MAX):
     for ret_t_void in range(2):
         content += """
 template
@@ -77,7 +76,8 @@ public: """ + ("""
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
-    {""" + gen_seq("""
+    {
+        addParameter(*new Parameter(getType<ClassT>())); """ + gen_seq("""
         addParameter(*new Parameter(getType<ParamT$>()));""", n_params) + """
     }
 
@@ -107,26 +107,25 @@ public: """ + ("""
     
     
     Variant callImpl
-    (
-        const RefVariant& self""" + gen_seq(""",
-        const Variant& arg$""", EXTMR_METHOD_PARAM_MAX) + """
+    (   """ + gen_seq("""
+        const Variant& arg$""", EXTMR_FUNCTION_PARAM_MAX - 1, ",") + """
         
     ) const
     {
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = arg0.as<ClassT>();
         
         // cannot call a non constant method of a constant instance
-        if (self.isConst() && !constant_)
-            throw VariantCostnessException(self.getType());
+        if (arg0.isConst() && !constant_)
+            throw VariantCostnessException(arg0.getType());
         """ + (("""
-        const NqRetT& returnValue = (self.as<ClassT>().*method_)
+        const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (""" + gen_seq("""
             arg$.as<NqParamT$>()""", n_params, ",") + """
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
         """) if not ret_t_void else """
-        (self.as<ClassT>().*method_)
+        (arg0.as<ClassT>().*method_)
         (""" + gen_seq("""
             arg$.as<NqParamT$>()""", n_params, ",") + """
         );

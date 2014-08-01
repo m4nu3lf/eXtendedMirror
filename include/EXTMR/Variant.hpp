@@ -42,16 +42,7 @@ namespace extmr{
 class Type;
 class RefVariant;
 
-/**
- * This class can store data from each type that is registrable or already
- * registered within the type register.
- * For store we mean that data can be both copied and stored or just referenced. 
- * In the second case is up to the programmer to ensure the data will remain
- * valid and to deallocate this data after the variant object is destroyed.
- * The copy construct has in any case the effect to copy the content of the
- * variant so that changes on the data of the newly created variant never affect
- * the original variant.
- */
+
 class Variant
 {
 public:
@@ -65,9 +56,6 @@ public:
         
         // Variant holds constant data
         Const = 2,
-
-        // Variant data is a pointer to a constant.
-        Ptr2Const = 4,
         
         // Variant get copied by ref.
         CpyByRef = 8
@@ -129,14 +117,6 @@ public:
     bool isConst() const;
     
     /**
-     * Ask if this variant holds a pointer to constant data.
-     * 
-     * @return true if the variant holds a pointer to constant data,
-     * false otherwise.
-     */
-    bool isPointerToConst() const;
-    
-    /**
      * Set the variant data to be constant, after a variant has been marked as
      * constant, the constness cannot be removed anymore.
      */
@@ -158,7 +138,7 @@ public:
      * @return The variant data.
      */
     template<typename T>
-    operator T&() const;
+    operator T&();
     
     /**
      * Shortcut to static_cast<T>(*this)
@@ -166,7 +146,7 @@ public:
      * @return The variant data.
      */
     template<typename T>
-    T& as() const;
+    T& as();
     
     /**
      * Copy constructor. The data is copied through the copy constructor.
@@ -216,28 +196,26 @@ public:
      * Call a method, if the variant is a class instance
      * 
      * @param methodName Method name.
+     * @param arg0 Argument 0.
      * @param arg1 Argument 1.
      * @param arg2 Argument 2.
      * @param arg3 Argument 3.
      * @param arg4 Argument 4.
      * @param arg5 Argument 5.
      * @param arg6 Argument 6.
-     * @param arg7 Argument 7.
-     * @param arg8 Argument 8.
      * @return A Variant containing the return value.
      */
     Variant call
     (
         const std::string& methodName,
+        const Variant& arg0 = Variant::Null,
         const Variant& arg1 = Variant::Null,
         const Variant& arg2 = Variant::Null,
         const Variant& arg3 = Variant::Null,
         const Variant& arg4 = Variant::Null,
         const Variant& arg5 = Variant::Null,
-        const Variant& arg6 = Variant::Null,
-        const Variant& arg7 = Variant::Null,
-        const Variant& arg8 = Variant::Null
-    ) const;
+        const Variant& arg6 = Variant::Null
+    );
     
     /**
      * Call a method, if the variant is a class instance
@@ -246,15 +224,14 @@ public:
      * @param args A vector containing the arguments of the method.
      * @return A Variant containing the return value.
      */
-    Variant callV(const std::string& methodName, std::vector<Variant> args)
-    const;
+    Variant callV(const std::string& methodName, std::vector<Variant>& args);
     
     /**
      * Destructor. The data is deallocated calling the destructor.
      */
     virtual ~Variant();
     
-    static const Variant Null;
+    static Variant Null;
     
 protected:
     // Pointer the data / data

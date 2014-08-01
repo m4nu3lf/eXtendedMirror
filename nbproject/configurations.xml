@@ -29,6 +29,7 @@
           <itemPath>include/EXTMR/Empty.hpp</itemPath>
           <itemPath>include/EXTMR/EnableStd.hpp</itemPath>
           <itemPath>include/EXTMR/ExtendedMirror.hpp</itemPath>
+          <itemPath>include/EXTMR/Function.hpp</itemPath>
           <itemPath>include/EXTMR/Member.hpp</itemPath>
           <itemPath>include/EXTMR/Member.inl</itemPath>
           <itemPath>include/EXTMR/Method.hpp</itemPath>
@@ -80,6 +81,7 @@
           <itemPath>src/EXTMR/ArrayType.cpp</itemPath>
           <itemPath>src/EXTMR/Class.cpp</itemPath>
           <itemPath>src/EXTMR/CompoundClass.cpp</itemPath>
+          <itemPath>src/EXTMR/Function.cpp</itemPath>
           <itemPath>src/EXTMR/Member.cpp</itemPath>
           <itemPath>src/EXTMR/Method.cpp</itemPath>
           <itemPath>src/EXTMR/OtherMembers.cpp</itemPath>
@@ -125,6 +127,9 @@
             <pElem>include</pElem>
           </incDir>
           <commandLine>-std=c++11</commandLine>
+          <preprocessorList>
+            <Elem>CPP_11</Elem>
+          </preprocessorList>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -179,6 +184,8 @@
             flavor2="0">
       </item>
       <item path="include/EXTMR/ExtendedMirror.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Function.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -297,6 +304,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="src/EXTMR/Function.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EXTMR/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -396,6 +405,8 @@
       </item>
       <item path="include/EXTMR/ExtendedMirror.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/Function.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
@@ -513,6 +524,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="src/EXTMR/Function.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EXTMR/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>

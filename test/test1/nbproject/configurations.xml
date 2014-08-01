@@ -40,6 +40,9 @@
             <pElem>../../include</pElem>
           </incDir>
           <commandLine>-std=c++11</commandLine>
+          <preprocessorList>
+            <Elem>CPP_11</Elem>
+          </preprocessorList>
         </ccTool>
         <linkerTool>
           <linkerLibItems>

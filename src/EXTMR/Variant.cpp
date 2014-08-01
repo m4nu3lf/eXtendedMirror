@@ -36,7 +36,8 @@
 using namespace std;
 using namespace extmr;
 
-const Variant Variant::Null = Variant();
+static void* null = NULL;
+Variant Variant::Null = Variant(null, Const);
 
 Variant::Variant() : flags_(0)
 {
@@ -154,37 +155,36 @@ const Variant& Variant::operator=(const Variant& other)
 Variant Variant::call
 (
     const std::string& methodName,
+    const Variant& arg0,
     const Variant& arg1,
     const Variant& arg2,
     const Variant& arg3,
     const Variant& arg4,
     const Variant& arg5,
-    const Variant& arg6,
-    const Variant& arg7,
-    const Variant& arg8
-) const
-{
-    Method keyMethod
-    (
-        methodName,
-        TypeRegister::getSingleton().getType<void>(),
-        arg1.getType(),
-        arg2.getType(),
-        arg3.getType(),
-        arg4.getType(),
-        arg5.getType(),
-        arg6.getType(),
-        arg7.getType(),
-        arg8.getType()
-    );
-    
+    const Variant& arg6
+)
+{   
     const Class* clazz = dynamic_cast<const Class*>(type_);
     if (clazz)
     {
+        Method keyMethod
+        (
+            methodName,
+            TypeRegister::getSingleton().getType<void>(),
+            *type_,
+            arg0.getType(),
+            arg1.getType(),
+            arg2.getType(),
+            arg3.getType(),
+            arg4.getType(),
+            arg5.getType(),
+            arg6.getType()
+        );
         const Method& callableMethod = clazz->getMethod(keyMethod);
         
-        return callableMethod.call(RefVariant(*this), arg1, arg2, arg3, arg4,
-                arg5, arg6, arg7, arg8);
+        RefVariant self(*this);
+        return callableMethod.call(self, arg0, arg1, arg2, arg3, arg4, arg5,
+                arg6);
     }
     else
     {
@@ -194,11 +194,11 @@ Variant Variant::call
 
 
 Variant Variant::callV(const std::string& methodName,
-        vector<Variant> args) const
+        vector<Variant>& args)
 {
     args.resize(EXTMR_METHOD_PARAM_MAX, Variant::Null);
     return call(methodName, args[0], args[1], args[2], args[3], args[4],
-            args[5], args[6], args[7]);
+            args[5], args[6]);
 }
 
 
@@ -226,7 +226,7 @@ Variant::~Variant()
 
 // A variant can always be converted to an Empty object. 
 template<>
-Empty& Variant::as<Empty>() const
+Empty& Variant::as<Empty>()
 {
     static Empty empty;
     return empty;

@@ -40,7 +40,7 @@ class Constructor : public Member
 {
 public:
     Constructor(const Class& owner);
-    virtual void init(const Variant& var) const;
+    virtual void init(Variant& var) const;
 };
 
 
@@ -49,7 +49,7 @@ class ConstructorImpl : public Constructor
 {
 public:
     ConstructorImpl(const Class& owner) : Constructor(owner) {};
-    void init(const Variant& var) const
+    void init(Variant& var) const
     {
         new (&var.as<C>()) C();
     }
@@ -60,7 +60,7 @@ class CopyConstructor : public Member
 {
 public:
     CopyConstructor(const Class& owner);
-    virtual void copy(const Variant& copy, const Variant& orig) const;
+    virtual void copy(Variant& copy, const Variant& orig) const;
 };
 
 
@@ -69,9 +69,10 @@ class CopyConstructorImpl : public CopyConstructor
 {
 public:
     CopyConstructorImpl(const Class& owner) : CopyConstructor(owner) {};
-    void copy(const Variant& copy, const Variant& orig) const
+    void copy(Variant& copy, const Variant& orig) const
     {
-        new (&copy.as<C>()) C(orig.as<C>());
+        Variant& nc_orig = const_cast<Variant&>(orig);
+        new (&copy.as<C>()) C(nc_orig.as<C>());
     }
 };
 
@@ -80,7 +81,7 @@ class Destructor : Member
 {
 public:
     Destructor(const Class& owner);
-    virtual void destroy(const Variant& var) const;
+    virtual void destroy(Variant& var) const;
 };
 
 
@@ -89,7 +90,7 @@ class DestructorImpl : public Destructor
 {
 public:
     DestructorImpl(const Class& owner) : Destructor(owner) {};
-    void destroy(const Variant& var) const
+    void destroy(Variant& var) const
     {
         var.as<C>().~C();
     }
@@ -100,7 +101,7 @@ class AssignOperator : public Member
 {
 public:
     AssignOperator(const Class& owner);
-    virtual void assign(const Variant& lvar, const Variant& rvar) const;
+    virtual void assign(Variant& lvar, const Variant& rvar) const;
 };
 
 
@@ -109,9 +110,10 @@ class AssignOperatorImpl : public AssignOperator
 {
 public:
     AssignOperatorImpl(const Class& owner) : AssignOperator(owner) {}
-    void assign(const Variant& lvar, const Variant& rvar) const
+    void assign(Variant& lvar, const Variant& rvar) const
     {
-        lvar.as<C>() = rvar.as<C>();
+        Variant& nc_rvar = const_cast<Variant&>(rvar);
+        lvar.as<C>() = nc_rvar.as<C>();
     }
 };
 
@@ -119,7 +121,7 @@ class AddressOfOperator : public Member
 {
 public:
     AddressOfOperator(const Class& owner);
-    virtual void addressOf(const Variant& lvar, const Variant& rvar) const;
+    virtual void addressOf(Variant& lvar, const Variant& rvar) const;
 };
 
 
@@ -128,9 +130,10 @@ class AddressOfOperatorImpl : public AddressOfOperator
 {
 public:
     AddressOfOperatorImpl(const Class& owner) : AddressOfOperator(owner) {}
-    void addressOf(const Variant& lvar, const Variant& rvar) const
+    void addressOf(Variant& lvar, const Variant& rvar) const
     {
-        lvar.as<C*>() = &rvar.as<C>();
+        Variant& nc_rvar = const_cast<Variant&>(rvar);
+        lvar.as<C*>() = &nc_rvar.as<C>();
     }
 };
 
@@ -138,7 +141,7 @@ class DereferenceOperator : public Member
 {
 public:
     DereferenceOperator(const Class& owner);
-    virtual void dereference(const Variant& lvar, const Variant& rvar) const;
+    virtual void dereference(Variant& lvar, const Variant& rvar) const;
 };
 
 
@@ -147,9 +150,10 @@ class DereferenceOperatorImpl : public DereferenceOperator
 {
 public:
     DereferenceOperatorImpl(const Class& owner) : DereferenceOperator(owner) {}
-    void dereference(const Variant& lvar, const Variant& rvar) const
+    void dereference(Variant& lvar, const Variant& rvar) const
     {
-        lvar.as<C>() = *rvar.as<C*>();
+        Variant& nc_rvar = const_cast<Variant&>(rvar);
+        lvar.as<C>() = *nc_rvar.as<C*>();
     }
 };
 

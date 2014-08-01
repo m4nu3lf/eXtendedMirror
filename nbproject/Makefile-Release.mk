@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EXTMR/Exceptions/PropertySetException.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/VariantCostnessException.o \
 	${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o \
+	${OBJECTDIR}/src/EXTMR/Function.o \
 	${OBJECTDIR}/src/EXTMR/Member.o \
 	${OBJECTDIR}/src/EXTMR/Method.o \
 	${OBJECTDIR}/src/EXTMR/OtherMembers.o \
@@ -128,6 +129,11 @@ ${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o: src/EXTMR/Exceptions/V
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR/Exceptions
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Exceptions/VariantTypeException.o src/EXTMR/Exceptions/VariantTypeException.cpp
+
+${OBJECTDIR}/src/EXTMR/Function.o: src/EXTMR/Function.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/EXTMR
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/EXTMR/Function.o src/EXTMR/Function.cpp
 
 ${OBJECTDIR}/src/EXTMR/Member.o: src/EXTMR/Member.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/EXTMR

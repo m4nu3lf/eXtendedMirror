@@ -154,9 +154,9 @@ int main(int argc, char** argv)
     Dummy& d = dummy;
     
     int i = 0;
-    RefVariant(d).call("doNothingUseful", RefVariant(i));
-    getClass("Dummy").getMethod("doNothingUseful").call(d, RefVariant(i));
-    RefVariant(d).call("doNothingUseful", string("ciao"));
+    RefVariant(d).call("doNothingUseful", &i);
+    getClass("Dummy").getMethod("doNothingUseful").call(d, &i);
+    Variant(&d).call("doNothingUseful", string("ciao"));
     getClass("ClassTemplate<int>").getProperty("val").setData(d.templateInstance, 5);
  
     cout << i << endl;

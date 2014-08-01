@@ -172,7 +172,7 @@ public:
      * @param self Reference variant of an object which type has this property. 
      * @return Variant containing the property data.
      */
-    virtual Variant getData(const RefVariant& self) const;
+    virtual Variant getData(const Variant& self) const;
     
     /**
      * Set the data through variant objects.
@@ -180,7 +180,7 @@ public:
      * @param self reference variant of an object which type has this property. 
      * @param data Variant containing the data to be set.
      */
-    virtual void setData(const RefVariant& self, const Variant& data) const;
+    virtual void setData(const Variant& self, const Variant& data) const;
     
 protected:
     // The property Type.

@@ -38,7 +38,7 @@ using namespace extmr;
 Constructor::Constructor(const Class& owner) : Member(owner){};
 
 
-void Constructor::init(const Variant& var) const
+void Constructor::init(Variant& var) const
 {
     if (owner_)
         throw NonInstantiableException(*owner_);
@@ -48,7 +48,7 @@ void Constructor::init(const Variant& var) const
 CopyConstructor::CopyConstructor(const Class& owner) : Member(owner){};
 
 
-void CopyConstructor::copy(const Variant& copy, const Variant& orig) const
+void CopyConstructor::copy(Variant& copy, const Variant& orig) const
 {
     if (owner_)
         throw NonCopyableException(*owner_);
@@ -58,7 +58,7 @@ void CopyConstructor::copy(const Variant& copy, const Variant& orig) const
 Destructor::Destructor(const Class& owner) : Member(owner){};
 
 
-void Destructor::destroy(const Variant& var) const
+void Destructor::destroy(Variant& var) const
 {
     if (owner_)
         throw NonDestructibleException(*owner_);
@@ -68,7 +68,7 @@ void Destructor::destroy(const Variant& var) const
 AssignOperator::AssignOperator(const Class& owner) : Member(owner){};
 
 
-void AssignOperator::assign(const Variant& lvar, const Variant& rvar) const
+void AssignOperator::assign(Variant& lvar, const Variant& rvar) const
 {
     if (owner_)
         throw NonAssignableException(*owner_);
@@ -77,8 +77,7 @@ void AssignOperator::assign(const Variant& lvar, const Variant& rvar) const
 AddressOfOperator::AddressOfOperator(const Class& owner) : Member(owner){};
 
 
-void AddressOfOperator::addressOf(const Variant& lvar,
-        const Variant& rvar) const
+void AddressOfOperator::addressOf(Variant& lvar, const Variant& rvar) const
 {
     if (owner_)
         throw NonAddressableException(*owner_);
@@ -88,8 +87,7 @@ void AddressOfOperator::addressOf(const Variant& lvar,
 DereferenceOperator::DereferenceOperator(const Class& owner) : Member(owner){};
 
 
-void DereferenceOperator::dereference(const Variant& lvar,
-        const Variant& rvar) const
+void DereferenceOperator::dereference(Variant& lvar, const Variant& rvar) const
 {
     if (owner_)
         throw NonDereferenceableException(*owner_);

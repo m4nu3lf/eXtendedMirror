@@ -60,7 +60,7 @@ const Type& RefCaster::getDstType() const
 }
 
 
-RefVariant RefCaster::cast(const Variant& var) const
+RefVariant RefCaster::cast(Variant& var) const
 {
 	return var;
 }

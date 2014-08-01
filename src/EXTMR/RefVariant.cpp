@@ -49,7 +49,7 @@ RefVariant::RefVariant(const RefVariant& orig)
 }
 
 
-RefVariant::RefVariant(const Variant& var)
+RefVariant::RefVariant(Variant& var)
 {
     *this = var.getRefVariant();
 }

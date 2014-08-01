@@ -46,7 +46,7 @@ public:
     
     RefVariant(const RefVariant& orig);
         
-    RefVariant(const Variant& var);
+    RefVariant(Variant& var);
     const Variant& operator=(const Variant& var);
 };
 

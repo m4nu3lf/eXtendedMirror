@@ -49,7 +49,7 @@ public:
     const Type& getDstType() const;
 
     virtual
-    RefVariant cast(const Variant& var) const;
+    RefVariant cast(Variant& var) const;
 
     virtual
     ~RefCaster();

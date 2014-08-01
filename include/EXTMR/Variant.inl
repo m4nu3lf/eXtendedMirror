@@ -40,8 +40,6 @@
 
 #include <cstring>
 
-#include "Type.hpp"
-
 
 namespace extmr{
     
@@ -65,14 +63,7 @@ bool Variant::isConst() const
 {
     return flags_ & Const;
 }
-    
 
-inline
-bool Variant::isPointerToConst() const
-{
-    return flags_ & Ptr2Const;
-}
-    
 
 inline
 void Variant::setConst()
@@ -90,6 +81,16 @@ void Variant::Initialize<T>::operator()(T& data)
 {
     // ensure type is registered.
     variant_.type_ = &registerType<T>();
+    
+    // If pointer, store reference
+    const PointerType* ptrType = dynamic_cast<const PointerType*>(variant_.type_);
+    if (ptrType)
+    {
+        variant_.type_ = &ptrType->getPointedType();
+        variant_.flags_ |= Reference;
+        if (IsConst<typename RemovePointer<T>::Type>::value)
+            variant_.flags_ |= Const;
+    }
 
     if (variant_.flags_ & Reference)
     {
@@ -111,10 +112,8 @@ void Variant::Initialize<T>::operator()(T& data)
         {
             destPtr = reinterpret_cast<void*>(&variant_.data_);
         }
-            
         
         const Class* clazz = dynamic_cast<const Class*>(variant_.type_);
-
         if (clazz)
         {
             // copy data through copy constructor
@@ -137,9 +136,6 @@ void Variant::Initialize<T>::operator()(T& data)
         }
     }
 
-    // if the type is a pointer to a constant, set the proper flag.
-    if (IsConst<typename RemovePointer<T>::Type>::value)
-        variant_.flags_ |= Ptr2Const;
 }
 
 
@@ -170,8 +166,8 @@ Variant::Variant(const T& data)
 : flags_(0)
 {
     // if the type is a constant array, then the type will be converted to a
-    // pointer to constant
-    if (IsArray<T>::value) flags_ |= Ptr2Const;
+    // reference to const
+    if (IsArray<T>::value) flags_ |= Const;
     
     // Call initializer functor
     Initialize<T>(*this)(const_cast<T&>(data));
@@ -189,8 +185,8 @@ Variant::Variant(T& data, char flags)
     if ((flags & Reference) && IsConst<T>::value) flags_ |= Const;
     
     // if the type is a constant array, then the type will be converted to a
-    // pointer to constant
-    if (IsArray<T>::value && IsConst<T>::value) flags_ |= Ptr2Const;
+    // reference to constant
+    if (IsArray<T>::value && IsConst<T>::value) flags_ |= Const;
     
     // Call initializer functor
     Initialize<NonConstT>(*this)(const_cast<NonConstT&>(data));
@@ -198,7 +194,7 @@ Variant::Variant(T& data, char flags)
 
 
 template<typename T>
-Variant::operator T&() const
+Variant::operator T&()
 {
     // retrieve the type register
     TypeRegister& typeReg = TypeRegister::getSingleton();
@@ -206,18 +202,25 @@ Variant::operator T&() const
     // ensure the type of the data is registered and retrieve it
     const Type& targetType = typeReg.registerType<T>();
     
+    const PointerType* ptrType = dynamic_cast<const PointerType*>(&targetType);
+    if (ptrType)
+    {
+        if (!flags_ & Reference)
+            throw VariantTypeException(targetType, *type_);
+        
+        // check for pointed type's constness correctness
+        if (flags_ & Const &&
+                !IsConst<typename RemovePointer<T>::Type>::value)
+        {
+            throw VariantCostnessException(ptrType->getPointedType());
+        }
+        
+        return static_cast<typename RemovePointer<T&>::Type>(*this);
+    }
+
     // check for constness correctness
     if (!IsConst<T>::value && flags_ & Const)
         throw VariantCostnessException(*type_);
-    
-    // check for pointed type's constness correctness
-    if (flags_ & Ptr2Const &&
-            !IsConst<typename RemovePointer<T>::Type>::value)
-    {
-        const Type& pointedType =
-                dynamic_cast<const PointerType&>(*type_).getPointedType();
-        throw VariantCostnessException(pointedType);
-    }
     
     // check for type compatibility
     if (targetType == *type_)
@@ -278,14 +281,14 @@ Variant::operator T&() const
 
 
 template<typename T>
-inline T& Variant::as() const
+inline T& Variant::as()
 {
     return *this;
 }
 
 
 template<>
-Empty& Variant::as<Empty>() const;
+Empty& Variant::as<Empty>();
 
 
 template<typename T>

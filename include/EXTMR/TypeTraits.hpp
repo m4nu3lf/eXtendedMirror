@@ -65,6 +65,14 @@ struct IsConst<const T&> : public TrueType {};
 
 
 template<typename T>
+struct IsPointer : public FalseType {};
+
+
+template<typename T>
+struct IsPointer<T*> : public TrueType {};
+
+
+template<typename T>
 struct IsReference : public FalseType {};
 
 
