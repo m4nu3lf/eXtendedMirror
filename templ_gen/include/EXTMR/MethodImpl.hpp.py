@@ -82,7 +82,7 @@ public: """ + ("""
     }
 
     """ + ("""
-    Method::ReturnMode getReturnMode() const
+    Function::ReturnMode getReturnMode() const
     {
         if (IsReference<RetT>::value)
         {
@@ -94,7 +94,7 @@ public: """ + ("""
         else
             return Value;
     }""" if not ret_t_void else """
-    Method::ReturnMode getReturnMode() const
+    Function::ReturnMode getReturnMode() const
     {
         return None;
     }

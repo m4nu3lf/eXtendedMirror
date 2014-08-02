@@ -149,8 +149,7 @@ public:
         const Variant& arg4 = Variant::Null,
         const Variant& arg5 = Variant::Null,
         const Variant& arg6 = Variant::Null,
-        const Variant& arg7 = Variant::Null,
-        const Variant& arg8 = Variant::Null
+        const Variant& arg7 = Variant::Null
     ) const;
     
     /**

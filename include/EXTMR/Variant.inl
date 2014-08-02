@@ -40,6 +40,8 @@
 
 #include <cstring>
 
+#include "TypeTraits.hpp"
+
 
 namespace extmr{
     
@@ -83,9 +85,10 @@ void Variant::Initialize<T>::operator()(T& data)
     variant_.type_ = &registerType<T>();
     
     // If pointer, store reference
-    const PointerType* ptrType = dynamic_cast<const PointerType*>(variant_.type_);
-    if (ptrType)
+    if (IsPointer<T>::value)
     {
+        const PointerType* ptrType =
+            dynamic_cast<const PointerType*>(variant_.type_);
         variant_.type_ = &ptrType->getPointedType();
         variant_.flags_ |= Reference;
         if (IsConst<typename RemovePointer<T>::Type>::value)
@@ -202,9 +205,10 @@ Variant::operator T&()
     // ensure the type of the data is registered and retrieve it
     const Type& targetType = typeReg.registerType<T>();
     
-    const PointerType* ptrType = dynamic_cast<const PointerType*>(&targetType);
-    if (ptrType)
+    if (IsPointer<T>::value)
     {
+        const PointerType* ptrType =
+            dynamic_cast<const PointerType*>(&targetType);
         if (!flags_ & Reference)
             throw VariantTypeException(targetType, *type_);
         

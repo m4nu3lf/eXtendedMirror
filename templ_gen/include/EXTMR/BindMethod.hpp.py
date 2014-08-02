@@ -36,10 +36,6 @@ content ="""
 #define	EXTMR_BINDMETHOD_HPP
 
 
-#define EXTMR_METHOD_PARAM_MAX """ + \
-str(EXTMR_FUNCTION_PARAM_MAX-1) + """
-
-
 namespace extmr{
 
 """
@@ -86,6 +82,53 @@ Method& bindMethod
         >
         (
             name""" + (""",
+            method_nc,
+            true""" if is_const else """,
+            method,
+            false""") + """
+        );
+}
+
+
+template
+<
+    typename RetT""" + gen_seq(""",
+    typename ParamT$""", n_params) + """
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( """ + gen_seq("""
+        ParamT$""", n_params, ",") + """
+    ) """ + ("const" if is_const else "") + """
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();""" + gen_seq("""
+    registerType<ParamT$>();""", n_params) + """
+    """ + (("""
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (""" + gen_seq("""
+                ParamT$""", n_params, ",") + """
+            )
+        >(method);
+    """) if is_const else "") + """
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_""" + str(n_params) + """_Params
+        <
+            RetT""" + gen_seq(""",
+            ParamT$""", n_params) + """
+        >
+        (
+            name,
+            clazz""" + (""",
             method_nc,
             true""" if is_const else """,
             method,
