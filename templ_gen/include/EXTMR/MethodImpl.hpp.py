@@ -40,7 +40,7 @@ content = """
 namespace extmr{
 
 """
-for n_params in range(EXTMR_FUNCTION_PARAM_MAX):
+for n_params in range(1, EXTMR_FUNCTION_PARAM_MAX):
     for ret_t_void in range(2):
         content += """
 template
@@ -54,7 +54,7 @@ class MethodImpl_""" + str(n_params) + """_Params""" + (("""
     ClassT,
     void""" + gen_seq(""",
     ParamT$""", n_params) + """
->""") if ret_t_void else "") + """  : public Method
+>""") if ret_t_void else "") + """ : public Method
 {
 public: """ + ("""
     /// type of the return value without any cv-qualifier and no reference
@@ -108,7 +108,7 @@ public: """ + ("""
     
     Variant callImpl
     (   """ + gen_seq("""
-        const Variant& arg$""", EXTMR_FUNCTION_PARAM_MAX - 1, ",") + """
+        const Variant& arg$""", EXTMR_FUNCTION_PARAM_MAX, ",") + """
         
     ) const
     {
@@ -120,14 +120,14 @@ public: """ + ("""
         """ + (("""
         const NqRetT& returnValue = (arg0.as<ClassT>().*method_)
         (""" + gen_seq("""
-            arg$.as<NqParamT$>()""", n_params, ",") + """
+            arg$.as<NqParamT$>()""", (1, n_params), ",") + """
         );
         return Variant(const_cast<NqRetT&>(returnValue),
                 ReturnVariantFlags<RetT>::flags);
         """) if not ret_t_void else """
         (arg0.as<ClassT>().*method_)
         (""" + gen_seq("""
-            arg$.as<NqParamT$>()""", n_params, ",") + """
+            arg$.as<NqParamT$>()""", (1, n_params), ",") + """
         );
         return Variant::Null;
         """) + """

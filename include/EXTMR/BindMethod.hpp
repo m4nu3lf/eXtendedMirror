@@ -36,9 +36,6 @@
 #define	EXTMR_BINDMETHOD_HPP
 
 
-#define EXTMR_METHOD_PARAM_MAX 7
-
-
 namespace extmr{
 
 
@@ -68,6 +65,37 @@ Method& bindMethod
         >
         (
             name,
+            method,
+            false
+        );
+}
+
+
+template
+<
+    typename RetT
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+    ) 
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_0_Params
+        <
+            RetT
+        >
+        (
+            name,
+            clazz,
             method,
             false
         );
@@ -115,6 +143,46 @@ Method& bindMethod
 }
 
 
+template
+<
+    typename RetT
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+    ) const
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (
+            )
+        >(method);
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_0_Params
+        <
+            RetT
+        >
+        (
+            name,
+            clazz,
+            method_nc,
+            true
+        );
+}
+
+
 
 template
 <
@@ -145,6 +213,41 @@ Method& bindMethod
         >
         (
             name,
+            method,
+            false
+        );
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0
+    ) 
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_1_Params
+        <
+            RetT,
+            ParamT0
+        >
+        (
+            name,
+            clazz,
             method,
             false
         );
@@ -197,6 +300,51 @@ Method& bindMethod
 }
 
 
+template
+<
+    typename RetT,
+    typename ParamT0
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0
+    ) const
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (
+                ParamT0
+            )
+        >(method);
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_1_Params
+        <
+            RetT,
+            ParamT0
+        >
+        (
+            name,
+            clazz,
+            method_nc,
+            true
+        );
+}
+
+
 
 template
 <
@@ -231,6 +379,45 @@ Method& bindMethod
         >
         (
             name,
+            method,
+            false
+        );
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1
+    ) 
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_2_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1
+        >
+        (
+            name,
+            clazz,
             method,
             false
         );
@@ -288,6 +475,56 @@ Method& bindMethod
 }
 
 
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1
+    ) const
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (
+                ParamT0,
+                ParamT1
+            )
+        >(method);
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_2_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1
+        >
+        (
+            name,
+            clazz,
+            method_nc,
+            true
+        );
+}
+
+
 
 template
 <
@@ -326,6 +563,49 @@ Method& bindMethod
         >
         (
             name,
+            method,
+            false
+        );
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2
+    ) 
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_3_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2
+        >
+        (
+            name,
+            clazz,
             method,
             false
         );
@@ -388,6 +668,61 @@ Method& bindMethod
 }
 
 
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2
+    ) const
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (
+                ParamT0,
+                ParamT1,
+                ParamT2
+            )
+        >(method);
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_3_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2
+        >
+        (
+            name,
+            clazz,
+            method_nc,
+            true
+        );
+}
+
+
 
 template
 <
@@ -430,6 +765,53 @@ Method& bindMethod
         >
         (
             name,
+            method,
+            false
+        );
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3
+    ) 
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_4_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3
+        >
+        (
+            name,
+            clazz,
             method,
             false
         );
@@ -497,6 +879,66 @@ Method& bindMethod
 }
 
 
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3
+    ) const
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (
+                ParamT0,
+                ParamT1,
+                ParamT2,
+                ParamT3
+            )
+        >(method);
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_4_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3
+        >
+        (
+            name,
+            clazz,
+            method_nc,
+            true
+        );
+}
+
+
 
 template
 <
@@ -543,6 +985,57 @@ Method& bindMethod
         >
         (
             name,
+            method,
+            false
+        );
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3,
+        ParamT4
+    ) 
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    registerType<ParamT4>();
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_5_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3,
+            ParamT4
+        >
+        (
+            name,
+            clazz,
             method,
             false
         );
@@ -615,6 +1108,71 @@ Method& bindMethod
 }
 
 
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3,
+        ParamT4
+    ) const
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    registerType<ParamT4>();
+    
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (
+                ParamT0,
+                ParamT1,
+                ParamT2,
+                ParamT3,
+                ParamT4
+            )
+        >(method);
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_5_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3,
+            ParamT4
+        >
+        (
+            name,
+            clazz,
+            method_nc,
+            true
+        );
+}
+
+
 
 template
 <
@@ -665,6 +1223,61 @@ Method& bindMethod
         >
         (
             name,
+            method,
+            false
+        );
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3,
+        ParamT4,
+        ParamT5
+    ) 
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    registerType<ParamT4>();
+    registerType<ParamT5>();
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_6_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3,
+            ParamT4,
+            ParamT5
+        >
+        (
+            name,
+            clazz,
             method,
             false
         );
@@ -742,6 +1355,76 @@ Method& bindMethod
 }
 
 
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3,
+        ParamT4,
+        ParamT5
+    ) const
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    registerType<ParamT4>();
+    registerType<ParamT5>();
+    
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (
+                ParamT0,
+                ParamT1,
+                ParamT2,
+                ParamT3,
+                ParamT4,
+                ParamT5
+            )
+        >(method);
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_6_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3,
+            ParamT4,
+            ParamT5
+        >
+        (
+            name,
+            clazz,
+            method_nc,
+            true
+        );
+}
+
+
 
 template
 <
@@ -796,6 +1479,65 @@ Method& bindMethod
         >
         (
             name,
+            method,
+            false
+        );
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3,
+        ParamT4,
+        ParamT5,
+        ParamT6
+    ) 
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    registerType<ParamT4>();
+    registerType<ParamT5>();
+    registerType<ParamT6>();
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_7_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3,
+            ParamT4,
+            ParamT5,
+            ParamT6
+        >
+        (
+            name,
+            clazz,
             method,
             false
         );
@@ -872,6 +1614,81 @@ Method& bindMethod
         >
         (
             name,
+            method_nc,
+            true
+        );
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6
+>
+Method& bindStaticMethod
+(
+    const std::string& name,
+    const Class& clazz,
+    RetT (*method)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3,
+        ParamT4,
+        ParamT5,
+        ParamT6
+    ) const
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    registerType<ParamT4>();
+    registerType<ParamT5>();
+    registerType<ParamT6>();
+    
+    // remove the constness from the method
+    RetT (*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (*)
+            (
+                ParamT0,
+                ParamT1,
+                ParamT2,
+                ParamT3,
+                ParamT4,
+                ParamT5,
+                ParamT6
+            )
+        >(method);
+    
+    // create the proper Method
+    return clazz
+        & *new StaticMethodImpl_7_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3,
+            ParamT4,
+            ParamT5,
+            ParamT6
+        >
+        (
+            name,
+            clazz,
             method_nc,
             true
         );

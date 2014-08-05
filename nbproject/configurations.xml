@@ -22,6 +22,7 @@
           </logicalFolder>
           <itemPath>include/EXTMR/ArrayType.hpp</itemPath>
           <itemPath>include/EXTMR/Bind.hpp</itemPath>
+          <itemPath>include/EXTMR/BindFunction.hpp</itemPath>
           <itemPath>include/EXTMR/BindGetNSetProperty.hpp</itemPath>
           <itemPath>include/EXTMR/BindMethod.hpp</itemPath>
           <itemPath>include/EXTMR/Class.hpp</itemPath>
@@ -30,10 +31,12 @@
           <itemPath>include/EXTMR/EnableStd.hpp</itemPath>
           <itemPath>include/EXTMR/ExtendedMirror.hpp</itemPath>
           <itemPath>include/EXTMR/Function.hpp</itemPath>
+          <itemPath>include/EXTMR/FunctionImpl.hpp</itemPath>
           <itemPath>include/EXTMR/Member.hpp</itemPath>
           <itemPath>include/EXTMR/Member.inl</itemPath>
           <itemPath>include/EXTMR/Method.hpp</itemPath>
           <itemPath>include/EXTMR/MethodImpl.hpp</itemPath>
+          <itemPath>include/EXTMR/Namespace.hpp</itemPath>
           <itemPath>include/EXTMR/NumericalUtils.hpp</itemPath>
           <itemPath>include/EXTMR/OtherMembers.hpp</itemPath>
           <itemPath>include/EXTMR/Parameter.hpp</itemPath>
@@ -138,6 +141,8 @@
       </item>
       <item path="include/EXTMR/Bind.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/BindFunction.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/BindGetNSetProperty.hpp"
             ex="false"
             tool="3"
@@ -187,6 +192,8 @@
       </item>
       <item path="include/EXTMR/Function.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/FunctionImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
@@ -194,6 +201,8 @@
       <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -358,6 +367,8 @@
       </item>
       <item path="include/EXTMR/Bind.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/BindFunction.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/BindGetNSetProperty.hpp"
             ex="false"
             tool="3"
@@ -407,6 +418,8 @@
       </item>
       <item path="include/EXTMR/Function.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/EXTMR/FunctionImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
@@ -414,6 +427,8 @@
       <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/EXTMR/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
