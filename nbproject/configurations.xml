@@ -5,62 +5,62 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="include" displayName="include" projectFiles="true">
-        <logicalFolder name="EXTMR" displayName="EXTMR" projectFiles="true">
+        <logicalFolder name="XM" displayName="XM" projectFiles="true">
           <logicalFolder name="Exceptions" displayName="Exceptions" projectFiles="true">
-            <itemPath>include/EXTMR/Exceptions/MembersExceptions.hpp</itemPath>
-            <itemPath>include/EXTMR/Exceptions/NotFoundExceptions.hpp</itemPath>
-            <itemPath>include/EXTMR/Exceptions/PropertyRangeException.hpp</itemPath>
-            <itemPath>include/EXTMR/Exceptions/PropertySetException.hpp</itemPath>
-            <itemPath>include/EXTMR/Exceptions/VariantCostnessException.hpp</itemPath>
-            <itemPath>include/EXTMR/Exceptions/VariantTypeException.hpp</itemPath>
+            <itemPath>include/XM/Exceptions/MembersExceptions.hpp</itemPath>
+            <itemPath>include/XM/Exceptions/NotFoundExceptions.hpp</itemPath>
+            <itemPath>include/XM/Exceptions/PropertyRangeException.hpp</itemPath>
+            <itemPath>include/XM/Exceptions/PropertySetException.hpp</itemPath>
+            <itemPath>include/XM/Exceptions/VariantCostnessException.hpp</itemPath>
+            <itemPath>include/XM/Exceptions/VariantTypeException.hpp</itemPath>
           </logicalFolder>
           <logicalFolder name="Common" displayName="Utils" projectFiles="true">
-            <itemPath>include/EXTMR/Utils/ContainerUtils.hpp</itemPath>
-            <itemPath>include/EXTMR/Utils/DebugUtils.hpp</itemPath>
-            <itemPath>include/EXTMR/Utils/Typedef.hpp</itemPath>
-            <itemPath>include/EXTMR/Utils/Utils.hpp</itemPath>
+            <itemPath>include/XM/Utils/ContainerUtils.hpp</itemPath>
+            <itemPath>include/XM/Utils/DebugUtils.hpp</itemPath>
+            <itemPath>include/XM/Utils/Typedef.hpp</itemPath>
+            <itemPath>include/XM/Utils/Utils.hpp</itemPath>
           </logicalFolder>
-          <itemPath>include/EXTMR/ArrayType.hpp</itemPath>
-          <itemPath>include/EXTMR/Bind.hpp</itemPath>
-          <itemPath>include/EXTMR/BindFunction.hpp</itemPath>
-          <itemPath>include/EXTMR/BindGetNSetProperty.hpp</itemPath>
-          <itemPath>include/EXTMR/BindMethod.hpp</itemPath>
-          <itemPath>include/EXTMR/Class.hpp</itemPath>
-          <itemPath>include/EXTMR/CompoundClass.hpp</itemPath>
-          <itemPath>include/EXTMR/Empty.hpp</itemPath>
-          <itemPath>include/EXTMR/EnableStd.hpp</itemPath>
-          <itemPath>include/EXTMR/ExtendedMirror.hpp</itemPath>
-          <itemPath>include/EXTMR/Function.hpp</itemPath>
-          <itemPath>include/EXTMR/FunctionImpl.hpp</itemPath>
-          <itemPath>include/EXTMR/Member.hpp</itemPath>
-          <itemPath>include/EXTMR/Member.inl</itemPath>
-          <itemPath>include/EXTMR/Method.hpp</itemPath>
-          <itemPath>include/EXTMR/MethodImpl.hpp</itemPath>
-          <itemPath>include/EXTMR/Namespace.hpp</itemPath>
-          <itemPath>include/EXTMR/NumericalUtils.hpp</itemPath>
-          <itemPath>include/EXTMR/OtherMembers.hpp</itemPath>
-          <itemPath>include/EXTMR/Parameter.hpp</itemPath>
-          <itemPath>include/EXTMR/PointerType.hpp</itemPath>
-          <itemPath>include/EXTMR/PrimitiveType.hpp</itemPath>
-          <itemPath>include/EXTMR/Property.hpp</itemPath>
-          <itemPath>include/EXTMR/PropertyArrayField.hpp</itemPath>
-          <itemPath>include/EXTMR/PropertyField.hpp</itemPath>
-          <itemPath>include/EXTMR/PropertyGetterNSetter.hpp</itemPath>
-          <itemPath>include/EXTMR/RefCaster.hpp</itemPath>
-          <itemPath>include/EXTMR/RefCasterImpl.hpp</itemPath>
-          <itemPath>include/EXTMR/RefVariant.hpp</itemPath>
-          <itemPath>include/EXTMR/RefVariant.inl</itemPath>
-          <itemPath>include/EXTMR/RegistrationHelpers.hpp</itemPath>
-          <itemPath>include/EXTMR/RegistrationMacros.hpp</itemPath>
-          <itemPath>include/EXTMR/Shortcuts.hpp</itemPath>
-          <itemPath>include/EXTMR/Template.hpp</itemPath>
-          <itemPath>include/EXTMR/TemplateRegistrationMacros.hpp</itemPath>
-          <itemPath>include/EXTMR/Type.hpp</itemPath>
-          <itemPath>include/EXTMR/TypeRegister.hpp</itemPath>
-          <itemPath>include/EXTMR/TypeRegister.inl</itemPath>
-          <itemPath>include/EXTMR/TypeTraits.hpp</itemPath>
-          <itemPath>include/EXTMR/Variant.hpp</itemPath>
-          <itemPath>include/EXTMR/Variant.inl</itemPath>
+          <itemPath>include/XM/ArrayType.hpp</itemPath>
+          <itemPath>include/XM/Bind.hpp</itemPath>
+          <itemPath>include/XM/BindFunction.hpp</itemPath>
+          <itemPath>include/XM/BindGetNSetProperty.hpp</itemPath>
+          <itemPath>include/XM/BindMethod.hpp</itemPath>
+          <itemPath>include/XM/Class.hpp</itemPath>
+          <itemPath>include/XM/CompoundClass.hpp</itemPath>
+          <itemPath>include/XM/Empty.hpp</itemPath>
+          <itemPath>include/XM/EnableStd.hpp</itemPath>
+          <itemPath>include/XM/ExtendedMirror.hpp</itemPath>
+          <itemPath>include/XM/Function.hpp</itemPath>
+          <itemPath>include/XM/FunctionImpl.hpp</itemPath>
+          <itemPath>include/XM/Member.hpp</itemPath>
+          <itemPath>include/XM/Member.inl</itemPath>
+          <itemPath>include/XM/Method.hpp</itemPath>
+          <itemPath>include/XM/MethodImpl.hpp</itemPath>
+          <itemPath>include/XM/Namespace.hpp</itemPath>
+          <itemPath>include/XM/NumericalUtils.hpp</itemPath>
+          <itemPath>include/XM/OtherMembers.hpp</itemPath>
+          <itemPath>include/XM/Parameter.hpp</itemPath>
+          <itemPath>include/XM/PointerType.hpp</itemPath>
+          <itemPath>include/XM/PrimitiveType.hpp</itemPath>
+          <itemPath>include/XM/Property.hpp</itemPath>
+          <itemPath>include/XM/PropertyArrayField.hpp</itemPath>
+          <itemPath>include/XM/PropertyField.hpp</itemPath>
+          <itemPath>include/XM/PropertyGetterNSetter.hpp</itemPath>
+          <itemPath>include/XM/RefCaster.hpp</itemPath>
+          <itemPath>include/XM/RefCasterImpl.hpp</itemPath>
+          <itemPath>include/XM/RefVariant.hpp</itemPath>
+          <itemPath>include/XM/RefVariant.inl</itemPath>
+          <itemPath>include/XM/RegistrationHelpers.hpp</itemPath>
+          <itemPath>include/XM/RegistrationMacros.hpp</itemPath>
+          <itemPath>include/XM/Shortcuts.hpp</itemPath>
+          <itemPath>include/XM/Template.hpp</itemPath>
+          <itemPath>include/XM/TemplateRegistrationMacros.hpp</itemPath>
+          <itemPath>include/XM/Type.hpp</itemPath>
+          <itemPath>include/XM/TypeRegister.hpp</itemPath>
+          <itemPath>include/XM/TypeRegister.inl</itemPath>
+          <itemPath>include/XM/TypeTraits.hpp</itemPath>
+          <itemPath>include/XM/Variant.hpp</itemPath>
+          <itemPath>include/XM/Variant.inl</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -72,31 +72,32 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
-        <logicalFolder name="EXTMR" displayName="EXTMR" projectFiles="true">
+        <logicalFolder name="XM" displayName="XM" projectFiles="true">
           <logicalFolder name="Exceptions" displayName="Exceptions" projectFiles="true">
-            <itemPath>src/EXTMR/Exceptions/MembersExceptions.cpp</itemPath>
-            <itemPath>src/EXTMR/Exceptions/NotFoundExceptions.cpp</itemPath>
-            <itemPath>src/EXTMR/Exceptions/PropertyRangeException.cpp</itemPath>
-            <itemPath>src/EXTMR/Exceptions/PropertySetException.cpp</itemPath>
-            <itemPath>src/EXTMR/Exceptions/VariantCostnessException.cpp</itemPath>
-            <itemPath>src/EXTMR/Exceptions/VariantTypeException.cpp</itemPath>
+            <itemPath>src/XM/Exceptions/MembersExceptions.cpp</itemPath>
+            <itemPath>src/XM/Exceptions/NotFoundExceptions.cpp</itemPath>
+            <itemPath>src/XM/Exceptions/PropertyRangeException.cpp</itemPath>
+            <itemPath>src/XM/Exceptions/PropertySetException.cpp</itemPath>
+            <itemPath>src/XM/Exceptions/VariantCostnessException.cpp</itemPath>
+            <itemPath>src/XM/Exceptions/VariantTypeException.cpp</itemPath>
           </logicalFolder>
-          <itemPath>src/EXTMR/ArrayType.cpp</itemPath>
-          <itemPath>src/EXTMR/Class.cpp</itemPath>
-          <itemPath>src/EXTMR/CompoundClass.cpp</itemPath>
-          <itemPath>src/EXTMR/Function.cpp</itemPath>
-          <itemPath>src/EXTMR/Member.cpp</itemPath>
-          <itemPath>src/EXTMR/Method.cpp</itemPath>
-          <itemPath>src/EXTMR/OtherMembers.cpp</itemPath>
-          <itemPath>src/EXTMR/PointerType.cpp</itemPath>
-          <itemPath>src/EXTMR/PrimitiveType.cpp</itemPath>
-          <itemPath>src/EXTMR/Property.cpp</itemPath>
-          <itemPath>src/EXTMR/RefCaster.cpp</itemPath>
-          <itemPath>src/EXTMR/RefVariant.cpp</itemPath>
-          <itemPath>src/EXTMR/Template.cpp</itemPath>
-          <itemPath>src/EXTMR/Type.cpp</itemPath>
-          <itemPath>src/EXTMR/TypeRegister.cpp</itemPath>
-          <itemPath>src/EXTMR/Variant.cpp</itemPath>
+          <itemPath>src/XM/ArrayType.cpp</itemPath>
+          <itemPath>src/XM/Class.cpp</itemPath>
+          <itemPath>src/XM/CompoundClass.cpp</itemPath>
+          <itemPath>src/XM/Function.cpp</itemPath>
+          <itemPath>src/XM/Member.cpp</itemPath>
+          <itemPath>src/XM/Method.cpp</itemPath>
+          <itemPath>src/XM/Namespace.cpp</itemPath>
+          <itemPath>src/XM/OtherMembers.cpp</itemPath>
+          <itemPath>src/XM/PointerType.cpp</itemPath>
+          <itemPath>src/XM/PrimitiveType.cpp</itemPath>
+          <itemPath>src/XM/Property.cpp</itemPath>
+          <itemPath>src/XM/RefCaster.cpp</itemPath>
+          <itemPath>src/XM/RefVariant.cpp</itemPath>
+          <itemPath>src/XM/Template.cpp</itemPath>
+          <itemPath>src/XM/Type.cpp</itemPath>
+          <itemPath>src/XM/TypeRegister.cpp</itemPath>
+          <itemPath>src/XM/Variant.cpp</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -137,208 +138,198 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/ArrayType.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Bind.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Bind.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/BindFunction.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/BindFunction.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/BindGetNSetProperty.hpp"
+      <item path="include/XM/BindGetNSetProperty.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/BindMethod.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Class.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Empty.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/EnableStd.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Exceptions/MembersExceptions.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/BindMethod.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Empty.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/EnableStd.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Exceptions/MembersExceptions.hpp"
+      <item path="include/XM/Exceptions/NotFoundExceptions.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/NotFoundExceptions.hpp"
+      <item path="include/XM/Exceptions/PropertyRangeException.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/PropertyRangeException.hpp"
+      <item path="include/XM/Exceptions/PropertySetException.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/PropertySetException.hpp"
+      <item path="include/XM/Exceptions/VariantCostnessException.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/VariantCostnessException.hpp"
+      <item path="include/XM/Exceptions/VariantTypeException.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/VariantTypeException.hpp"
+      <item path="include/XM/ExtendedMirror.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Function.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/FunctionImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Member.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Member.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Method.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Parameter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PointerType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PrimitiveType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Property.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PropertyArrayField.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PropertyField.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PropertyGetterNSetter.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/ExtendedMirror.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RefCaster.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Function.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/FunctionImpl.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RefVariant.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RefVariant.inl" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RegistrationHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RegistrationMacros.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Namespace.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Template.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Parameter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/PointerType.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/PrimitiveType.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Property.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/PropertyArrayField.hpp"
+      <item path="include/XM/TemplateRegistrationMacros.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/PropertyField.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Type.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/PropertyGetterNSetter.hpp"
+      <item path="include/XM/TypeRegister.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/TypeRegister.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Utils/ContainerUtils.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/RefCaster.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/Typedef.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RefVariant.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/Utils.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RefVariant.inl" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Variant.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RegistrationHelpers.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="include/XM/Variant.inl" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RegistrationMacros.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/XM/ArrayType.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/EXTMR/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
+      <item path="src/XM/Class.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/EXTMR/Template.hpp" ex="false" tool="3" flavor2="0">
+      <item path="src/XM/CompoundClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/EXTMR/TemplateRegistrationMacros.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Type.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/TypeRegister.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/TypeRegister.inl" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Utils/ContainerUtils.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Utils/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Utils/Typedef.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Utils/Utils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Variant.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Variant.inl" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EXTMR/ArrayType.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EXTMR/Class.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EXTMR/CompoundClass.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EXTMR/Exceptions/MembersExceptions.cpp"
+      <item path="src/XM/Exceptions/MembersExceptions.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/NotFoundExceptions.cpp"
+      <item path="src/XM/Exceptions/NotFoundExceptions.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/PropertyRangeException.cpp"
+      <item path="src/XM/Exceptions/PropertyRangeException.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/PropertySetException.cpp"
+      <item path="src/XM/Exceptions/PropertySetException.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/VariantCostnessException.cpp"
+      <item path="src/XM/Exceptions/VariantCostnessException.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/VariantTypeException.cpp"
+      <item path="src/XM/Exceptions/VariantTypeException.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Function.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Function.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Member.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Method.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Method.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/OtherMembers.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Namespace.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/PointerType.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/OtherMembers.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/PrimitiveType.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/PointerType.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Property.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/PrimitiveType.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/RefCaster.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Property.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/RefVariant.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/RefCaster.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Template.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/RefVariant.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Type.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Template.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/TypeRegister.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Type.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Variant.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/TypeRegister.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/XM/Variant.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -363,208 +354,198 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="include/EXTMR/ArrayType.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/ArrayType.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Bind.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Bind.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/BindFunction.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/BindFunction.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/BindGetNSetProperty.hpp"
+      <item path="include/XM/BindGetNSetProperty.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/BindMethod.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Class.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Empty.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/EnableStd.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Exceptions/MembersExceptions.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/BindMethod.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Class.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/CompoundClass.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Empty.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/EnableStd.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Exceptions/MembersExceptions.hpp"
+      <item path="include/XM/Exceptions/NotFoundExceptions.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/NotFoundExceptions.hpp"
+      <item path="include/XM/Exceptions/PropertyRangeException.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/PropertyRangeException.hpp"
+      <item path="include/XM/Exceptions/PropertySetException.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/PropertySetException.hpp"
+      <item path="include/XM/Exceptions/VariantCostnessException.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/VariantCostnessException.hpp"
+      <item path="include/XM/Exceptions/VariantTypeException.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/Exceptions/VariantTypeException.hpp"
+      <item path="include/XM/ExtendedMirror.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Function.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/FunctionImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Member.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Member.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Method.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Parameter.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PointerType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PrimitiveType.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Property.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PropertyArrayField.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PropertyField.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/PropertyGetterNSetter.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/ExtendedMirror.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RefCaster.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Function.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/FunctionImpl.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RefVariant.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Member.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RefVariant.inl" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Member.inl" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RegistrationHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Method.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/RegistrationMacros.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/Namespace.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Template.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Parameter.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/PointerType.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/PrimitiveType.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Property.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/PropertyArrayField.hpp"
+      <item path="include/XM/TemplateRegistrationMacros.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/PropertyField.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Type.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/PropertyGetterNSetter.hpp"
+      <item path="include/XM/TypeRegister.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/TypeRegister.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Utils/ContainerUtils.hpp"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/EXTMR/RefCaster.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/Typedef.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RefVariant.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/Utils.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RefVariant.inl" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Variant.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RegistrationHelpers.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="include/XM/Variant.inl" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/EXTMR/RegistrationMacros.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="src/XM/ArrayType.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/EXTMR/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
+      <item path="src/XM/Class.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/EXTMR/Template.hpp" ex="false" tool="3" flavor2="0">
+      <item path="src/XM/CompoundClass.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="include/EXTMR/TemplateRegistrationMacros.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Type.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/TypeRegister.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/TypeRegister.inl" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Utils/ContainerUtils.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="include/EXTMR/Utils/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Utils/Typedef.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Utils/Utils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Variant.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/EXTMR/Variant.inl" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EXTMR/ArrayType.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EXTMR/Class.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EXTMR/CompoundClass.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EXTMR/Exceptions/MembersExceptions.cpp"
+      <item path="src/XM/Exceptions/MembersExceptions.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/NotFoundExceptions.cpp"
+      <item path="src/XM/Exceptions/NotFoundExceptions.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/PropertyRangeException.cpp"
+      <item path="src/XM/Exceptions/PropertyRangeException.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/PropertySetException.cpp"
+      <item path="src/XM/Exceptions/PropertySetException.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/VariantCostnessException.cpp"
+      <item path="src/XM/Exceptions/VariantCostnessException.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Exceptions/VariantTypeException.cpp"
+      <item path="src/XM/Exceptions/VariantTypeException.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="src/EXTMR/Function.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Function.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Member.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Method.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Method.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/OtherMembers.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Namespace.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/PointerType.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/OtherMembers.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/PrimitiveType.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/PointerType.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Property.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/PrimitiveType.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/RefCaster.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Property.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/RefVariant.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/RefCaster.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Template.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/RefVariant.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Type.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Template.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/TypeRegister.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Type.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EXTMR/Variant.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/TypeRegister.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/XM/Variant.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

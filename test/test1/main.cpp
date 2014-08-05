@@ -34,8 +34,8 @@
 #include <vector>
 #include <sstream>
 #include <typeinfo>
-#include "EXTMR/ExtendedMirror.hpp"
-#include "EXTMR/EnableStd.hpp"
+#include "XM/ExtendedMirror.hpp"
+#include "XM/EnableStd.hpp"
 
 using namespace std;
 using namespace extmr;
@@ -50,9 +50,9 @@ public:
     T val;
 };
 
-EXTMR_ENABLE_TEMPLATE_1(ClassTemplate)
+XM_ENABLE_TEMPLATE_1(ClassTemplate)
 template<typename T>
-EXTMR_BUILD_CLASS(ClassTemplate<T>)
+XM_BUILD_CLASS(ClassTemplate<T>)
 {
     bindProperty("val", &ClassTemplate<T>::val);
 }
@@ -63,10 +63,10 @@ private:
     Uninstantiable();
 };
 
-EXTMR_ENABLE_CLASS(Uninstantiable)
-EXTMR_ASSUME_NON_INSTANTIABLE(Uninstantiable)
-EXTMR_BUILD_CLASS(Uninstantiable){}
-EXTMR_AUTOREG(Uninstantiable)
+XM_ENABLE_CLASS(Uninstantiable)
+XM_ASSUME_NON_INSTANTIABLE(Uninstantiable)
+XM_BUILD_CLASS(Uninstantiable){}
+XM_AUTOREG(Uninstantiable)
 
 class Base
 {
@@ -76,9 +76,9 @@ public:
 private:
 };
 
-EXTMR_ENABLE_CLASS(Base)
-EXTMR_ASSUME_ABSTRACT(Base)
-EXTMR_BUILD_CLASS(Base){}
+XM_ENABLE_CLASS(Base)
+XM_ASSUME_ABSTRACT(Base)
+XM_BUILD_CLASS(Base){}
 
 class CopyNotify
 {
@@ -93,8 +93,8 @@ public:
     }
 };
 
-EXTMR_ENABLE_CLASS(CopyNotify)
-EXTMR_BUILD_CLASS(CopyNotify){}
+XM_ENABLE_CLASS(CopyNotify)
+XM_BUILD_CLASS(CopyNotify){}
 
 class Dummy : public Base
 {
@@ -131,19 +131,19 @@ private:
     int field_;
 };
 
-EXTMR_ENABLE_CLASS(Dummy)
-EXTMR_BUILD_CLASS(Dummy)
+XM_ENABLE_CLASS(Dummy)
+XM_BUILD_CLASS(Dummy)
 {
-    EXTMR_BIND_PASE(Base);
-    bindProperty(EXTMR_MNP(templateInstance));
-    bindProperty(EXTMR_MNP(a));
-    bindMethod(EXTMR_MNP(self));
-    bindMethod<Dummy, void, int&>(EXTMR_MNP(doNothingUseful));
-    bindMethod<Dummy, void, string&>(EXTMR_MNP(doNothingUseful));
-    bindMethod(EXTMR_MNP(getSomething));
+    XM_BIND_PASE(Base);
+    bindProperty(XM_MNP(templateInstance));
+    bindProperty(XM_MNP(a));
+    bindMethod(XM_MNP(self));
+    bindMethod<Dummy, void, int&>(XM_MNP(doNothingUseful));
+    bindMethod<Dummy, void, string&>(XM_MNP(doNothingUseful));
+    bindMethod(XM_MNP(getSomething));
     bindProperty("copyCount", &Dummy::getSomething);
 }
-EXTMR_AUTOREG(Dummy)
+XM_AUTOREG(Dummy)
 
 /*
  * 

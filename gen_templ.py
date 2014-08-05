@@ -6,9 +6,9 @@ do not modify it directly! */"
 template_gen_dir = "templ_gen"
 
 variables = {
-    'EXTMR_FUNCTION_PARAM_MAX': 8,
-    'EXTMR_GET_N_SET_EXTRA_PARAM_MAX': 3,
-    'EXTMR_TEMPLATE_PARAM_MAX' : 4,
+    'XM_FUNCTION_PARAM_MAX': 8,
+    'XM_GET_N_SET_EXTRA_PARAM_MAX': 3,
+    'XM_TEMPLATE_PARAM_MAX' : 4,
     'WARNING_MESSAGE' : warning_message
     }
 
