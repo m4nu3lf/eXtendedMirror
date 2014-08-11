@@ -36,6 +36,7 @@
 namespace xm{
 
 class TypeRegister;
+typedef std::set<std::string> String_Set;
 
 /**
  * Holds information about a registered type for the reflection mechanism.
@@ -92,13 +93,6 @@ public:
     Type(const std::string& name = "");
     
     /**
-     * Basic constructor for initialization.
-     * 
-     * @param cppType The type_info struct of the type.
-     */
-    Type(const std::type_info& cppType);
-    
-    /**
      * Get the type Category.
      * 
      * @return The type category of this type.
@@ -113,6 +107,20 @@ public:
     const std::string& getName() const;
     
     /**
+     * Get the aliases of this type.
+     * 
+     * @return The set of aliases.
+     */
+    const String_Set& getAliases() const;
+    
+    /**
+     * Get the namespace this type belongs to
+     * 
+     * @return The type namespace.
+     */
+    const Namespace& getNamesapce() const;
+    
+    /**
      * Get the size of this type, the same of the one given by sizeof().
      * 
      * @return The type size.
@@ -125,11 +133,7 @@ public:
      * 
      * @return The type_info struct.
      */
-    const std::type_info& getCppType() const;
-    
-    
-    virtual ~Type();
-    
+    const std::type_info& getId() const;
 protected:
     
     /**
@@ -142,14 +146,32 @@ protected:
     Type(const std::string& name, std::size_t size,
             const std::type_info& cppType);
     
+    /**
+     * Add an alias to the type.
+     * 
+     * @param alias
+     */
+    void addAlias(const std::string& alias);
+    
+    /**
+     *  Protected destructor
+     */
+    virtual ~Type();
+    
     // The name of the type.
     std::string name_;
+    
+    // The aliases of the type.
+    String_Set aliases_;
+    
+    // The namespace of the type.
+    Namespace* namespace_;
 
     // The size of the type.
     size_t size_;
     
     // The type_info struct of the type.
-    const std::type_info& cppType_;
+    const std::type_info& id_;
     
     // The equal operator must be a friend to access the cppType field.
     friend bool operator==(const Type&, const Type&);
@@ -163,19 +185,19 @@ protected:
 
 bool inline operator==(const Type& t1, const Type& t2)
 {
-    return t1.cppType_ == t2.cppType_;
+    return t1.id_ == t2.id_;
 }
 
 bool inline operator!=(const Type& t1, const Type& t2)
 {
-    return t1.cppType_ != t2.cppType_;
+    return t1.id_ != t2.id_;
 }
 
 // type less operator compares the type_info struct with the type_info::before()
 // method.
 bool inline operator<(const Type& t1, const Type& t2)
 {
-    return t1.cppType_.before(t2.cppType_);
+    return t1.id_.before(t2.id_);
 }
 
 

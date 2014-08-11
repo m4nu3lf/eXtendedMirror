@@ -206,7 +206,7 @@ void Function::setDefaultArgs
 {
     _XM_FUNCTION_NC_PARAMS
     defaults_.clear();
-    defaults_.resize(XM_METHOD_PARAM_MAX);
+    defaults_.resize(XM_FUNCTION_PARAM_MAX);
     ncArg0.setConst();
     defaults_[0] = arg0;
     ncArg0.setConst();

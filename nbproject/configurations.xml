@@ -37,6 +37,7 @@
           <itemPath>include/XM/Method.hpp</itemPath>
           <itemPath>include/XM/MethodImpl.hpp</itemPath>
           <itemPath>include/XM/Namespace.hpp</itemPath>
+          <itemPath>include/XM/NamespaceMember.hpp</itemPath>
           <itemPath>include/XM/NumericalUtils.hpp</itemPath>
           <itemPath>include/XM/OtherMembers.hpp</itemPath>
           <itemPath>include/XM/Parameter.hpp</itemPath>
@@ -48,8 +49,6 @@
           <itemPath>include/XM/PropertyGetterNSetter.hpp</itemPath>
           <itemPath>include/XM/RefCaster.hpp</itemPath>
           <itemPath>include/XM/RefCasterImpl.hpp</itemPath>
-          <itemPath>include/XM/RefVariant.hpp</itemPath>
-          <itemPath>include/XM/RefVariant.inl</itemPath>
           <itemPath>include/XM/RegistrationHelpers.hpp</itemPath>
           <itemPath>include/XM/RegistrationMacros.hpp</itemPath>
           <itemPath>include/XM/Shortcuts.hpp</itemPath>
@@ -202,6 +201,8 @@
       </item>
       <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/XM/NamespaceMember.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/XM/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
@@ -226,10 +227,6 @@
       <item path="include/XM/RefCaster.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/RefVariant.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/RefVariant.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/RegistrationHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -418,6 +415,8 @@
       </item>
       <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/XM/NamespaceMember.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/XM/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
@@ -442,10 +441,6 @@
       <item path="include/XM/RefCaster.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/RefVariant.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/RefVariant.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/RegistrationHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>

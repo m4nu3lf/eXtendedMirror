@@ -34,18 +34,18 @@
 using namespace std;
 using namespace xm;
 
-Type::Type(const string& name) : name_(name), size_(0), cppType_(typeid(void))
+Type::Type(const string& name) : name_(name), size_(0), id_(typeid(void))
 {
 }
 
 
-Type::Type(const type_info& cppType) : name_(""), size_(0), cppType_(cppType)
+Type::Type(const type_info& cppType) : name_(""), size_(0), id_(cppType)
 {
 }
 
 
 Type::Type(const string& name, size_t size, const type_info& cppType)
-        : name_(name), size_(size), cppType_(cppType)
+        : name_(name), size_(size), id_(cppType)
 {
 }
 
@@ -62,15 +62,33 @@ const string& Type::getName() const
 }
 
 
+const String_Set& Type::getAliases() const
+{
+    return aliases_;
+}
+    
+
+const Namespace& Type::getNamesapce() const
+{
+    return *namespace_;
+}
+
+
 std::size_t Type::getSize() const
 {
     return size_;
 }
 
 
-const type_info& Type::getCppType() const
+const type_info& Type::getId() const
 {
-    return cppType_;
+    return id_;
+}
+
+
+void Type::addAlias(const string& alias) const
+{
+    aliases_.insert(alias);
 }
 
 

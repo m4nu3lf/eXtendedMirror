@@ -197,7 +197,7 @@ Variant Variant::call
 Variant Variant::callV(const std::string& methodName,
         vector<Variant>& args)
 {
-    args.resize(XM_METHOD_PARAM_MAX, Variant::Null);
+    args.resize(XM_FUNCTION_PARAM_MAX, Variant::Null);
     return call(methodName, args[0], args[1], args[2], args[3], args[4],
             args[5], args[6]);
 }

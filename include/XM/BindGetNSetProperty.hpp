@@ -63,8 +63,8 @@ Property& bindProperty(
         static_cast<void(ClassT::*)(Empty)>(NULL);
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_0_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_0_ExtrParams
         <
             ClassT,
             RetT,
@@ -76,6 +76,8 @@ Property& bindProperty(
             false,
             setter
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -109,8 +111,8 @@ Property& bindProperty(
         static_cast<void(ClassT::*)(Empty)>(NULL);
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_0_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_0_ExtrParams
         <
             ClassT,
             RetT,
@@ -122,6 +124,8 @@ Property& bindProperty(
             true,
             setter
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -148,8 +152,8 @@ Property& bindProperty(
     
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_0_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_0_ExtrParams
         <
             ClassT,
             RetT,
@@ -161,6 +165,8 @@ Property& bindProperty(
             false,
             setter
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -196,8 +202,8 @@ Property& bindProperty(
         
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_0_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_0_ExtrParams
         <
             ClassT,
             RetT,
@@ -209,6 +215,8 @@ Property& bindProperty(
             true,
             setter
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -236,8 +244,8 @@ Property& bindProperty(
         static_cast<void(ClassT::*)(Empty)>(NULL);
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_1_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_1_ExtrParams
         <
             ClassT,
             RetT,
@@ -251,6 +259,8 @@ Property& bindProperty(
             setter,
             extrArg0
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -288,8 +298,8 @@ Property& bindProperty(
         static_cast<void(ClassT::*)(Empty)>(NULL);
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_1_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_1_ExtrParams
         <
             ClassT,
             RetT,
@@ -303,6 +313,8 @@ Property& bindProperty(
             setter,
             extrArg0
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -333,8 +345,8 @@ Property& bindProperty(
     
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_1_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_1_ExtrParams
         <
             ClassT,
             RetT,
@@ -348,6 +360,8 @@ Property& bindProperty(
             setter,
             extrArg0
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -388,8 +402,8 @@ Property& bindProperty(
         
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_1_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_1_ExtrParams
         <
             ClassT,
             RetT,
@@ -403,6 +417,8 @@ Property& bindProperty(
             setter,
             extrArg0
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -433,8 +449,8 @@ Property& bindProperty(
         static_cast<void(ClassT::*)(Empty)>(NULL);
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_2_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_2_ExtrParams
         <
             ClassT,
             RetT,
@@ -450,6 +466,8 @@ Property& bindProperty(
             extrArg0,
             extrArg1
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -491,8 +509,8 @@ Property& bindProperty(
         static_cast<void(ClassT::*)(Empty)>(NULL);
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_2_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_2_ExtrParams
         <
             ClassT,
             RetT,
@@ -508,6 +526,8 @@ Property& bindProperty(
             extrArg0,
             extrArg1
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -542,8 +562,8 @@ Property& bindProperty(
     
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_2_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_2_ExtrParams
         <
             ClassT,
             RetT,
@@ -559,6 +579,8 @@ Property& bindProperty(
             extrArg0,
             extrArg1
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -604,8 +626,8 @@ Property& bindProperty(
         
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_2_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_2_ExtrParams
         <
             ClassT,
             RetT,
@@ -621,6 +643,8 @@ Property& bindProperty(
             extrArg0,
             extrArg1
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -654,8 +678,8 @@ Property& bindProperty(
         static_cast<void(ClassT::*)(Empty)>(NULL);
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_3_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_3_ExtrParams
         <
             ClassT,
             RetT,
@@ -673,6 +697,8 @@ Property& bindProperty(
             extrArg1,
             extrArg2
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -718,8 +744,8 @@ Property& bindProperty(
         static_cast<void(ClassT::*)(Empty)>(NULL);
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_3_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_3_ExtrParams
         <
             ClassT,
             RetT,
@@ -737,6 +763,8 @@ Property& bindProperty(
             extrArg1,
             extrArg2
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -775,8 +803,8 @@ Property& bindProperty(
     
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_3_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_3_ExtrParams
         <
             ClassT,
             RetT,
@@ -794,6 +822,8 @@ Property& bindProperty(
             extrArg1,
             extrArg2
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 
@@ -844,8 +874,8 @@ Property& bindProperty(
         
     
     // build the Property
-    return const_cast<Class&>(getClass<ClassT>())
-        & *new PropertyGetterNSetter_3_ExtrParams
+    Property* xmProperty =
+        *new PropertyGetterNSetter_3_ExtrParams
         <
             ClassT,
             RetT,
@@ -863,6 +893,8 @@ Property& bindProperty(
             extrArg1,
             extrArg2
         );
+    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    return *xmProperty;
 }
 
 

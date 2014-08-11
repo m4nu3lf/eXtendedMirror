@@ -331,11 +331,11 @@ const T& Variant::operator=(const T& rvalue)
     }
     else
     {
-        // call assign operator if class
+        // call copy constructor if class
         if (clazz)
         {
-            const AssignOperator& assignOp = clazz->getAssignOperator();
-            assignOp.assign(*this, RefVariant(rvalue));
+            const CopyConstructor& cpyC = clazz->getCopyConstructor();
+            cpyC.copy(*this, RefVariant(rvalue));
         }
         else
         {

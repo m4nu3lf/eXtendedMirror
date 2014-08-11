@@ -126,6 +126,13 @@ public:
     );
     
     /**
+     * Get the method name.
+     * 
+     * @return The method name.
+     */
+    const std::string& getName() const;
+    
+    /**
      * Ask if the method is constant.
      * 
      * @return True if the method is constant, false otherwise.

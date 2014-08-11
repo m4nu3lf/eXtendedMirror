@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Namespace.hpp                                        *
+ *      Extended Mirror: NamespaceMember.hpp                                  *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_NAMESPACE_HPP
-#define	XM_NAMESPACE_HPP
+#ifndef XM_NAMESPACEMEMBER_HPP
+#define	XM_NAMESPACEMEMBER_HPP
 
 namespace xm {
     
@@ -130,5 +130,5 @@ void Namespace::insert_<Function>(const Function& obj,
 
 } // namespace xm
 
-#endif	/* XM_NAMESPACE_HPP */
+#endif	/* XM_NAMESPACEMEMBER_HPP */
 

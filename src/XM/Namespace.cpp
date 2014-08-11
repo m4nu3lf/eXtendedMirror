@@ -44,7 +44,7 @@ Namespace::Namespace(const std::string& name, const Namespace& parent)
 }
 
 
-Namespace::Namespace(const std::string& name = "")
+Namespace::Namespace(const std::string& name)
         : name_(name), parent_(NULL)
 {
     
@@ -57,39 +57,66 @@ const std::string& Namespace::getName() const
 }
     
 
-const std::string& Namespace::getFullName() const
+std::string Namespace::getFullName() const
 {
     if (parent_)
-        return parent_.getFullName() + "::" + name_;
+        return parent_->getFullName() + "::" + name_;
     else
         return name_;
 }
 
 
+const Namespace& Namespace::getNamespace(const std::string& name) const
+{
+    pair<string, string> splitNamespace;
+    size_t pos = name.find("::");
+    if (pos != string::npos)
+    {
+        splitNamespace.first = name.substr(0, pos);
+        splitNamespace.second = name.substr(pos + 2);
+    }
+    else
+    {
+        splitNamespace.first = name;
+    }
+    Namespace* subNameSpace =
+        ptrSet::findByKey(namespaces_, splitNamespace.first);
+    
+    if (!subNameSpace)
+        throw NamespaceNotFoundException(splitNamespace.first);
+    
+    if (splitNamespace.second != "")
+        return subNameSpace->getNamespace(splitNamespace.second);
+    else
+        return *subNameSpace;
+    }
+}
+
+
 const Type& Namespace::getType(const string& typeName) const
 {
-    Const_Type_Map::iterator ite = types_.find(typeName);
+    Const_Type_Map::const_iterator ite = types_.find(typeName);
     if (ite == types_.end())
         throw TypeNotFoundException(typeName);
-    return *ite;
+    return *ite->second;
 }
 
 
 const Class& Namespace::getClass(const string& className) const
 {
-    Const_Class_Map::iterator ite = classes_.find(className);
-    if (ite == types_.end())
+    Const_Class_Map::const_iterator ite = classes_.find(className);
+    if (ite == classes_.end())
         throw TypeNotFoundException(className);
-    return *ite;
+    return *ite->second;
 }
 
 
 const Template& Namespace::getTemplate(const string& templateName) const
 {
-    Const_Template_Map::iterator ite = templates_.find(typeName);
+    Const_Template_Map::const_iterator ite = templates_.find(templateName);
     if (ite == templates_.end())
         throw TemplateNotFoundException(templateName);
-    return *ite;
+    return *ite->second;
 }
 
 
@@ -111,74 +138,38 @@ const Const_Template_Map& Namespace::getTemplates() const
 }
 
 
-const Const_Template_Map& Namespace::getFunctions() const
+const Const_Function_Map& Namespace::getFunctions() const
 {
     return functions_;
 }
 
 
-const Const_Template_Map& Namespace::getNamespaces() const
+const Const_Namespace_Set& Namespace::getNamespaces() const
 {
     return namespaces_;
 }
 
 
-template<class T>
-void Namespace::add(const T& obj, const string& name)
+void Namespace::addNamespace(const std::string& name)
 {
-    if (name == "")
-        name = obj->getName();
-    
-    pair<string, string> split_namespace;
+    pair<string, string> splitNamespace;
     size_t pos = name.find("::");
     if (pos != string::npos)
     {
-        split_namespace.first = name.substr(0, pos);
-        split_namespace.second = name.substr(pos + 2);
+        splitNamespace.first = name.substr(0, pos);
+        splitNamespace.second = name.substr(pos + 2);
     }
-    if (split_namespace.second != "")
+    if (splitNamespace.second != "")
     {
-        Namespace* sub_name_space = ptrSet::findByKey(split_namespace.first);
-        if (!sub_name_space)
+        Namespace* subNameSpace =
+                ptrSet::findByKey(namespaces_, splitNamespace.first);
+        if (!subNameSpace)
         {
-            sub_name_space = new Namespace(split_namespace.first);
-            namespaces_.insert(sub_name_space);
+            subNameSpace = new Namespace(splitNamespace.first);
+            namespaces_.insert(subNameSpace);
         }
-        sub_name_space.add<T>(obj, split_namespace.second);
+        subNameSpace.addNamespace(splitNamespace.second);
     }
-    else
-    {
-        insert_<T>(obj, name);
-    }
-}
-
-
-template<typename T>
-void Namespace::insert_(T& obj, const string& name)
-{
-}
-
-
-template<>
-void Namespace::insert_<Type>(Type& type, const string& name)
-{
-    types_.insert(name, &type);
-    if (type.getCategory() == Type::Class)
-        classes_.insert(name, &dynamic_cast<Class&>(type));
-}
-
-
-template<>
-void Namespace::insert_<Template>(Template& templ, const string& name)
-{
-    templates_.insert(name, &templ);
-}
-
-
-template<>
-void Namespace::insert_<Function>(Function& func, const string& name)
-{
-    functions_.insert(name, &func);
 }
 
 

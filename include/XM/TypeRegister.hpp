@@ -36,6 +36,10 @@
 namespace xm{
 
 
+typedef std::set<const Type*, PtrCmpById<Type> > Const_Type_SetById;
+typedef std::set<const Class*, PtrCmpById<Class> > Const_Class_SetById;
+
+
 class TypeRegister
 {
 public:
@@ -110,11 +114,11 @@ private:
     static void (*getRegCallBack())(const Type&);
     
     // the global ( or root ) namespace
-    const Namespace globalNamespace_;
+    Namespace globalNamespace_;
     
     // types and classes sets sorted by type id.
-    Const_Type_Set_ById types_;
-    Const_Class_Set_ById classes_;
+    Const_Type_SetById types_;
+    Const_Class_SetById classes_;
     
     // this function needs to add Templates to the register
     template<typename T>

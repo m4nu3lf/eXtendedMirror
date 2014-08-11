@@ -36,6 +36,17 @@
 using namespace std;
 using namespace xm;
 
+
+#define _XM_DEFINE_NOT_FOUND_EXCEPTION(_name_, _className_)                    \
+                                                                               \
+_className_##NotFoundException::_className_##NotFoundException(                \
+    const string& name) throw()                                                \
+    : NotFoundException(name, #_className_)                                    \
+{}                                                                             \
+                                                                               \
+_className_##NotFoundException::~_className_##Exception() throw()              \
+{}
+
 TypeNotFoundException::TypeNotFoundException(const string& name) throw()
         : name_(name)
 {

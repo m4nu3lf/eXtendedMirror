@@ -40,7 +40,8 @@ bool inline operator<(const Member& m1, const Member& m2)
 {
     if (*m1.owner_ != getClass<void>() and *m2.owner_ != getClass<void>())
     {
-        if (*m1.owner_ < *m2.owner_)
+        if (*static_cast<const Type*>(m1.owner_)
+                < (*static_cast<const Type*>(m2.owner_)))
             return true;
         else return m1.name_ < m2.name_;
     }

@@ -32,6 +32,7 @@
 
 #include <XM/Utils/Utils.hpp>
 #include <XM/ExtendedMirror.hpp>
+#include <XM/Exceptions/NotFoundExceptions.hpp>
 
 using namespace std;
 using namespace xm;
@@ -79,6 +80,12 @@ Class::Class
 }
 
 
+const string& Type::getName() const
+{
+    return Type::name_;
+}
+
+
 bool Class::isAbstract() const
 {
     return isAbstract_;
@@ -121,7 +128,7 @@ const Const_Class_Set& Class::getDerivedClasses() const
 }
 
 
-Class& Class::operator&(Class& baseClass)
+void Class::addBaseClass(Class& baseClass)
 {    
     // put this class into the derived list of the base Class
     baseClass.derivedClasses_.insert(this);
@@ -136,32 +143,27 @@ Class& Class::operator&(Class& baseClass)
     // insert all the base class method descriptors into the methods set
     const Const_Method_Set& baseClassMethods = baseClass.getMethods();
     methods_.insert(baseClassMethods.begin(), baseClassMethods.end());
-    
-    return *this;
 }
 
 
-RefCaster& Class::operator&(RefCaster& refCaster)
+void Class::addRefCaster(RefCaster& refCaster)
 {
     if (refCaster.getSrcType() == *this)
         refCasters_.insert(&refCaster);
-    return refCaster;
 }
 
 
-Property& Class::operator&(Property& property)
+void Class::addProperty(Property& property)
 {
     if (property.getOwner() == *this)
         properties_.insert(&property);
-    return property;
 }
 
 
-Method& Class::operator&(Method& method)
+void Class::addMethod(Method& method)
 { 
     if (method.getOwner() == *this)
         methods_.insert(&method);
-    return method;
 }
 
 
@@ -243,7 +245,7 @@ const Property& Class::getProperty(const string& propertyName) const
     if (property)
         return *property;
     else
-        throw PropertyNotFoundException(propertyName, name_);
+        throw PropertyNotFoundException(propertyName, Type::name_);
 }
 
 
@@ -253,7 +255,7 @@ const Method& Class::getMethod(const string& methodName) const
     if (method)
         return *method;
     else
-        throw MethodNotFoundException(methodName, name_);
+        throw MethodNotFoundException(methodName, Type::name_);
 }
 
 
@@ -263,7 +265,7 @@ const Method& Class::getMethod(const Method& method) const
     ite = methods_.find(&method);
     if (ite != methods_.end()) return **ite;
     
-    throw MethodNotFoundException(method, name_);
+    throw MethodNotFoundException(method, Type::name_);
 }
 
 

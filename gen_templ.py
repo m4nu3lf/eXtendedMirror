@@ -1,3 +1,4 @@
+#! /usr/bin/python
 import os
 import time
 
@@ -22,7 +23,7 @@ def gen_seq(string, count, sep = ""):
         end = count
 
     for i in range(start, end):
-        if i == 0:
+        if i == start:
             res += string.replace("$", str(i))
         else:
             res += sep + string.replace("$", str(i))

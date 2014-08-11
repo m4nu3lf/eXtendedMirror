@@ -55,7 +55,8 @@ private:
     
 };
 
-#define _XM_DECLARE_MEMBER_EXCEPTION(_name_)                                \
+
+#define _XM_DECLARE_MEMBER_EXCEPTION(_name_)                                   \
                                                                                \
 class Non##_name_##Exception : public MemberException                          \
 {                                                                              \

@@ -38,6 +38,7 @@ namespace xm
 {
 
 typedef std::set<const RefCaster*, PtrCmpByVal<RefCaster> > Const_RefCaster_Set;
+typedef std::set<const Class*, PtrCmpByName<Class> > Const_Class_Set;
 
 
 class Class : public Type, public Namespace
@@ -57,6 +58,13 @@ public:
      * @param cppType The type_info struct of the type.
      */
     Class(const std::type_info& type);
+    
+    /**
+     * Get the name of this class.
+     * 
+     * @return The name of the class. 
+     */
+    const std::string& getName() const;
     
     /**
      * Ask if the class is abstract.
@@ -216,16 +224,16 @@ public:
      */
     Category getCategory() const;
     
-    Class& operator&(Class& baseClass);
+    void addBaseClass(Class& baseClass);
     
 
-    RefCaster& operator&(RefCaster& refCaster);
+    void addRefCaster(RefCaster& refCaster);
     
 
-    Property& operator&(Property& property);
+    void addProperty(Property& property);
     
 
-    Method& operator&(Method& method);
+    void addMethod(Method& method);
     
     virtual ~Class();
     

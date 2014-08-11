@@ -42,7 +42,6 @@
 namespace xm{
 
 
-
 template
 <
     typename RetT
@@ -50,7 +49,7 @@ template
 Function& bindFunction
 (
     const std::string& name,
-    Namespace name_space&,
+    Namespace& name_space,
     RetT (*function)
     ( 
     )
@@ -60,13 +59,14 @@ Function& bindFunction
     registerType<RetT>();
 
     // create the proper Function
-    return *new FunctionImpl_0_Params
+    Function* xmFunction = new FunctionImpl_0_Params
         <
             RetT
         >
-        ( name, name_space, function );
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
 }
-
 
 
 template
@@ -77,7 +77,7 @@ template
 Function& bindFunction
 (
     const std::string& name,
-    Namespace name_space&,
+    Namespace& name_space,
     RetT (*function)
     ( 
         ParamT0
@@ -89,14 +89,15 @@ Function& bindFunction
     registerType<ParamT0>();
 
     // create the proper Function
-    return *new FunctionImpl_1_Params
+    Function* xmFunction = new FunctionImpl_1_Params
         <
             RetT,
             ParamT0
         >
-        ( name, name_space, function );
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
 }
-
 
 
 template
@@ -108,7 +109,7 @@ template
 Function& bindFunction
 (
     const std::string& name,
-    Namespace name_space&,
+    Namespace& name_space,
     RetT (*function)
     ( 
         ParamT0,
@@ -122,15 +123,16 @@ Function& bindFunction
     registerType<ParamT1>();
 
     // create the proper Function
-    return *new FunctionImpl_2_Params
+    Function* xmFunction = new FunctionImpl_2_Params
         <
             RetT,
             ParamT0,
             ParamT1
         >
-        ( name, name_space, function );
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
 }
-
 
 
 template
@@ -143,7 +145,7 @@ template
 Function& bindFunction
 (
     const std::string& name,
-    Namespace name_space&,
+    Namespace& name_space,
     RetT (*function)
     ( 
         ParamT0,
@@ -159,16 +161,17 @@ Function& bindFunction
     registerType<ParamT2>();
 
     // create the proper Function
-    return *new FunctionImpl_3_Params
+    Function* xmFunction = new FunctionImpl_3_Params
         <
             RetT,
             ParamT0,
             ParamT1,
             ParamT2
         >
-        ( name, name_space, function );
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
 }
-
 
 
 template
@@ -182,7 +185,7 @@ template
 Function& bindFunction
 (
     const std::string& name,
-    Namespace name_space&,
+    Namespace& name_space,
     RetT (*function)
     ( 
         ParamT0,
@@ -200,7 +203,7 @@ Function& bindFunction
     registerType<ParamT3>();
 
     // create the proper Function
-    return *new FunctionImpl_4_Params
+    Function* xmFunction = new FunctionImpl_4_Params
         <
             RetT,
             ParamT0,
@@ -208,9 +211,10 @@ Function& bindFunction
             ParamT2,
             ParamT3
         >
-        ( name, name_space, function );
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
 }
-
 
 
 template
@@ -225,7 +229,7 @@ template
 Function& bindFunction
 (
     const std::string& name,
-    Namespace name_space&,
+    Namespace& name_space,
     RetT (*function)
     ( 
         ParamT0,
@@ -245,7 +249,7 @@ Function& bindFunction
     registerType<ParamT4>();
 
     // create the proper Function
-    return *new FunctionImpl_5_Params
+    Function* xmFunction = new FunctionImpl_5_Params
         <
             RetT,
             ParamT0,
@@ -254,9 +258,10 @@ Function& bindFunction
             ParamT3,
             ParamT4
         >
-        ( name, name_space, function );
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
 }
-
 
 
 template
@@ -272,7 +277,7 @@ template
 Function& bindFunction
 (
     const std::string& name,
-    Namespace name_space&,
+    Namespace& name_space,
     RetT (*function)
     ( 
         ParamT0,
@@ -294,7 +299,7 @@ Function& bindFunction
     registerType<ParamT5>();
 
     // create the proper Function
-    return *new FunctionImpl_6_Params
+    Function* xmFunction = new FunctionImpl_6_Params
         <
             RetT,
             ParamT0,
@@ -304,9 +309,10 @@ Function& bindFunction
             ParamT4,
             ParamT5
         >
-        ( name, name_space, function );
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
 }
-
 
 
 template
@@ -323,7 +329,7 @@ template
 Function& bindFunction
 (
     const std::string& name,
-    Namespace name_space&,
+    Namespace& name_space,
     RetT (*function)
     ( 
         ParamT0,
@@ -347,7 +353,7 @@ Function& bindFunction
     registerType<ParamT6>();
 
     // create the proper Function
-    return *new FunctionImpl_7_Params
+    Function* xmFunction = new FunctionImpl_7_Params
         <
             RetT,
             ParamT0,
@@ -358,7 +364,68 @@ Function& bindFunction
             ParamT5,
             ParamT6
         >
-        ( name, name_space, function );
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
+}
+
+
+template
+<
+    typename RetT,
+    typename ParamT0,
+    typename ParamT1,
+    typename ParamT2,
+    typename ParamT3,
+    typename ParamT4,
+    typename ParamT5,
+    typename ParamT6,
+    typename ParamT7
+>
+Function& bindFunction
+(
+    const std::string& name,
+    Namespace& name_space,
+    RetT (*function)
+    ( 
+        ParamT0,
+        ParamT1,
+        ParamT2,
+        ParamT3,
+        ParamT4,
+        ParamT5,
+        ParamT6,
+        ParamT7
+    )
+)
+{
+    // ensure the types are registered
+    registerType<RetT>();
+    registerType<ParamT0>();
+    registerType<ParamT1>();
+    registerType<ParamT2>();
+    registerType<ParamT3>();
+    registerType<ParamT4>();
+    registerType<ParamT5>();
+    registerType<ParamT6>();
+    registerType<ParamT7>();
+
+    // create the proper Function
+    Function* xmFunction = new FunctionImpl_8_Params
+        <
+            RetT,
+            ParamT0,
+            ParamT1,
+            ParamT2,
+            ParamT3,
+            ParamT4,
+            ParamT5,
+            ParamT6,
+            ParamT7
+        >
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
 }
 
 

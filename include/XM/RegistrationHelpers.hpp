@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: GetTypeName.hpp                                      *
+ *      Extended Mirror: RegistrationHelpers.hpp                              *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,12 +30,13 @@
  *****************************************************************************/
 
 
-#ifndef XM_TYPECREATIONHELPERS_HPP
-#define	XM_TYPECREATIONHELPERS_HPP
+#ifndef XM_REGISTRATIONHELPERS_HPP
+#define	XM_REGISTRATIONHELPERS_HPP
 
 #include <XM/Exceptions/NotFoundExceptions.hpp>
 
 #include "TypeTraits.hpp"
+#include "TypeRegister.hpp"
 
 
 namespace xm {
@@ -196,8 +197,8 @@ Class& Class::create()
     // Call constructor
     return *new (clazz) Class(GetTypeName<T>()(), sizeof(T),
             typeid(T), *new ConstructorImpl<T>(*clazz),
-            *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
-            *new AssignOperatorImpl<T>(*clazz), IsAbstract<T>::value);
+            *new CopyConstructorImpl<T>(*clazz),
+            *new DestructorImpl<T>(*clazz));
 };
 
 
@@ -222,7 +223,7 @@ CompoundClass& CompoundClass::create()
     catch(const TemplateNotFoundException& e)
     {
         tempjate = new Template(GetTemplateName<T>()(), templateArgs.size());
-        typeReg.addTemplate(*tempjate);
+        const_cast<Namespace&>(typeReg.getNamespace()).add<Template>(*tempjate);
     }
     
     // Allocate memory for class
@@ -232,8 +233,7 @@ CompoundClass& CompoundClass::create()
     return *new (clazz) CompoundClass(GetTypeName<T>()(), sizeof(T),
             typeid(T), *new ConstructorImpl<T>(*clazz),
             *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
-            *new AssignOperatorImpl<T>(*clazz), IsAbstract<T>::value, *tempjate,
-            templateArgs);
+            IsAbstract<T>::value, *tempjate, templateArgs);
     
     return clazz;
 };
@@ -261,5 +261,5 @@ AutoRegisterer<T> AutoRegisterer<T>::autoregisterer;
 
 } //namespace xm
 
-#endif	/* XM_TYPECREATIONHELPERS_HPP */
+#endif	/* XM_REGISTRATIONHELPERS_HPP */
 

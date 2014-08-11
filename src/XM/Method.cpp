@@ -37,14 +37,15 @@ using namespace std;
 using namespace xm;
 
 Method::Method(const std::string& name) :
-        Member(getClass<void>(), name), retType_(&getType<void>()),
-        fullSignature_(false)
+        Member(getClass<void>(), name),
+        Function(name)
 {
 }
 
 
 Method::Method(const Class& owner, const std::string& name) :
-        Member(owner, name), retType_(&getType<void>()), fullSignature_(false)
+        Member(owner, name),
+        Function(name)
 {
 }
 
@@ -63,8 +64,9 @@ Method::Method
     const Type& paramType7
 ) :
     Member(getClass<void>(), name),
-    retType_(&retType),
-    fullSignature_(true)
+    Function(name, retType,
+        paramType0,paramType1, paramType2, paramType3, paramType4, paramType5,
+        paramType6, paramType7)
 {
         _XM_FUNCTION_PUSH_PARAMS
 }
@@ -85,10 +87,16 @@ Method::Method
     const Type& paramType7
 ) :
     Member(owner, name),
-    retType_(&retType),
-    fullSignature_(true)
+    Function(name, retType,
+        paramType0,paramType1, paramType2, paramType3, paramType4, paramType5,
+        paramType6, paramType7)
 {
-        _XM_METHOD_PUSH_PARAMS
+}
+
+
+const std::string& Method::getName() const
+{
+    return Member::name_;
 }
 
 

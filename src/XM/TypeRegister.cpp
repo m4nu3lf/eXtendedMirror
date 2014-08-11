@@ -101,13 +101,13 @@ const Template& TypeRegister::getTemplate(const string& templateName) const
 void TypeRegister::unregisterType(const std::string& typeName)
 {
     Type* type = ptrSet::removeByKey(types_, typeName);
-    ptrSet::removeByKey(typesById_, type->getCppType());
+    ptrSet::removeByKey(typesById_, type->getId());
     if (!type)
         throw TypeNotFoundException(typeName);
     
     if (type->getCategory() | Type::Class)
     {
-        Class* clazz = ptrSet::removeByKey(classesById_, type->getCppType());
+        Class* clazz = ptrSet::removeByKey(classesById_, type->gegetCppId);
     }
     
     delete type;

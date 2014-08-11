@@ -71,7 +71,6 @@ private:
      * @param constructor The class constructor wrapper function.
      * @param copyConstructor The type copy constructor wrapper function.
      * @param destructor The class destructor wrapper function.
-     * @param assignOperator The class assign operator wrapper function.
      * @param isAbstract If the class is abstract.
      * @param tempjate The template this class is an instance of.
      * @param templateArgs The Type of the template arguments.
@@ -84,7 +83,6 @@ private:
             const Constructor& constructor,
             const CopyConstructor& copyConstructor,
             const Destructor& destructor,
-            const AssignOperator& assignOperator,
             bool isAbstract,
             const Template& tempjate,
             const Const_Type_Vector& templateArgs

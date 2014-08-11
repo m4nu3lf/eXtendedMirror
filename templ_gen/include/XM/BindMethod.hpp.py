@@ -1,5 +1,6 @@
+content ="""
 /******************************************************************************      
- *      Extended Mirror: RefVariant.inl                                       *
+ *      Extended Mirror: BindMethod.hpp                                       *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -29,26 +30,71 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
+""" + WARNING_MESSAGE + """
 
-#ifndef XM_REFVARIANT_INL
-#define	XM_REFVARIANT_INL
-
-#include <XM/Exceptions/VariantTypeException.hpp>
-#include <XM/Exceptions/VariantCostnessException.hpp>
-#include <XM/RefVariant.hpp>
-
-#include "Variant.hpp"
+#ifndef XM_BINDMETHOD_HPP
+#define	XM_BINDMETHOD_HPP
 
 
-namespace xm{
+namespace xm {
 
+"""
+for n_params in range(1, XM_FUNCTION_PARAM_MAX + 1):
+    for is_const in range(2):
+        content += """
 
-template<typename T>
-RefVariant::RefVariant(T& data) : Variant(data, Reference)
+template
+<
+    class ClassT,
+    typename RetT""" + gen_seq(""",
+    typename ParamT$""", n_params) + """
+>
+Method& bindMethod
+(
+    const std::string& name,
+    RetT (ClassT::*method)
+    ( """ + gen_seq("""
+        ParamT$""", n_params, ",") + """
+    ) """ + ("const" if is_const else "") + """
+)
 {
+    // ensure the types are registered
+    registerType<RetT>();""" + gen_seq("""
+    registerType<ParamT$>();""", n_params) + """
+    """ + (("""
+    // remove the constness from the method
+    RetT (ClassT::*method_nc)() =
+        reinterpret_cast
+        <
+            RetT (ClassT::*)
+            (""" + gen_seq("""
+                ParamT$""", n_params, ",") + """
+            )
+        >(method);
+    """) if is_const else "") + """
+    // create the proper Method
+    Method* xmMethod = new MethodImpl_""" + str(n_params) + """_Params
+        <
+            ClassT,
+            RetT""" + gen_seq(""",
+            ParamT$""", n_params) + """
+        >
+        (
+            name""" + (""",
+            method_nc,
+            true""" if is_const else """,
+            method,
+            false""") + """
+        );
+
+    const_cast<Class&>(getClass<ClassT>()).addMethod(*xmMethod);
+    return *xmMethod;
 }
 
+"""
+
+content += """
 
 } // namespace xm
 
-#endif /* XM_REFVARIANT_INL */
+#endif	/* XM_BINDMETHOD_HPP */"""

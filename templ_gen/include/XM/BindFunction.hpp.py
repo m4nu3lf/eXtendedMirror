@@ -1,5 +1,6 @@
+content ="""
 /******************************************************************************      
- *      Extended Mirror: RefVariant.hpp                                       *
+ *      Extended Mirror: BindFunction.hpp                                     *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -29,28 +30,55 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
+""" + WARNING_MESSAGE + """
 
-#ifndef XM_REFVARIANT_HPP
-#define	XM_REFVARIANT_HPP
+#ifndef XM_BINDFUNCTION_HPP
+#define	XM_BINDFUNCTION_HPP
+
+
+#define XM_FUNCTION_PARAM_MAX """ + \
+str(XM_FUNCTION_PARAM_MAX) + """
+
 
 namespace xm {
 
-
-class RefVariant : public Variant
+"""
+for n_params in range(XM_FUNCTION_PARAM_MAX + 1):
+    content += """
+template
+<
+    typename RetT""" + gen_seq(""",
+    typename ParamT$""", n_params) + """
+>
+Function& bindFunction
+(
+    const std::string& name,
+    Namespace& name_space,
+    RetT (*function)
+    ( """ + gen_seq("""
+        ParamT$""", n_params, ",") + """
+    )
+)
 {
-public:
-    RefVariant();
-    
-    template<typename T>
-    RefVariant(T& data);
-    
-    RefVariant(const RefVariant& orig);
-        
-    RefVariant(Variant& var);
-    const Variant& operator=(const Variant& var);
-};
+    // ensure the types are registered
+    registerType<RetT>();""" + gen_seq("""
+    registerType<ParamT$>();""", n_params) + """
 
+    // create the proper Function
+    Function* xmFunction = new FunctionImpl_""" + str(n_params) + """_Params
+        <
+            RetT""" + gen_seq(""",
+            ParamT$""", n_params) + """
+        >
+        ( name, function );
+    name_space.add<Function>(*xmFunction);
+    return *xmFunction;
+}
+
+"""
+
+content += """
 
 } // namespace xm
 
-#endif /* XM_REFVARIANT_HPP */
+#endif	/* XM_BINDFUNCTION_HPP */"""

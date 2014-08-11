@@ -36,70 +36,40 @@
 
 namespace xm{
 
-    
-class TypeNotFoundException : public std::exception
+
+class NotFoundException : public std::exception
 {
 public:
-    TypeNotFoundException(const std::string& name) throw();
+    NotFoundException(const std::string& name) throw();
     
     const char* what() const throw();
     
-    ~TypeNotFoundException() throw();
-    
+    ~NotFoundException() throw();
 private:
     std::string name_;
-};
-
-
-class TemplateNotFoundException : public std::exception
-{
-public:
-    TemplateNotFoundException(const std::string& name) throw();
-    
-    const char* what() const throw();
-    
-    ~TemplateNotFoundException() throw();
-    
-private:
-    std::string name_;
-};
-
-
-class PropertyNotFoundException : public std::exception
-{
-public:
-    PropertyNotFoundException(const std::string& propertyName,
-            const std::string& className) throw();
-    
-    const char* what() const throw();
-    
-    ~PropertyNotFoundException() throw();
-    
-private:
-    std::string propertyName_;
     std::string className_;
 };
 
 
+#define _XM_DECLARE_NOT_FOUND_EXCEPTION(_className_)                           \
+class _className_##NotFoundException : public std::exception                   \
+{                                                                              \
+public:                                                                        \
+    _className_##FoundException(const std::string& name) throw();              \
+                                                                               \
+    const char* what() const throw();                                          \
+                                                                               \
+    ~##_className_##NotFoundException() throw();                               \
+};
+
+
+_XM_DECLARE_NOT_FOUND_EXCEPTION(Namespace)
+_XM_DECLARE_NOT_FOUND_EXCEPTION(Type)
+_XM_DECLARE_NOT_FOUND_EXCEPTION(Function)
+_XM_DECLARE_NOT_FOUND_EXCEPTION(Template)
+_XM_DECLARE_NOT_FOUND_EXCEPTION(Property)
 class Method;
-
-class MethodNotFoundException : public std::exception
-{
-public:
-    MethodNotFoundException(const std::string& methodName,
-            const std::string& className) throw();
-    MethodNotFoundException(const Method& method, const std::string& className)
-             throw();
-    
-    const char* what() const throw();
-    
-    ~MethodNotFoundException() throw();
-    
-private:
-    const Method* method_;
-    std::string className_;
-    bool deleteMethod_;
-};
+_XM_DECLARE_NOT_FOUND_EXCEPTION(Method)
 
 
 } // namespace xm

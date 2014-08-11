@@ -1,5 +1,6 @@
+content ="""
 /******************************************************************************      
- *      Extended Mirror: Bind.hpp                                             *
+ *      Extended Mirror: BindGetNSetProperty.hpp                              *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -29,78 +30,92 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
-#ifndef XM_BIND_HPP
-#define	XM_BIND_HPP
+""" + WARNING_MESSAGE + """
+
+#ifndef XM_BINDGETNSETPROPERTY_HPP
+#define	XM_BINDGETNSETPROPERTY_HPP
 
 
-#define XM_MNP(member) #member, &ClassT::member
-#define XM_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
-#define XM_BIND_PASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base
+#define XM_GET_N_SET_EXTRA_PARAM_MAX """ + \
+str(XM_GET_N_SET_EXTRA_PARAM_MAX) + """
 
-#include <XM/BindFunction.hpp>
-#include <XM/BindGetNSetProperty.hpp>
-#include <XM/BindMethod.hpp>
 
 namespace xm{
 
+"""
+for n_extr_params in range(XM_GET_N_SET_EXTRA_PARAM_MAX + 1):
+    for has_setter in range(2):
+        for has_const_getter in range(2):
+            content +="""
 
-template<class ClassT, class BaseT>
-void bindBase()
-{
-    // ensure that base class is registered
-    registerType<BaseT>();
-    
-    Class& clazz = const_cast<Class&>(getClass<ClassT>());
-    Class& base = const_cast<Class&>(getClass<BaseT>());
-    
-    // bind them together
-    clazz.addBaseClass(base);
-    
-    // bind RefCaster to base
-    clazz.addRefCaster(*new RefCasterImpl<ClassT, BaseT>());
-}
-
-
-template<class ClassT, class BaseT>
-void bindPmBase()
-{
-    bindBase<ClassT, BaseT>();
-    
-    // bind RefCast from BaseT to CassT
-    RefCaster* refCaster = new RefCasterImpl<BaseT, ClassT>();
-    const_cast<Class&>(getClass<BaseT>()).addRefCaster(*refCaster);
-}
-
-
-template<class ClassT, typename FieldT>
-Property& bindProperty(const std::string& name, FieldT ClassT::* field)
-{
+template
+<
+    class ClassT,
+    typename RetT""" + (""",
+    typename ParamT""" if has_setter else "") + gen_seq(""",
+    typename ExtrParamT$""", n_extr_params) + """
+>
+Property& bindProperty(
+    const std::string& name,
+    RetT (ClassT::*getter)
+    ( """ + gen_seq("""
+        ExtrParamT$""", n_extr_params, ",") + """
+    )""" + (" const" if has_const_getter else "") + (""",
+    void (ClassT::*setter)
+    (
+        ParamT""" + gen_seq(""",
+        ExtrParamT$""", n_extr_params) + """
+    )""" if has_setter else "") + gen_seq(""",
+    ExtrParamT$ extrArg$""", n_extr_params) + """
+)
+{   
     // ensure that the type is registered
-    registerType<FieldT>();
+    registerType<RetT>();
+    """ + (("""
+    // remove constness from the getter method
+    RetT (ClassT::*getter_nc)() =
+        reinterpret_cast
+        <
+            RetT (ClassT::*)
+            (""" + gen_seq("""
+                ExtrParamT$""", n_extr_params, ",") + """
+            )
+        >(getter);
+        """) if has_const_getter else "") + ("""
+    // setter points to NULL
+    void (ClassT::*setter)(Empty) =
+        static_cast<void(ClassT::*)(Empty)>(NULL);"""
+            if not has_setter else "") + """
     
-    // build the Property  and add it to the Class
-    Property* xmProperty = new PropertyField<ClassT, FieldT>(name, field);
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
-    return *xmProperty;
-}
-
-
-template<class ClassT, typename FieldT, std::size_t size>
-Property& bindProperty(const std::string& name,
-        FieldT (ClassT::* field) [size])
-{
-    // ensure that the type is registered
-    registerType<FieldT[size]>();
-    
-    // build the Property  and add it to the Class
+    // build the Property
     Property* xmProperty =
-            new PropertyArrayField<ClassT, FieldT[size]>(name, field);
+        *new PropertyGetterNSetter_""" + str(n_extr_params) + \
+        """_ExtrParams
+        <
+            ClassT,
+            RetT""" + (""",
+            ParamT""" if has_setter else """,
+            Empty""") + gen_seq(""",
+            ExtrParamT$""", n_extr_params) + """
+        >
+        (
+            name""" + (""",
+            getter_nc,
+            true""" if has_const_getter else """,
+            getter,
+            false""") + """,
+            setter""" + gen_seq(""",
+            extrArg$""", n_extr_params) + """
+        );
     const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
     return *xmProperty;
 }
 
+"""
+
+content += """
 
 } // namespace xm
 
-#endif	/* XM_BIND_HPP */
+#endif	/* XM_BINDGETNSETPROPERTY_HPP */"""
 

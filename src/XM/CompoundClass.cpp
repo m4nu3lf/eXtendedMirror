@@ -44,7 +44,6 @@ CompoundClass::CompoundClass
     const Constructor& constructor,
     const CopyConstructor& copyConstructor,
     const Destructor& destructor,
-    const AssignOperator& assignOperator,
     bool isAbstract,
     const Template& tempjate,
     const Const_Type_Vector& templateArgs
@@ -57,7 +56,6 @@ CompoundClass::CompoundClass
         constructor,
         copyConstructor,
         destructor,
-        assignOperator,
         isAbstract
     ),
     tempjate_(&tempjate),

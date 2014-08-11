@@ -67,7 +67,7 @@ MemberException::~MemberException() throw()
     
 }
 
-#define _XM_IMPLEMENT_MEMBER_EXCEPTION(_name_, _verb_, _adjective_)         \
+#define _XM_DEFINE_MEMBER_EXCEPTION(_name_, _verb_, _adjective_)               \
                                                                                \
 Non##_name_##Exception::Non##_name_##Exception(const Type& type) throw()       \
         : MemberException(type, #_verb_, #_adjective_)                         \
@@ -76,6 +76,6 @@ Non##_name_##Exception::Non##_name_##Exception(const Type& type) throw()       \
 Non##_name_##Exception::~Non##_name_##Exception() throw()                      \
 {}
 
-_XM_IMPLEMENT_MEMBER_EXCEPTION(Instantiable, instantiate, instantiable)
-_XM_IMPLEMENT_MEMBER_EXCEPTION(Copyable, copy, copyable)
-_XM_IMPLEMENT_MEMBER_EXCEPTION(Destructible, destroy, destructible)
+_XM_DEFINE_MEMBER_EXCEPTION(Instantiable, instantiate, instantiable)
+_XM_DEFINE_MEMBER_EXCEPTION(Copyable, copy, copyable)
+_XM_DEFINE_MEMBER_EXCEPTION(Destructible, destroy, destructible)
