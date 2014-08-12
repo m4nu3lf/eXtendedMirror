@@ -126,11 +126,11 @@ public:
     );
     
     /**
-     * Get the method name.
+     * Get the method signature.
      * 
-     * @return The method name.
+     * @return The method signature.
      */
-    const std::string& getName() const;
+    const std::string& getSignature() const;
     
     /**
      * Ask if the method is constant.
@@ -141,6 +141,8 @@ public:
     
 protected:
 
+    std::string signature_;
+    
     /// Whether the method is constant.
     bool constant_;
     

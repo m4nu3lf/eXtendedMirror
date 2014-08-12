@@ -39,7 +39,7 @@
 #define XM_FUNCTION_PARAM_MAX 8
 
 
-namespace xm{
+namespace xm {
 
 
 template
@@ -63,7 +63,7 @@ Function& bindFunction
         <
             RetT
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }
@@ -94,7 +94,7 @@ Function& bindFunction
             RetT,
             ParamT0
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }
@@ -129,7 +129,7 @@ Function& bindFunction
             ParamT0,
             ParamT1
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }
@@ -168,7 +168,7 @@ Function& bindFunction
             ParamT1,
             ParamT2
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }
@@ -211,7 +211,7 @@ Function& bindFunction
             ParamT2,
             ParamT3
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }
@@ -258,7 +258,7 @@ Function& bindFunction
             ParamT3,
             ParamT4
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }
@@ -309,7 +309,7 @@ Function& bindFunction
             ParamT4,
             ParamT5
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }
@@ -364,7 +364,7 @@ Function& bindFunction
             ParamT5,
             ParamT6
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }
@@ -423,7 +423,7 @@ Function& bindFunction
             ParamT6,
             ParamT7
         >
-        ( name, function );
+        ( name_space, name, function );
     name_space.add<Function>(*xmFunction);
     return *xmFunction;
 }

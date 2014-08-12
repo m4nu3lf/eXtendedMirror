@@ -150,7 +150,7 @@ const Const_Namespace_Set& Namespace::getNamespaces() const
 }
 
 
-void Namespace::addNamespace(const std::string& name)
+void Namespace::defineNamespace(const std::string& name)
 {
     pair<string, string> splitNamespace;
     size_t pos = name.find("::");
@@ -168,8 +168,28 @@ void Namespace::addNamespace(const std::string& name)
             subNameSpace = new Namespace(splitNamespace.first);
             namespaces_.insert(subNameSpace);
         }
-        subNameSpace.addNamespace(splitNamespace.second);
+        subNameSpace.defineNamespace(splitNamespace.second);
     }
+}
+
+
+void Namespace::addType(const string& name, const Type& type)
+{
+    types_.insert(make_pair(name, &type));
+    if (type.getCategory() & Type::Class)
+        classes_.insert(make_pair(name, &dynamic_cast<const Class&>(type)));
+}
+
+
+void Namespace::addTemplate(const string& name, const Template& templ)
+{
+    templates_.insert(make_pair(name, &templ));
+}
+
+
+void Namspace::addFunctions(const string& name, const Function& function)
+{
+    functions_.insert(make_pair(name, &function));
 }
 
 

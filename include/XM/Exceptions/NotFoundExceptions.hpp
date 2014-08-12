@@ -34,45 +34,51 @@
 #define	XM_NOTFOUNDEXCEPTIONS_HPP
 
 
-namespace xm{
-
-
+namespace xm {
+    
+    
 class NotFoundException : public std::exception
 {
 public:
-    NotFoundException(const std::string& name) throw();
+    NotFoundException(const std::string& name_);
     
-    const char* what() const throw();
-    
-    ~NotFoundException() throw();
 private:
     std::string name_;
-    std::string className_;
 };
 
 
-#define _XM_DECLARE_NOT_FOUND_EXCEPTION(_className_)                           \
-class _className_##NotFoundException : public std::exception                   \
+#define _XM_DECLARE_NOT_FOUND_EXCEPTION(_type_)                                \
+class _type_##NotFoundException : public NotFoundException                     \
 {                                                                              \
 public:                                                                        \
-    _className_##FoundException(const std::string& name) throw();              \
+    _type_##NotFoundException(const std::string& name)                         \
+        : NotFoundException(name) {}                                           \
                                                                                \
     const char* what() const throw();                                          \
-                                                                               \
-    ~##_className_##NotFoundException() throw();                               \
 };
 
 
 _XM_DECLARE_NOT_FOUND_EXCEPTION(Namespace)
 _XM_DECLARE_NOT_FOUND_EXCEPTION(Type)
-_XM_DECLARE_NOT_FOUND_EXCEPTION(Function)
+_XM_DECLARE_NOT_FOUND_EXCEPTION(Class)
 _XM_DECLARE_NOT_FOUND_EXCEPTION(Template)
 _XM_DECLARE_NOT_FOUND_EXCEPTION(Property)
-class Method;
-_XM_DECLARE_NOT_FOUND_EXCEPTION(Method)
 
 
-} // namespace xm
+class MethodNotFoundException : public NotFoundException
+{
+public:
+    MethodNotFoundException(const std::string& name, bool fullSignature = false)
+            throw();
+    
+    const char* what() const throw();
+    
+private:
+    bool fullSignature_;
+};
+
+
+} // namespace extmr
 
 #endif	/* XM_NOTFOUNDEXCEPTIONS_HPP */
 

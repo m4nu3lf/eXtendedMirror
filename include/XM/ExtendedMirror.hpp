@@ -47,13 +47,13 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
 }
 
+#include <XM/Name.hpp>
 #include <XM/Namespace.hpp>
 #include <XM/TypeRegister.hpp>
 #include <XM/Shortcuts.hpp>        
 #include <XM/TypeTraits.hpp>
 #include <XM/Empty.hpp>
 #include <XM/Variant.hpp>
-#include <XM/RefVariant.hpp>
 #include <XM/Type.hpp>
 #include <XM/RefCaster.hpp>
 #include <XM/PrimitiveType.hpp>
@@ -66,14 +66,12 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
 #include <XM/OtherMembers.hpp>
 #include <XM/Template.hpp>
 #include <XM/Class.hpp>
-#include <XM/Member.inl>
 #include <XM/CompoundClass.hpp>
 #include <XM/Shortcuts.hpp>
 #include <XM/PropertyField.hpp>
 #include <XM/PropertyArrayField.hpp>
 #include <XM/PropertyGetterNSetter.hpp>
 #include <XM/Variant.inl>
-#include <XM/RefVariant.inl>
 #include <XM/FunctionImpl.hpp>
 #include <XM/MethodImpl.hpp>
 #include <XM/RefCasterImpl.hpp>

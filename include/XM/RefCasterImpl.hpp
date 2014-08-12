@@ -43,9 +43,9 @@ public:
 	{
         }
 
-	RefVariant cast(const Variant& var) const
+	Variant cast(const Variant& var) const
 	{
-		return dynamic_cast<D&>(var.as<S>());
+		return dynamic_cast<D*>(var.as<S*>());
 	}
 
 };

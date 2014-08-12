@@ -90,7 +90,7 @@ public:
     }
     
     
-    Variant getData(RefVariant& self) const
+    Variant getData(const Variant& self) const
     {
         // the value is retrieved as a constant to prevent exception throwing
         // if the passed Variant is a constant Variant.
@@ -115,7 +115,7 @@ public:
     }
     
     
-    void setData(RefVariant& self, Variant& data) const
+    void setData(const Variant& self, const Variant& data) const
     {
         // cannot set an array
         throw PropertySetException(*this);

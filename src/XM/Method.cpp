@@ -94,9 +94,50 @@ Method::Method
 }
 
 
-const std::string& Method::getName() const
+std::string Method::getSignature() const
 {
-    return Member::name_;
+    if (fullSignature_)
+    {
+        string signature;
+
+        switch (getReturnMode())
+        {
+            case Method::Value:
+                signature += getReturnType().getName() + " ";
+                break;
+
+            case Method::Reference:
+                signature += getReturnType().getName() + "& ";
+                break;
+
+            case Method::ConstReference:
+                signature += "const " + getReturnType().getName()
+                        + " ";
+                break;
+        }
+
+        signature += getName() + "(";
+
+        Const_Prameter_Vector params = method_->getParameters();
+        for (uint i = 0; i < params.size(); i++) {
+            const Parameter* param = params[i];
+            signature += param->type.getName();
+            if (param->byNcReference)
+                signature += "&";
+            if (i != params.size() - 1)
+                signature += ", ";
+        }
+
+        signature += ") ";
+
+        if (isConst())
+            signature += "const";
+        
+        return signature;
+    }
+    else
+        return getName() + "()";
+        
 }
 
 

@@ -46,16 +46,16 @@ Variant::Variant() : flags_(0)
 }
 
 
-RefVariant Variant::getRefVariant() const
+Variant Variant::getRefVariant() const
 {
-    RefVariant refVar;
+    Variant refVar;
     refVar.data_ = data_;
     refVar.type_ = type_;
     refVar.flags_ = flags_ | Reference;
     
-    // need a const cast to help compiler choose the copy constructor
+    // need a const cast to make compiler choose the copy constructor
     // instead of the template constructor
-    return const_cast<const RefVariant&>(refVar);
+    return const_cast<const Variant&>(refVar);
 }
 
 

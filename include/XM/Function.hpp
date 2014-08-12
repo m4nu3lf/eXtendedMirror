@@ -45,7 +45,7 @@ bool operator<(const Type&, const Type&);
  * mechanism.
  * 
  */
-class Function
+class Function : public virtual Name
 {
 public:
     enum ReturnMode
@@ -62,6 +62,13 @@ public:
      * @param name The method name.
      */
     Function(const std::string& name);
+    
+    /**
+     * Construct a method with just the name.
+     * 
+     * @param name The method name.
+     */
+    Function(const Namespace& name_space, const std::string& name);
     
     /**
      * Construct a Method with the given given signature.
@@ -90,13 +97,6 @@ public:
         const Type& paramType6 = getType<void>(),
         const Type& paramType7 = getType<void>()
     );
-    
-    /**
-     * Returns the name of the function
-     * 
-     * @param param The new parameter.
-     */
-    const std::string& getName() const;
     
     /**
      * Add an other parameter to the parameter list.
@@ -189,9 +189,6 @@ protected:
         Variant& arg6,
         Variant& arg7
     ) const;
-    
-    // The function name
-    const std::string name_;
     
     // The returned type
     const Type* retType_;

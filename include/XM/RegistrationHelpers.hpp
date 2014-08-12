@@ -34,9 +34,7 @@
 #define	XM_REGISTRATIONHELPERS_HPP
 
 #include <XM/Exceptions/NotFoundExceptions.hpp>
-
 #include "TypeTraits.hpp"
-#include "TypeRegister.hpp"
 
 
 namespace xm {
@@ -223,7 +221,7 @@ CompoundClass& CompoundClass::create()
     catch(const TemplateNotFoundException& e)
     {
         tempjate = new Template(GetTemplateName<T>()(), templateArgs.size());
-        const_cast<Namespace&>(typeReg.getNamespace()).add<Template>(*tempjate);
+        const_cast<Namespace&>(typeReg.getNamespace()).addTemplate(*tempjate);
     }
     
     // Allocate memory for class

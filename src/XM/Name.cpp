@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Member.inl                                         *
+ *      Extended Mirror: Name.cpp                                             *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,26 +30,43 @@
  *****************************************************************************/
 
 
-#ifndef XM_MEMBER__INL
-#define	XM_MEMBER__INL
+#include <XM/Utils/Utils.hpp>
+#include <XM/ExtendedMirror.hpp>
 
-namespace xm {
+using namespace std;
+using namespace xm;
 
-    
-bool inline operator<(const Member& m1, const Member& m2)
+Name::Name(const Namespace& name_space, const string& unqualifiedName) :
+        namespace_(&name_space), unqualifiedName_(unqualifiedName)
 {
-    if (*m1.owner_ != getClass<void>() and *m2.owner_ != getClass<void>())
-    {
-        if (*static_cast<const Type*>(m1.owner_)
-                < (*static_cast<const Type*>(m2.owner_)))
-            return true;
-        else return m1.name_ < m2.name_;
-    }
-    else return m1.name_ < m2.name_;
+    name_ = namespace_->getName() + "::" + unqualifiedName;
+}
+
+Name::Name(const string& name) :
+        namespace_(NULL), unqualifiedName_(""), name_(name)
+{
+    // TODO: initialize namespace and unqualifiedName from name_
+}
+
+const string& Name::getUnqualifiedName() const
+{
+    return unqualifiedName_;
 }
 
 
-} // namespace xm
+const string& Name::getName() const
+{
+    return name_;
+}
 
-#endif	/* XM_MEMBER__INL */
+
+const Namespace& Name::getNamespace() const
+{
+    return *namespace_;
+}
+
+
+Member::~Member()
+{
+}
 

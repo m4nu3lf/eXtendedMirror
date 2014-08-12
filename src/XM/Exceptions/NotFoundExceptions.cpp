@@ -37,135 +37,50 @@ using namespace std;
 using namespace xm;
 
 
-#define _XM_DEFINE_NOT_FOUND_EXCEPTION(_name_, _className_)                    \
+NotFoundException::NotFoundException(const string& name)
+    : name_(name)
+{
+}
+
+
+#define _XM_DEFINE_NOT_FOUND_EXCEPTION(_type_)                                 \
                                                                                \
-_className_##NotFoundException::_className_##NotFoundException(                \
+_type_##NotFoundException::##_type_##NotFoundException(                        \
     const string& name) throw()                                                \
-    : NotFoundException(name, #_className_)                                    \
+    : NotFoundException(name)                                                  \
 {}                                                                             \
                                                                                \
-_className_##NotFoundException::~_className_##Exception() throw()              \
-{}
-
-TypeNotFoundException::TypeNotFoundException(const string& name) throw()
-        : name_(name)
-{
-    
+const char* _type_##NotFoundException::what() const throw()                    \
+{                                                                              \
+    "There is no registered #_type with name " + name_;                        \
 }
 
+_XM_DEFINE_NOT_FOUND_EXCEPTION(Namespace)
+_XM_DEFINE_NOT_FOUND_EXCEPTION(Type)
+_XM_DEFINE_NOT_FOUND_EXCEPTION(Class)
+_XM_DEFINE_NOT_FOUND_EXCEPTION(Template)
+_XM_DEFINE_NOT_FOUND_EXCEPTION(Propertyn)
 
-const char* TypeNotFoundException::what() const throw()
+
+
+MethodNotFoundException::MethodNotFoundException(const string& name,
+        bool fullSignature)
+    : NotFoundException(name), fullSignature_(fullSiganture)
 {
-    string s = "Type \"" + name_ + "\" is not registered.";
-    return s.c_str();
 }
-
-
-TypeNotFoundException::~TypeNotFoundException() throw()
-{
-    
-}
-
-
-TemplateNotFoundException::TemplateNotFoundException(const string& name) throw()
-                : name_(name)
-{
-    
-}
-
-
-const char* TemplateNotFoundException::what() const throw()
-{
-    string s = "Template \"" + name_ + "\" is not registered.";
-    return s.c_str();
-}
-
-
-TemplateNotFoundException::~TemplateNotFoundException() throw()
-{
-    
-}
-
-
-PropertyNotFoundException::PropertyNotFoundException(const string& propertyName,
-        const string& className) throw()
-        : propertyName_(propertyName), className_(className)
-{
-
-}
-
-const char* PropertyNotFoundException::what() const throw()
-{
-    string s = "Class \"" + className_ + "\" has no property named \"" +
-            propertyName_ + "\".";
-    return s.c_str();
-}
-
-
-PropertyNotFoundException::~PropertyNotFoundException() throw()
-{
-    
-}
-
-
-MethodNotFoundException::MethodNotFoundException(const string& methodName,
-                                                const string& className) throw()
-        : method_(new Method(methodName)), className_(className),
-        deleteMethod_(true)
-{
-    
-}
-
-
-MethodNotFoundException::MethodNotFoundException(const Method& method,
-                                                const string& className) throw()
-        : method_(&method), className_(className), deleteMethod_(false)
-{
-    
-}
-
 
 const char* MethodNotFoundException::what() const throw()
 {
-    string s;
-    
-    if (method_->fullSignature_)
+    if (fullSignature_)
     {
-        string signature;
-        
-        switch (method_->getReturnMode())
-        {
-        case Method::Value:
-                signature += method_->getReturnType().getName() + " ";
-                break;
-                
-        case Method::Reference:
-                signature += method_->getReturnType().getName() + "& ";
-                break;
-                
-        case Method::ConstReference:
-                signature += "const " + method_->getReturnType().getName()
-                        + " ";
-                break;
-        }
-        
-        signature += method_->getName() + "(";
-        
-        Const_Prameter_Vector params = method_->getParameters();            
-        for (uint i = 0; i < params.size(); i++)
-        {
-            const Parameter* param = params[i];
-            signature += param->type.getName();
-            if (param->byNcReference)
-                signature += "&";
-            if (i != params.size() - 1)
-                signature += ", ";
-        }
-        
-        signature += ") ";
-        
-        if (method_->isConst())
-            signature += "const";
+        "There is no registered method with signature " + name_;
+    }
+    else
+    {
+        "There is no registered method with name " + name_;
+    }
+    
+    
 
         s = "Class \"" + className_ + "\" has no method with signature \"" +
                 signature + "\".";
@@ -175,11 +90,4 @@ const char* MethodNotFoundException::what() const throw()
                 method_->getName() + "\".";
     
     return s.c_str();
-}
-
-
-MethodNotFoundException::~MethodNotFoundException() throw()
-{
-    if (deleteMethod_)
-        delete method_;
 }

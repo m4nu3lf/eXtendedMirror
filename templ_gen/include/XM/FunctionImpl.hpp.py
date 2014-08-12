@@ -64,13 +64,15 @@ public: """ + ("""
     typedef typename RemoveConst<typename RemoveReference<ParamT$>::Type>::Type
         NqParamT$;""", n_params) + """
     
-    FunctionImpl_""" + str(n_params) + """_Params(const std::string& name,
+    FunctionImpl_""" + str(n_params) + """_Params(const Namespace& name_space,
+        const std::string& name,
         RetT function
         (""" + gen_seq("""
             ParamT$""", n_params, ",") + """
         ),
         bool constant = false) :
-        Function(name),
+        Function(name_space, name),
+        Name(name_space, name),
         function_(function)
     {""" + gen_seq("""
         addParameter(*new Parameter(getType<ParamT$>()));""", n_params) + """

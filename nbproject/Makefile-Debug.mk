@@ -47,6 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/XM/Function.o \
 	${OBJECTDIR}/src/XM/Member.o \
 	${OBJECTDIR}/src/XM/Method.o \
+	${OBJECTDIR}/src/XM/Name.o \
 	${OBJECTDIR}/src/XM/Namespace.o \
 	${OBJECTDIR}/src/XM/OtherMembers.o \
 	${OBJECTDIR}/src/XM/PointerType.o \
@@ -145,6 +146,11 @@ ${OBJECTDIR}/src/XM/Method.o: src/XM/Method.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/XM
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DCPP_11 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/Method.o src/XM/Method.cpp
+
+${OBJECTDIR}/src/XM/Name.o: src/XM/Name.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/XM
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -DCPP_11 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/Name.o src/XM/Name.cpp
 
 ${OBJECTDIR}/src/XM/Namespace.o: src/XM/Namespace.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/XM

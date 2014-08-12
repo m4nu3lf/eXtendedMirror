@@ -36,7 +36,7 @@
 #define	XM_BINDMETHOD_HPP
 
 
-namespace xm{
+namespace xm {
 
 
 

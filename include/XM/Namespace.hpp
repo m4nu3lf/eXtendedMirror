@@ -53,15 +53,9 @@ typedef std::set<const Namespace*, PtrCmpByName<Namespace> >
     Const_Namespace_Set;
 
 
-class Namespace
+class Namespace : public virtual Name
 {
-public:    
-    const std::string& getName() const;
-    
-    std::string getFullName() const;
-    
-    const Namespace& getParent() const;
-    
+public:
     const Namespace& getNamespace(const std::string& name) const;
     
     const Type& getType(const std::string& typeName) const;
@@ -87,17 +81,13 @@ protected:
    
     Namespace(const std::string& name = "");
     
-    void addNamespace(const std::string& name);
+    void defineNamespace(const std::string& name);
     
-    void addType(const Type&, const std::string& name);
+    void addType(const std::string& name, const Type& type);
     
-    void addTemplate(const Template&, const std::string& name);
+    void addTemplate(const std::string& name, const Template& templ);
     
-    void addFunctions(const Type&, const std::string& name);
-    
-    std::string name_;
-
-    const Namespace* parent_;
+    void addFunction(const std::string& name, const Function& function);
     
     Const_Type_Map types_;
     
@@ -108,24 +98,7 @@ protected:
     Const_Function_Map functions_;
     
     Const_Namespace_Set namespaces_;
-    
-    friend bool operator<(const Namespace& n1, const Namespace& n2);
 };
-
-
-template <>
-void Namespace::insert_<Type>(const Type& obj, const std::string& name);
-
-template <>
-void Namespace::insert_<Class>(const Class& obj, const std::string& name);
-
-template <>
-void Namespace::insert_<Template>(const Template& obj,
-        const std::string& name);
-
-template <>
-void Namespace::insert_<Function>(const Function& obj,
-        const std::string& name);
 
 
 } // namespace xm

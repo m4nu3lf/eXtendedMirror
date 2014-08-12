@@ -33,11 +33,10 @@
           <itemPath>include/XM/Function.hpp</itemPath>
           <itemPath>include/XM/FunctionImpl.hpp</itemPath>
           <itemPath>include/XM/Member.hpp</itemPath>
-          <itemPath>include/XM/Member.inl</itemPath>
           <itemPath>include/XM/Method.hpp</itemPath>
           <itemPath>include/XM/MethodImpl.hpp</itemPath>
+          <itemPath>include/XM/Name.hpp</itemPath>
           <itemPath>include/XM/Namespace.hpp</itemPath>
-          <itemPath>include/XM/NamespaceMember.hpp</itemPath>
           <itemPath>include/XM/NumericalUtils.hpp</itemPath>
           <itemPath>include/XM/OtherMembers.hpp</itemPath>
           <itemPath>include/XM/Parameter.hpp</itemPath>
@@ -86,6 +85,7 @@
           <itemPath>src/XM/Function.cpp</itemPath>
           <itemPath>src/XM/Member.cpp</itemPath>
           <itemPath>src/XM/Method.cpp</itemPath>
+          <itemPath>src/XM/Name.cpp</itemPath>
           <itemPath>src/XM/Namespace.cpp</itemPath>
           <itemPath>src/XM/OtherMembers.cpp</itemPath>
           <itemPath>src/XM/PointerType.cpp</itemPath>
@@ -193,15 +193,13 @@
       </item>
       <item path="include/XM/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Member.inl" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/XM/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Name.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/NamespaceMember.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -305,6 +303,8 @@
       <item path="src/XM/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Method.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/XM/Name.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Namespace.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -407,15 +407,13 @@
       </item>
       <item path="include/XM/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Member.inl" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/XM/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Name.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/NamespaceMember.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -519,6 +517,8 @@
       <item path="src/XM/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Method.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/XM/Name.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Namespace.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -47,8 +47,15 @@ using namespace std;
 using namespace xm;
 
 Function::Function(const std::string& name) :
-        retType_(&getType<void>()), fullSignature_(false)
+        Name(name), retType_(&getType<void>()), fullSignature_(false)
 {
+}
+
+
+Function::Function(const Namespace& name_space, const std::string& name) :
+        Name(name_space, name), retType_(&getType<void>()),
+        fullSignature_(false)
+{    
 }
 
 
@@ -65,17 +72,11 @@ Function::Function
     const Type& paramType6,
     const Type& paramType7
 ) :
-    name_(name),
+    Name(name),
     retType_(&retType),
     fullSignature_(true)
 {
         _XM_FUNCTION_PUSH_PARAMS
-}
-
-
-const std::string& Function::getName() const
-{
-    return name_;
 }
 
 

@@ -41,7 +41,7 @@ class Class;
 /**
  * Describes a member of a class.
  */
-class Member
+class Member : public Name
 {
 public:    
     /**
@@ -52,13 +52,6 @@ public:
     Member(const Class& owner, const std::string& name = "");
     
     /**
-     * Get the name of the member.
-     * 
-     * @return The name of the member.
-     */
-    const std::string& getName() const;
-    
-    /**
      * Get the owner Class of the member.
      * 
      * @return The owner Class.
@@ -67,15 +60,6 @@ public:
     
 
     virtual ~Member();
-    
-protected:
-    // The member name.
-    std::string name_;
-    
-    // The member owner class
-    const Class* owner_;
-    
-    friend bool operator<(const Member& m1, const Member& m2);
 };
 
 

@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: NamespaceMember.hpp                                  *
+ *      Extended Mirror: Name.hpp                                             *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,105 +30,78 @@
  *****************************************************************************/
 
 
-#ifndef XM_NAMESPACEMEMBER_HPP
-#define	XM_NAMESPACEMEMBER_HPP
+#ifndef XM_NAME_HPP
+#define	XM_NAME_HPP
 
 namespace xm {
-    
-class Type;
-class Class;
-class Template;
-class Function;
+
 class Namespace;
 
-
-typedef std::map<std::string, Type*> Type_Map;
-typedef std::map<std::string, const Type*> Const_Type_Map;
-typedef std::map<std::string, Class*> Class_Map;
-typedef std::map<std::string, const Class*> Const_Class_Map;
-typedef std::map<std::string, Template*> Template_Map;
-typedef std::map<std::string, const Template*> Const_Template_Map;
-typedef std::map<std::string, const Function*> Const_Function_Map;
-typedef std::set<const Namespace*, PtrCmpByName<Namespace> >
-    Const_Namespace_Set;
-
-
-class Namespace
+class Name
 {
 public:    
+    
+    Name(const Namespace& name_space, const std::string& unqualifiedName);
+    
+    Name(const std::string& name);
+    
+    /**
+     * Get the unqualified name of the member.
+     * 
+     * @return The unqualified name of the name.
+     */
+    const std::string& getUnqualifiedName() const;
+    
+    /**
+     * Get the unqualified name of the member.
+     * 
+     * @return The qualified name.
+     */
     const std::string& getName() const;
     
-    std::string getFullName() const;
+    /**
+     * Get the namespace of the name.
+     * 
+     * @return The namespace.
+     */
+    const Namespace& getNamespace() const;
     
-    const Namespace& getParent() const;
-    
-    const Namespace& getNamespace(const std::string& name) const;
-    
-    const Type& getType(const std::string& typeName) const;
-    
-    const Class& getClass(const std::string& className) const;
-
-    const Template& getTemplate(const std::string& templateName) const;
-    
-    const Const_Namespace_Set& getNamespaces() const;
-
-    const Const_Type_Map& getTypes() const;
-
-    const Const_Class_Map& getClasses() const;
-
-    const Const_Template_Map& getTemplates() const;
-
-    const Const_Function_Map& getFunctions() const;
-    
-    virtual ~Namespace();
+    virtual ~Name();
     
 protected:
-    Namespace(const std::string& name, const Namespace& parent);
-   
-    Namespace(const std::string& name = "");
-    
-    void addNamespace(const std::string& name);
-    
-    void addType(const Type&, const std::string& name);
-    
-    void addTemplate(const Template&, const std::string& name);
-    
-    void addFunctions(const Type&, const std::string& name);
-    
     std::string name_;
-
-    const Namespace* parent_;
     
-    Const_Type_Map types_;
+    std::string unqualifiedName_;
     
-    Const_Class_Map classes_;
+    Namespace* namespace_;
     
-    Const_Template_Map templates_;
+    friend bool operator<(const Name& n1, const Name& n2);
     
-    Const_Function_Map functions_;
+    friend bool operator==(const Name& n1, const Name& n2);
     
-    Const_Namespace_Set namespaces_;
-    
-    friend bool operator<(const Namespace& n1, const Namespace& n2);
+    friend bool operator!=(const Name& n1, const Name& n2);
 };
 
 
-template <>
-void Namespace::insert_<Type>(const Type& obj, const std::string& name);
+bool inline operator<(const Name& n1, const Name& n2)
+{
+    return n1.getName() < n2.getName();
+}
 
-template <>
-void Namespace::insert_<Class>(const Class& obj, const std::string& name);
 
-template <>
-void Namespace::insert_<Template>(const Template& obj,
-        const std::string& name);
+bool inline operator==(const Name& n1, const Name& n2)
+{
+    return n1.getName() == n2.getName();
+}
 
-template <>
-void Namespace::insert_<Function>(const Function& obj,
-        const std::string& name);
+
+bool inline operator!=(const Name& n1, const Name& n2)
+{
+    return n1.getName() != n2.getName();
+}
 
 
 } // namespace xm
 
-#endif	/* XM_NAMESPACEMEMBER_HPP */
+#endif	/* XM_NAME_HPP */
 

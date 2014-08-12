@@ -98,7 +98,7 @@ Type& TypeRegister::registerType_()
     type = &CreateType<T>()();
     
     // push the type object into its namespace
-    globalNamespace_.add<Type>(*type);
+    globalNamespace_.addType(*type);
     types_.insert(type);
     
     Class* clazz = dynamic_cast<Class*>(type);

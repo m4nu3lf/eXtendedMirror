@@ -50,7 +50,7 @@ typedef std::set<std::string> String_Set;
  * This class should be instantiate only when registering a type by
  * the TypeRegister.
  */
-class Type
+class Type : public virtual Name
 {
 public:
     
@@ -100,25 +100,11 @@ public:
     virtual Category getCategory() const;
     
     /**
-     * Get the name of this type.
-     * 
-     * @return The name of the type. 
-     */
-    const std::string& getName() const;
-    
-    /**
      * Get the aliases of this type.
      * 
      * @return The set of aliases.
      */
     const String_Set& getAliases() const;
-    
-    /**
-     * Get the namespace this type belongs to
-     * 
-     * @return The type namespace.
-     */
-    const Namespace& getNamesapce() const;
     
     /**
      * Get the size of this type, the same of the one given by sizeof().
@@ -158,14 +144,8 @@ protected:
      */
     virtual ~Type();
     
-    // The name of the type.
-    std::string name_;
-    
     // The aliases of the type.
     String_Set aliases_;
-    
-    // The namespace of the type.
-    Namespace* namespace_;
 
     // The size of the type.
     size_t size_;

@@ -38,7 +38,7 @@ namespace xm{
 /**
  * Holds some information about template types.
  */
-class Template
+class Template : public Name
 {
 public:
     /**

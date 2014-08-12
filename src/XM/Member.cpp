@@ -37,20 +37,14 @@ using namespace std;
 using namespace xm;
 
 Member::Member(const Class& owner, const string& name) :
-        owner_(&owner), name_(name)
+    Name(owner_, name)
 {
-}
-
-
-const string& Member::getName() const
-{
-    return name_;
 }
 
 
 const Class& Member::getOwner() const
 {
-    return *owner_;
+    return dynamic_cast<const Class&>getNamespace();
 }
 
 
