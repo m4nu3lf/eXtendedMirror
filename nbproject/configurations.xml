@@ -32,10 +32,10 @@
           <itemPath>include/XM/ExtendedMirror.hpp</itemPath>
           <itemPath>include/XM/Function.hpp</itemPath>
           <itemPath>include/XM/FunctionImpl.hpp</itemPath>
+          <itemPath>include/XM/Item.hpp</itemPath>
           <itemPath>include/XM/Member.hpp</itemPath>
           <itemPath>include/XM/Method.hpp</itemPath>
           <itemPath>include/XM/MethodImpl.hpp</itemPath>
-          <itemPath>include/XM/Name.hpp</itemPath>
           <itemPath>include/XM/Namespace.hpp</itemPath>
           <itemPath>include/XM/NumericalUtils.hpp</itemPath>
           <itemPath>include/XM/OtherMembers.hpp</itemPath>
@@ -48,14 +48,14 @@
           <itemPath>include/XM/PropertyGetterNSetter.hpp</itemPath>
           <itemPath>include/XM/RefCaster.hpp</itemPath>
           <itemPath>include/XM/RefCasterImpl.hpp</itemPath>
+          <itemPath>include/XM/Register.hpp</itemPath>
+          <itemPath>include/XM/Register.inl</itemPath>
           <itemPath>include/XM/RegistrationHelpers.hpp</itemPath>
           <itemPath>include/XM/RegistrationMacros.hpp</itemPath>
           <itemPath>include/XM/Shortcuts.hpp</itemPath>
           <itemPath>include/XM/Template.hpp</itemPath>
           <itemPath>include/XM/TemplateRegistrationMacros.hpp</itemPath>
           <itemPath>include/XM/Type.hpp</itemPath>
-          <itemPath>include/XM/TypeRegister.hpp</itemPath>
-          <itemPath>include/XM/TypeRegister.inl</itemPath>
           <itemPath>include/XM/TypeTraits.hpp</itemPath>
           <itemPath>include/XM/Variant.hpp</itemPath>
           <itemPath>include/XM/Variant.inl</itemPath>
@@ -83,19 +83,18 @@
           <itemPath>src/XM/Class.cpp</itemPath>
           <itemPath>src/XM/CompoundClass.cpp</itemPath>
           <itemPath>src/XM/Function.cpp</itemPath>
+          <itemPath>src/XM/Item.cpp</itemPath>
           <itemPath>src/XM/Member.cpp</itemPath>
           <itemPath>src/XM/Method.cpp</itemPath>
-          <itemPath>src/XM/Name.cpp</itemPath>
           <itemPath>src/XM/Namespace.cpp</itemPath>
           <itemPath>src/XM/OtherMembers.cpp</itemPath>
           <itemPath>src/XM/PointerType.cpp</itemPath>
           <itemPath>src/XM/PrimitiveType.cpp</itemPath>
           <itemPath>src/XM/Property.cpp</itemPath>
           <itemPath>src/XM/RefCaster.cpp</itemPath>
-          <itemPath>src/XM/RefVariant.cpp</itemPath>
+          <itemPath>src/XM/Register.cpp</itemPath>
           <itemPath>src/XM/Template.cpp</itemPath>
           <itemPath>src/XM/Type.cpp</itemPath>
-          <itemPath>src/XM/TypeRegister.cpp</itemPath>
           <itemPath>src/XM/Variant.cpp</itemPath>
         </logicalFolder>
       </logicalFolder>
@@ -191,13 +190,13 @@
       </item>
       <item path="include/XM/FunctionImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/XM/Item.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/XM/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/Name.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -226,6 +225,10 @@
       </item>
       <item path="include/XM/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/XM/Register.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Register.inl" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/XM/RegistrationHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/RegistrationMacros.hpp" ex="false" tool="3" flavor2="0">
@@ -240,10 +243,6 @@
             flavor2="0">
       </item>
       <item path="include/XM/Type.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/TypeRegister.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/TypeRegister.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -300,11 +299,11 @@
       </item>
       <item path="src/XM/Function.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/XM/Item.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/XM/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Method.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/XM/Name.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Namespace.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -318,13 +317,11 @@
       </item>
       <item path="src/XM/RefCaster.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/XM/RefVariant.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Register.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Template.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Type.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/XM/TypeRegister.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Variant.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -405,13 +402,13 @@
       </item>
       <item path="include/XM/FunctionImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/XM/Item.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/XM/Member.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Method.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/MethodImpl.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/Name.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -440,6 +437,10 @@
       </item>
       <item path="include/XM/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/XM/Register.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Register.inl" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/XM/RegistrationHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/RegistrationMacros.hpp" ex="false" tool="3" flavor2="0">
@@ -454,10 +455,6 @@
             flavor2="0">
       </item>
       <item path="include/XM/Type.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/TypeRegister.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/TypeRegister.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -514,11 +511,11 @@
       </item>
       <item path="src/XM/Function.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/XM/Item.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/XM/Member.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Method.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/XM/Name.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Namespace.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -532,13 +529,11 @@
       </item>
       <item path="src/XM/RefCaster.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/XM/RefVariant.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/XM/Register.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Template.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Type.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/XM/TypeRegister.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Variant.cpp" ex="false" tool="1" flavor2="0">
       </item>

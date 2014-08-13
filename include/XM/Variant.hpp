@@ -40,7 +40,6 @@
 namespace xm{
 
 class Type;
-class RefVariant;
 
 
 class Variant
@@ -100,7 +99,7 @@ public:
      * 
      * @return The RefVariant
      */
-    RefVariant getRefVariant() const;
+    Variant getRefVariant() const;
     
     /**
      * Ask if this variant data is a reference to an external data.

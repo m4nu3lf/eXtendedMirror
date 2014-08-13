@@ -63,8 +63,8 @@ Function& bindFunction
         <
             RetT
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 
@@ -94,8 +94,8 @@ Function& bindFunction
             RetT,
             ParamT0
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 
@@ -129,8 +129,8 @@ Function& bindFunction
             ParamT0,
             ParamT1
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 
@@ -168,8 +168,8 @@ Function& bindFunction
             ParamT1,
             ParamT2
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 
@@ -211,8 +211,8 @@ Function& bindFunction
             ParamT2,
             ParamT3
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 
@@ -258,8 +258,8 @@ Function& bindFunction
             ParamT3,
             ParamT4
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 
@@ -309,8 +309,8 @@ Function& bindFunction
             ParamT4,
             ParamT5
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 
@@ -364,8 +364,8 @@ Function& bindFunction
             ParamT5,
             ParamT6
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 
@@ -423,8 +423,8 @@ Function& bindFunction
             ParamT6,
             ParamT7
         >
-        ( name_space, name, function );
-    name_space.add<Function>(*xmFunction);
+        ( name, function );
+    name_space.addItem(*xmFunction);
     return *xmFunction;
 }
 

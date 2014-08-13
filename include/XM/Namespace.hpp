@@ -34,70 +34,35 @@
 #define	XM_NAMESPACE_HPP
 
 namespace xm {
-    
-class Type;
-class Class;
-class Template;
-class Function;
-class Namespace;
+
+typedef std::set<Item*, PtrCmpByName<Item> > Item_Set;
+typedef std::set<const Item*, PtrCmpByName<Item> > Const_Item_Set;
+typedef void (*ItemInspector)(const Item& item);
 
 
-typedef std::map<std::string, Type*> Type_Map;
-typedef std::map<std::string, const Type*> Const_Type_Map;
-typedef std::map<std::string, Class*> Class_Map;
-typedef std::map<std::string, const Class*> Const_Class_Map;
-typedef std::map<std::string, Template*> Template_Map;
-typedef std::map<std::string, const Template*> Const_Template_Map;
-typedef std::map<std::string, const Function*> Const_Function_Map;
-typedef std::set<const Namespace*, PtrCmpByName<Namespace> >
-    Const_Namespace_Set;
-
-
-class Namespace : public virtual Name
+class Namespace : public virtual Item
 {
 public:
     const Namespace& getNamespace(const std::string& name) const;
     
-    const Type& getType(const std::string& typeName) const;
+    template<typename T>
+    const T& getItem(const std::string& name) const;
     
-    const Class& getClass(const std::string& className) const;
-
-    const Template& getTemplate(const std::string& templateName) const;
-    
-    const Const_Namespace_Set& getNamespaces() const;
-
-    const Const_Type_Map& getTypes() const;
-
-    const Const_Class_Map& getClasses() const;
-
-    const Const_Template_Map& getTemplates() const;
-
-    const Const_Function_Map& getFunctions() const;
+    void walkItems(ItemInspector fnc, bool recursive = false) const;
     
     virtual ~Namespace();
     
 protected:
-    Namespace(const std::string& name, const Namespace& parent);
+    Namespace(const std::string& name, const Namespace& name_space);
    
-    Namespace(const std::string& name = "");
+    Namespace();
     
-    void defineNamespace(const std::string& name);
+    void addItem(Item& item, std::string name = "");
     
-    void addType(const std::string& name, const Type& type);
+    static std::pair<std::string, std::string>
+    splitTopNamespace_(const std::string& name);
     
-    void addTemplate(const std::string& name, const Template& templ);
-    
-    void addFunction(const std::string& name, const Function& function);
-    
-    Const_Type_Map types_;
-    
-    Const_Class_Map classes_;
-    
-    Const_Template_Map templates_;
-    
-    Const_Function_Map functions_;
-    
-    Const_Namespace_Set namespaces_;
+    Item_Set items_;
 };
 
 

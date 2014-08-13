@@ -34,51 +34,78 @@
 #define	XM_NOTFOUNDEXCEPTIONS_HPP
 
 
-namespace xm {
-    
-    
+namespace xm{
+
+
 class NotFoundException : public std::exception
 {
 public:
-    NotFoundException(const std::string& name_);
-    
-private:
-    std::string name_;
-};
-
-
-#define _XM_DECLARE_NOT_FOUND_EXCEPTION(_type_)                                \
-class _type_##NotFoundException : public NotFoundException                     \
-{                                                                              \
-public:                                                                        \
-    _type_##NotFoundException(const std::string& name)                         \
-        : NotFoundException(name) {}                                           \
-                                                                               \
-    const char* what() const throw();                                          \
-};
-
-
-_XM_DECLARE_NOT_FOUND_EXCEPTION(Namespace)
-_XM_DECLARE_NOT_FOUND_EXCEPTION(Type)
-_XM_DECLARE_NOT_FOUND_EXCEPTION(Class)
-_XM_DECLARE_NOT_FOUND_EXCEPTION(Template)
-_XM_DECLARE_NOT_FOUND_EXCEPTION(Property)
-
-
-class MethodNotFoundException : public NotFoundException
-{
-public:
-    MethodNotFoundException(const std::string& name, bool fullSignature = false)
+    NotFoundException(const std::string& id, const std::string& category)
             throw();
     
     const char* what() const throw();
     
-private:
-    bool fullSignature_;
+    ~NotFoundException() throw();
+protected:
+    std::string id_;
+    std::string category_;
 };
 
 
-} // namespace extmr
+template<class C>
+class ItemNotFoundException : public NotFoundException
+{
+};
+
+#define _XM_DEFINE_ITEM_NOT_FOUND_EXCEPTION_SPECIALIZATION(_category_)         \
+template<>                                                                     \
+class ItemNotFoundException<_category_> : public NotFoundException             \
+{                                                                              \
+public:                                                                        \
+    ItemNotFoundException<_category_>(const std::string& name)                 \
+        : NotFoundException(name, #_category_){}                               \
+};
+
+
+_XM_DEFINE_ITEM_NOT_FOUND_EXCEPTION_SPECIALIZATION(Item)
+_XM_DEFINE_ITEM_NOT_FOUND_EXCEPTION_SPECIALIZATION(Type)
+_XM_DEFINE_ITEM_NOT_FOUND_EXCEPTION_SPECIALIZATION(Class)
+_XM_DEFINE_ITEM_NOT_FOUND_EXCEPTION_SPECIALIZATION(Template)
+_XM_DEFINE_ITEM_NOT_FOUND_EXCEPTION_SPECIALIZATION(Namespace)
+        
+
+template<class C>
+class MemberNotFoundException : public NotFoundException
+{
+};
+
+#define _XM_DEFINE_MEMBER_NOT_FOUND_EXCEPTION_SPECIALIZATION(_category_)       \
+template<>                                                                     \
+class MemberNotFoundException<_category_> : public NotFoundException           \
+{                                                                              \
+public:                                                                        \
+    MemberNotFoundException(const std::string& id,                             \
+                            const std::string& owner,                          \
+                            bool idIsSignature = false) throw()                \
+        : NotFoundException(id, #_category_), owner_(owner),                   \
+          idIsSignature_(idIsSignature) {}                                     \
+                                                                               \
+    const char* what() const throw()                                           \
+    {                                                                          \
+        return ("Class " + owner_ + " has no " + category_ + " with "          \
+                + (idIsSignature_? "signature " : "name ") + id_).c_str();     \
+    }                                                                          \
+private:                                                                       \
+    std::string owner_;                                                        \
+    bool idIsSignature_;                                                       \
+};
+
+_XM_DEFINE_MEMBER_NOT_FOUND_EXCEPTION_SPECIALIZATION(Member)
+_XM_DEFINE_MEMBER_NOT_FOUND_EXCEPTION_SPECIALIZATION(Property)
+_XM_DEFINE_MEMBER_NOT_FOUND_EXCEPTION_SPECIALIZATION(Method)
+
+
+} // namespace xm
 
 #endif	/* XM_NOTFOUNDEXCEPTIONS_HPP */
 

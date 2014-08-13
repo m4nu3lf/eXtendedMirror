@@ -107,8 +107,7 @@ struct GetTemplateArgs                                                       \
     Const_Type_Vector operator()()                                           \
     {                                                                        \
         Const_Type_Vector templateArgs;                                      \
-        TypeRegister& typeReg = TypeRegister::getSingleton();                \
-        templateArgs.push_back(&typeReg.registerType<T0>()); \
+        templateArgs.push_back(&registerType<T0>()); \
         return templateArgs;                                                 \
     }                                                                        \
 };                                                                           \
@@ -236,9 +235,8 @@ struct GetTemplateArgs                                                       \
     Const_Type_Vector operator()()                                           \
     {                                                                        \
         Const_Type_Vector templateArgs;                                      \
-        TypeRegister& typeReg = TypeRegister::getSingleton();                \
-        templateArgs.push_back(&typeReg.registerType<T0>());\
-        templateArgs.push_back(&typeReg.registerType<T1>()); \
+        templateArgs.push_back(&registerType<T0>());        \
+        templateArgs.push_back(&registerType<T1>()); \
         return templateArgs;                                                 \
     }                                                                        \
 };                                                                           \
@@ -379,10 +377,9 @@ struct GetTemplateArgs                                                       \
     Const_Type_Vector operator()()                                           \
     {                                                                        \
         Const_Type_Vector templateArgs;                                      \
-        TypeRegister& typeReg = TypeRegister::getSingleton();                \
-        templateArgs.push_back(&typeReg.registerType<T0>());\
-        templateArgs.push_back(&typeReg.registerType<T1>());\
-        templateArgs.push_back(&typeReg.registerType<T2>()); \
+        templateArgs.push_back(&registerType<T0>());        \
+        templateArgs.push_back(&registerType<T1>());        \
+        templateArgs.push_back(&registerType<T2>()); \
         return templateArgs;                                                 \
     }                                                                        \
 };                                                                           \
@@ -536,11 +533,10 @@ struct GetTemplateArgs                                                       \
     Const_Type_Vector operator()()                                           \
     {                                                                        \
         Const_Type_Vector templateArgs;                                      \
-        TypeRegister& typeReg = TypeRegister::getSingleton();                \
-        templateArgs.push_back(&typeReg.registerType<T0>());\
-        templateArgs.push_back(&typeReg.registerType<T1>());\
-        templateArgs.push_back(&typeReg.registerType<T2>());\
-        templateArgs.push_back(&typeReg.registerType<T3>()); \
+        templateArgs.push_back(&registerType<T0>());        \
+        templateArgs.push_back(&registerType<T1>());        \
+        templateArgs.push_back(&registerType<T2>());        \
+        templateArgs.push_back(&registerType<T3>()); \
         return templateArgs;                                                 \
     }                                                                        \
 };                                                                           \

@@ -51,14 +51,13 @@ public:
 
     /// type of the arguments without any cv-qualifier and no reference
     
-    FunctionImpl_0_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_0_Params(const std::string& name,
         RetT function
         (
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
     }
@@ -119,14 +118,13 @@ public:
 
     /// type of the arguments without any cv-qualifier and no reference
     
-    FunctionImpl_0_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_0_Params(const std::string& name,
         RetT function
         (
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
     }
@@ -182,15 +180,14 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
         NqParamT0;
     
-    FunctionImpl_1_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_1_Params(const std::string& name,
         RetT function
         (
             ParamT0
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -258,15 +255,14 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
         NqParamT0;
     
-    FunctionImpl_1_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_1_Params(const std::string& name,
         RetT function
         (
             ParamT0
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -328,16 +324,15 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     
-    FunctionImpl_2_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_2_Params(const std::string& name,
         RetT function
         (
             ParamT0,
             ParamT1
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -412,16 +407,15 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     
-    FunctionImpl_2_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_2_Params(const std::string& name,
         RetT function
         (
             ParamT0,
             ParamT1
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -489,8 +483,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
         NqParamT2;
     
-    FunctionImpl_3_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_3_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -498,8 +491,8 @@ public:
             ParamT2
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -581,8 +574,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
         NqParamT2;
     
-    FunctionImpl_3_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_3_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -590,8 +582,8 @@ public:
             ParamT2
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -665,8 +657,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
         NqParamT3;
     
-    FunctionImpl_4_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_4_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -675,8 +666,8 @@ public:
             ParamT3
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -765,8 +756,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
         NqParamT3;
     
-    FunctionImpl_4_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_4_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -775,8 +765,8 @@ public:
             ParamT3
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -856,8 +846,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
         NqParamT4;
     
-    FunctionImpl_5_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_5_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -867,8 +856,8 @@ public:
             ParamT4
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -964,8 +953,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
         NqParamT4;
     
-    FunctionImpl_5_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_5_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -975,8 +963,8 @@ public:
             ParamT4
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -1062,8 +1050,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
         NqParamT5;
     
-    FunctionImpl_6_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_6_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -1074,8 +1061,8 @@ public:
             ParamT5
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -1178,8 +1165,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
         NqParamT5;
     
-    FunctionImpl_6_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_6_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -1190,8 +1176,8 @@ public:
             ParamT5
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -1283,8 +1269,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
         NqParamT6;
     
-    FunctionImpl_7_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_7_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -1296,8 +1281,8 @@ public:
             ParamT6
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -1407,8 +1392,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
         NqParamT6;
     
-    FunctionImpl_7_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_7_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -1420,8 +1404,8 @@ public:
             ParamT6
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -1519,8 +1503,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
         NqParamT7;
     
-    FunctionImpl_8_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_8_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -1533,8 +1516,8 @@ public:
             ParamT7
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));
@@ -1651,8 +1634,7 @@ public:
     typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
         NqParamT7;
     
-    FunctionImpl_8_Params(const Namespace& name_space,
-        const std::string& name,
+    FunctionImpl_8_Params(const std::string& name,
         RetT function
         (
             ParamT0,
@@ -1665,8 +1647,8 @@ public:
             ParamT7
         ),
         bool constant = false) :
-        Function(name_space, name),
-        Name(name_space, name),
+        Function(name),
+        Item(name),
         function_(function)
     {
         addParameter(*new Parameter(getType<ParamT0>()));

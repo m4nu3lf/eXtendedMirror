@@ -37,6 +37,7 @@ using namespace std;
 using namespace xm;
 
 Method::Method(const std::string& name) :
+        Item(name),
         Member(getClass<void>(), name),
         Function(name)
 {
@@ -44,6 +45,7 @@ Method::Method(const std::string& name) :
 
 
 Method::Method(const Class& owner, const std::string& name) :
+        Item(owner, name),
         Member(owner, name),
         Function(name)
 {
@@ -63,6 +65,7 @@ Method::Method
     const Type& paramType6,
     const Type& paramType7
 ) :
+    Item(name),
     Member(getClass<void>(), name),
     Function(name, retType,
         paramType0,paramType1, paramType2, paramType3, paramType4, paramType5,
@@ -86,6 +89,7 @@ Method::Method
     const Type& paramType6,
     const Type& paramType7
 ) :
+    Item(owner, name),
     Member(owner, name),
     Function(name, retType,
         paramType0,paramType1, paramType2, paramType3, paramType4, paramType5,
@@ -118,7 +122,7 @@ std::string Method::getSignature() const
 
         signature += getName() + "(";
 
-        Const_Prameter_Vector params = method_->getParameters();
+        Const_Prameter_Vector params = getParameters();
         for (uint i = 0; i < params.size(); i++) {
             const Parameter* param = params[i];
             signature += param->type.getName();

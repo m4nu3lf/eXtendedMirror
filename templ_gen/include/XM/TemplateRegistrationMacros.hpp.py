@@ -49,8 +49,8 @@ for n_temp_params in range(1, XM_TEMPLATE_PARAM_MAX + 1):
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define XM_ENABLE_TEMPLATE_""" + str(n_temp_params) + """(_template_)     \\
-namespace xm{                                                             \\
+#define XM_ENABLE_TEMPLATE_""" + str(n_temp_params) + """(_template_)        \\
+namespace xm{                                                                \\
                                                                              \\
 template                                                                     \\
 <                                                                            \\
@@ -117,9 +117,8 @@ struct GetTemplateArgs                                                       \\
     Const_Type_Vector operator()()                                           \\
     {                                                                        \\
         Const_Type_Vector templateArgs;                                      \\
-        TypeRegister& typeReg = TypeRegister::getSingleton();                \\
-        templateArgs.push_back(&typeReg.registerType<T0>());""" + gen_seq("""\\
-        templateArgs.push_back(&typeReg.registerType<T$>());""", \
+        templateArgs.push_back(&registerType<T0>());""" + gen_seq("""        \\
+        templateArgs.push_back(&registerType<T$>());""", \
         (1, n_temp_params)) + """ \\
         return templateArgs;                                                 \\
     }                                                                        \\

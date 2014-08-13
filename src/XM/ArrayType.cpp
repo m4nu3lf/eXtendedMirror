@@ -38,13 +38,15 @@ using namespace std;
 
 ArrayType::ArrayType
 (
+        const Namespace& name_space,
         const string& name,
         size_t size,
         const type_info& cppType,
         size_t arraySize,
         const Type& elementType = getType<void>()
  )
-        : Type(name, size, cppType), arraySize_(arraySize),
+        : Item(name_space, name),
+        Type(name_space, name, size, cppType), arraySize_(arraySize),
         elementType_(&elementType)
 {
     

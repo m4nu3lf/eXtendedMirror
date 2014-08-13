@@ -171,7 +171,7 @@ Variant Variant::call
         Method keyMethod
         (
             methodName,
-            TypeRegister::getSingleton().getType<void>(),
+            Register::getSingleton().getType<void>(),
             *type_,
             arg0.getType(),
             arg1.getType(),
@@ -183,8 +183,7 @@ Variant Variant::call
         );
         const Method& callableMethod = clazz->getMethod(keyMethod);
         
-        RefVariant self(*this);
-        return callableMethod.call(self, arg0, arg1, arg2, arg3, arg4, arg5,
+        return callableMethod.call(*this, arg0, arg1, arg2, arg3, arg4, arg5,
                 arg6);
     }
     else

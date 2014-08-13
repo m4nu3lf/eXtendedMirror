@@ -45,7 +45,7 @@ bool operator<(const Type&, const Type&);
  * mechanism.
  * 
  */
-class Function : public virtual Name
+class Function : public virtual Item
 {
 public:
     enum ReturnMode

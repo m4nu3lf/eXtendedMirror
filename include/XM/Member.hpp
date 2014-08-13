@@ -41,7 +41,7 @@ class Class;
 /**
  * Describes a member of a class.
  */
-class Member : public Name
+class Member : public virtual Item
 {
 public:    
     /**

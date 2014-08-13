@@ -69,15 +69,16 @@ private:
     /**
      * Constructor for full initialization.
      * 
-     * @param name The type name.
+     * @param name_space The type namespace.
+     * @param name The type unqualified name.
      * @param size The type size.
      * @param cppType The type_info struct of the type.
      * @param arraySize The length of the array.
      * @param elementType The type of the array elements.
      */
-    ArrayType(const std::string& name, std::size_t size,
-            const std::type_info& cppType, std::size_t arraySize,
-            const Type& elementType);
+    ArrayType(const Namespace& name_space, const std::string& name,
+            std::size_t size, const std::type_info& cppType,
+            std::size_t arraySize, const Type& elementType);
     
     
     // The array elements type.

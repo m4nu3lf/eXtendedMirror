@@ -37,57 +37,13 @@ using namespace std;
 using namespace xm;
 
 
-NotFoundException::NotFoundException(const string& name)
-    : name_(name)
+NotFoundException::NotFoundException(const string& id, const string& category)
+    throw() : id_(id), category_(category)
 {
 }
 
 
-#define _XM_DEFINE_NOT_FOUND_EXCEPTION(_type_)                                 \
-                                                                               \
-_type_##NotFoundException::##_type_##NotFoundException(                        \
-    const string& name) throw()                                                \
-    : NotFoundException(name)                                                  \
-{}                                                                             \
-                                                                               \
-const char* _type_##NotFoundException::what() const throw()                    \
-{                                                                              \
-    "There is no registered #_type with name " + name_;                        \
-}
-
-_XM_DEFINE_NOT_FOUND_EXCEPTION(Namespace)
-_XM_DEFINE_NOT_FOUND_EXCEPTION(Type)
-_XM_DEFINE_NOT_FOUND_EXCEPTION(Class)
-_XM_DEFINE_NOT_FOUND_EXCEPTION(Template)
-_XM_DEFINE_NOT_FOUND_EXCEPTION(Propertyn)
-
-
-
-MethodNotFoundException::MethodNotFoundException(const string& name,
-        bool fullSignature)
-    : NotFoundException(name), fullSignature_(fullSiganture)
+const char* NotFoundException::what() const throw()
 {
-}
-
-const char* MethodNotFoundException::what() const throw()
-{
-    if (fullSignature_)
-    {
-        "There is no registered method with signature " + name_;
-    }
-    else
-    {
-        "There is no registered method with name " + name_;
-    }
-    
-    
-
-        s = "Class \"" + className_ + "\" has no method with signature \"" +
-                signature + "\".";
-    }
-    else
-        s = "Class \"" + className_ + "\" has no method named \"" +
-                method_->getName() + "\".";
-    
-    return s.c_str();
+    return (category_ + " with name " + id_ + " not found.").c_str();
 }

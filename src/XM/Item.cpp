@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: RefVariant.cpp                                       *
+ *      Extended Mirror: Item.cpp                                             *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -28,36 +28,64 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF     *
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
+
+
 #include <XM/Utils/Utils.hpp>
 #include <XM/ExtendedMirror.hpp>
+#include <c++/4.6/bits/basic_string.h>
 
 using namespace std;
 using namespace xm;
 
-
-RefVariant::RefVariant()
+Item::Item(const Namespace& name_space, const string& unqualifiedName) :
+        namespace_(&name_space), unqualifiedName_(unqualifiedName)
 {
-    
+    name_ = namespace_->getName() + "::" + unqualifiedName;
+}
+
+Item::Item(const string& name) :
+        namespace_(NULL), unqualifiedName_(removeQualifier_(name)), name_(name)
+{
+}
+
+const string& Item::getUnqualifiedName() const
+{
+    return unqualifiedName_;
 }
 
 
-RefVariant::RefVariant(const RefVariant& orig)
+const string& Item::getName() const
 {
-    data_ = orig.data_;
-    type_ = orig.type_;
-    flags_ = orig.flags_;
+    return name_;
 }
 
 
-RefVariant::RefVariant(Variant& var)
+const Namespace& Item::getNamespace() const
 {
-    *this = var.getRefVariant();
+    if (namespace_)
+        return *namespace_;
+    else
+        return Register::getSingleton();
 }
 
 
-const Variant& RefVariant::operator=(const Variant& var)
+void Item::setNamespace(const Namespace& name_space)
 {
-    *this = var.getRefVariant();
-    
-    return var;
+    namespace_ = &name_space;
+    name_ = namespace_->getName() + "::" + unqualifiedName_;
 }
+
+
+string Item::removeQualifier_(const string& name)
+{
+    size_t pos = name.find_last_of("::");
+    if (pos != string::npos)
+        return name.substr(pos + 2);
+    else return name;
+}
+
+
+Member::~Member()
+{
+}
+

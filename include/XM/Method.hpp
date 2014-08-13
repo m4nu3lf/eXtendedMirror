@@ -130,7 +130,7 @@ public:
      * 
      * @return The method signature.
      */
-    const std::string& getSignature() const;
+    std::string getSignature() const;
     
     /**
      * Ask if the method is constant.
@@ -146,35 +146,14 @@ protected:
     /// Whether the method is constant.
     bool constant_;
     
-    // Need to know if the method has a full signature
-    friend class MethodNotFoundException;
-    
     friend bool operator<(const Method& m1, const Method& m2);
 };
 
 
 bool inline operator<(const Method& m1, const Method& m2)
 {
-    if (static_cast<const Member&>(m1) < static_cast<const Member&>(m2))
-        return true;
-    
-    if (static_cast<const Member&>(m2) < static_cast<const Member&>(m1))
-        return false;
-    
-    if (!m1.fullSignature_ || !m2.fullSignature_)
-        return false;
-    
-    ushort paramN1 = m1.params_.size();
-    ushort paramN2 = m2.params_.size();
-    ushort paramN = std::min(paramN1, paramN2);
-    for (uint i = 0; i < paramN; i++)
-    {
-        if (m1.params_[i]->type
-            < m2.params_[i]->type)
-            return true;
-    }
-    if (paramN1 < paramN2) return true;
-    return false;
+    return dynamic_cast<const Function&>(m1)
+            < dynamic_cast<const Function&>(m2);
 }
 
 

@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: TypeRegister.inl                                     *
+ *      Extended Mirror: Register.inl                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -39,21 +39,21 @@ namespace xm{
 
 
 template<typename T>
-const Type& TypeRegister::getTypeOf(const T& obj) const
+const Type& Register::getTypeOf(const T& obj) const
 {   
-    return getType(typeid(obj));
+    return getType<T>();
 }
 
 
 template<typename T>
-const Class& TypeRegister::getClassOf(const T& obj) const
+const Class& Register::getClassOf(const T& obj) const
 {
-    return getClass(typeid(obj));
+    return getClass<T>();
 }
 
 
 template<typename T>
-const Type& TypeRegister::getType() const
+const Type& Register::getType() const
 {   
     static const Type& type = getType(typeid(T));
     return type;
@@ -61,7 +61,7 @@ const Type& TypeRegister::getType() const
 
 
 template<typename T>
-const Class& TypeRegister::getClass() const
+const Class& Register::getClass() const
 {   
     static const Class& clazz = getClass(typeid(T));
     return clazz;
@@ -69,7 +69,7 @@ const Class& TypeRegister::getClass() const
 
 
 template<typename T>
-const Type& TypeRegister::registerType()
+const Type& Register::registerType()
 {
     typedef typename RemoveReference<T>::Type NonRefT;
     typedef typename RemoveAllCVQualifiers<NonRefT>::Type NonQualifiedT;
@@ -80,14 +80,14 @@ const Type& TypeRegister::registerType()
 
 
 template<typename T>
-const Class& TypeRegister::registerClass()
+const Class& Register::registerClass()
 {
     return dynamic_cast<const Class&>(registerType<T>());
 }
 
 
 template<typename T>
-Type& TypeRegister::registerType_()
+Type& Register::registerType_()
 {
     // store registered type for subsequent calls
     static Type* type = NULL;
@@ -97,8 +97,8 @@ Type& TypeRegister::registerType_()
     
     type = &CreateType<T>()();
     
-    // push the type object into its namespace
-    globalNamespace_.addType(*type);
+    // push the Type into its Namespace
+    addItem(*type);
     types_.insert(type);
     
     Class* clazz = dynamic_cast<Class*>(type);
@@ -124,7 +124,7 @@ Type& TypeRegister::registerType_()
  * mechanism call this for the returned method type and this type can be void.
  */
 template<>
-inline const Type& TypeRegister::registerType<void>()
+inline const Type& Register::registerType<void>()
 {
     return getType<void>();
 }
@@ -135,7 +135,7 @@ inline const Type& TypeRegister::registerType<void>()
  getType is then called on all the parameters types, so Empty too, and the
  result must be Type::Void*/
 template<>
-inline const Type& TypeRegister::getType<Empty>() const
+inline const Type& Register::getType<Empty>() const
 {   
     return getType<void>();
 }

@@ -41,14 +41,8 @@ const Template Template::None("");
     
 
 Template::Template(const string& name, uint argN) :
-        name_(name), argN_(argN)
+        Item(name), argN_(argN)
 {
-}
-
-
-const std::string& Template::getName() const
-{
-    return name_;
 }
 
 

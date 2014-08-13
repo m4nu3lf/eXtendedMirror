@@ -208,7 +208,7 @@ Class& Class::create()
 template<class T>
 CompoundClass& CompoundClass::create()
 {
-    TypeRegister& typeReg = TypeRegister::getSingleton();
+    Register& typeReg = Register::getSingleton();
                 
     Const_Type_Vector templateArgs = GetTemplateArgs<T>()();
     
@@ -216,12 +216,15 @@ CompoundClass& CompoundClass::create()
     
     try
     {
-        tempjate = &typeReg.getTemplate(GetTemplateName<T>()());
+        tempjate = &typeReg.getItem<Template>(GetTemplateName<T>()());
     }
-    catch(const TemplateNotFoundException& e)
+    catch(const ItemNotFoundException<Template>& e)
     {
-        tempjate = new Template(GetTemplateName<T>()(), templateArgs.size());
-        const_cast<Namespace&>(typeReg.getNamespace()).addTemplate(*tempjate);
+        Template* ncTemplate =
+                new Template(GetTemplateName<T>()(), templateArgs.size());
+        
+        typeReg.addItem(*ncTemplate);
+        tempjate = ncTemplate;
     }
     
     // Allocate memory for class

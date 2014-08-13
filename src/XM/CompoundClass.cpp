@@ -38,6 +38,7 @@ using namespace std;
 
 CompoundClass::CompoundClass
 (
+    const Namespace& name_space,
     const string& name,
     uint size,
     const type_info& cppType,
@@ -48,8 +49,10 @@ CompoundClass::CompoundClass
     const Template& tempjate,
     const Const_Type_Vector& templateArgs
 ) :
+    Item(name_space, name),
     Class
     (
+        name_space,
         name,
         size,
         cppType,

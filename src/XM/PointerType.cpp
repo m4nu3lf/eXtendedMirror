@@ -42,7 +42,7 @@ PointerType::PointerType
         std::size_t size,
         const std::type_info& cppType,
         const Type& pointedType
-) : Type(name, size, cppType), pointedType_(&pointedType)
+) : Item(name), Type(name, size, cppType), pointedType_(&pointedType)
 {}
 
 

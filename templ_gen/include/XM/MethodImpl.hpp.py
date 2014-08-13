@@ -73,6 +73,7 @@ public: """ + ("""
             ParamT$""", n_params, ",") + """
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)

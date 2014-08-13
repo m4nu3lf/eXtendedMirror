@@ -39,17 +39,8 @@ using namespace xm;
 
 
 Class::Class(const string& name) :
+        Item(name),
         Type(name),
-        Namespace(name),
-        constructor_(new Constructor(*this)),
-        copyConstructor_(new CopyConstructor(*this)),
-        destructor_(new Destructor(*this))
-{
-}
-
-
-Class::Class(const type_info& type) :
-        Type(type),
         constructor_(new Constructor(*this)),
         copyConstructor_(new CopyConstructor(*this)),
         destructor_(new Destructor(*this))
@@ -59,6 +50,7 @@ Class::Class(const type_info& type) :
 
 Class::Class
 (
+    const Namespace& name_space,
     const string& name,
     size_t size,
     const type_info& cppType,
@@ -67,8 +59,10 @@ Class::Class
     const Destructor& destructor,
     bool isAbstract
 ) :
+    Item(name_space, name),
     Type
     (
+        name_space,
         name,
         size,
         cppType
@@ -77,12 +71,6 @@ Class::Class
     copyConstructor_(new CopyConstructor(*this)),
     destructor_(new Destructor(*this))
 {
-}
-
-
-const string& Type::getName() const
-{
-    return Type::name_;
 }
 
 
@@ -245,7 +233,7 @@ const Property& Class::getProperty(const string& propertyName) const
     if (property)
         return *property;
     else
-        throw PropertyNotFoundException(propertyName, Type::name_);
+        throw MemberNotFoundException<Property>(propertyName, getName());
 }
 
 
@@ -255,7 +243,7 @@ const Method& Class::getMethod(const string& methodName) const
     if (method)
         return *method;
     else
-        throw MethodNotFoundException(methodName, Type::name_);
+        throw MemberNotFoundException<Property>(methodName, getName());
 }
 
 
@@ -265,7 +253,8 @@ const Method& Class::getMethod(const Method& method) const
     ite = methods_.find(&method);
     if (ite != methods_.end()) return **ite;
     
-    throw MethodNotFoundException(method, Type::name_);
+    throw MemberNotFoundException<Method>(method.getSignature(), getName(),
+            true);
 }
 
 

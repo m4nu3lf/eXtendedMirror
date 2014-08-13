@@ -37,159 +37,98 @@
 using namespace std;
 using namespace xm;
 
-Namespace::Namespace(const std::string& name, const Namespace& parent)
-    : name_(name), parent_(&parent)
+Namespace::Namespace(const std::string& name, const Namespace& name_space)
+    : Item(name_space, name)
 {
     
 }
 
 
-Namespace::Namespace(const std::string& name)
-        : name_(name), parent_(NULL)
+Namespace::Namespace()
+        : Item("")
 {
-    
 }
 
 
-const std::string& Namespace::getName() const
+template<typename T>
+const T& Namespace::getItem(const string& name) const
 {
-    return name_;
-}
-    
-
-std::string Namespace::getFullName() const
-{
-    if (parent_)
-        return parent_->getFullName() + "::" + name_;
-    else
-        return name_;
-}
-
-
-const Namespace& Namespace::getNamespace(const std::string& name) const
-{
-    pair<string, string> splitNamespace;
-    size_t pos = name.find("::");
-    if (pos != string::npos)
+    pair<string, string> splitName = splitTopNamespace_(name);
+    if (splitName.first != "")
     {
-        splitNamespace.first = name.substr(0, pos);
-        splitNamespace.second = name.substr(pos + 2);
+        const Item* item = ptrSet::findByKey(items_, splitName.first);
+        const Namespace* name_space = dynamic_cast<const Namespace*>(item);
+        if (name_space)
+            return name_space->getItem<T>(splitName.second);
+        else
+            throw ItemNotFoundException<T>(getName() + "::" + name);
     }
     else
     {
-        splitNamespace.first = name;
-    }
-    Namespace* subNameSpace =
-        ptrSet::findByKey(namespaces_, splitNamespace.first);
-    
-    if (!subNameSpace)
-        throw NamespaceNotFoundException(splitNamespace.first);
-    
-    if (splitNamespace.second != "")
-        return subNameSpace->getNamespace(splitNamespace.second);
-    else
-        return *subNameSpace;
+        const Item* item = ptrSet::findByKey(items_, name);
+        const T* castedItem = dynamic_cast<const T*>(item);
+        if (castedItem)
+            return *castedItem;
+        else
+            throw ItemNotFoundException<T>(getName() + "::" + name);
     }
 }
 
 
-const Type& Namespace::getType(const string& typeName) const
+void Namespace::walkItems(ItemInspector fnc, bool recursive) const
 {
-    Const_Type_Map::const_iterator ite = types_.find(typeName);
-    if (ite == types_.end())
-        throw TypeNotFoundException(typeName);
-    return *ite->second;
-}
-
-
-const Class& Namespace::getClass(const string& className) const
-{
-    Const_Class_Map::const_iterator ite = classes_.find(className);
-    if (ite == classes_.end())
-        throw TypeNotFoundException(className);
-    return *ite->second;
-}
-
-
-const Template& Namespace::getTemplate(const string& templateName) const
-{
-    Const_Template_Map::const_iterator ite = templates_.find(templateName);
-    if (ite == templates_.end())
-        throw TemplateNotFoundException(templateName);
-    return *ite->second;
-}
-
-
-const Const_Type_Map& Namespace::getTypes() const
-{
-    return types_;
-}
-
-
-const Const_Class_Map& Namespace::getClasses() const
-{
-    return classes_;
-}
-
-
-const Const_Template_Map& Namespace::getTemplates() const
-{
-    return templates_;
-}
-
-
-const Const_Function_Map& Namespace::getFunctions() const
-{
-    return functions_;
-}
-
-
-const Const_Namespace_Set& Namespace::getNamespaces() const
-{
-    return namespaces_;
-}
-
-
-void Namespace::defineNamespace(const std::string& name)
-{
-    pair<string, string> splitNamespace;
-    size_t pos = name.find("::");
-    if (pos != string::npos)
+    Item_Set::iterator ite = items_.begin();
+    while( ite != items_.end() )
     {
-        splitNamespace.first = name.substr(0, pos);
-        splitNamespace.second = name.substr(pos + 2);
+        fnc(**ite);
+        if (recursive)
+        {
+            const Namespace* name_space = dynamic_cast<const Namespace*>(*ite);
+            if (name_space)
+                name_space->walkItems(fnc, recursive);
+        }
     }
-    if (splitNamespace.second != "")
+}
+
+
+void Namespace::addItem(Item& item, string name)
+{
+    if (name == "")
+        name = item.getName();
+    pair<string, string> splitNamespace = splitTopNamespace_(name);
+    if (splitNamespace.first != "")
     {
-        Namespace* subNameSpace =
-                ptrSet::findByKey(namespaces_, splitNamespace.first);
+        Namespace* subNameSpace = dynamic_cast<Namespace*>(
+                ptrSet::findByKey(items_, splitNamespace.first));
         if (!subNameSpace)
         {
-            subNameSpace = new Namespace(splitNamespace.first);
-            namespaces_.insert(subNameSpace);
+            subNameSpace = new Namespace(splitNamespace.first, *this);
+            addItem(*subNameSpace);
         }
-        subNameSpace.defineNamespace(splitNamespace.second);
+        addItem(item, splitNamespace.second);
+    }
+    else
+    {
+        items_.insert(&item);
+        item.setNamespace(*this);
     }
 }
 
 
-void Namespace::addType(const string& name, const Type& type)
+pair<string, string> splitTopNamespace_(const string& name)
 {
-    types_.insert(make_pair(name, &type));
-    if (type.getCategory() & Type::Class)
-        classes_.insert(make_pair(name, &dynamic_cast<const Class&>(type)));
-}
-
-
-void Namespace::addTemplate(const string& name, const Template& templ)
-{
-    templates_.insert(make_pair(name, &templ));
-}
-
-
-void Namspace::addFunctions(const string& name, const Function& function)
-{
-    functions_.insert(make_pair(name, &function));
+    pair<string, string> splitName;
+    size_t pos = name.find("::");
+    if (pos != string::npos)
+    {
+        splitName.first = name.substr(0, pos);
+        splitName.second = name.substr(pos + 2);
+    }
+    else
+    {
+        splitName.second = name;
+    }
+    return splitName;
 }
 
 

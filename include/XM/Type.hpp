@@ -35,7 +35,7 @@
 
 namespace xm{
 
-class TypeRegister;
+class Register;
 typedef std::set<std::string> String_Set;
 
 /**
@@ -50,7 +50,7 @@ typedef std::set<std::string> String_Set;
  * This class should be instantiate only when registering a type by
  * the TypeRegister.
  */
-class Type : public virtual Name
+class Type : public virtual Item
 {
 public:
     
@@ -93,6 +93,13 @@ public:
     Type(const std::string& name = "");
     
     /**
+     * Basic constructor for initialization.
+     * 
+     * @param cppType The type_info struct of the type.
+     */
+    Type(const std::type_info& cppType);
+    
+    /**
      * Get the type Category.
      * 
      * @return The type category of this type.
@@ -120,6 +127,9 @@ public:
      * @return The type_info struct.
      */
     const std::type_info& getId() const;
+    
+    virtual ~Type();
+    
 protected:
     
     /**
@@ -129,8 +139,9 @@ protected:
      * @param size The type size.
      * @param cppType The type_info struct of the type.
      */
-    Type(const std::string& name, std::size_t size,
-            const std::type_info& cppType);
+    Type(const std::string& name,
+         std::size_t size,
+         const std::type_info& cppType);
     
     /**
      * Add an alias to the type.
@@ -138,11 +149,6 @@ protected:
      * @param alias
      */
     void addAlias(const std::string& alias);
-    
-    /**
-     *  Protected destructor
-     */
-    virtual ~Type();
     
     // The aliases of the type.
     String_Set aliases_;

@@ -122,7 +122,8 @@ void Variant::Initialize<T>::operator()(T& data)
             // copy data through copy constructor
             try
             {
-                clazz->getCopyConstructor().copy(variant_, RefVariant(data));
+                clazz->getCopyConstructor().copy(variant_,
+                        Variant(data, Reference));
             }
             catch(NonCopyableException& e)
             {
@@ -200,7 +201,7 @@ template<typename T>
 Variant::operator T&()
 {
     // retrieve the type register
-    TypeRegister& typeReg = TypeRegister::getSingleton();
+    Register& typeReg = Register::getSingleton();
 
     // ensure the type of the data is registered and retrieve it
     const Type& targetType = typeReg.registerType<T>();

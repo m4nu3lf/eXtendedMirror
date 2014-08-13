@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Name.hpp                                             *
+ *      Extended Mirror: Item.hpp                                             *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,78 +30,84 @@
  *****************************************************************************/
 
 
-#ifndef XM_NAME_HPP
-#define	XM_NAME_HPP
+#ifndef XM_ITEM_HPP
+#define	XM_ITEM_HPP
 
 namespace xm {
 
 class Namespace;
 
-class Name
+class Item
 {
 public:    
     
-    Name(const Namespace& name_space, const std::string& unqualifiedName);
+    Item(const Namespace& name_space, const std::string& unqualifiedName = "");
     
-    Name(const std::string& name);
+    Item(const std::string& name);
     
     /**
-     * Get the unqualified name of the member.
+     * Get the unqualified name of the item.
      * 
-     * @return The unqualified name of the name.
+     * @return The unqualified name of the item.
      */
     const std::string& getUnqualifiedName() const;
     
     /**
-     * Get the unqualified name of the member.
+     * Get the unqualified name of the item.
      * 
      * @return The qualified name.
      */
     const std::string& getName() const;
     
     /**
-     * Get the namespace of the name.
+     * Get the namespace of the item.
      * 
      * @return The namespace.
      */
     const Namespace& getNamespace() const;
     
-    virtual ~Name();
+    virtual ~Item();
     
 protected:
+    void setNamespace(const Namespace& name_space);
+    
+    static std::string removeQualifier_(const std::string& name);
+    
     std::string name_;
     
     std::string unqualifiedName_;
     
-    Namespace* namespace_;
+    const Namespace* namespace_;
     
-    friend bool operator<(const Name& n1, const Name& n2);
+    friend bool operator<(const Item& n1, const Item& n2);
     
-    friend bool operator==(const Name& n1, const Name& n2);
+    friend bool operator==(const Item& n1, const Item& n2);
     
-    friend bool operator!=(const Name& n1, const Name& n2);
+    friend bool operator!=(const Item& n1, const Item& n2);
+    
+    friend class Namespace;
 };
 
 
-bool inline operator<(const Name& n1, const Name& n2)
+bool inline operator<(const Item& i1, const Item& i2)
 {
-    return n1.getName() < n2.getName();
+    return i1.getName() < i2.getName();
 }
 
 
-bool inline operator==(const Name& n1, const Name& n2)
+bool inline operator==(const Item& i1, const Item& i2)
 {
-    return n1.getName() == n2.getName();
+    return i1.getName() == i2.getName();
 }
 
 
-bool inline operator!=(const Name& n1, const Name& n2)
+bool inline operator!=(const Item& i1, const Item& i2)
 {
-    return n1.getName() != n2.getName();
+    return i1.getName() != i2.getName();
 }
 
 
 } // namespace xm
 
-#endif	/* XM_NAME_HPP */
+#endif	/* XM_ITEM_HPP */
 

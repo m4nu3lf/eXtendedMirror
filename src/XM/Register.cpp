@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Name.cpp                                             *
+ *      Extended Mirror: Register.cpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -32,41 +32,55 @@
 
 #include <XM/Utils/Utils.hpp>
 #include <XM/ExtendedMirror.hpp>
+#include <XM/Exceptions/NotFoundExceptions.hpp>
+
 
 using namespace std;
 using namespace xm;
 
-Name::Name(const Namespace& name_space, const string& unqualifiedName) :
-        namespace_(&name_space), unqualifiedName_(unqualifiedName)
-{
-    name_ = namespace_->getName() + "::" + unqualifiedName;
-}
 
-Name::Name(const string& name) :
-        namespace_(NULL), unqualifiedName_(""), name_(name)
+Register& Register::getSingleton()
 {
-    // TODO: initialize namespace and unqualifiedName from name_
-}
-
-const string& Name::getUnqualifiedName() const
-{
-    return unqualifiedName_;
+    static Register typeReg;
+    return typeReg;
 }
 
 
-const string& Name::getName() const
-{
-    return name_;
+Register::Register() : Item("")
+{   
+    // register the base types
+    registerType<char>();
+    registerType<short>();
+    registerType<int>();
+    registerType<float>();
+    registerType<double>();
+    registerType<uchar>();
+    registerType<ushort>();
+    registerType<bool>();
+    
+    // a void class is needed in the type register
+    Class* voidClass = new Class("void");
+    addItem(*voidClass);
 }
 
 
-const Namespace& Name::getNamespace() const
+const Type& Register::getType(const type_info& cppType) const
 {
-    return *namespace_;
+    const Type* type = ptrSet::findByKey(types_, cppType);
+    if (type)
+        return *type;
+    else
+        throw ItemNotFoundException<Type>(cppType.name());
 }
 
 
-Member::~Member()
+const Class& Register::getClass(const type_info& cppType) const
 {
+    return dynamic_cast<const Class&>(getType(cppType));
 }
 
+
+Register::~Register()
+{
+
+}

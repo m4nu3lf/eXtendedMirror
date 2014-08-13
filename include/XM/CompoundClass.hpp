@@ -65,6 +65,7 @@ private:
     /**
      * Constructor for full initialization.
      * 
+     * @param name_space The class namespace.
      * @param name The class name.
      * @param size The class size.
      * @param cppType The type_info struct of the class.
@@ -77,6 +78,7 @@ private:
      */
     CompoundClass
     (
+            const Namespace& name_space,
             const std::string& name,
             uint size,
             const std::type_info& cppType,

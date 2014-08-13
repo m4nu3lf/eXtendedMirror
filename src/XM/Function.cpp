@@ -47,13 +47,13 @@ using namespace std;
 using namespace xm;
 
 Function::Function(const std::string& name) :
-        Name(name), retType_(&getType<void>()), fullSignature_(false)
+        Item(name), retType_(&getType<void>()), fullSignature_(false)
 {
 }
 
 
 Function::Function(const Namespace& name_space, const std::string& name) :
-        Name(name_space, name), retType_(&getType<void>()),
+        Item(name_space, name), retType_(&getType<void>()),
         fullSignature_(false)
 {    
 }
@@ -72,7 +72,7 @@ Function::Function
     const Type& paramType6,
     const Type& paramType7
 ) :
-    Name(name),
+    Item(name),
     retType_(&retType),
     fullSignature_(true)
 {

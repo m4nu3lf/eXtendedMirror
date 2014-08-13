@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: TypeRegister.cpp                                     *
+ *      Extended Mirror: Register.hpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,107 +30,97 @@
  *****************************************************************************/
 
 
-#include <XM/Utils/Utils.hpp>
-#include <XM/ExtendedMirror.hpp>
-#include <XM/Exceptions/NotFoundExceptions.hpp>
+#ifndef XM_REGISTER_HPP
+#define XM_REGISTER_HPP
 
-#include "XM/Namespace.hpp"
+namespace xm{
 
-using namespace std;
-using namespace xm;
+class Type;
+class Class;
 
-TypeRegister& TypeRegister::getSingleton()
+typedef std::set<Type*, PtrCmpById<Type> > Type_SetById;
+typedef std::set<Class*, PtrCmpById<Class> > Class_SetById;
+
+
+class Register : public Namespace
 {
-    static TypeRegister typeReg;
-    return typeReg;
-}
-
-
-TypeRegister::TypeRegister()
-{   
-    // register the base types
-    registerType<char>();
-    registerType<short>();
-    registerType<int>();
-    registerType<float>();
-    registerType<double>();
-    registerType<uchar>();
-    registerType<ushort>();
-    registerType<bool>();
+public:
     
-    // a void class is needed in the type register
-    Class* voidClass = new Class("void");
-    globalNamespace_.add<Type>insert(voidClass);
-}
-
-
-const Type& TypeRegister::getType(const string& typeName) const
-{
-    globalNamespace_.getType(typeName);
-}
-
-
-const Type& TypeRegister::getType(const type_info& cppType) const
-{
-    const Type* type = ptrSet::findByKey(types_, cppType);
-    if (type)
-        return *type;
-    else
-        throw TypeNotFoundException(cppType.name());
-}
-
-
-const Class& TypeRegister::getClass(const string& className) const
-{
-    globalNamespace_.getClass(className);
-}
-
-
-const Class& TypeRegister::getClass(const type_info& cppType) const
-{
-    return dynamic_cast<const Class&>(getType(cppType));
-}
-
-
-const Template& TypeRegister::getTemplate(const string& templateName) const
-{
-    globalNamespace_.getTemplate(templateName);
-}
-
-
-void TypeRegister::unregisterType(const std::string& typeName)
-{
-    Type* type = ptrSet::removeByKey(types_, typeName);
-    ptrSet::removeByKey(typesById_, type->getId());
-    if (!type)
-        throw TypeNotFoundException(typeName);
+    const Type& getType(const std::type_info& cppType) const;
     
-    if (type->getCategory() | Type::Class)
-    {
-        Class* clazz = ptrSet::removeByKey(classesById_, type->gegetCppId);
-    }
+    const Class& getClass(const std::type_info& cppType) const;
     
-    delete type;
-}
-
-
-void TypeRegister::unregisterType(const std::type_info& cppType)
-{
-    Type* type = ptrSet::removeByKey(types_, cppType);
-    ptrSet::removeByKey(typesByName_, type->getName());
-    if (!type)
-        throw TypeNotFoundException(cppType.name());
+    template<typename T>
+    const Type& getTypeOf(const T& obj) const;
     
-    if (type->getCategory() | Type::Class)
-    {
-        ptrSet::removeByKey(classesById_, cppType);
-    }
+    template<typename T>
+    const Class& getClassOf(const T& obj) const;
     
-    delete type;
-}
+    template<typename T>
+    const Type& getType() const;
+    
+    template<typename T>
+    const Class& getClass() const;
+    
+    const Namespace& getRootNamespace() const;
+    
+    template<typename T>
+    const Type& registerType();
+    
+    template<typename T>
+    const Class& registerClass();
+    
+    void unregisterType(const std::string& typeName);
+    
+    void unregisterType(const std::type_info& cppType);
+    
+    /**
+     * Set a function that is called whenever a type is registered within the
+     * type register and the registered type is passed to this function.
+     * 
+     * @param callBackFnc
+     */
+    void setRegCallBack(void (*callBackFnc)(const Type&));
+    
+    static Register& getSingleton();
+    
+private:
 
+     /*
+      * Singleton restrictions.
+      */
+    Register();
+    
+    Register(const Register&);
+    Register& operator=(const Register&);
+    
+    ~ Register();
+    
+    /**
+     * This method is called by registerType, after the type qualifiers are
+     * removed from the type.
+     * 
+     * @return the registered type.
+     */
+    template<typename T> Type& registerType_();
+    
+    /**
+     * Return the function pointer of the callback function to call after each
+     * type registration.
+     * 
+     * @return The callback function pointer.
+     */
+    static void (*getRegCallBack())(const Type&);
+    
+    // types and classes sets sorted by type id.
+    Type_SetById types_;
+    Class_SetById classes_;
+    
+    // this function needs to add Templates to the register
+    template<typename T>
+    friend Type* createCompoundClass();
+};
 
-TypeRegister::~TypeRegister()
-{
+} // namespace xm
 
-}
+#endif // XM_REGISTER_HPP

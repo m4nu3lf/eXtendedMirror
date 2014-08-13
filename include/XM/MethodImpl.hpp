@@ -63,6 +63,7 @@ public:
             ParamT0
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -153,6 +154,7 @@ public:
             ParamT0
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -237,6 +239,7 @@ public:
             ParamT1
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -335,6 +338,7 @@ public:
             ParamT1
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -426,6 +430,7 @@ public:
             ParamT2
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -532,6 +537,7 @@ public:
             ParamT2
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -630,6 +636,7 @@ public:
             ParamT3
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -744,6 +751,7 @@ public:
             ParamT3
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -849,6 +857,7 @@ public:
             ParamT4
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -971,6 +980,7 @@ public:
             ParamT4
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -1083,6 +1093,7 @@ public:
             ParamT5
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -1213,6 +1224,7 @@ public:
             ParamT5
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -1332,6 +1344,7 @@ public:
             ParamT6
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -1470,6 +1483,7 @@ public:
             ParamT6
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -1596,6 +1610,7 @@ public:
             ParamT7
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
@@ -1742,6 +1757,7 @@ public:
             ParamT7
         ),
         bool constant = false) :
+        Item(name),
         Method(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)

@@ -38,7 +38,7 @@ namespace xm{
 /**
  * Holds some information about template types.
  */
-class Template : public Name
+class Template : public Item
 {
 public:
     /**
@@ -48,12 +48,6 @@ public:
      */
     Template(const std::string& name, uint argN = 0); 
     
-    /**
-     * Get the name of the template.
-     * 
-     * @return The template name string.
-     */
-    const std::string& getName() const;
     
     /**
      * Get the number of the template parameters.

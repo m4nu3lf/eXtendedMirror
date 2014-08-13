@@ -51,13 +51,7 @@ public:
      * @param name The type name.
      */
     Class(const std::string& name = "");
-    
-    /**
-     * Basic constructor for initialization.
-     * 
-     * @param cppType The type_info struct of the type.
-     */
-    Class(const std::type_info& type);
+
     
     /**
      * Get the name of this class.
@@ -242,6 +236,7 @@ protected:
     /**
      * Constructor for full initialization.
      * 
+     * @param name_space The class name_space.
      * @param name The class name.
      * @param size The class size.
      * @param cppType The type_info struct of the class.
@@ -252,6 +247,7 @@ protected:
      */
     Class
     (
+            const Namespace& name_space,
             const std::string& name,
             std::size_t size,
             const std::type_info& cppType,
