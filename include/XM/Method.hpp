@@ -58,7 +58,7 @@ public:
      * 
      * @param name The method name.
      */
-    Method(const std::string& name);
+    Method(const std::string& name = "");
     
     /**
      * Construct a method with just the owner and the name.
@@ -67,35 +67,7 @@ public:
      * @param name The method name.
      */
     Method(const Class& owner, const std::string& name);
-    
-    /**
-     * Construct a Method with the given given signature.
-     * 
-     * @param name The name of the method.
-     * @param retType The Type of the returned type.
-     * @param paramType0 The Type of the first parameter type.
-     * @param paramType1 The Type of the second parameter type.
-     * @param paramType2 The Type of the third parameter type.
-     * @param paramType3 The Type of the fourth parameter type.
-     * @param paramType4 The Type of the fifth parameter type.
-     * @param paramType5 The Type of the sixth parameter type.
-     * @param paramType6 The Type of the seventh parameter type.
-     * @param paramType7 The Type of the eighth parameter type.
-     */
-    Method
-    (
-        const std::string& name,
-        const Type& retType,
-        const Type& paramType0 = getType<void>(),
-        const Type& paramType1 = getType<void>(),
-        const Type& paramType2 = getType<void>(),
-        const Type& paramType3 = getType<void>(),
-        const Type& paramType4 = getType<void>(),
-        const Type& paramType5 = getType<void>(),
-        const Type& paramType6 = getType<void>(),
-        const Type& paramType7 = getType<void>()
-    );
-    
+        
     /**
      * Construct a Method with the given owner and given signature.
      * 
@@ -112,10 +84,9 @@ public:
      */
     Method
     (
-        const Class& owner,
         const std::string& name,
         const Type& retType,
-        const Type& paramType0 = getType<void>(),
+        const Class& owner,
         const Type& paramType1 = getType<void>(),
         const Type& paramType2 = getType<void>(),
         const Type& paramType3 = getType<void>(),

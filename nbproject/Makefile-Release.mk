@@ -57,6 +57,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/XM/Register.o \
 	${OBJECTDIR}/src/XM/Template.o \
 	${OBJECTDIR}/src/XM/Type.o \
+	${OBJECTDIR}/src/XM/Utils/String.o \
 	${OBJECTDIR}/src/XM/Variant.o
 
 
@@ -195,6 +196,11 @@ ${OBJECTDIR}/src/XM/Type.o: src/XM/Type.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/XM
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/Type.o src/XM/Type.cpp
+
+${OBJECTDIR}/src/XM/Utils/String.o: src/XM/Utils/String.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/XM/Utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/Utils/String.o src/XM/Utils/String.cpp
 
 ${OBJECTDIR}/src/XM/Variant.o: src/XM/Variant.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/XM

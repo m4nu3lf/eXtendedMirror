@@ -35,6 +35,12 @@ using namespace std;
 using namespace xm;
 
 
+Property::Property(const std::string& name) :
+        Item(name),
+        Member(getClass<void>(), name)
+{
+}
+
 Property::Property(const Class& owner, const std::string& name = "") :
         Item(owner, name), Member(owner, name), type_(NULL), flags_(0)
 {

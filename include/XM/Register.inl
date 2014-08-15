@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_TYPEREGISTER_INL
-#define XM_TYPEREGISTER_INL
+#ifndef XM_REGISTER_INL
+#define XM_REGISTER_INL
 
 #include <XM/RegistrationHelpers.hpp>
 
@@ -97,8 +97,10 @@ Type& Register::registerType_()
     
     type = &CreateType<T>()();
     
-    // push the Type into its Namespace
+    // add Type to its Namespace
+    Namespace& name_space = const_cast<Namespace&>(type->getNamespace());
     addItem(*type);
+    
     types_.insert(type);
     
     Class* clazz = dynamic_cast<Class*>(type);
@@ -118,18 +120,6 @@ Type& Register::registerType_()
 }
 
 
-/*
- * Calling the registerType with a void type has no consequences and a null type
- * reference is returned. This must be ensured because the method registration
- * mechanism call this for the returned method type and this type can be void.
- */
-template<>
-inline const Type& Register::registerType<void>()
-{
-    return getType<void>();
-}
-
-
 /* This specialization is needed because during method registration Empty
  is used as a place holder type for parameters.
  getType is then called on all the parameters types, so Empty too, and the
@@ -143,4 +133,4 @@ inline const Type& Register::getType<Empty>() const
 
 } // namespca xm
 
-#endif // XM_TYPEREGISTER_INL
+#endif // XM_REGISTER_INL

@@ -47,3 +47,7 @@ const char* NotFoundException::what() const throw()
 {
     return (category_ + " with name " + id_ + " not found.").c_str();
 }
+
+NotFoundException::~NotFoundException() throw()
+{
+}

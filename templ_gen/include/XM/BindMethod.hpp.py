@@ -47,20 +47,20 @@ template
 <
     class ClassT,
     typename RetT""" + gen_seq(""",
-    typename ParamT$""", n_params) + """
+    typename ParamT$""", (1, n_params)) + """
 >
 Method& bindMethod
 (
     const std::string& name,
     RetT (ClassT::*method)
     ( """ + gen_seq("""
-        ParamT$""", n_params, ",") + """
+        ParamT$""", (1, n_params), ",") + """
     ) """ + ("const" if is_const else "") + """
 )
 {
     // ensure the types are registered
     registerType<RetT>();""" + gen_seq("""
-    registerType<ParamT$>();""", n_params) + """
+    registerType<ParamT$>();""", (1, n_params)) + """
     """ + (("""
     // remove the constness from the method
     RetT (ClassT::*method_nc)() =
@@ -68,7 +68,7 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (""" + gen_seq("""
-                ParamT$""", n_params, ",") + """
+                ParamT$""", (1, n_params), ",") + """
             )
         >(method);
     """) if is_const else "") + """
@@ -77,7 +77,7 @@ Method& bindMethod
         <
             ClassT,
             RetT""" + gen_seq(""",
-            ParamT$""", n_params) + """
+            ParamT$""", (1, n_params)) + """
         >
         (
             name""" + (""",

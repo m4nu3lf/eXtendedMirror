@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: NumericalUtils.hpp                                   *
+ *      Extended Mirror: Utils/Bounds.hpp                                     *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,10 +30,10 @@
  *****************************************************************************/
 
 
-#ifndef XM_BOUNDSCHECK_HPP
-#define	XM_BOUNDSCHECK_HPP
+#ifndef XM_UTILS_BOUNDS_HPP
+#define	XM_UTILS_BOUNDS_HPP
 
-namespace xm{
+namespace xm {
 
 /**
  * Set the passed parameters to the numerical limits of the type T.
@@ -129,5 +129,5 @@ XM_SPECIALIZE_CHECK_VALUE_BOUNDS(ulong);
 
 } //namespace xm
 
-#endif	/* XM_BOUNDSCHECK_HPP */
+#endif	/* XM_UTILS_BOUNDS_HPP */
 

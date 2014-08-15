@@ -34,20 +34,19 @@
 using namespace std;
 using namespace xm;
 
-Type::Type(const string& name) : Item(name), size_(0), id_(typeid(void))
-{
-}
+Type::Type(const string& name)
+    : Item(name), size_(0), id_(typeid(void))
+{}
 
 
-Type::Type(const type_info& cppType) : Item(""), size_(0), id_(cppType)
-{
-}
+Type::Type(const type_info& cppType)
+    : size_(0), id_(cppType)
+{}
 
 
-Type::Type(const string& name, size_t size, const type_info& cppType)
-        : Item(name), size_(size), id_(cppType)
-{
-}
+Type::Type(size_t size, const type_info& cppType)
+    : size_(size), id_(cppType)
+{}
 
 
 Type::Category Type::getCategory() const

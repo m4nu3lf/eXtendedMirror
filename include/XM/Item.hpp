@@ -39,11 +39,10 @@ class Namespace;
 
 class Item
 {
-public:    
-    
+public:
     Item(const Namespace& name_space, const std::string& unqualifiedName = "");
     
-    Item(const std::string& name);
+    Item(const std::string& name = "");
     
     /**
      * Get the unqualified name of the item.

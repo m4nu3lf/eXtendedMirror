@@ -43,8 +43,7 @@ namespace xm{
 template
 <
     class ClassT,
-    typename RetT,
-    typename ParamT0
+    typename RetT
 >
 class MethodImpl_1_Params : public Method
 {
@@ -54,17 +53,13 @@ public:
         NqRetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     
     MethodImpl_1_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -121,7 +116,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0
     );
 
     /// Whether the method is constant.
@@ -131,31 +125,25 @@ private:
 
 template
 <
-    class ClassT,
-    typename ParamT0
+    class ClassT
 >
 class MethodImpl_1_Params
 <
     ClassT,
-    void,
-    ParamT0
+    void
 > : public Method
 {
 public: 
         typedef void RetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     
     MethodImpl_1_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -204,7 +192,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0
     );
 
     /// Whether the method is constant.
@@ -216,7 +203,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1
 >
 class MethodImpl_2_Params : public Method
@@ -227,20 +213,16 @@ public:
         NqRetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     
     MethodImpl_2_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -299,7 +281,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1
     );
 
@@ -311,14 +292,12 @@ private:
 template
 <
     class ClassT,
-    typename ParamT0,
     typename ParamT1
 >
 class MethodImpl_2_Params
 <
     ClassT,
     void,
-    ParamT0,
     ParamT1
 > : public Method
 {
@@ -326,20 +305,16 @@ public:
         typedef void RetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     
     MethodImpl_2_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -390,7 +365,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1
     );
 
@@ -403,7 +377,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2
 >
@@ -415,8 +388,6 @@ public:
         NqRetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -425,13 +396,11 @@ public:
     MethodImpl_3_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -492,7 +461,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2
     );
@@ -505,7 +473,6 @@ private:
 template
 <
     class ClassT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2
 >
@@ -513,7 +480,6 @@ class MethodImpl_3_Params
 <
     ClassT,
     void,
-    ParamT0,
     ParamT1,
     ParamT2
 > : public Method
@@ -522,8 +488,6 @@ public:
         typedef void RetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -532,13 +496,11 @@ public:
     MethodImpl_3_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -591,7 +553,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2
     );
@@ -605,7 +566,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3
@@ -618,8 +578,6 @@ public:
         NqRetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -630,14 +588,12 @@ public:
     MethodImpl_4_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -700,7 +656,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3
@@ -714,7 +669,6 @@ private:
 template
 <
     class ClassT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3
@@ -723,7 +677,6 @@ class MethodImpl_4_Params
 <
     ClassT,
     void,
-    ParamT0,
     ParamT1,
     ParamT2,
     ParamT3
@@ -733,8 +686,6 @@ public:
         typedef void RetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -745,14 +696,12 @@ public:
     MethodImpl_4_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -807,7 +756,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3
@@ -822,7 +770,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -836,8 +783,6 @@ public:
         NqRetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -850,15 +795,13 @@ public:
     MethodImpl_5_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
             ParamT4
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -923,7 +866,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -938,7 +880,6 @@ private:
 template
 <
     class ClassT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -948,7 +889,6 @@ class MethodImpl_5_Params
 <
     ClassT,
     void,
-    ParamT0,
     ParamT1,
     ParamT2,
     ParamT3,
@@ -959,8 +899,6 @@ public:
         typedef void RetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -973,15 +911,13 @@ public:
     MethodImpl_5_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
             ParamT4
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -1038,7 +974,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -1054,7 +989,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -1069,8 +1003,6 @@ public:
         NqRetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -1085,7 +1017,6 @@ public:
     MethodImpl_6_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -1093,8 +1024,7 @@ public:
             ParamT5
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -1161,7 +1091,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -1177,7 +1106,6 @@ private:
 template
 <
     class ClassT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -1188,7 +1116,6 @@ class MethodImpl_6_Params
 <
     ClassT,
     void,
-    ParamT0,
     ParamT1,
     ParamT2,
     ParamT3,
@@ -1200,8 +1127,6 @@ public:
         typedef void RetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -1216,7 +1141,6 @@ public:
     MethodImpl_6_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -1224,8 +1148,7 @@ public:
             ParamT5
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -1284,7 +1207,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -1301,7 +1223,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -1317,8 +1238,6 @@ public:
         NqRetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -1335,7 +1254,6 @@ public:
     MethodImpl_7_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -1344,8 +1262,7 @@ public:
             ParamT6
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -1414,7 +1331,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -1431,7 +1347,6 @@ private:
 template
 <
     class ClassT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -1443,7 +1358,6 @@ class MethodImpl_7_Params
 <
     ClassT,
     void,
-    ParamT0,
     ParamT1,
     ParamT2,
     ParamT3,
@@ -1456,8 +1370,6 @@ public:
         typedef void RetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -1474,7 +1386,6 @@ public:
     MethodImpl_7_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -1483,8 +1394,7 @@ public:
             ParamT6
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -1545,7 +1455,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -1563,7 +1472,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -1580,8 +1488,6 @@ public:
         NqRetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -1600,7 +1506,6 @@ public:
     MethodImpl_8_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -1610,8 +1515,7 @@ public:
             ParamT7
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -1682,7 +1586,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -1700,7 +1603,6 @@ private:
 template
 <
     class ClassT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -1713,7 +1615,6 @@ class MethodImpl_8_Params
 <
     ClassT,
     void,
-    ParamT0,
     ParamT1,
     ParamT2,
     ParamT3,
@@ -1727,8 +1628,6 @@ public:
         typedef void RetT;
 
     /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
     typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
         NqParamT1;
     typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
@@ -1747,7 +1646,6 @@ public:
     MethodImpl_8_Params(const std::string& name,
         RetT (ClassT::*method)
         (
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -1757,8 +1655,7 @@ public:
             ParamT7
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -1821,7 +1718,6 @@ public:
 private:
     RetT (ClassT::*method_)
     (
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,

@@ -37,7 +37,7 @@
 
 #include <limits>
 
-#include <XM/NumericalUtils.hpp>
+#include <XM/Utils/Bounds.hpp>
 #include <XM/Exceptions/PropertySetException.hpp>
 #include <XM/Exceptions/PropertyRangeException.hpp>
 
@@ -97,7 +97,7 @@ public:
         Getter getter,
         bool constGetter,
         Setter setter
-    ) : Property(xm::getClass<ClassT>(), name),
+    ) : Item(xm::getClass<ClassT>(), name),
         getter_(getter),
         constGetter_(constGetter),
         setter_(setter)
@@ -189,7 +189,7 @@ public:
     Variant getData(const Variant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // we cannot call a non constant getter of a constant instance
         if (self.isConst() && !constGetter_)
@@ -210,10 +210,10 @@ public:
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // retrieve the new data value
-        PropT& extractedValue = data.as<PropT>();
+        PropT& extractedValue = const_cast<Variant&>(data).as<PropT>();
         
         // check whether the new value is into the specified bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_)) return;
@@ -282,7 +282,7 @@ public:
         bool constGetter,
         Setter setter,
         ExtrParamT0 extrArg0
-    ) : Property(xm::getClass<ClassT>(), name),
+    ) : Item(xm::getClass<ClassT>(), name),
         getter_(getter),
         constGetter_(constGetter),
         setter_(setter),
@@ -375,7 +375,7 @@ public:
     Variant getData(const Variant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // we cannot call a non constant getter of a constant instance
         if (self.isConst() && !constGetter_)
@@ -397,10 +397,10 @@ public:
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // retrieve the new data value
-        PropT& extractedValue = data.as<PropT>();
+        PropT& extractedValue = const_cast<Variant&>(data).as<PropT>();
         
         // check whether the new value is into the specified bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_)) return;
@@ -475,7 +475,7 @@ public:
         Setter setter,
         ExtrParamT0 extrArg0,
         ExtrParamT1 extrArg1
-    ) : Property(xm::getClass<ClassT>(), name),
+    ) : Item(xm::getClass<ClassT>(), name),
         getter_(getter),
         constGetter_(constGetter),
         setter_(setter),
@@ -569,7 +569,7 @@ public:
     Variant getData(const Variant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // we cannot call a non constant getter of a constant instance
         if (self.isConst() && !constGetter_)
@@ -592,10 +592,10 @@ public:
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // retrieve the new data value
-        PropT& extractedValue = data.as<PropT>();
+        PropT& extractedValue = const_cast<Variant&>(data).as<PropT>();
         
         // check whether the new value is into the specified bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_)) return;
@@ -676,7 +676,7 @@ public:
         ExtrParamT0 extrArg0,
         ExtrParamT1 extrArg1,
         ExtrParamT2 extrArg2
-    ) : Property(xm::getClass<ClassT>(), name),
+    ) : Item(xm::getClass<ClassT>(), name),
         getter_(getter),
         constGetter_(constGetter),
         setter_(setter),
@@ -771,7 +771,7 @@ public:
     Variant getData(const Variant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // we cannot call a non constant getter of a constant instance
         if (self.isConst() && !constGetter_)
@@ -795,10 +795,10 @@ public:
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // retrieve the new data value
-        PropT& extractedValue = data.as<PropT>();
+        PropT& extractedValue = const_cast<Variant&>(data).as<PropT>();
         
         // check whether the new value is into the specified bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_)) return;

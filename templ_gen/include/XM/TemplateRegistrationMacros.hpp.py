@@ -160,9 +160,9 @@ struct CreateType                                                            \\
     >                                                                        \\
 >                                                                            \\
 {                                                                            \\
-    Type* operator()()                                                       \\
+    Type& operator()()                                                       \\
     {                                                                        \\
-        return createCompoundClass                                           \\
+        return CompoundClass::create                                         \\
             <                                                                \\
                 _template_                                                   \\
                 <                                                            \\

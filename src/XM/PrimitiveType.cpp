@@ -38,7 +38,8 @@ using namespace xm;
 PrimitiveType::PrimitiveType(const string& name,
                              size_t size, 
                              const type_info& cppType)
-    : Item(name), Type(name, size, cppType)
+    : Item(name),
+      Type(size, cppType)
 {
     
 }

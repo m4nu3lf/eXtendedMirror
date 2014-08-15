@@ -78,7 +78,7 @@ public:
      * 
      * @param name The property name.
      */
-    Property(const std::string& name);
+    Property(const std::string& name = "");
     
     /**
      * Basic constructor for initialization.

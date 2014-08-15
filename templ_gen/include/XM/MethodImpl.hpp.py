@@ -47,13 +47,13 @@ template
 <
     class ClassT""" + (""",
     typename RetT""" if not ret_t_void else "") + gen_seq(""",
-    typename ParamT$""", n_params) + """
+    typename ParamT$""", (1, n_params)) + """
 >
 class MethodImpl_""" + str(n_params) + """_Params""" + (("""
 <
     ClassT,
     void""" + gen_seq(""",
-    ParamT$""", n_params) + """
+    ParamT$""", (1, n_params)) + """
 >""") if ret_t_void else "") + """ : public Method
 {
 public: """ + ("""
@@ -65,16 +65,15 @@ public: """ + ("""
     /// type of the arguments without any cv-qualifier and no reference""" \
     + gen_seq("""
     typedef typename RemoveConst<typename RemoveReference<ParamT$>::Type>::Type
-        NqParamT$;""", n_params) + """
+        NqParamT$;""", (1, n_params)) + """
     
     MethodImpl_""" + str(n_params) + """_Params(const std::string& name,
         RetT (ClassT::*method)
         (""" + gen_seq("""
-            ParamT$""", n_params, ",") + """
+            ParamT$""", (1, n_params), ",") + """
         ),
         bool constant = false) :
-        Item(name),
-        Method(getClass<ClassT>(), name),
+        Item(getClass<ClassT>(), name),
         method_(method),
         constant_(constant)
     {
@@ -137,7 +136,7 @@ public: """ + ("""
 private:
     RetT (ClassT::*method_)
     (""" + gen_seq("""
-        ParamT$""", n_params, ",") + """
+        ParamT$""", (1, n_params), ",") + """
     );
 
     /// Whether the method is constant.

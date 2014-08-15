@@ -34,6 +34,7 @@
 #define	XM_REGISTRATIONHELPERS_HPP
 
 #include <XM/Exceptions/NotFoundExceptions.hpp>
+#include <XM/Utils/String.hpp>
 #include "TypeTraits.hpp"
 
 
@@ -169,6 +170,16 @@ struct CreateType<T[size]>
 };
 
 
+template<>
+struct CreateType<void>
+{
+    Type& operator()()
+    {
+        return *new Class("void");
+    }
+};
+
+
 template<class T>
 struct IsAbstract : public FalseType {};
 
@@ -178,6 +189,9 @@ struct BuildClass
 {
     void operator()(){}
 };
+
+
+
 
 
 /**
@@ -192,11 +206,19 @@ Class& Class::create()
     // Allocate memory for class
     Class* clazz = reinterpret_cast<Class*>(::operator new(sizeof(Class)));
     
+    // Split namespace from unqualified name
+    std::pair<std::string, std::string> nameParts =
+            splitName(GetTypeName<T>()(), NameTail);
+    
+    // Define namespace
+    Namespace& name_space =
+        Register::getSingleton().defineNamespace(nameParts.first);
+    
     // Call constructor
-    return *new (clazz) Class(GetTypeName<T>()(), sizeof(T),
+    return *new (clazz) Class(name_space, nameParts.second, sizeof(T),
             typeid(T), *new ConstructorImpl<T>(*clazz),
             *new CopyConstructorImpl<T>(*clazz),
-            *new DestructorImpl<T>(*clazz));
+            *new DestructorImpl<T>(*clazz), IsAbstract<T>::value);
 };
 
 
@@ -231,12 +253,18 @@ CompoundClass& CompoundClass::create()
     CompoundClass* clazz = reinterpret_cast<CompoundClass*>(
             ::operator new(sizeof(CompoundClass)));
     
-    return *new (clazz) CompoundClass(GetTypeName<T>()(), sizeof(T),
+    // Split namespace from unqualified name
+    std::pair<std::string, std::string> nameParts =
+            splitName(GetTypeName<T>()(), NameTail);
+    
+    // Define namespace
+    Namespace& name_space =
+        Register::getSingleton().defineNamespace(nameParts.first);
+    
+    return *new (clazz) CompoundClass(name_space, nameParts.second, sizeof(T),
             typeid(T), *new ConstructorImpl<T>(*clazz),
             *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
             IsAbstract<T>::value, *tempjate, templateArgs);
-    
-    return clazz;
 };
 
 

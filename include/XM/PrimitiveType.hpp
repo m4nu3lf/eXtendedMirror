@@ -44,8 +44,9 @@ public:
     virtual ~PrimitiveType();
     
 private:
-    PrimitiveType(const std::string& name, std::size_t size,
-            const std::type_info& cppType);
+    PrimitiveType(const std::string& name,
+                  std::size_t size,
+                  const std::type_info& cppType);
     
     // Factory class
     template<typename T>

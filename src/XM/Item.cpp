@@ -32,7 +32,7 @@
 
 #include <XM/Utils/Utils.hpp>
 #include <XM/ExtendedMirror.hpp>
-#include <c++/4.6/bits/basic_string.h>
+#include <XM/Utils/String.hpp>
 
 using namespace std;
 using namespace xm;
@@ -40,11 +40,16 @@ using namespace xm;
 Item::Item(const Namespace& name_space, const string& unqualifiedName) :
         namespace_(&name_space), unqualifiedName_(unqualifiedName)
 {
-    name_ = namespace_->getName() + "::" + unqualifiedName;
+    if (namespace_->getName() != "") 
+        name_ = namespace_->getName() + "::" + unqualifiedName;
+    else
+        name_ = unqualifiedName;
 }
 
 Item::Item(const string& name) :
-        namespace_(NULL), unqualifiedName_(removeQualifier_(name)), name_(name)
+        namespace_(NULL),
+        unqualifiedName_(splitName(name, NameTail).second),
+        name_(name)
 {
 }
 
@@ -76,16 +81,7 @@ void Item::setNamespace(const Namespace& name_space)
 }
 
 
-string Item::removeQualifier_(const string& name)
-{
-    size_t pos = name.find_last_of("::");
-    if (pos != string::npos)
-        return name.substr(pos + 2);
-    else return name;
-}
-
-
-Member::~Member()
+Item::~Item()
 {
 }
 

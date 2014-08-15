@@ -61,7 +61,7 @@ public:
      * 
      * @param name The method name.
      */
-    Function(const std::string& name);
+    Function(const std::string& name = "");
     
     /**
      * Construct a method with just the name.

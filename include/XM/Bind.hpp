@@ -78,7 +78,7 @@ Property& bindProperty(const std::string& name, FieldT ClassT::* field)
     // ensure that the type is registered
     registerType<FieldT>();
     
-    // build the Property  and add it to the Class
+    // build the Property and add it to the Class
     Property* xmProperty = new PropertyField<ClassT, FieldT>(name, field);
     const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
     return *xmProperty;

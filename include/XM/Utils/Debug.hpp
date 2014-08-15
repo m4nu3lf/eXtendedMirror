@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: DebugUtils.hpp                                       *
+ *      Extended Mirror: Utils/Debug.hpp                                      *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_DEBUGUTILS_HPP
-#define	XM_DEBUGUTILS_HPP
+#ifndef XM_UTILS_DEBUG_HPP
+#define	XM_UTILS_DEBUG_HPP
 
 #ifdef DEBUG
 #define DEBUG_MSG(msg) std::cout << "debug: " << msg << std::endl;
@@ -39,5 +39,5 @@
 #define DEBUG_MSG(msg)
 #endif
 
-#endif	/* XM_DEBUGUTILS_HPP */
+#endif	/* XM_UTILS_DEBUG_HPP */
 

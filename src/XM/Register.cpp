@@ -46,21 +46,8 @@ Register& Register::getSingleton()
 }
 
 
-Register::Register() : Item("")
-{   
-    // register the base types
-    registerType<char>();
-    registerType<short>();
-    registerType<int>();
-    registerType<float>();
-    registerType<double>();
-    registerType<uchar>();
-    registerType<ushort>();
-    registerType<bool>();
-    
-    // a void class is needed in the type register
-    Class* voidClass = new Class("void");
-    addItem(*voidClass);
+Register::Register()
+{
 }
 
 
@@ -84,3 +71,16 @@ Register::~Register()
 {
 
 }
+
+XM_AUTOREG(void)
+XM_AUTOREG(bool)
+XM_AUTOREG(char)
+XM_AUTOREG(short)
+XM_AUTOREG(int)
+XM_AUTOREG(long)
+XM_AUTOREG(float)
+XM_AUTOREG(double)
+XM_AUTOREG(uchar)
+XM_AUTOREG(ushort)
+XM_AUTOREG(uint)
+XM_AUTOREG(ulong)

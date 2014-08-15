@@ -40,12 +40,14 @@
 #include <vector>
 #include <utility>
 
+#include <XM/Typedefs.hpp>
 #include <XM/Utils/Utils.hpp>
 
 namespace xm {    
 DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
 DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
 }
+
 
 #include <XM/Item.hpp>
 #include <XM/Namespace.hpp>

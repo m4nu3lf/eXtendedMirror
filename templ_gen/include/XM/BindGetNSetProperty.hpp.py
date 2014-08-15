@@ -89,7 +89,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_""" + str(n_extr_params) + \
+        new PropertyGetterNSetter_""" + str(n_extr_params) + \
         """_ExtrParams
         <
             ClassT,

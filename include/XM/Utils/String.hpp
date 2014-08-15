@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Typedef.hpp                                         *
+ *      Extended Mirror: Utils/String.hpp                                     *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,18 +30,23 @@
  *****************************************************************************/
 
 
-#ifndef XM_TYPEDEF_HPP
-#define	XM_TYPEDEF_HPP
+#ifndef XM_UTILS_STRING_HPP
+#define	XM_UTILS_STRING_HPP
+
+#include <XM/Utils/Utils.hpp>
 
 namespace xm {
+    
+enum NameSide {
+    NameHead,
+    NameTail
+};
 
-typedef unsigned char uchar;
-typedef unsigned char uint8;
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
+std::pair<std::string, std::string> splitName(const std::string& name,
+                                              NameSide side);
 
-} // namespace xm
 
-#endif	/* XM_TYPEDEF_HPP */
+} //namespace xm
+
+#endif	/* XM_UTILS_STRING_HPP */
 

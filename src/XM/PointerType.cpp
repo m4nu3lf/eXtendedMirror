@@ -36,13 +36,13 @@ using namespace xm;
 using namespace std;
 
 
-PointerType::PointerType
-(
-        const std::string& name,
-        std::size_t size,
-        const std::type_info& cppType,
-        const Type& pointedType
-) : Item(name), Type(name, size, cppType), pointedType_(&pointedType)
+PointerType::PointerType(const std::string& name,
+                         std::size_t size,
+                         const std::type_info& cppType,
+                         const Type& pointedType)
+    : Item(name),
+      Type(size, cppType),
+      pointedType_(&pointedType)
 {}
 
 

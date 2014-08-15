@@ -135,12 +135,10 @@ protected:
     /**
      * Constructor for full initialization.
      * 
-     * @param name The type name.
      * @param size The type size.
      * @param cppType The type_info struct of the type.
      */
-    Type(const std::string& name,
-         std::size_t size,
+    Type(std::size_t size,
          const std::type_info& cppType);
     
     /**

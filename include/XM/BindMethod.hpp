@@ -43,28 +43,24 @@ namespace xm {
 template
 <
     class ClassT,
-    typename RetT,
-    typename ParamT0
+    typename RetT
 >
 Method& bindMethod
 (
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0
     ) 
 )
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     
     // create the proper Method
     Method* xmMethod = new MethodImpl_1_Params
         <
             ClassT,
-            RetT,
-            ParamT0
+            RetT
         >
         (
             name,
@@ -81,21 +77,18 @@ Method& bindMethod
 template
 <
     class ClassT,
-    typename RetT,
-    typename ParamT0
+    typename RetT
 >
 Method& bindMethod
 (
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0
     ) const
 )
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     
     // remove the constness from the method
     RetT (ClassT::*method_nc)() =
@@ -103,7 +96,6 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (
-                ParamT0
             )
         >(method);
     
@@ -111,8 +103,7 @@ Method& bindMethod
     Method* xmMethod = new MethodImpl_1_Params
         <
             ClassT,
-            RetT,
-            ParamT0
+            RetT
         >
         (
             name,
@@ -130,7 +121,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1
 >
 Method& bindMethod
@@ -138,14 +128,12 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1
     ) 
 )
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     
     // create the proper Method
@@ -153,7 +141,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1
         >
         (
@@ -172,7 +159,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1
 >
 Method& bindMethod
@@ -180,14 +166,12 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1
     ) const
 )
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     
     // remove the constness from the method
@@ -196,7 +180,6 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (
-                ParamT0,
                 ParamT1
             )
         >(method);
@@ -206,7 +189,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1
         >
         (
@@ -225,7 +207,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2
 >
@@ -234,7 +215,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2
     ) 
@@ -242,7 +222,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     
@@ -251,7 +230,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2
         >
@@ -271,7 +249,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2
 >
@@ -280,7 +257,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2
     ) const
@@ -288,7 +264,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     
@@ -298,7 +273,6 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (
-                ParamT0,
                 ParamT1,
                 ParamT2
             )
@@ -309,7 +283,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2
         >
@@ -329,7 +302,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3
@@ -339,7 +311,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3
@@ -348,7 +319,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -358,7 +328,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3
@@ -379,7 +348,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3
@@ -389,7 +357,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3
@@ -398,7 +365,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -409,7 +375,6 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (
-                ParamT0,
                 ParamT1,
                 ParamT2,
                 ParamT3
@@ -421,7 +386,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3
@@ -442,7 +406,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -453,7 +416,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -463,7 +425,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -474,7 +435,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -496,7 +456,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -507,7 +466,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -517,7 +475,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -529,7 +486,6 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (
-                ParamT0,
                 ParamT1,
                 ParamT2,
                 ParamT3,
@@ -542,7 +498,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -564,7 +519,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -576,7 +530,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -587,7 +540,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -599,7 +551,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -622,7 +573,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -634,7 +584,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -645,7 +594,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -658,7 +606,6 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (
-                ParamT0,
                 ParamT1,
                 ParamT2,
                 ParamT3,
@@ -672,7 +619,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -695,7 +641,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -708,7 +653,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -720,7 +664,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -733,7 +676,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -757,7 +699,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -770,7 +711,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -782,7 +722,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -796,7 +735,6 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (
-                ParamT0,
                 ParamT1,
                 ParamT2,
                 ParamT3,
@@ -811,7 +749,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -835,7 +772,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -849,7 +785,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -862,7 +797,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -876,7 +810,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,
@@ -901,7 +834,6 @@ template
 <
     class ClassT,
     typename RetT,
-    typename ParamT0,
     typename ParamT1,
     typename ParamT2,
     typename ParamT3,
@@ -915,7 +847,6 @@ Method& bindMethod
     const std::string& name,
     RetT (ClassT::*method)
     ( 
-        ParamT0,
         ParamT1,
         ParamT2,
         ParamT3,
@@ -928,7 +859,6 @@ Method& bindMethod
 {
     // ensure the types are registered
     registerType<RetT>();
-    registerType<ParamT0>();
     registerType<ParamT1>();
     registerType<ParamT2>();
     registerType<ParamT3>();
@@ -943,7 +873,6 @@ Method& bindMethod
         <
             RetT (ClassT::*)
             (
-                ParamT0,
                 ParamT1,
                 ParamT2,
                 ParamT3,
@@ -959,7 +888,6 @@ Method& bindMethod
         <
             ClassT,
             RetT,
-            ParamT0,
             ParamT1,
             ParamT2,
             ParamT3,

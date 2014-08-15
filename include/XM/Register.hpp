@@ -37,6 +37,7 @@ namespace xm{
 
 class Type;
 class Class;
+class CompoundClass;
 
 typedef std::set<Type*, PtrCmpById<Type> > Type_SetById;
 typedef std::set<Class*, PtrCmpById<Class> > Class_SetById;
@@ -116,10 +117,10 @@ private:
     Type_SetById types_;
     Class_SetById classes_;
     
-    // this function needs to add Templates to the register
-    template<typename T>
-    friend Type* createCompoundClass();
+    // this class needs to add Templates to the register
+    friend class CompoundClass;
 };
+
 
 } // namespace xm
 

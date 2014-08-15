@@ -46,8 +46,8 @@
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define XM_ENABLE_TEMPLATE_1(_template_)     \
-namespace xm{                                                             \
+#define XM_ENABLE_TEMPLATE_1(_template_)        \
+namespace xm{                                                                \
                                                                              \
 template                                                                     \
 <                                                                            \
@@ -143,9 +143,9 @@ struct CreateType                                                            \
     >                                                                        \
 >                                                                            \
 {                                                                            \
-    Type* operator()()                                                       \
+    Type& operator()()                                                       \
     {                                                                        \
-        return createCompoundClass                                           \
+        return CompoundClass::create                                         \
             <                                                                \
                 _template_                                                   \
                 <                                                            \
@@ -167,8 +167,8 @@ struct CreateType                                                            \
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define XM_ENABLE_TEMPLATE_2(_template_)     \
-namespace xm{                                                             \
+#define XM_ENABLE_TEMPLATE_2(_template_)        \
+namespace xm{                                                                \
                                                                              \
 template                                                                     \
 <                                                                            \
@@ -277,9 +277,9 @@ struct CreateType                                                            \
     >                                                                        \
 >                                                                            \
 {                                                                            \
-    Type* operator()()                                                       \
+    Type& operator()()                                                       \
     {                                                                        \
-        return createCompoundClass                                           \
+        return CompoundClass::create                                         \
             <                                                                \
                 _template_                                                   \
                 <                                                            \
@@ -302,8 +302,8 @@ struct CreateType                                                            \
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define XM_ENABLE_TEMPLATE_3(_template_)     \
-namespace xm{                                                             \
+#define XM_ENABLE_TEMPLATE_3(_template_)        \
+namespace xm{                                                                \
                                                                              \
 template                                                                     \
 <                                                                            \
@@ -425,9 +425,9 @@ struct CreateType                                                            \
     >                                                                        \
 >                                                                            \
 {                                                                            \
-    Type* operator()()                                                       \
+    Type& operator()()                                                       \
     {                                                                        \
-        return createCompoundClass                                           \
+        return CompoundClass::create                                         \
             <                                                                \
                 _template_                                                   \
                 <                                                            \
@@ -451,8 +451,8 @@ struct CreateType                                                            \
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define XM_ENABLE_TEMPLATE_4(_template_)     \
-namespace xm{                                                             \
+#define XM_ENABLE_TEMPLATE_4(_template_)        \
+namespace xm{                                                                \
                                                                              \
 template                                                                     \
 <                                                                            \
@@ -587,9 +587,9 @@ struct CreateType                                                            \
     >                                                                        \
 >                                                                            \
 {                                                                            \
-    Type* operator()()                                                       \
+    Type& operator()()                                                       \
     {                                                                        \
-        return createCompoundClass                                           \
+        return CompoundClass::create                                         \
             <                                                                \
                 _template_                                                   \
                 <                                                            \

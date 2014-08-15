@@ -15,9 +15,10 @@
             <itemPath>include/XM/Exceptions/VariantTypeException.hpp</itemPath>
           </logicalFolder>
           <logicalFolder name="Common" displayName="Utils" projectFiles="true">
-            <itemPath>include/XM/Utils/ContainerUtils.hpp</itemPath>
-            <itemPath>include/XM/Utils/DebugUtils.hpp</itemPath>
-            <itemPath>include/XM/Utils/Typedef.hpp</itemPath>
+            <itemPath>include/XM/Utils/Bounds.hpp</itemPath>
+            <itemPath>include/XM/Utils/Containers.hpp</itemPath>
+            <itemPath>include/XM/Utils/Debug.hpp</itemPath>
+            <itemPath>include/XM/Utils/String.hpp</itemPath>
             <itemPath>include/XM/Utils/Utils.hpp</itemPath>
           </logicalFolder>
           <itemPath>include/XM/ArrayType.hpp</itemPath>
@@ -37,7 +38,6 @@
           <itemPath>include/XM/Method.hpp</itemPath>
           <itemPath>include/XM/MethodImpl.hpp</itemPath>
           <itemPath>include/XM/Namespace.hpp</itemPath>
-          <itemPath>include/XM/NumericalUtils.hpp</itemPath>
           <itemPath>include/XM/OtherMembers.hpp</itemPath>
           <itemPath>include/XM/Parameter.hpp</itemPath>
           <itemPath>include/XM/PointerType.hpp</itemPath>
@@ -57,6 +57,7 @@
           <itemPath>include/XM/TemplateRegistrationMacros.hpp</itemPath>
           <itemPath>include/XM/Type.hpp</itemPath>
           <itemPath>include/XM/TypeTraits.hpp</itemPath>
+          <itemPath>include/XM/Typedefs.hpp</itemPath>
           <itemPath>include/XM/Variant.hpp</itemPath>
           <itemPath>include/XM/Variant.inl</itemPath>
         </logicalFolder>
@@ -78,6 +79,9 @@
             <itemPath>src/XM/Exceptions/PropertySetException.cpp</itemPath>
             <itemPath>src/XM/Exceptions/VariantCostnessException.cpp</itemPath>
             <itemPath>src/XM/Exceptions/VariantTypeException.cpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f1" displayName="Utils" projectFiles="true">
+            <itemPath>src/XM/Utils/String.cpp</itemPath>
           </logicalFolder>
           <itemPath>src/XM/ArrayType.cpp</itemPath>
           <itemPath>src/XM/Class.cpp</itemPath>
@@ -200,8 +204,6 @@
       </item>
       <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/XM/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Parameter.hpp" ex="false" tool="3" flavor2="0">
@@ -246,14 +248,15 @@
       </item>
       <item path="include/XM/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Utils/ContainerUtils.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="include/XM/Typedefs.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Utils/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/Bounds.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Utils/Typedef.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/Containers.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Utils/Debug.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Utils/String.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Utils/Utils.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -322,6 +325,8 @@
       <item path="src/XM/Template.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Type.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/XM/Utils/String.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Variant.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -412,8 +417,6 @@
       </item>
       <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/NumericalUtils.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/XM/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Parameter.hpp" ex="false" tool="3" flavor2="0">
@@ -458,14 +461,15 @@
       </item>
       <item path="include/XM/TypeTraits.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Utils/ContainerUtils.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="include/XM/Typedefs.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Utils/DebugUtils.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/Bounds.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/Utils/Typedef.hpp" ex="false" tool="3" flavor2="0">
+      <item path="include/XM/Utils/Containers.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Utils/Debug.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/Utils/String.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Utils/Utils.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -534,6 +538,8 @@
       <item path="src/XM/Template.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Type.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/XM/Utils/String.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Variant.cpp" ex="false" tool="1" flavor2="0">
       </item>

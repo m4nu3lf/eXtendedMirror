@@ -38,7 +38,7 @@
 #include "XM/EnableStd.hpp"
 
 using namespace std;
-using namespace extmr;
+using namespace xm;
 
 char c;
 
@@ -154,7 +154,7 @@ int main(int argc, char** argv)
     Dummy& d = dummy;
     
     int i = 0;
-    RefVariant(d).call("doNothingUseful", &i);
+    Variant(&d).call("doNothingUseful", &i);
     getClass("Dummy").getMethod("doNothingUseful").call(d, &i);
     Variant(&d).call("doNothingUseful", string("ciao"));
     getClass("ClassTemplate<int>").getProperty("val").setData(d.templateInstance, 5);

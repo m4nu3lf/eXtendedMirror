@@ -54,13 +54,6 @@ public:
 
     
     /**
-     * Get the name of this class.
-     * 
-     * @return The name of the class. 
-     */
-    const std::string& getName() const;
-    
-    /**
      * Ask if the class is abstract.
      * 
      * @return True if the class is abstract, false otherwise.

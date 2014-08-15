@@ -65,13 +65,10 @@ private:
      * @param cppType The type_info struct of the type.
      * @param pointedType The type pointed by this one.
      */
-    PointerType
-    (
-            const std::string& name,
-            std::size_t size,
-            const std::type_info& cppType,
-            const Type& pointedType
-     );
+    PointerType(const std::string& name,
+                std::size_t size,
+                const std::type_info& cppType,
+                const Type& pointedType);
     
     // the type pointed by this one.
     const Type* pointedType_;

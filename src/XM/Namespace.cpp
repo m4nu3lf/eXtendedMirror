@@ -33,6 +33,7 @@
 #include <XM/Utils/Utils.hpp>
 #include <XM/ExtendedMirror.hpp>
 #include <XM/Exceptions/NotFoundExceptions.hpp>
+#include <XM/Utils/String.hpp>
 
 using namespace std;
 using namespace xm;
@@ -45,94 +46,94 @@ Namespace::Namespace(const std::string& name, const Namespace& name_space)
 
 
 Namespace::Namespace()
-        : Item("")
 {
+}
+
+
+Item& Namespace::getItem_(const std::string& name,
+                          NotFoundHandler notFoundHandler)
+{
+    pair<string, string> nameParts = splitName(name, NameHead);
+    do {
+        if (nameParts.first != "")
+        {
+            Item* item = ptrSet::findByKey(items_, nameParts.first);
+            if (item)
+            {
+                Namespace& name_space = dynamic_cast<Namespace&>(*item);
+                return name_space.getItem_(nameParts.second, notFoundHandler);
+            }
+            else if (notFoundHandler)
+                notFoundHandler(*this, nameParts.first);
+            else break;
+        }
+        else
+        {
+            Item* item = ptrSet::findByKey(items_, name);
+            if (item)
+                return *item;
+            else if (notFoundHandler)
+                notFoundHandler(*this, name);
+            else break;
+        }
+    } while (true);
+    throw ItemNotFoundException<Item>(getName() + "::" + name);
+}
+
+
+template<typename T>
+bool throwNotFoundException(Namespace& where, const string& what)
+{
+    throw ItemNotFoundException<T>(where.getName() + "::" + what);
 }
 
 
 template<typename T>
 const T& Namespace::getItem(const string& name) const
 {
-    pair<string, string> splitName = splitTopNamespace_(name);
-    if (splitName.first != "")
-    {
-        const Item* item = ptrSet::findByKey(items_, splitName.first);
-        const Namespace* name_space = dynamic_cast<const Namespace*>(item);
-        if (name_space)
-            return name_space->getItem<T>(splitName.second);
-        else
-            throw ItemNotFoundException<T>(getName() + "::" + name);
-    }
-    else
-    {
-        const Item* item = ptrSet::findByKey(items_, name);
-        const T* castedItem = dynamic_cast<const T*>(item);
-        if (castedItem)
-            return *castedItem;
-        else
-            throw ItemNotFoundException<T>(getName() + "::" + name);
-    }
+    // Const cast can be performed because getItem does not modify anything
+    // in this case
+    Namespace* ncThis = const_cast<Namespace*>(this);
+    Item& item = ncThis->getItem_(name, throwNotFoundException<T>);
+    return dynamic_cast<T&>(item);
 }
+template const Item& Namespace::getItem(const std::string& name) const;
+template const Type& Namespace::getItem(const std::string& name) const;
+template const Class& Namespace::getItem(const std::string& name) const;
+template const Template& Namespace::getItem(const std::string& name) const;
+template const Function& Namespace::getItem(const std::string& name) const;
 
 
-void Namespace::walkItems(ItemInspector fnc, bool recursive) const
+bool Namespace::addNamespace_(Namespace& where, const string& what)
 {
-    Item_Set::iterator ite = items_.begin();
-    while( ite != items_.end() )
-    {
-        fnc(**ite);
-        if (recursive)
-        {
-            const Namespace* name_space = dynamic_cast<const Namespace*>(*ite);
-            if (name_space)
-                name_space->walkItems(fnc, recursive);
-        }
-    }
+    Namespace* name_space = new Namespace(what, where);
+    where.addItem(*name_space);
+    return true;
 }
 
 
-void Namespace::addItem(Item& item, string name)
+Namespace& Namespace::defineNamespace(const std::string& name)
 {
     if (name == "")
-        name = item.getName();
-    pair<string, string> splitNamespace = splitTopNamespace_(name);
-    if (splitNamespace.first != "")
-    {
-        Namespace* subNameSpace = dynamic_cast<Namespace*>(
-                ptrSet::findByKey(items_, splitNamespace.first));
-        if (!subNameSpace)
-        {
-            subNameSpace = new Namespace(splitNamespace.first, *this);
-            addItem(*subNameSpace);
-        }
-        addItem(item, splitNamespace.second);
-    }
-    else
-    {
-        items_.insert(&item);
-        item.setNamespace(*this);
-    }
+        return Register::getSingleton();
+    Item& item = getItem_(name, addNamespace_);
+    return dynamic_cast<Namespace&>(item);
 }
 
 
-pair<string, string> splitTopNamespace_(const string& name)
+void Namespace::addItem(Item& item)
 {
-    pair<string, string> splitName;
-    size_t pos = name.find("::");
-    if (pos != string::npos)
-    {
-        splitName.first = name.substr(0, pos);
-        splitName.second = name.substr(pos + 2);
-    }
-    else
-    {
-        splitName.second = name;
-    }
-    return splitName;
+    if (item.getNamespace() == *this)
+        items_.insert(&item);
 }
 
 
 Namespace::~Namespace()
 {
-
+    Item_Set::iterator ite = items_.begin();
+    while(ite != items_.end())
+    {
+        delete *ite;
+        ite ++;
+    }
 }

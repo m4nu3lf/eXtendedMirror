@@ -36,8 +36,15 @@
 using namespace std;
 using namespace xm;
 
-Member::Member(const Class& owner, const string& name) :
-    Item(owner, name)
+
+Member::Member()
+    : Item(getClass<void>(), "")
+{
+}
+
+
+Member::Member(const Class& owner, const string& name)
+    : Item(owner, name)
 {
 }
 

@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Utils/Utils.hpp                                      *
+ *      Extended Mirror: Typedefs.hpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,20 +30,17 @@
  *****************************************************************************/
 
 
-#ifndef XM_UTILS_UTILS_HPP
-#define XM_UTILS_UTILS_HPP
+#ifndef XM_TYPEDEFS_HPP
+#define	XM_TYPEDEFS_HPP
 
-#include<iostream>
-#include<string>
-#include<sstream>
-#include<vector>
-#include<set>
+namespace xm {
 
-#define DEBUG
+typedef unsigned char uchar;
+typedef unsigned short ushort;
+typedef unsigned int uint;
+typedef unsigned long ulong;
 
-#include <XM/Utils/Debug.hpp>
-#include <XM/Utils/Containers.hpp>
-#include <XM/Utils/String.hpp>
+} // namespace xm
 
-#endif	/* XM_UTILS_UTILS_HPP */
+#endif	/* XM_TYPEDEFS_HPP */
 

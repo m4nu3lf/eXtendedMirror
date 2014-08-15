@@ -60,13 +60,8 @@ Class::Class
     bool isAbstract
 ) :
     Item(name_space, name),
-    Type
-    (
-        name_space,
-        name,
-        size,
-        cppType
-    ), isAbstract_(isAbstract),
+    Type(size, cppType),
+    isAbstract_(isAbstract),
     constructor_(new Constructor(*this)),
     copyConstructor_(new CopyConstructor(*this)),
     destructor_(new Destructor(*this))
@@ -143,14 +138,14 @@ void Class::addRefCaster(RefCaster& refCaster)
 
 void Class::addProperty(Property& property)
 {
-    if (property.getOwner() == *this)
+    if (&property.getOwner() == this)
         properties_.insert(&property);
 }
 
 
 void Class::addMethod(Method& method)
 { 
-    if (method.getOwner() == *this)
+    if (&method.getOwner() == this)
         methods_.insert(&method);
 }
 
@@ -215,7 +210,7 @@ bool Class::inheritsFrom(const string& baseClassName) const
 
 bool Class::inheritsFrom(const Class& baseClass) const
 {    
-    Const_Class_SetById::iterator ite = baseClasses_.begin();
+    Const_Class_Set::iterator ite = baseClasses_.begin();
     while(ite != baseClasses_.end())
     {
         if (**ite == *this || (*ite)->inheritsFrom(*this))
@@ -269,7 +264,7 @@ Class::~Class()
     ptrSet::deleteAll(ownProperties_);
     ptrSet::deleteAll(ownMethods_);
     
-    Const_Class_SetById::iterator ite = baseClasses_.begin();
+    Const_Class_Set::iterator ite = baseClasses_.begin();
     
     while(ite != baseClasses_.end())
     {

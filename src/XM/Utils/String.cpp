@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Utils/Utils.hpp                                      *
+ *      Extended Mirror: Utils/String.cpp                                     *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,20 +30,29 @@
  *****************************************************************************/
 
 
-#ifndef XM_UTILS_UTILS_HPP
-#define XM_UTILS_UTILS_HPP
-
-#include<iostream>
-#include<string>
-#include<sstream>
-#include<vector>
-#include<set>
-
-#define DEBUG
-
-#include <XM/Utils/Debug.hpp>
-#include <XM/Utils/Containers.hpp>
 #include <XM/Utils/String.hpp>
 
-#endif	/* XM_UTILS_UTILS_HPP */
+
+using namespace std;
+using namespace xm;
+
+
+pair<string, string> xm::splitName(const string& name, NameSide side)
+{
+    size_t pos = min(name.find("<"), name.find("*"));
+    string cleanName = name.substr(0, pos);
+    if (side == NameHead)
+        pos = cleanName.find("::");
+    else
+        pos = cleanName.rfind("::");
+    pair<string, string> splitName;
+    if (pos != string::npos)
+    {
+        splitName.first = cleanName.substr(0, pos);
+        splitName.second = name.substr(pos+2);
+    }
+    else
+        splitName.second = name;
+    return splitName;
+}
 

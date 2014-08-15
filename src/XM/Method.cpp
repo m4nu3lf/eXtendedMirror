@@ -45,9 +45,7 @@ Method::Method(const std::string& name) :
 
 
 Method::Method(const Class& owner, const std::string& name) :
-        Item(owner, name),
-        Member(owner, name),
-        Function(name)
+        Item(owner, name)
 {
 }
 
@@ -56,31 +54,7 @@ Method::Method
 (
     const string& name,
     const Type& retType,
-    const Type& paramType0,
-    const Type& paramType1,
-    const Type& paramType2,
-    const Type& paramType3,
-    const Type& paramType4,
-    const Type& paramType5,
-    const Type& paramType6,
-    const Type& paramType7
-) :
-    Item(name),
-    Member(getClass<void>(), name),
-    Function(name, retType,
-        paramType0,paramType1, paramType2, paramType3, paramType4, paramType5,
-        paramType6, paramType7)
-{
-        _XM_FUNCTION_PUSH_PARAMS
-}
-
-
-Method::Method
-(
     const Class& owner,
-    const string& name,
-    const Type& retType,
-    const Type& paramType0,
     const Type& paramType1,
     const Type& paramType2,
     const Type& paramType3,
@@ -90,10 +64,8 @@ Method::Method
     const Type& paramType7
 ) :
     Item(owner, name),
-    Member(owner, name),
-    Function(name, retType,
-        paramType0,paramType1, paramType2, paramType3, paramType4, paramType5,
-        paramType6, paramType7)
+    Function(name, retType, owner,paramType1, paramType2, paramType3,
+        paramType4, paramType5, paramType6, paramType7)
 {
 }
 
@@ -123,7 +95,7 @@ std::string Method::getSignature() const
         signature += getName() + "(";
 
         Const_Prameter_Vector params = getParameters();
-        for (uint i = 0; i < params.size(); i++) {
+        for (uint i = 1; i < params.size(); i++) {
             const Parameter* param = params[i];
             signature += param->type.getName();
             if (param->byNcReference)
@@ -132,10 +104,10 @@ std::string Method::getSignature() const
                 signature += ", ";
         }
 
-        signature += ") ";
+        signature += ")";
 
         if (isConst())
-            signature += "const";
+            signature += " const";
         
         return signature;
     }

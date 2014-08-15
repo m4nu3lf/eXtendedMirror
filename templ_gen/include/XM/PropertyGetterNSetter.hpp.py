@@ -37,7 +37,7 @@ content = """
 
 #include <limits>
 
-#include <XM/NumericalUtils.hpp>
+#include <XM/Utils/Bounds.hpp>
 #include <XM/Exceptions/PropertySetException.hpp>
 #include <XM/Exceptions/PropertyRangeException.hpp>
 
@@ -103,7 +103,7 @@ public:
         bool constGetter,
         Setter setter""" + gen_seq(""",
         ExtrParamT$ extrArg$""", n_extr_param) + """
-    ) : Property(xm::getClass<ClassT>(), name),
+    ) : Item(xm::getClass<ClassT>(), name),
         getter_(getter),
         constGetter_(constGetter),
         setter_(setter)""" + gen_seq(""",
@@ -196,7 +196,7 @@ public:
     Variant getData(const Variant& self) const
     {
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // we cannot call a non constant getter of a constant instance
         if (self.isConst() && !constGetter_)
@@ -218,10 +218,10 @@ public:
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and stored as a reference
-        ClassT& objRef = self.as<ClassT>();
+        ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // retrieve the new data value
-        PropT& extractedValue = data.as<PropT>();
+        PropT& extractedValue = const_cast<Variant&>(data).as<PropT>();
         
         // check whether the new value is into the specified bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_)) return;

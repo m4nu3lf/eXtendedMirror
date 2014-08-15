@@ -43,7 +43,13 @@ class Class;
  */
 class Member : public virtual Item
 {
-public:    
+public:
+    /**
+     * Basic constructor for initialization.
+     * 
+     */
+    Member();
+    
     /**
      * Basic constructor for initialization.
      * 

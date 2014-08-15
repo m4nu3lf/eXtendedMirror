@@ -64,7 +64,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_0_ExtrParams
+        new PropertyGetterNSetter_0_ExtrParams
         <
             ClassT,
             RetT,
@@ -112,7 +112,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_0_ExtrParams
+        new PropertyGetterNSetter_0_ExtrParams
         <
             ClassT,
             RetT,
@@ -153,7 +153,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_0_ExtrParams
+        new PropertyGetterNSetter_0_ExtrParams
         <
             ClassT,
             RetT,
@@ -203,7 +203,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_0_ExtrParams
+        new PropertyGetterNSetter_0_ExtrParams
         <
             ClassT,
             RetT,
@@ -245,7 +245,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_1_ExtrParams
+        new PropertyGetterNSetter_1_ExtrParams
         <
             ClassT,
             RetT,
@@ -299,7 +299,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_1_ExtrParams
+        new PropertyGetterNSetter_1_ExtrParams
         <
             ClassT,
             RetT,
@@ -346,7 +346,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_1_ExtrParams
+        new PropertyGetterNSetter_1_ExtrParams
         <
             ClassT,
             RetT,
@@ -403,7 +403,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_1_ExtrParams
+        new PropertyGetterNSetter_1_ExtrParams
         <
             ClassT,
             RetT,
@@ -450,7 +450,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_2_ExtrParams
+        new PropertyGetterNSetter_2_ExtrParams
         <
             ClassT,
             RetT,
@@ -510,7 +510,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_2_ExtrParams
+        new PropertyGetterNSetter_2_ExtrParams
         <
             ClassT,
             RetT,
@@ -563,7 +563,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_2_ExtrParams
+        new PropertyGetterNSetter_2_ExtrParams
         <
             ClassT,
             RetT,
@@ -627,7 +627,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_2_ExtrParams
+        new PropertyGetterNSetter_2_ExtrParams
         <
             ClassT,
             RetT,
@@ -679,7 +679,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_3_ExtrParams
+        new PropertyGetterNSetter_3_ExtrParams
         <
             ClassT,
             RetT,
@@ -745,7 +745,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_3_ExtrParams
+        new PropertyGetterNSetter_3_ExtrParams
         <
             ClassT,
             RetT,
@@ -804,7 +804,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_3_ExtrParams
+        new PropertyGetterNSetter_3_ExtrParams
         <
             ClassT,
             RetT,
@@ -875,7 +875,7 @@ Property& bindProperty(
     
     // build the Property
     Property* xmProperty =
-        *new PropertyGetterNSetter_3_ExtrParams
+        new PropertyGetterNSetter_3_ExtrParams
         <
             ClassT,
             RetT,

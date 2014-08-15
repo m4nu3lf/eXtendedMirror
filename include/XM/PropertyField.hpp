@@ -35,7 +35,7 @@
 
 #include <limits>
 
-#include <XM/NumericalUtils.hpp>
+#include <XM/Utils/Bounds.hpp>
 #include <XM/Exceptions/PropertySetException.hpp>
 #include <XM/Exceptions/PropertyRangeException.hpp>
 #include <XM/Exceptions/VariantCostnessException.hpp>
@@ -68,7 +68,7 @@ public:
      * @param field A member pointer to the field.
      */
     PropertyField(const std::string& name, FieldT ClassT::*field)
-    : Property(xm::getClass<ClassT>(), name)
+    : Item(xm::getClass<ClassT>(), name)
     {
         
         offset_ = (size_t) &(((ClassT*)NULL)->*field);
@@ -141,7 +141,7 @@ public:
     {            
         // the value is retrieved as a constant to prevent exception throwing
         // if the passed Variant is a constant Variant.
-        const ClassT& constObj = self.as<const ClassT>();
+        const ClassT& constObj = const_cast<Variant&>(self).as<const ClassT>();
         
         // remove constness, the costness is however handled successively
         ClassT& obj = const_cast<ClassT&>(constObj);
@@ -166,15 +166,15 @@ public:
     
     
     void setData(const Variant& self, const Variant& data) const
-    {   
-        std::cout << "here" << std::endl;
+    {
         // check whether the property is settable
         if (!flags_ & Settable)
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and converted to a raw char
         // pointer
-        char* byteObjPtr = reinterpret_cast<char*>(&self.as<ClassT>());
+        char* byteObjPtr = reinterpret_cast<char*>(
+            &const_cast<Variant&>(self).as<ClassT>());
         
         // check whether the pointer provided in not a pointer to a constant
         // object
@@ -182,13 +182,14 @@ public:
             throw VariantCostnessException(self.getType());
         
         // retrieve the new data value
-        const PropT extractedValue = data.as<const PropT>();
+        const PropT extractedValue =
+            const_cast<Variant&>(data).as<const PropT>();
         
         // check whether the new value is within bounds
         if (!checkValueBounds(extractedValue, minValue_, maxValue_))
             throw PropertyRangeException(toDouble(extractedValue), minValue_, maxValue_);
         
-        // the pointer is summed to the the object pointer and converted to the
+        // the pointer is added to the the object pointer and converted to the
         // field type
         PropT& fieldRef = *reinterpret_cast<PropT*>(byteObjPtr + offset_);
         

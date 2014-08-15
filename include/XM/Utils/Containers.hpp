@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: ContainerUtils.hpp                                   *
+ *      Extended Mirror: Utils/Containers.hpp                                 *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_CONTAINERUTILS_HPP
-#define	XM_CONTAINERUTILS_HPP
+#ifndef XM_UTILS_CONTAINERS_HPP
+#define	XM_UTILS_CONTAINERS_HPP
 
 
 #define DEFINE_POINTER_COMPARER_BY_METHOD(getter, ComparerName)                \
@@ -123,5 +123,5 @@ struct ThrowawayKeyClass<Class>                                                \
                                                                                \
 } // namespace ptrSet
 
-#endif	/* XM_CONTAINERUTILS_HPP */
+#endif	/* XM_UTILS_CONTAINERS_HPP */
 
