@@ -213,14 +213,7 @@ public:
     
     void addBaseClass(Class& baseClass);
     
-
-    void addRefCaster(RefCaster& refCaster);
-    
-
-    void addProperty(Property& property);
-    
-
-    void addMethod(Method& method);
+    void addMember(Member& member);
     
     virtual ~Class();
     

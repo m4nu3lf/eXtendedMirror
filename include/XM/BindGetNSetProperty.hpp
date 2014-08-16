@@ -76,7 +76,7 @@ Property& bindProperty(
             false,
             setter
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -124,7 +124,7 @@ Property& bindProperty(
             true,
             setter
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -165,7 +165,7 @@ Property& bindProperty(
             false,
             setter
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -215,7 +215,7 @@ Property& bindProperty(
             true,
             setter
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -259,7 +259,7 @@ Property& bindProperty(
             setter,
             extrArg0
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -313,7 +313,7 @@ Property& bindProperty(
             setter,
             extrArg0
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -360,7 +360,7 @@ Property& bindProperty(
             setter,
             extrArg0
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -417,7 +417,7 @@ Property& bindProperty(
             setter,
             extrArg0
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -466,7 +466,7 @@ Property& bindProperty(
             extrArg0,
             extrArg1
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -526,7 +526,7 @@ Property& bindProperty(
             extrArg0,
             extrArg1
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -579,7 +579,7 @@ Property& bindProperty(
             extrArg0,
             extrArg1
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -643,7 +643,7 @@ Property& bindProperty(
             extrArg0,
             extrArg1
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -697,7 +697,7 @@ Property& bindProperty(
             extrArg1,
             extrArg2
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -763,7 +763,7 @@ Property& bindProperty(
             extrArg1,
             extrArg2
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -822,7 +822,7 @@ Property& bindProperty(
             extrArg1,
             extrArg2
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -893,7 +893,7 @@ Property& bindProperty(
             extrArg1,
             extrArg2
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 

@@ -6,6 +6,22 @@
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/RegistrationHelpers.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/SpecialMembers.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/XM/Register.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/XM/Member.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/XM/Item.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/XM/Namespace.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/src/XM/Class.cpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/BindMethod.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/Bind.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/EnableStd.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/ExtendedMirror.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/Shortcuts.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/Item.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/Function.hpp</file>
+            <file>file:/home/manuele/NetBeansProjects/extendedmirror/include/XM/Register.inl</file>
+        </group>
     </open-files>
 </project-private>

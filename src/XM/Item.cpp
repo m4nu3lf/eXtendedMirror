@@ -40,16 +40,11 @@ using namespace xm;
 Item::Item(const Namespace& name_space, const string& unqualifiedName) :
         namespace_(&name_space), unqualifiedName_(unqualifiedName)
 {
-    if (namespace_->getName() != "") 
-        name_ = namespace_->getName() + "::" + unqualifiedName;
-    else
-        name_ = unqualifiedName;
 }
 
 Item::Item(const string& name) :
         namespace_(NULL),
-        unqualifiedName_(splitName(name, NameTail).second),
-        name_(name)
+        unqualifiedName_(splitName(name, NameTail).second)
 {
 }
 
@@ -59,9 +54,12 @@ const string& Item::getUnqualifiedName() const
 }
 
 
-const string& Item::getName() const
+string Item::getName() const
 {
-    return name_;
+    if (namespace_)
+        return namespace_->getName() + "::" + unqualifiedName_;
+    else
+        return unqualifiedName_;
 }
 
 
@@ -71,13 +69,6 @@ const Namespace& Item::getNamespace() const
         return *namespace_;
     else
         return Register::getSingleton();
-}
-
-
-void Item::setNamespace(const Namespace& name_space)
-{
-    namespace_ = &name_space;
-    name_ = namespace_->getName() + "::" + unqualifiedName_;
 }
 
 

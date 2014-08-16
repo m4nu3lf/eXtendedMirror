@@ -248,8 +248,7 @@ Variant::operator T&()
         
         // retrieve direct caster if any
         Const_RefCaster_Set casters = clazz.getRefCasters();
-        const RefCaster* caster = 
-                ptrSet::findByKey(casters, std::make_pair(type_, &targetType));
+        const RefCaster* caster = ptrSet::findByKey(casters, targetType);
         
         // if caster found, cast this variant and return
         if (caster)

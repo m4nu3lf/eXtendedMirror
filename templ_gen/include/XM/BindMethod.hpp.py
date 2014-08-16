@@ -87,7 +87,7 @@ Method& bindMethod
             false""") + """
         );
 
-    const_cast<Class&>(getClass<ClassT>()).addMethod(*xmMethod);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmMethod);
     return *xmMethod;
 }
 

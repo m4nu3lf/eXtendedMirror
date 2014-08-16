@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: OtherMembers.hpp                                     *
+ *      Extended Mirror: SpecialMembers.hpp                                   *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_OTHERMEMBERS_HPP
-#define	XM_OTHERMEMBERS_HPP
+#ifndef XM_SPECIALMEMBERS_HPP
+#define	XM_SPECIALMEMBERS_HPP
 
 namespace xm {
 
@@ -39,7 +39,7 @@ namespace xm {
 class Constructor : public Member
 {
 public:
-    Constructor(const Class& owner);
+    Constructor(const Class& owner = getClass<void>());
     virtual void init(Variant& var) const;
 };
 
@@ -48,7 +48,7 @@ template<class C>
 class ConstructorImpl : public Constructor
 {
 public:
-    ConstructorImpl(const Class& owner) : Constructor(owner) {};
+    ConstructorImpl(const Class& owner) : Item(owner) {};
     void init(Variant& var) const
     {
         new (&var.as<C>()) C();
@@ -59,7 +59,7 @@ public:
 class CopyConstructor : public Member
 {
 public:
-    CopyConstructor(const Class& owner);
+    CopyConstructor(const Class& owner = getClass<void>());
     virtual void copy(Variant& copy, const Variant& orig) const;
 };
 
@@ -68,7 +68,7 @@ template<class C>
 class CopyConstructorImpl : public CopyConstructor
 {
 public:
-    CopyConstructorImpl(const Class& owner) : CopyConstructor(owner) {};
+    CopyConstructorImpl(const Class& owner) : Item(owner) {};
     void copy(Variant& copy, const Variant& orig) const
     {
         Variant& nc_orig = const_cast<Variant&>(orig);
@@ -80,7 +80,7 @@ public:
 class Destructor : Member
 {
 public:
-    Destructor(const Class& owner);
+    Destructor(const Class& owner = getClass<void>());
     virtual void destroy(Variant& var) const;
 };
 
@@ -89,14 +89,57 @@ template<typename C>
 class DestructorImpl : public Destructor
 {
 public:
-    DestructorImpl(const Class& owner) : Destructor(owner) {};
+    DestructorImpl(const Class& owner) : Item(owner) {};
     void destroy(Variant& var) const
     {
         var.as<C>().~C();
     }
 };
 
+
+class RefCaster : public Member
+{
+public:
+    RefCaster(const Type& dstType = getType<void>(),
+              const Class& owner = getClass<void>());
+    
+    const Type& getDstType() const;
+
+    virtual
+    Variant cast(Variant& var) const;
+
+protected:
+    const Type* dstType_;
+        
+    friend bool operator<(const RefCaster&, const RefCaster&);
+};
+
+
+bool inline operator<(const RefCaster& rc1, const RefCaster& rc2)
+{
+    return *rc1.dstType_ < *rc2.dstType_;
+}
+
+
+template<typename S, typename D>
+class RefCasterImpl : public RefCaster
+{
+public:
+    RefCasterImpl()
+        : Item(getClass<S>()),
+          RefCaster(getType<D>(), getClass<S>())
+    {
+    }
+
+    Variant cast(const Variant& var) const
+    {
+            return dynamic_cast<D*>(var.as<S*>());
+    }
+
+};
+
+
 } // namespace xm
 
-#endif	/* XM_OTHERMEMBERS_HPP */
+#endif	/* XM_SPECIALMEMBERS_HPP */
 

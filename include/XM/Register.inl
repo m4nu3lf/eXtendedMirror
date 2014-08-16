@@ -113,7 +113,7 @@ Type& Register::registerType_()
         buildClass();
     }
     
-    DEBUG_MSG("type \"" << type->getName() << "\" registered")
+    XM_DEBUG_MSG("type \"" << type->getName() << "\" registered")
     
     // return the type
     return *type;

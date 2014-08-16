@@ -49,12 +49,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/XM/Member.o \
 	${OBJECTDIR}/src/XM/Method.o \
 	${OBJECTDIR}/src/XM/Namespace.o \
-	${OBJECTDIR}/src/XM/OtherMembers.o \
 	${OBJECTDIR}/src/XM/PointerType.o \
 	${OBJECTDIR}/src/XM/PrimitiveType.o \
 	${OBJECTDIR}/src/XM/Property.o \
-	${OBJECTDIR}/src/XM/RefCaster.o \
 	${OBJECTDIR}/src/XM/Register.o \
+	${OBJECTDIR}/src/XM/SpecialMembers.o \
 	${OBJECTDIR}/src/XM/Template.o \
 	${OBJECTDIR}/src/XM/Type.o \
 	${OBJECTDIR}/src/XM/Utils/String.o \
@@ -157,11 +156,6 @@ ${OBJECTDIR}/src/XM/Namespace.o: src/XM/Namespace.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DCPP_11 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/Namespace.o src/XM/Namespace.cpp
 
-${OBJECTDIR}/src/XM/OtherMembers.o: src/XM/OtherMembers.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/XM
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -DCPP_11 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/OtherMembers.o src/XM/OtherMembers.cpp
-
 ${OBJECTDIR}/src/XM/PointerType.o: src/XM/PointerType.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/XM
 	${RM} "$@.d"
@@ -177,15 +171,15 @@ ${OBJECTDIR}/src/XM/Property.o: src/XM/Property.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DCPP_11 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/Property.o src/XM/Property.cpp
 
-${OBJECTDIR}/src/XM/RefCaster.o: src/XM/RefCaster.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/XM
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -DCPP_11 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/RefCaster.o src/XM/RefCaster.cpp
-
 ${OBJECTDIR}/src/XM/Register.o: src/XM/Register.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/XM
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -DCPP_11 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/Register.o src/XM/Register.cpp
+
+${OBJECTDIR}/src/XM/SpecialMembers.o: src/XM/SpecialMembers.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/XM
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -DCPP_11 -Iinclude -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/XM/SpecialMembers.o src/XM/SpecialMembers.cpp
 
 ${OBJECTDIR}/src/XM/Template.o: src/XM/Template.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/XM

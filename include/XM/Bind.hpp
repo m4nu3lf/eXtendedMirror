@@ -57,7 +57,7 @@ void bindBase()
     clazz.addBaseClass(base);
     
     // bind RefCaster to base
-    clazz.addRefCaster(*new RefCasterImpl<ClassT, BaseT>());
+    clazz.addMember(*new RefCasterImpl<ClassT, BaseT>());
 }
 
 
@@ -68,7 +68,7 @@ void bindPmBase()
     
     // bind RefCast from BaseT to CassT
     RefCaster* refCaster = new RefCasterImpl<BaseT, ClassT>();
-    const_cast<Class&>(getClass<BaseT>()).addRefCaster(*refCaster);
+    const_cast<Class&>(getClass<BaseT>()).addMember(*refCaster);
 }
 
 
@@ -80,7 +80,7 @@ Property& bindProperty(const std::string& name, FieldT ClassT::* field)
     
     // build the Property and add it to the Class
     Property* xmProperty = new PropertyField<ClassT, FieldT>(name, field);
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 
@@ -95,7 +95,7 @@ Property& bindProperty(const std::string& name,
     // build the Property  and add it to the Class
     Property* xmProperty =
             new PropertyArrayField<ClassT, FieldT[size]>(name, field);
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 

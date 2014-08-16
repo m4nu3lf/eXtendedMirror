@@ -129,24 +129,32 @@ void Class::addBaseClass(Class& baseClass)
 }
 
 
-void Class::addRefCaster(RefCaster& refCaster)
+void Class::addMember(Member& member)
 {
-    if (refCaster.getSrcType() == *this)
-        refCasters_.insert(&refCaster);
-}
-
-
-void Class::addProperty(Property& property)
-{
-    if (&property.getOwner() == this)
-        properties_.insert(&property);
-}
-
-
-void Class::addMethod(Method& method)
-{ 
-    if (&method.getOwner() == this)
-        methods_.insert(&method);
+    if (&member.getOwner() == this)
+    {
+        Property* property = dynamic_cast<Property*>(&member);
+        if (property)
+        {
+            properties_.insert(property);
+            ownProperties_.insert(property);
+            addItem(*property);
+            return;
+        }
+        Method* method = dynamic_cast<Method*>(&member);
+        if (method)
+        {
+            methods_.insert(method);
+            ownMethods_.insert(method);
+            addItem(*method);
+            return;
+        }
+        RefCaster* refCaster = dynamic_cast<RefCaster*>(&member);
+        if (refCaster)
+            refCasters_.insert(refCaster);
+    }
+    else
+        XM_DEBUG_MSG("Adding member to wrong owner");
 }
 
 

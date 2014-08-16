@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: RefCasterImpl.hpp                                    *
+ *      Extended Mirror: SpecialMembers.cpp                                   *
  ******************************************************************************
  *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -29,28 +29,55 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
+#include <XM/ExtendedMirror.hpp>
+#include <XM/Exceptions/NotFoundExceptions.hpp>
+#include <XM/Exceptions/MembersExceptions.hpp>
 
-#ifndef XM_REFCASTERIMPL_HPP
-#define	XM_REFCASTERIMPL_HPP
+using namespace xm;
 
-namespace xm {
+Constructor::Constructor(const Class& owner)
+    : Member(owner), Item(owner) {};
 
-template<typename S, typename D>
-class RefCasterImpl : public RefCaster
+
+void Constructor::init(Variant& var) const
 {
-public:
-	RefCasterImpl() : RefCaster(getType<S>(), getType<D>())
-	{
-        }
-
-	Variant cast(const Variant& var) const
-	{
-		return dynamic_cast<D*>(var.as<S*>());
-	}
-
-};
+    throw NonInstantiableException(getOwner());
+}
 
 
-} // namspace xm
+CopyConstructor::CopyConstructor(const Class& owner)
+    : Member(owner), Item(owner) {};
 
-#endif /* XM_REFCASTERIMPL_HPP */
+
+void CopyConstructor::copy(Variant& copy, const Variant& orig) const
+{
+    throw NonCopyableException(getOwner());
+}
+
+
+Destructor::Destructor(const Class& owner)
+    : Member(owner), Item(owner) {};
+
+
+void Destructor::destroy(Variant& var) const
+{
+    throw NonDestructibleException(getOwner());
+}
+
+
+RefCaster::RefCaster(const Type& dstType, const Class& owner)
+    : Item(owner), dstType_(&dstType)
+{
+}
+
+
+const Type& RefCaster::getDstType() const
+{
+    return *dstType_;
+}
+
+
+Variant RefCaster::cast(Variant& var) const
+{
+	return var.getRefVariant();
+}

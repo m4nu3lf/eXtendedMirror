@@ -56,7 +56,7 @@ public:
      * 
      * @return The qualified name.
      */
-    const std::string& getName() const;
+    std::string getName() const;
     
     /**
      * Get the namespace of the item.
@@ -68,11 +68,7 @@ public:
     virtual ~Item();
     
 protected:
-    void setNamespace(const Namespace& name_space);
-    
     static std::string removeQualifier_(const std::string& name);
-    
-    std::string name_;
     
     std::string unqualifiedName_;
     

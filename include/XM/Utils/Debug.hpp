@@ -34,9 +34,9 @@
 #define	XM_UTILS_DEBUG_HPP
 
 #ifdef DEBUG
-#define DEBUG_MSG(msg) std::cout << "debug: " << msg << std::endl;
+#define XM_DEBUG_MSG(msg) std::cout << "debug: " << msg << std::endl;
 #else
-#define DEBUG_MSG(msg)
+#define XM_DEBUG_MSG(msg)
 #endif
 
 #endif	/* XM_UTILS_DEBUG_HPP */

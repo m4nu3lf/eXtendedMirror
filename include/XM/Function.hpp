@@ -208,10 +208,10 @@ protected:
 
 bool inline operator<(const Function& f1, const Function& f2)
 {
-    if (f1.name_ < f2.name_)
+    if (f1.getName() < f2.getName())
         return true;
     
-    if (f2.name_ < f1.name_)
+    if (f2.getName() < f1.getName())
         return false;
     
     if (!f1.fullSignature_ || !f2.fullSignature_)

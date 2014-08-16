@@ -20,11 +20,10 @@
 - Namespaces
 - Class Templates
 
-
 ## ROADMAP ##
-- TEMPLATE CONST PARAMETER SUPPORT
+- Template const parameter support
       Automatic deduction is not possible
-- CONSTANTS & ENUMS
-- UNIONS SUPPORT
-- PARSER
+- Constants & Enums
+- Unions
+- Parser
       With ignore-file, where to spefify what classes/members/functions ignore

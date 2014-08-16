@@ -38,7 +38,6 @@
           <itemPath>include/XM/Method.hpp</itemPath>
           <itemPath>include/XM/MethodImpl.hpp</itemPath>
           <itemPath>include/XM/Namespace.hpp</itemPath>
-          <itemPath>include/XM/OtherMembers.hpp</itemPath>
           <itemPath>include/XM/Parameter.hpp</itemPath>
           <itemPath>include/XM/PointerType.hpp</itemPath>
           <itemPath>include/XM/PrimitiveType.hpp</itemPath>
@@ -46,13 +45,12 @@
           <itemPath>include/XM/PropertyArrayField.hpp</itemPath>
           <itemPath>include/XM/PropertyField.hpp</itemPath>
           <itemPath>include/XM/PropertyGetterNSetter.hpp</itemPath>
-          <itemPath>include/XM/RefCaster.hpp</itemPath>
-          <itemPath>include/XM/RefCasterImpl.hpp</itemPath>
           <itemPath>include/XM/Register.hpp</itemPath>
           <itemPath>include/XM/Register.inl</itemPath>
           <itemPath>include/XM/RegistrationHelpers.hpp</itemPath>
           <itemPath>include/XM/RegistrationMacros.hpp</itemPath>
           <itemPath>include/XM/Shortcuts.hpp</itemPath>
+          <itemPath>include/XM/SpecialMembers.hpp</itemPath>
           <itemPath>include/XM/Template.hpp</itemPath>
           <itemPath>include/XM/TemplateRegistrationMacros.hpp</itemPath>
           <itemPath>include/XM/Type.hpp</itemPath>
@@ -91,12 +89,11 @@
           <itemPath>src/XM/Member.cpp</itemPath>
           <itemPath>src/XM/Method.cpp</itemPath>
           <itemPath>src/XM/Namespace.cpp</itemPath>
-          <itemPath>src/XM/OtherMembers.cpp</itemPath>
           <itemPath>src/XM/PointerType.cpp</itemPath>
           <itemPath>src/XM/PrimitiveType.cpp</itemPath>
           <itemPath>src/XM/Property.cpp</itemPath>
-          <itemPath>src/XM/RefCaster.cpp</itemPath>
           <itemPath>src/XM/Register.cpp</itemPath>
+          <itemPath>src/XM/SpecialMembers.cpp</itemPath>
           <itemPath>src/XM/Template.cpp</itemPath>
           <itemPath>src/XM/Type.cpp</itemPath>
           <itemPath>src/XM/Variant.cpp</itemPath>
@@ -204,8 +201,6 @@
       </item>
       <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/XM/Parameter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/PointerType.hpp" ex="false" tool="3" flavor2="0">
@@ -223,10 +218,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/XM/RefCaster.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/XM/Register.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Register.inl" ex="false" tool="3" flavor2="0">
@@ -236,6 +227,8 @@
       <item path="include/XM/RegistrationMacros.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/SpecialMembers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Template.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -310,17 +303,15 @@
       </item>
       <item path="src/XM/Namespace.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/XM/OtherMembers.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/XM/PointerType.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/PrimitiveType.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Property.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/XM/RefCaster.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/XM/Register.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/XM/SpecialMembers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Template.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -417,8 +408,6 @@
       </item>
       <item path="include/XM/Namespace.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/XM/OtherMembers.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/XM/Parameter.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/PointerType.hpp" ex="false" tool="3" flavor2="0">
@@ -436,10 +425,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="include/XM/RefCaster.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/XM/RefCasterImpl.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="include/XM/Register.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Register.inl" ex="false" tool="3" flavor2="0">
@@ -449,6 +434,8 @@
       <item path="include/XM/RegistrationMacros.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Shortcuts.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/XM/SpecialMembers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/XM/Template.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -523,17 +510,15 @@
       </item>
       <item path="src/XM/Namespace.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/XM/OtherMembers.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/XM/PointerType.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/PrimitiveType.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Property.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/XM/RefCaster.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/XM/Register.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/XM/SpecialMembers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/XM/Template.cpp" ex="false" tool="1" flavor2="0">
       </item>
