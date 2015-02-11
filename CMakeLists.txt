@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project("Extended Mirror")
 
+# Generate source files from python scripts
+find_package(PythonInterp)
+execute_process(COMMAND "${PYTHON_EXECUTABLE}" "gen_templ.py")
+
 # Set warnings level
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
