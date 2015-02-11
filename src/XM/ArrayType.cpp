@@ -43,8 +43,8 @@ ArrayType::ArrayType(const string& name,
                      const Type& elementType = getType<void>())
         : Item(name),
           Type(size, cppType),
-          arraySize_(arraySize),
-          elementType_(&elementType)
+          elementType_(&elementType),
+          arraySize_(arraySize)
 {
     
 }
@@ -62,7 +62,7 @@ const Type& ArrayType::getArrayElementType() const
 }
 
 
-const std::size_t ArrayType::getArraySize() const
+std::size_t ArrayType::getArraySize() const
 {
     return arraySize_;
 }

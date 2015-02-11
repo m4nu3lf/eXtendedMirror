@@ -60,7 +60,7 @@ public:
      * 
      * @return The type size.
      */
-    const std::size_t getArraySize() const;
+    std::size_t getArraySize() const;
     
     virtual ~ArrayType();
     

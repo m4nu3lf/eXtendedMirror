@@ -189,6 +189,14 @@ Variant Function::callImpl
     Variant& arg7
 ) const
 {
+    (void)(arg0);
+    (void)(arg1);
+    (void)(arg2);
+    (void)(arg3);
+    (void)(arg4);
+    (void)(arg5);
+    (void)(arg6);
+    (void)(arg7);
     return Variant::Null;
 }
 
@@ -210,18 +218,18 @@ void Function::setDefaultArgs
     defaults_.resize(XM_FUNCTION_PARAM_MAX);
     ncArg0.setConst();
     defaults_[0] = arg0;
-    ncArg0.setConst();
+    ncArg1.setConst();
     defaults_[1] = arg1;
-    ncArg0.setConst();
+    ncArg2.setConst();
     defaults_[2] = arg2;
-    ncArg0.setConst();
+    ncArg3.setConst();
     defaults_[3] = arg3;
-    ncArg0.setConst();
+    ncArg4.setConst();
     defaults_[4] = arg4;
-    ncArg0.setConst();
+    ncArg5.setConst();
     defaults_[5] = arg5;
-    ncArg0.setConst();
+    ncArg6.setConst();
     defaults_[6] = arg6;
-    ncArg0.setConst();
+    ncArg7.setConst();
     defaults_[7] = arg7;
 }

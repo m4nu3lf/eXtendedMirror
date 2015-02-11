@@ -68,7 +68,7 @@ double toDouble(T& value)
 }
 
 
-#define XM_SPECIALIZE_TO_DOUBLE(getType)                                    \
+#define XM_SPECIALIZE_TO_DOUBLE(getType)                                       \
 template<>                                                                     \
 inline                                                                         \
 double toDouble<getType>(getType& value)                                       \
@@ -106,13 +106,13 @@ bool inline checkValueBounds(const T1& value, const T2& min, const T2& max)
     return true;
 }
 
-#define XM_SPECIALIZE_CHECK_VALUE_BOUNDS(num_type)                          \
+#define XM_SPECIALIZE_CHECK_VALUE_BOUNDS(num_type)                             \
 template<>                                                                     \
 bool inline checkValueBounds<num_type, num_type>(const num_type& value,        \
                                                  const num_type& min,          \
                                                  const num_type& max)          \
 {                                                                              \
-    return min <= value & value <= max;                                        \
+    return min <= value && value <= max;                                       \
 }
 
 XM_SPECIALIZE_CHECK_VALUE_BOUNDS(char);

@@ -36,31 +36,35 @@
 using namespace xm;
 
 Constructor::Constructor(const Class& owner)
-    : Member(owner), Item(owner) {};
+    : Item(owner), Member(owner) {};
 
 
 void Constructor::init(Variant& var) const
 {
+    (void)(var);
     throw NonInstantiableException(getOwner());
 }
 
 
 CopyConstructor::CopyConstructor(const Class& owner)
-    : Member(owner), Item(owner) {};
+    : Item(owner), Member(owner) {};
 
 
 void CopyConstructor::copy(Variant& copy, const Variant& orig) const
 {
+    (void)(copy);
+    (void)(orig);
     throw NonCopyableException(getOwner());
 }
 
 
 Destructor::Destructor(const Class& owner)
-    : Member(owner), Item(owner) {};
+    : Item(owner), Member(owner) {};
 
 
 void Destructor::destroy(Variant& var) const
 {
+    (void)(var);
     throw NonDestructibleException(getOwner());
 }
 

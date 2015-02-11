@@ -107,7 +107,7 @@ Property& bindProperty(
             setter""" + gen_seq(""",
             extrArg$""", n_extr_params) + """
         );
-    const_cast<Class&>(getClass<ClassT>()).addProperty(*xmProperty);
+    const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
 }
 

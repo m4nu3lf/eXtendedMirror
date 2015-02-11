@@ -98,7 +98,6 @@ Type& Register::registerType_()
     type = &CreateType<T>()();
     
     // add Type to its Namespace
-    Namespace& name_space = const_cast<Namespace&>(type->getNamespace());
     addItem(*type);
     
     types_.insert(type);

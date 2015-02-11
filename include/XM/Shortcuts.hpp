@@ -93,14 +93,14 @@ const Class& getClassOf(C& object)
 
 
 inline
-const void unregisterType(const std::string& name)
+void unregisterType(const std::string& name)
 {
     return Register::getSingleton().unregisterType(name);
 }
 
 
 inline
-const void unregisterType(const std::type_info& typeId)
+void unregisterType(const std::type_info& typeId)
 {
     return Register::getSingleton().unregisterType(typeId);
 }

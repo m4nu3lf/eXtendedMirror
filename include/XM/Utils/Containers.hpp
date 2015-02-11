@@ -93,7 +93,7 @@ T* removeByKey(std::set<T*, C>& set, const K& key)
 
 
 template<class T, class C>
-T* deleteAll(std::set<T*, C>& set)
+void deleteAll(std::set<T*, C>& set)
 {
     typename std::set<T*, C>::iterator ite = set.begin();
     while(ite != set.end())

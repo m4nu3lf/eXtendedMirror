@@ -90,6 +90,9 @@ std::string Method::getSignature() const
                 signature += "const " + getReturnType().getName()
                         + " ";
                 break;
+
+            case Method::None:
+                break;
         }
 
         signature += getName() + "(";

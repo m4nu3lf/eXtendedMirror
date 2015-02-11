@@ -61,10 +61,10 @@ Class::Class
 ) :
     Item(name_space, name),
     Type(size, cppType),
-    isAbstract_(isAbstract),
-    constructor_(new Constructor(*this)),
-    copyConstructor_(new CopyConstructor(*this)),
-    destructor_(new Destructor(*this))
+    constructor_(&constructor),
+    copyConstructor_(&copyConstructor),
+    destructor_(&destructor),
+    isAbstract_(isAbstract)
 {
 }
 
@@ -221,7 +221,7 @@ bool Class::inheritsFrom(const Class& baseClass) const
     Const_Class_Set::iterator ite = baseClasses_.begin();
     while(ite != baseClasses_.end())
     {
-        if (**ite == *this || (*ite)->inheritsFrom(*this))
+        if (**ite == baseClass || (*ite)->inheritsFrom(baseClass))
             return true;
         ite++;
     }

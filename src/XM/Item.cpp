@@ -38,13 +38,13 @@ using namespace std;
 using namespace xm;
 
 Item::Item(const Namespace& name_space, const string& unqualifiedName) :
-        namespace_(&name_space), unqualifiedName_(unqualifiedName)
+        unqualifiedName_(unqualifiedName), namespace_(&name_space)
 {
 }
 
 Item::Item(const string& name) :
-        namespace_(NULL),
-        unqualifiedName_(splitName(name, NameTail).second)
+        unqualifiedName_(splitName(name, NameTail).second),
+        namespace_(NULL)
 {
 }
 

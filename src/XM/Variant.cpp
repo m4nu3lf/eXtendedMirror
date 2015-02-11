@@ -151,6 +151,7 @@ const Variant& Variant::operator=(const Variant& other)
             std::memcpy(data_, other.data_, size);
         }
     }
+    return *this;
 }
 
 Variant Variant::call
@@ -188,7 +189,8 @@ Variant Variant::call
     }
     else
     {
-        // TODO: throw something
+        // TODO: throw something appropriate
+        throw 0;
     }
 }
 

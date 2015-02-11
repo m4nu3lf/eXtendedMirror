@@ -68,10 +68,9 @@ public: """ + ("""
         RetT function
         (""" + gen_seq("""
             ParamT$""", n_params, ",") + """
-        ),
-        bool constant = false) :
+        )) :
+	Item(name),
         Function(name),
-        Item(name),
         function_(function)
     {""" + gen_seq("""
         addParameter(*new Parameter(getType<ParamT$>()));""", n_params) + """
@@ -102,7 +101,8 @@ public: """ + ("""
         const Variant& arg$""", XM_FUNCTION_PARAM_MAX, ",") + """
         
     ) const
-    {""" + (("""
+    {""" + gen_seq("""
+        (void)(arg$);""", (n_params, XM_FUNCTION_PARAM_MAX)) + (("""
         const NqRetT& returnValue = function_
         (""" + gen_seq("""
             arg$.as<NqParamT$>()""", n_params, ",") + """

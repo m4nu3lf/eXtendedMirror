@@ -61,6 +61,7 @@ char Property::getFlags() const
 
 Property& Property::setFlags(char flags)
 {
+    (void)(flags); 
     return *this;
 }
 
@@ -73,6 +74,7 @@ double Property::getMinValue() const
 
 Property& Property::setMinValue(double minValue)
 {
+    (void)(minValue);
     return *this;
 }
 
@@ -85,6 +87,7 @@ double Property::getMaxValue() const
 
 Property& Property::setMaxValue(double maxValue)
 {
+    (void)(maxValue);
     return *this;
 }
 
@@ -103,9 +106,14 @@ Property::SetMode Property::getSetMode()
 
 Variant Property::getData(const Variant& self) const
 {
+    (void)(self);
     return Variant::Null;
 };
 
 
 void Property::setData(const Variant& self, const Variant& data) const
-{};
+{
+    (void)(self);
+    (void)(data);
+};
+
