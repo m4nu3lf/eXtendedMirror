@@ -81,11 +81,7 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
@@ -93,10 +89,6 @@ public:
         (void)(arg1);
         (void)(arg2);
         (void)(arg3);
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         const NqRetT& returnValue = function_
         (
         );
@@ -148,11 +140,7 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
@@ -160,10 +148,6 @@ public:
         (void)(arg1);
         (void)(arg2);
         (void)(arg3);
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         function_
         (
         );
@@ -226,21 +210,13 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
         (void)(arg1);
         (void)(arg2);
         (void)(arg3);
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         const NqRetT& returnValue = function_
         (
             arg0.as<NqParamT0>()
@@ -300,21 +276,13 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
         (void)(arg1);
         (void)(arg2);
         (void)(arg3);
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         function_
         (
             arg0.as<NqParamT0>()
@@ -384,20 +352,12 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
         (void)(arg2);
         (void)(arg3);
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         const NqRetT& returnValue = function_
         (
             arg0.as<NqParamT0>(),
@@ -465,20 +425,12 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
         (void)(arg2);
         (void)(arg3);
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         function_
         (
             arg0.as<NqParamT0>(),
@@ -555,19 +507,11 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
         (void)(arg3);
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         const NqRetT& returnValue = function_
         (
             arg0.as<NqParamT0>(),
@@ -643,19 +587,11 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
         (void)(arg3);
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         function_
         (
             arg0.as<NqParamT0>(),
@@ -739,18 +675,10 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         const NqRetT& returnValue = function_
         (
             arg0.as<NqParamT0>(),
@@ -834,18 +762,10 @@ public:
         const Variant& arg0,
         const Variant& arg1,
         const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
+        const Variant& arg3
         
     ) const
     {
-        (void)(arg4);
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
         function_
         (
             arg0.as<NqParamT0>(),
@@ -864,904 +784,6 @@ private:
         ParamT1,
         ParamT2,
         ParamT3
-    );
-};
-
-
-template
-<
-    typename RetT,
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4
->
-class FunctionImpl_5_Params : public Function
-{
-public: 
-    /// type of the return value without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
-        NqRetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    
-    FunctionImpl_5_Params(const std::string& name,
-        RetT function
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4
-        )) :
-	Item(name),
-        Function(name),
-        function_(function)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-    }
-
-    
-    Function::ReturnMode getReturnMode() const
-    {
-        if (IsReference<RetT>::value)
-        {
-            if (IsConst<RetT>::value)
-                return ConstReference;
-            else
-                return Reference;
-        }
-        else
-            return Value;
-    }
-    
-    
-    Variant callImpl
-    (   
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
-        const NqRetT& returnValue = function_
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>()
-        );
-        return Variant(const_cast<NqRetT&>(returnValue),
-                ReturnVariantFlags<RetT>::flags);
-        
-    }
-
-private:
-    RetT (*function_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4
-    );
-};
-
-
-template
-<
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4
->
-class FunctionImpl_5_Params
-<
-    void,
-    ParamT0,
-    ParamT1,
-    ParamT2,
-    ParamT3,
-    ParamT4
-> : public Function
-{
-public: 
-        typedef void RetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    
-    FunctionImpl_5_Params(const std::string& name,
-        RetT function
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4
-        )) :
-	Item(name),
-        Function(name),
-        function_(function)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-    }
-
-    
-    Function::ReturnMode getReturnMode() const
-    {
-        return None;
-    }
-    
-    
-    
-    Variant callImpl
-    (   
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        (void)(arg5);
-        (void)(arg6);
-        (void)(arg7);
-        function_
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>()
-        );
-        return Variant::Null;
-        
-    }
-
-private:
-    RetT (*function_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4
-    );
-};
-
-
-template
-<
-    typename RetT,
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4,
-    typename ParamT5
->
-class FunctionImpl_6_Params : public Function
-{
-public: 
-    /// type of the return value without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
-        NqRetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
-        NqParamT5;
-    
-    FunctionImpl_6_Params(const std::string& name,
-        RetT function
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5
-        )) :
-	Item(name),
-        Function(name),
-        function_(function)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-        addParameter(*new Parameter(getType<ParamT5>()));
-    }
-
-    
-    Function::ReturnMode getReturnMode() const
-    {
-        if (IsReference<RetT>::value)
-        {
-            if (IsConst<RetT>::value)
-                return ConstReference;
-            else
-                return Reference;
-        }
-        else
-            return Value;
-    }
-    
-    
-    Variant callImpl
-    (   
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        (void)(arg6);
-        (void)(arg7);
-        const NqRetT& returnValue = function_
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>(),
-            arg5.as<NqParamT5>()
-        );
-        return Variant(const_cast<NqRetT&>(returnValue),
-                ReturnVariantFlags<RetT>::flags);
-        
-    }
-
-private:
-    RetT (*function_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4,
-        ParamT5
-    );
-};
-
-
-template
-<
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4,
-    typename ParamT5
->
-class FunctionImpl_6_Params
-<
-    void,
-    ParamT0,
-    ParamT1,
-    ParamT2,
-    ParamT3,
-    ParamT4,
-    ParamT5
-> : public Function
-{
-public: 
-        typedef void RetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
-        NqParamT5;
-    
-    FunctionImpl_6_Params(const std::string& name,
-        RetT function
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5
-        )) :
-	Item(name),
-        Function(name),
-        function_(function)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-        addParameter(*new Parameter(getType<ParamT5>()));
-    }
-
-    
-    Function::ReturnMode getReturnMode() const
-    {
-        return None;
-    }
-    
-    
-    
-    Variant callImpl
-    (   
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        (void)(arg6);
-        (void)(arg7);
-        function_
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>(),
-            arg5.as<NqParamT5>()
-        );
-        return Variant::Null;
-        
-    }
-
-private:
-    RetT (*function_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4,
-        ParamT5
-    );
-};
-
-
-template
-<
-    typename RetT,
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4,
-    typename ParamT5,
-    typename ParamT6
->
-class FunctionImpl_7_Params : public Function
-{
-public: 
-    /// type of the return value without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
-        NqRetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
-        NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
-        NqParamT6;
-    
-    FunctionImpl_7_Params(const std::string& name,
-        RetT function
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5,
-            ParamT6
-        )) :
-	Item(name),
-        Function(name),
-        function_(function)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-        addParameter(*new Parameter(getType<ParamT5>()));
-        addParameter(*new Parameter(getType<ParamT6>()));
-    }
-
-    
-    Function::ReturnMode getReturnMode() const
-    {
-        if (IsReference<RetT>::value)
-        {
-            if (IsConst<RetT>::value)
-                return ConstReference;
-            else
-                return Reference;
-        }
-        else
-            return Value;
-    }
-    
-    
-    Variant callImpl
-    (   
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        (void)(arg7);
-        const NqRetT& returnValue = function_
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>(),
-            arg5.as<NqParamT5>(),
-            arg6.as<NqParamT6>()
-        );
-        return Variant(const_cast<NqRetT&>(returnValue),
-                ReturnVariantFlags<RetT>::flags);
-        
-    }
-
-private:
-    RetT (*function_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4,
-        ParamT5,
-        ParamT6
-    );
-};
-
-
-template
-<
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4,
-    typename ParamT5,
-    typename ParamT6
->
-class FunctionImpl_7_Params
-<
-    void,
-    ParamT0,
-    ParamT1,
-    ParamT2,
-    ParamT3,
-    ParamT4,
-    ParamT5,
-    ParamT6
-> : public Function
-{
-public: 
-        typedef void RetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
-        NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
-        NqParamT6;
-    
-    FunctionImpl_7_Params(const std::string& name,
-        RetT function
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5,
-            ParamT6
-        )) :
-	Item(name),
-        Function(name),
-        function_(function)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-        addParameter(*new Parameter(getType<ParamT5>()));
-        addParameter(*new Parameter(getType<ParamT6>()));
-    }
-
-    
-    Function::ReturnMode getReturnMode() const
-    {
-        return None;
-    }
-    
-    
-    
-    Variant callImpl
-    (   
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        (void)(arg7);
-        function_
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>(),
-            arg5.as<NqParamT5>(),
-            arg6.as<NqParamT6>()
-        );
-        return Variant::Null;
-        
-    }
-
-private:
-    RetT (*function_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4,
-        ParamT5,
-        ParamT6
-    );
-};
-
-
-template
-<
-    typename RetT,
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4,
-    typename ParamT5,
-    typename ParamT6,
-    typename ParamT7
->
-class FunctionImpl_8_Params : public Function
-{
-public: 
-    /// type of the return value without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<RetT>::Type>::Type
-        NqRetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
-        NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
-        NqParamT6;
-    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
-        NqParamT7;
-    
-    FunctionImpl_8_Params(const std::string& name,
-        RetT function
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5,
-            ParamT6,
-            ParamT7
-        )) :
-	Item(name),
-        Function(name),
-        function_(function)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-        addParameter(*new Parameter(getType<ParamT5>()));
-        addParameter(*new Parameter(getType<ParamT6>()));
-        addParameter(*new Parameter(getType<ParamT7>()));
-    }
-
-    
-    Function::ReturnMode getReturnMode() const
-    {
-        if (IsReference<RetT>::value)
-        {
-            if (IsConst<RetT>::value)
-                return ConstReference;
-            else
-                return Reference;
-        }
-        else
-            return Value;
-    }
-    
-    
-    Variant callImpl
-    (   
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        const NqRetT& returnValue = function_
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>(),
-            arg5.as<NqParamT5>(),
-            arg6.as<NqParamT6>(),
-            arg7.as<NqParamT7>()
-        );
-        return Variant(const_cast<NqRetT&>(returnValue),
-                ReturnVariantFlags<RetT>::flags);
-        
-    }
-
-private:
-    RetT (*function_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4,
-        ParamT5,
-        ParamT6,
-        ParamT7
-    );
-};
-
-
-template
-<
-    typename ParamT0,
-    typename ParamT1,
-    typename ParamT2,
-    typename ParamT3,
-    typename ParamT4,
-    typename ParamT5,
-    typename ParamT6,
-    typename ParamT7
->
-class FunctionImpl_8_Params
-<
-    void,
-    ParamT0,
-    ParamT1,
-    ParamT2,
-    ParamT3,
-    ParamT4,
-    ParamT5,
-    ParamT6,
-    ParamT7
-> : public Function
-{
-public: 
-        typedef void RetT;
-
-    /// type of the arguments without any cv-qualifier and no reference
-    typedef typename RemoveConst<typename RemoveReference<ParamT0>::Type>::Type
-        NqParamT0;
-    typedef typename RemoveConst<typename RemoveReference<ParamT1>::Type>::Type
-        NqParamT1;
-    typedef typename RemoveConst<typename RemoveReference<ParamT2>::Type>::Type
-        NqParamT2;
-    typedef typename RemoveConst<typename RemoveReference<ParamT3>::Type>::Type
-        NqParamT3;
-    typedef typename RemoveConst<typename RemoveReference<ParamT4>::Type>::Type
-        NqParamT4;
-    typedef typename RemoveConst<typename RemoveReference<ParamT5>::Type>::Type
-        NqParamT5;
-    typedef typename RemoveConst<typename RemoveReference<ParamT6>::Type>::Type
-        NqParamT6;
-    typedef typename RemoveConst<typename RemoveReference<ParamT7>::Type>::Type
-        NqParamT7;
-    
-    FunctionImpl_8_Params(const std::string& name,
-        RetT function
-        (
-            ParamT0,
-            ParamT1,
-            ParamT2,
-            ParamT3,
-            ParamT4,
-            ParamT5,
-            ParamT6,
-            ParamT7
-        )) :
-	Item(name),
-        Function(name),
-        function_(function)
-    {
-        addParameter(*new Parameter(getType<ParamT0>()));
-        addParameter(*new Parameter(getType<ParamT1>()));
-        addParameter(*new Parameter(getType<ParamT2>()));
-        addParameter(*new Parameter(getType<ParamT3>()));
-        addParameter(*new Parameter(getType<ParamT4>()));
-        addParameter(*new Parameter(getType<ParamT5>()));
-        addParameter(*new Parameter(getType<ParamT6>()));
-        addParameter(*new Parameter(getType<ParamT7>()));
-    }
-
-    
-    Function::ReturnMode getReturnMode() const
-    {
-        return None;
-    }
-    
-    
-    
-    Variant callImpl
-    (   
-        const Variant& arg0,
-        const Variant& arg1,
-        const Variant& arg2,
-        const Variant& arg3,
-        const Variant& arg4,
-        const Variant& arg5,
-        const Variant& arg6,
-        const Variant& arg7
-        
-    ) const
-    {
-        function_
-        (
-            arg0.as<NqParamT0>(),
-            arg1.as<NqParamT1>(),
-            arg2.as<NqParamT2>(),
-            arg3.as<NqParamT3>(),
-            arg4.as<NqParamT4>(),
-            arg5.as<NqParamT5>(),
-            arg6.as<NqParamT6>(),
-            arg7.as<NqParamT7>()
-        );
-        return Variant::Null;
-        
-    }
-
-private:
-    RetT (*function_)
-    (
-        ParamT0,
-        ParamT1,
-        ParamT2,
-        ParamT3,
-        ParamT4,
-        ParamT5,
-        ParamT6,
-        ParamT7
     );
 };
 

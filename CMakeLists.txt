@@ -2,8 +2,20 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project("Extended Mirror")
 
 # Generate source files from python scripts
+if (FUNC_PARAM_MAX)
+	set(gen_options "--function-param-max" ${FUNC_PARAM_MAX})
+endif()
+if (GET_N_SET_EXTR_PARAM_MAX)
+	set(gen_options ${gen_options} "--get-n-set-extra-param-max" ${FUNC_PARAM_MAX})
+endif()
+if (TEMPL_PARAM_MAX)
+	set(gen_options ${gen_options} "--template-param-max" ${TEMPL_PARAM_MAX})
+endif()
+if (TEMPL_DIR)
+	set(gen_options ${gen_options} "--template-dir" ${TEMPL_DIR})
+endif()
 find_package(PythonInterp)
-execute_process(COMMAND "${PYTHON_EXECUTABLE}" "gen_templ.py")
+execute_process(COMMAND "${PYTHON_EXECUTABLE}" "gen_templ.py" ${gen_options})
 
 # Set warnings level
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
