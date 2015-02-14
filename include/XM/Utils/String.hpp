@@ -1,7 +1,7 @@
 /******************************************************************************      
- *      Extended Mirror: Utils/String.hpp                                     *
+ *      Extended Mirror: String.hpp                                         *
  ******************************************************************************
- *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
+ *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
  ******************************************************************************
  * Redistribution and use in source and binary forms, with or without         *

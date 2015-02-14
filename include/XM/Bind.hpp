@@ -1,7 +1,7 @@
 /******************************************************************************      
- *      Extended Mirror: Bind.hpp                                             *
+ *      Extended Mirror: Bind.hpp                                         *
  ******************************************************************************
- *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
+ *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
  ******************************************************************************
  * Redistribution and use in source and binary forms, with or without         *
@@ -28,6 +28,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF     *
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
+
 
 #ifndef XM_BIND_HPP
 #define	XM_BIND_HPP

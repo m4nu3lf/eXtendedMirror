@@ -1,7 +1,7 @@
 /******************************************************************************      
  *      Extended Mirror: Variant.hpp                                         *
  ******************************************************************************
- *      Copyright (c) 2012-2014, Manuele Finocchiaro                          *
+ *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
  ******************************************************************************
  * Redistribution and use in source and binary forms, with or without         *
@@ -28,6 +28,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF     *
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
+
 
 /* TODO: Add a call() method that takes the name of a method and a number of
    variant args. This method should check if the variant is an object that
