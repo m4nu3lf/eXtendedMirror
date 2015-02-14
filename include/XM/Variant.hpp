@@ -37,6 +37,8 @@
 #ifndef XM_VARIANT_HPP
 #define	XM_VARIANT_HPP
 
+#include<XM/ParamLists.hpp>
+
 namespace xm{
 
 class Type;
@@ -195,25 +197,13 @@ public:
      * Call a method, if the variant is a class instance
      * 
      * @param methodName Method name.
-     * @param arg0 Argument 0.
-     * @param arg1 Argument 1.
-     * @param arg2 Argument 2.
-     * @param arg3 Argument 3.
-     * @param arg4 Argument 4.
-     * @param arg5 Argument 5.
-     * @param arg6 Argument 6.
+     * @param arg<N> The Nth Argument.
      * @return A Variant containing the return value.
      */
     Variant call
     (
         const std::string& methodName,
-        const Variant& arg0 = Variant::Null,
-        const Variant& arg1 = Variant::Null,
-        const Variant& arg2 = Variant::Null,
-        const Variant& arg3 = Variant::Null,
-        const Variant& arg4 = Variant::Null,
-        const Variant& arg5 = Variant::Null,
-        const Variant& arg6 = Variant::Null
+        _XM_METHOD_CALL_PARAMS
     );
     
     /**

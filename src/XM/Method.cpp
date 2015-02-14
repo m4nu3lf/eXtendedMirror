@@ -50,26 +50,6 @@ Method::Method(const Class& owner, const std::string& name) :
 }
 
 
-Method::Method
-(
-    const string& name,
-    const Type& retType,
-    const Class& owner,
-    const Type& paramType1,
-    const Type& paramType2,
-    const Type& paramType3,
-    const Type& paramType4,
-    const Type& paramType5,
-    const Type& paramType6,
-    const Type& paramType7
-) :
-    Item(owner, name),
-    Function(name, retType, owner,paramType1, paramType2, paramType3,
-        paramType4, paramType5, paramType6, paramType7)
-{
-}
-
-
 std::string Method::getSignature() const
 {
     if (fullSignature_)

@@ -34,6 +34,7 @@
 #define	XM_FUNCTION_HPP
 
 #include <XM/Parameter.hpp>
+#include <XM/ParamLists.hpp>
 
 namespace xm{
 
@@ -74,28 +75,14 @@ public:
      * Construct a Method with the given given signature.
      * 
      * @param name The name of the method.
-     * @param retType The Type of the returned type.
-     * @param paramType0 The Type of the first parameter type.
-     * @param paramType1 The Type of the second parameter type.
-     * @param paramType2 The Type of the third parameter type.
-     * @param paramType3 The Type of the fourth parameter type.
-     * @param paramType4 The Type of the fifth parameter type.
-     * @param paramType5 The Type of the sixth parameter type.
-     * @param paramType6 The Type of the seventh parameter type.
-     * @param paramType7 The Type of the eighth parameter type.
+     * @param retType The Type of the returned value.
+     * @param paramType<N> The Type of the Nth parameter.
      */
     Function
     (
         const std::string& name,
         const Type& retType,
-        const Type& paramType0 = getType<void>(),
-        const Type& paramType1 = getType<void>(),
-        const Type& paramType2 = getType<void>(),
-        const Type& paramType3 = getType<void>(),
-        const Type& paramType4 = getType<void>(),
-        const Type& paramType5 = getType<void>(),
-        const Type& paramType6 = getType<void>(),
-        const Type& paramType7 = getType<void>()
+	_XM_FUNCTION_CONSTRUCTOR_PARAMS
     );
     
     /**
@@ -130,26 +117,12 @@ public:
     /**
      * Call the function.
      * 
-     * @param arg0 Argument 0 ( instance for non static methods )
-     * @param arg1 Argument 1.
-     * @param arg2 Argument 2.
-     * @param arg3 Argument 3.
-     * @param arg4 Argument 4.
-     * @param arg5 Argument 5.
-     * @param arg6 Argument 6.
-     * @param arg7 Argument 7.
+     * @param arg<N> The Nth Argument.
      * @return A Variant containing the return value.
      */
     Variant call
     (
-        const Variant& arg0 = Variant::Null,
-        const Variant& arg1 = Variant::Null,
-        const Variant& arg2 = Variant::Null,
-        const Variant& arg3 = Variant::Null,
-        const Variant& arg4 = Variant::Null,
-        const Variant& arg5 = Variant::Null,
-        const Variant& arg6 = Variant::Null,
-        const Variant& arg7 = Variant::Null
+	_XM_FUNCTION_CALL_PARAMS
     ) const;
     
     /**
@@ -167,27 +140,13 @@ public:
      */
     void setDefaultArgs
     (
-        const Variant& arg0 = Variant::Null,
-        const Variant& arg1 = Variant::Null,
-        const Variant& arg2 = Variant::Null,
-        const Variant& arg3 = Variant::Null,
-        const Variant& arg4 = Variant::Null,
-        const Variant& arg5 = Variant::Null,
-        const Variant& arg6 = Variant::Null,
-        const Variant& arg7 = Variant::Null
+	_XM_FUNCTION_CALL_PARAMS
     );
     
 protected:
     virtual Variant callImpl
     (
-        Variant& arg0,
-        Variant& arg1,
-        Variant& arg2,
-        Variant& arg3,
-        Variant& arg4,
-        Variant& arg5,
-        Variant& arg6,
-        Variant& arg7
+	_XM_FUNCTION_CALLIMPL_PARAMS
     ) const;
     
     // The returned type
@@ -234,25 +193,6 @@ bool inline operator<(const Function& f1, const Function& f2)
 typedef std::set<Function*, PtrCmpByVal<Function> > Function_Set;
 typedef std::set<const Function*, PtrCmpByVal<Function> > Const_Function_Set;
 
-
-#define _XM_FUNCTION_PUSH_PARAMS                     \
-this->retType_ = &retType;                              \
-if (paramType0 != getType<void>())                      \
-    params_.push_back(new Parameter(paramType0));       \
-if (paramType1 != getType<void>())                      \
-    params_.push_back(new Parameter(paramType1));       \
-if (paramType2 != getType<void>())                      \
-    params_.push_back(new Parameter(paramType2));       \
-if (paramType3 != getType<void>())                      \
-    params_.push_back(new Parameter(paramType3));       \
-if (paramType4 != getType<void>())                      \
-    params_.push_back(new Parameter(paramType4));       \
-if (paramType5 != getType<void>())                      \
-    params_.push_back(new Parameter(paramType5));       \
-if (paramType6 != getType<void>())                      \
-    params_.push_back(new Parameter(paramType6));       \
-if (paramType7 != getType<void>())                      \
-    params_.push_back(new Parameter(paramType7));       \
 
 } // namespace xm
 
