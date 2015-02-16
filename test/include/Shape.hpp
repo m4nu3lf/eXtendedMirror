@@ -1,4 +1,4 @@
-#include <XM/ExtendedMirror.hpp>
+#include <XM/xMirror.hpp>
 
 class Shape
 {

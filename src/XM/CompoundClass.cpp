@@ -30,7 +30,7 @@
  *****************************************************************************/
 
 
-#include <XM/ExtendedMirror.hpp>
+#include <XM/xMirror.hpp>
 
 using namespace xm;
 using namespace std;

@@ -31,7 +31,7 @@
 
 
 #include <XM/Utils/Utils.hpp>
-#include <XM/ExtendedMirror.hpp>
+#include <XM/xMirror.hpp>
 #include <XM/Exceptions/NotFoundExceptions.hpp>
 #include <XM/Utils/String.hpp>
 

@@ -1,4 +1,4 @@
-#include <XM/ExtendedMirror.hpp>
+#include <XM/xMirror.hpp>
 #include <Rectangle.hpp>
 #include <Control.hpp>
 

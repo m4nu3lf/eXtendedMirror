@@ -32,7 +32,7 @@
 
 content = """
 
-#include <XM/ExtendedMirror.hpp>
+#include <XM/xMirror.hpp>
 
 using namespace std;
 using namespace xm;

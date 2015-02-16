@@ -1,5 +1,5 @@
 #include "Shape.hpp"
-#include <XM/ExtendedMirror.hpp>
+#include <XM/xMirror.hpp>
 
 class Rectangle: public Shape
 {
