@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project("Extended Mirror")
 
+# Build in debug mode by default
+if (NOT RELEASE)
+	set(DEBUG True)
+	set(MODE_DIR "Debug")
+else()
+	set(MODE_DIR "Release")
+endif()
+
 # Generate source files from python scripts
 if (FUNC_PARAM_MAX)
 	set(gen_options "--function-param-max" ${FUNC_PARAM_MAX})
@@ -14,27 +22,43 @@ endif()
 if (TEMPL_DIR)
 	set(gen_options ${gen_options} "--template-dir" ${TEMPL_DIR})
 endif()
-find_package(PythonInterp)
+find_package(PythonInterp REQUIRED)
 execute_process(COMMAND "${PYTHON_EXECUTABLE}" "gen_templ.py" ${gen_options})
 
-# Set warnings level
+
+# Set compilation options
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set(warnings "-Wall -Wextra -Werror")
-	set(std "-std=c++11")
+	set(warning_flags "-Wall -Wextra -Werror")
+	set(std_flags "-std=c++11")
+	if (DEBUG)
+		set (debug_flags "-g")
+	endif()
 elseif ("{CMAKE_CXX_COMPIER_ID}" STREQUAL "MSVC")
-	set(warnings "/W4 /WX /EHsc")
+	set(warning_flags "/W4 /WX /EHsc")
+	if (DEBUG)
+		set (debug_flags "/DEBUG")
+	endif()
 endif()
 if (NOT CONFIGURED_ONCE)
-	set(CMAKE_CXX_FLAGS "${warnings} ${std}" 
+	set(CMAKE_CXX_FLAGS "${warning_flags} ${std_flags} ${debug_flags}" 
 	    CACHE STRING "Flags used by the c++ compiler for all build types." FORCE)
-	set(CMAKE_C_FLAGS "${warnings}"
+	set(CMAKE_C_FLAGS "${warning_flags} ${debug_flags}"
 	    CACHE STRING "Flags used by the c compiler for all build types." FORCE)
 endif()
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include") 
 
-add_subdirectory("src/XM" "build")
+if(RELEASE)
+	add_subdirectory("src/XM" "build/${MODE_DIR}")
+elseif(DEBUG)
+	add_subdirectory("src/XM" "build/${MODE_DIR}")
+endif()
+
+# Testing
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/test")
+enable_testing()
+add_test(all "build/${MODE_DIR}/test/tests")
 
 set(CONFIGURED_ONCE TRUE CACHE INTERNAL
     "A flag showing that CMake has configured at least once.")

@@ -120,9 +120,11 @@ except:
     print_usage();
 
 if os.path.isdir(template_dir):
+    print("Starting generation of sources...")
     start_time = time.clock()
     os.path.walk(template_dir, generate_files, variables)
-    print("completed in: " + str(time.clock() - start_time) + "s")
+    print("Generation completed in: " + str(time.clock() - start_time) + "s")
 else:
     print "Error, directory '" + template_dir + "' does not exist"
+    print "Cannot generate sources!"
 

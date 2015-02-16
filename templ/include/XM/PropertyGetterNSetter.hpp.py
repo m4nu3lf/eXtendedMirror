@@ -102,12 +102,12 @@ public:
     (
         const std::string& name,
         Getter getter,
-        bool constGetter,
+        bool isConstGetter,
         Setter setter""" + gen_seq(""",
         ExtrParamT$ extrArg$""", n_extr_param) + """
     ) : Item(xm::getClass<ClassT>(), name),
         getter_(getter),
-        constGetter_(constGetter),
+        isConstGetter_(isConstGetter),
         setter_(setter)""" + gen_seq(""",
         extrArg$_(extrArg$)""", n_extr_param) + """
     {
@@ -201,7 +201,7 @@ public:
         ClassT& objRef = const_cast<Variant&>(self).as<ClassT>();
         
         // we cannot call a non constant getter of a constant instance
-        if (self.isConst() && !constGetter_)
+        if (self.isConst() && !isConstGetter_)
             throw VariantCostnessException(self.getType());
                 
         const PropT& data = (objRef.*getter_)
@@ -237,11 +237,8 @@ public:
     }
     
 private:
-    
-    /// Whether the getter method is constant
-    bool constGetter_;
-
     Getter getter_;
+    bool isConstGetter_;
     Setter setter_;
     
     /// Extra parameter to pass when calling the getter and setter

@@ -1,0 +1,13 @@
+#include <XM/ExtendedMirror.hpp>
+#include <Rectangle.hpp>
+#include <Control.hpp>
+
+class Button : public Rectangle, public Control
+{
+public:
+	Button(int x = 0, int y = 0, int w = 0, int h = 0);
+};
+
+XM_ASSUME_ABSTRACT(Button);
+XM_ENABLE_CLASS(Button);
+

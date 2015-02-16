@@ -1,6 +1,3 @@
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Utils") 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Exceptions") 
-
 add_library("xMirror" STATIC
 	"ArrayType.cpp"
 	"Class.cpp"
@@ -20,5 +17,11 @@ add_library("xMirror" STATIC
 	"Template.cpp"
 	"Type.cpp"
 	"Variant.cpp"
-	"Variant_Gen.cpp")
-target_link_libraries("xMirror" "utils" "exceptions")
+	"Variant_Gen.cpp"
+	"Exceptions/MembersExceptions.cpp"
+	"Exceptions/NotFoundExceptions.cpp"
+	"Exceptions/PropertyRangeException.cpp"
+	"Exceptions/PropertySetException.cpp"
+	"Exceptions/VariantCostnessException.cpp"
+	"Exceptions/VariantTypeException.cpp"
+	"Utils/String.cpp")
