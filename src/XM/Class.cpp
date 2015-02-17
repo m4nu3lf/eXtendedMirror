@@ -269,9 +269,6 @@ Type::Category Class::getCategory() const
 
 Class::~Class()
 {
-    ptrSet::deleteAll(ownProperties_);
-    ptrSet::deleteAll(ownMethods_);
-    
     Const_Class_Set::iterator ite = baseClasses_.begin();
     
     while(ite != baseClasses_.end())

@@ -1,5 +1,6 @@
 add_executable("tests"
 	"Button.cpp"
+	"Control.cpp"
 	"MyButton.cpp"
 	"Rectangle.cpp"
 	"Shape.cpp"

@@ -32,7 +32,9 @@ bool MyButton::isMouseOver()
 
 XM_BUILD_CLASS(MyButton)
 {
-
+	XM_BIND_PASE(Button);
+	bindProperty("clickCount", &ClassT::getClickCount);
+	bindProperty("isMouseOver", &ClassT::isMouseOver);
 }
 
 XM_AUTOREG(MyButton);

@@ -46,7 +46,10 @@ struct Empty
     
     /// Every type can be converted to an Empty.
     template<typename T>
-    Empty(T param){};
+    Empty(T param)
+    {
+        (void)(param);
+    };
 };
 
 } // namespace xm

@@ -24,3 +24,8 @@ void Rectangle::setHeight(int h)
 {
 	height = h;
 }
+
+XM_BUILD_CLASS(Rectangle)
+{
+	XM_BIND_PASE(Shape);
+}

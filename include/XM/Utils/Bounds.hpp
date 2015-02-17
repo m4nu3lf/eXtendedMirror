@@ -64,6 +64,7 @@ void getTypeBounds(typename ToNumerical<T>::Type& min,
 template<typename T>
 double toDouble(T& value)
 {
+    (void)(value);
     return 0;
 }
 
@@ -103,6 +104,9 @@ XM_SPECIALIZE_TO_DOUBLE(ulong);
 template<typename T1, typename T2>
 bool inline checkValueBounds(const T1& value, const T2& min, const T2& max)
 {
+    (void)(value);
+    (void)(min);
+    (void)(max);
     return true;
 }
 

@@ -4,7 +4,7 @@
 class Control
 {
 public:
-	std::string name;
+    char* name;
 	virtual void onMouseClick() = 0;
 	virtual void onMouseEnter() = 0;
 	virtual void onMouseExit() = 0;
