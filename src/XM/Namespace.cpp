@@ -106,9 +106,8 @@ T& Namespace::getItem_(const string& path, const T& keyItem)
         const T* found = dynamic_cast<const T*>(*ite);
         return *const_cast<T*>(found);
     }
-    else
-        throw NotFoundException(*this, keyItem);
-    throw 0;
+
+    throw NotFoundException(*this, keyItem);
 }
 
 

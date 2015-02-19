@@ -22,6 +22,13 @@ TEST(GetItem, GetProperty)
     ASSERT_STREQ(property.getName().c_str(), "::Control::name");
 }
 
+TEST(GetItem, GetMethod)
+{
+    const xm::Class&  clazz = xm::getClass<MyButton>();
+    const xm::Method& method = clazz.getMethod("onMouseClick");
+    ASSERT_STREQ(method.getName().c_str(), "::Control::onMouseClick");
+}
+
 
 int main(int argc, char**argv)
 {

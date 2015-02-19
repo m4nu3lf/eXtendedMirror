@@ -49,6 +49,12 @@ Method::Method(const std::string& uName, const Class& owner) :
 }
 
 
+bool Method::hasFullSignature() const
+{
+    return fullSignature_;
+}
+
+
 std::string Method::getSignature() const
 {
     if (fullSignature_)

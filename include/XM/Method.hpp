@@ -83,6 +83,13 @@ public:
         const Class& owner,
         _XM_METHOD_CONSTRUCTOR_PARAMS
     );
+
+    /**
+     * If the method has a complete signature.
+     *
+     * @return  True if the method has full signature.
+     */
+    bool hasFullSignature() const;
     
     /**
      * Get the method signature.

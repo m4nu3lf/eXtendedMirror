@@ -41,16 +41,14 @@ class NotFoundException : public std::exception
 public:
     NotFoundException(const std::type_info& type) throw();
 
-    NotFoundException(const Namespace& ns, const Item& item)
+    NotFoundException(const Namespace& name_space, const Item& item)
             throw();
     
     const char* what() const throw();
     
     ~NotFoundException() throw();
 protected:
-    const Namespace* ns_;
-    const Item* item_;
-    const std::type_info* cppType_;
+    std::string msg;
 };
 
 

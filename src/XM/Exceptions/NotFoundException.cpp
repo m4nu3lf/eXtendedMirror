@@ -1,4 +1,4 @@
-/******************************************************************************      
+/******************************************************************************
  *      Extended Mirror: NotFoundException.cpp                                *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
@@ -37,49 +37,53 @@ using namespace std;
 using namespace xm;
 
 
-NotFoundException::NotFoundException(const Namespace& ns, const Item& item)
-    throw() : ns_(&ns), item_(&item), cppType_(NULL)
+NotFoundException::NotFoundException(const Namespace& name_space,
+                                     const Item& item) throw()
 {
+    string nsCategory;
+    if (dynamic_cast<const Class*>(&name_space))
+        nsCategory = "Class";
+    else
+        nsCategory = "Namespace";
+
+    string itemCategory;
+    const Method* method = NULL;
+    if (dynamic_cast<const Class*>(&item))
+        itemCategory = "Class";
+    else if (dynamic_cast<const Namespace*>(&item))
+        itemCategory = "Namespace";
+    else if (dynamic_cast<const Property*>(&item))
+        itemCategory = "Property";
+    else if (dynamic_cast<const Method*>(&item))
+    {
+        itemCategory = "Method";
+        method = dynamic_cast<const Method*>(&item);
+    }
+    else if (dynamic_cast<const Function*>(&item))
+        itemCategory = "Function";
+    else if (dynamic_cast<const Type*>(&item))
+        itemCategory = "Type";
+
+    msg = nsCategory + " with name " + name_space.getName() + " has no " +
+          itemCategory;
+
+    if (!method || !method->hasFullSignature())
+        msg += " with name " + item.getName();
+    else
+        msg += " with signature " + method->getSignature();
 }
 
-NotFoundException::NotFoundException(const type_info& cppType)
-    throw() : ns_(NULL), item_(NULL), cppType_(&cppType)
+
+NotFoundException::NotFoundException(const type_info& cppType) throw()
 {
+    msg = "Cannot find Type with id ";
+    msg += cppType.name();
 }
 
 
 const char* NotFoundException::what() const throw()
 {
-    if (cppType_)
-    {
-        string msg = "Cannot find Type with id ";
-        msg += cppType_->name();
-        return msg.c_str();
-    }
-
-    string nsCategory;
-    if (dynamic_cast<const Class*>(ns_))
-            nsCategory = "Class";
-    else
-            nsCategory = "Namespace";
-
-    string itemCategory;
-    if (dynamic_cast<const Class*>(item_))
-            itemCategory = "Class";
-    else if (dynamic_cast<const Namespace*>(item_))
-            itemCategory = "Namespace";
-    else if (dynamic_cast<const Property*>(item_))
-            itemCategory = "Property";
-    else if (dynamic_cast<const Method*>(item_))
-            itemCategory = "Method";
-    else if (dynamic_cast<const Function*>(item_))
-            itemCategory = "Function";
-    else if (dynamic_cast<const Type*>(item_))
-            itemCategory = "Type";
-
-
-    return (nsCategory + " with name " + ns_->getName() + " has no " +
-            itemCategory +  "with name " + item_->getName()).c_str();
+    return msg.c_str();
 }
 
 NotFoundException::~NotFoundException() throw()
