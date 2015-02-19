@@ -46,24 +46,40 @@ class Namespace : public virtual Item
 public:
     const Namespace& getNamespace(const std::string& name) const;
     
-    template<typename T>
+    template<typename T = Item>
     const T& getItem(const std::string& name) const;
+
+    template<typename T = Item>
+    const T& getItem(const T& keyItem) const;
+
+    template<typename T = Item>
+    const T& getItem(const std::string& path, const T& keyItem) const;
     
     void walkItems(ItemInspector fnc, bool recursive = false) const;
     
-    Namespace& defineNamespace(const std::string& name);
+    Namespace& defineNamespace(const std::string& path);
     
     virtual ~Namespace();
     
 protected:
     Namespace(const std::string& name, const Namespace& name_space);
+
+    Namespace(const std::string& name);
    
     Namespace();
     
     void addItem(Item& item);
     
-    Item& getItem_(const std::string& name,
-                   NotFoundHandler notFoundHandler = NULL);
+    template<typename T = Item>
+    T& getItem_(const std::string& name);
+
+    template<typename T = Item>
+    T& getItem_(const T& keyItem);
+
+    template<typename T = Item>
+    T& getItem_(const std::string& path, const T& keyItem);
+
+    Namespace& walkTo(const std::string& path, bool create = false);
     
     static bool addNamespace_(Namespace& where, const std::string& what);
     

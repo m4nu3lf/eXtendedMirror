@@ -1,4 +1,4 @@
-/******************************************************************************      
+/******************************************************************************
  *      Extended Mirror: Register.cpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
@@ -32,7 +32,7 @@
 
 #include <XM/Utils/Utils.hpp>
 #include <XM/xMirror.hpp>
-#include <XM/Exceptions/NotFoundExceptions.hpp>
+#include <XM/Exceptions/NotFoundException.hpp>
 
 
 using namespace std;
@@ -57,7 +57,7 @@ const Type& Register::getType(const type_info& cppType) const
     if (type)
         return *type;
     else
-        throw ItemNotFoundException<Type>(cppType.name());
+        throw NotFoundException(cppType);
 }
 
 

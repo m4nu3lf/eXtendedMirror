@@ -32,7 +32,7 @@
 
 #include <XM/Utils/Utils.hpp>
 #include <XM/xMirror.hpp>
-#include <XM/Utils/String.hpp>
+#include <XM/Utils/Names.hpp>
 
 using namespace std;
 using namespace xm;
@@ -43,7 +43,7 @@ Item::Item(const Namespace& name_space, const string& unqualifiedName) :
 }
 
 Item::Item(const string& name) :
-        unqualifiedName_(splitName(name, NameTail).second),
+        unqualifiedName_(name),
         namespace_(NULL)
 {
 }

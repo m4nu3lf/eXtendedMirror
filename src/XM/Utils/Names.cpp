@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: NotFoundExceptions.cpp                               *
+ *      Extended Mirror: Names.cpp                                            *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,24 +30,29 @@
  *****************************************************************************/
 
 
-#include <XM/xMirror.hpp>
-#include <XM/Exceptions/NotFoundExceptions.hpp>
+#include <XM/Utils/Names.hpp>
+
 
 using namespace std;
 using namespace xm;
 
 
-NotFoundException::NotFoundException(const string& id, const string& category)
-    throw() : id_(id), category_(category)
+pair<string, string> xm::splitName(const string& name, NameSide side)
 {
+    size_t pos = min(name.find("<"), name.find("*"));
+    string cleanName = name.substr(0, pos);
+    if (side == NameHead)
+        pos = cleanName.find("::");
+    else
+        pos = cleanName.rfind("::");
+    pair<string, string> splitName;
+    if (pos != string::npos)
+    {
+        splitName.first = cleanName.substr(0, pos);
+        splitName.second = name.substr(pos+2);
+    }
+    else
+        splitName.second = name;
+    return splitName;
 }
 
-
-const char* NotFoundException::what() const throw()
-{
-    return (category_ + " with name " + id_ + " not found.").c_str();
-}
-
-NotFoundException::~NotFoundException() throw()
-{
-}

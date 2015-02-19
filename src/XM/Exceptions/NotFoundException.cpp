@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: MembersExceptions.cpp                                *
+ *      Extended Mirror: NotFoundException.cpp                                *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -31,51 +31,57 @@
 
 
 #include <XM/xMirror.hpp>
-#include <XM/Exceptions/MembersExceptions.hpp>
+#include <XM/Exceptions/NotFoundException.hpp>
 
+using namespace std;
 using namespace xm;
 
 
-MemberException::MemberException(const Type& type,
-        const std::string& verb, const std::string& adjective) throw()
-        : type_(&type), verb_(verb), article_("a"), adjective_(adjective)
+NotFoundException::NotFoundException(const Namespace& ns, const Item& item)
+    throw() : ns_(&ns), item_(&item), cppType_(NULL)
 {
-    if (adjective_.length() > 0)
+}
+
+NotFoundException::NotFoundException(const type_info& cppType)
+    throw() : ns_(NULL), item_(NULL), cppType_(&cppType)
+{
+}
+
+
+const char* NotFoundException::what() const throw()
+{
+    if (cppType_)
     {
-        switch (adjective_[0])
-        {
-            case 'a':
-            case 'e':
-            case 'i':
-            case 'o':
-            case 'u':
-                article_ += "n";
-        }
+        string msg = "Cannot find Type with id ";
+        msg += cppType_->name();
+        return msg.c_str();
     }
+
+    string nsCategory;
+    if (dynamic_cast<const Class*>(ns_))
+            nsCategory = "Class";
+    else
+            nsCategory = "Namespace";
+
+    string itemCategory;
+    if (dynamic_cast<const Class*>(item_))
+            itemCategory = "Class";
+    else if (dynamic_cast<const Namespace*>(item_))
+            itemCategory = "Namespace";
+    else if (dynamic_cast<const Property*>(item_))
+            itemCategory = "Property";
+    else if (dynamic_cast<const Method*>(item_))
+            itemCategory = "Method";
+    else if (dynamic_cast<const Function*>(item_))
+            itemCategory = "Function";
+    else if (dynamic_cast<const Type*>(item_))
+            itemCategory = "Type";
+
+
+    return (nsCategory + " with name " + ns_->getName() + " has no " +
+            itemCategory +  "with name " + item_->getName()).c_str();
 }
 
-
-const char* MemberException::what() const throw()
+NotFoundException::~NotFoundException() throw()
 {
-    return ("Trying to " + verb_ + " object of type\"" + type_->getName()
-        + "\" that is not " + article_ + " " + adjective_ + " type").c_str();
 }
-
-
-MemberException::~MemberException() throw()
-{
-    
-}
-
-#define _XM_DEFINE_MEMBER_EXCEPTION(_name_, _verb_, _adjective_)               \
-                                                                               \
-Non##_name_##Exception::Non##_name_##Exception(const Type& type) throw()       \
-        : MemberException(type, #_verb_, #_adjective_)                         \
-{}                                                                             \
-                                                                               \
-Non##_name_##Exception::~Non##_name_##Exception() throw()                      \
-{}
-
-_XM_DEFINE_MEMBER_EXCEPTION(Instantiable, instantiate, instantiable)
-_XM_DEFINE_MEMBER_EXCEPTION(Copyable, copy, copyable)
-_XM_DEFINE_MEMBER_EXCEPTION(Destructible, destroy, destructible)

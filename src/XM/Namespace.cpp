@@ -1,4 +1,4 @@
-/******************************************************************************      
+/******************************************************************************
  *      Extended Mirror: Namespace.cpp                                        *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
@@ -32,8 +32,8 @@
 
 #include <XM/Utils/Utils.hpp>
 #include <XM/xMirror.hpp>
-#include <XM/Exceptions/NotFoundExceptions.hpp>
-#include <XM/Utils/String.hpp>
+#include <XM/Exceptions/NotFoundException.hpp>
+#include <XM/Utils/Names.hpp>
 
 using namespace std;
 using namespace xm;
@@ -45,63 +45,105 @@ Namespace::Namespace(const std::string& name, const Namespace& name_space)
 }
 
 
+Namespace::Namespace(const std::string& name)
+    : Item(name)
+{
+
+}
+
+
 Namespace::Namespace()
 {
 }
 
 
-Item& Namespace::getItem_(const std::string& name,
-                          NotFoundHandler notFoundHandler)
+template<typename T>
+T& Namespace::getItem_(const string& name)
 {
-    pair<string, string> nameParts = splitName(name, NameHead);
-    do {
-        if (nameParts.first != "")
-        {
-            Item* item = ptrSet::findByKey(items_, nameParts.first);
-            if (item)
-            {
-                Namespace& name_space = dynamic_cast<Namespace&>(*item);
-                return name_space.getItem_(nameParts.second, notFoundHandler);
-            }
-            else if (notFoundHandler)
-                notFoundHandler(*this, nameParts.first);
-            else break;
-        }
-        else
-        {
-            Item* item = ptrSet::findByKey(items_, name);
-            if (item)
-                return *item;
-            else if (notFoundHandler)
-                notFoundHandler(*this, name);
-            else break;
-        }
-    } while (true);
-    throw ItemNotFoundException<Item>(getName() + "::" + name);
+        pair<string, string> nameParts = splitName(name, NameTail);
+        return getItem_(nameParts.first, T(nameParts.second));
 }
 
 
 template<typename T>
-bool throwNotFoundException(Namespace& where, const string& what)
+T& Namespace::getItem_(const T& keyItem)
 {
-    throw ItemNotFoundException<T>(where.getName() + "::" + what);
+        return getItem_("", keyItem);
+}
+
+
+template<typename T>
+T& Namespace::getItem_(const string& path, const T& keyItem)
+{
+    if (path != "")
+    {
+        Namespace& ns = walkTo(path);
+        return ns.getItem_("", keyItem);
+    }
+
+
+    const Item* keyItemPtr = dynamic_cast<const Item*>(&keyItem);
+    Item* keyItemPtrNc = const_cast<Item*>(keyItemPtr);
+    T* found = dynamic_cast<T*>(*items_.find(keyItemPtrNc));
+    if (found)
+        return *found;
+    else
+        throw NotFoundException(*this, keyItem);
+    throw 0;
+}
+
+
+Namespace& Namespace::walkTo(const string& path, bool create)
+{
+    if (path.find("::") == 0)
+        Register::getSingleton().walkTo(path.substr(2, path.length()), create);
+    else if (path == "")
+        return *this;
+
+    pair<string, string> pathParts = splitName(path, NameHead);
+    try {
+        Namespace& ns = getItem_<Namespace>(pathParts.first);
+        return ns.walkTo(pathParts.second);
+    } catch (NotFoundException& e) {
+        if (create)
+        {
+            Namespace* ns = new Namespace(pathParts.first, *this);
+            items_.insert(ns);
+            return ns->walkTo(pathParts.second);
+        }
+        else throw e;
+    }
 }
 
 
 template<typename T>
 const T& Namespace::getItem(const string& name) const
 {
-    // Const cast can be performed because getItem does not modify anything
-    // in this case
-    Namespace* ncThis = const_cast<Namespace*>(this);
-    Item& item = ncThis->getItem_(name, throwNotFoundException<T>);
-    return dynamic_cast<T&>(item);
+    return getItem(T(name));
 }
+
+
+template<typename T>
+const T& Namespace::getItem(const T& keyItem) const
+{
+        return getItem("", keyItem);
+}
+
+
+template<typename T>
+const T& Namespace::getItem(const string& path, const T& keyItem) const
+{
+    return const_cast<Namespace*>(this)->getItem_(path, keyItem);
+}
+
+
 template const Item& Namespace::getItem(const std::string& name) const;
 template const Type& Namespace::getItem(const std::string& name) const;
 template const Class& Namespace::getItem(const std::string& name) const;
 template const Template& Namespace::getItem(const std::string& name) const;
 template const Function& Namespace::getItem(const std::string& name) const;
+template const Property& Namespace::getItem(const std::string& name) const;
+template const Method& Namespace::getItem(const std::string& name) const;
 
 
 bool Namespace::addNamespace_(Namespace& where, const string& what)
@@ -112,12 +154,9 @@ bool Namespace::addNamespace_(Namespace& where, const string& what)
 }
 
 
-Namespace& Namespace::defineNamespace(const std::string& name)
+Namespace& Namespace::defineNamespace(const std::string& path)
 {
-    if (name == "")
-        return Register::getSingleton();
-    Item& item = getItem_(name, addNamespace_);
-    return dynamic_cast<Namespace&>(item);
+    return walkTo(path, true);
 }
 
 

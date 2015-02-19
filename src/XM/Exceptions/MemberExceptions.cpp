@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: SpecialMembers.cpp                                   *
+ *      Extended Mirror: MembersExceptions.cpp                                *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -31,58 +31,51 @@
 
 
 #include <XM/xMirror.hpp>
-#include <XM/Exceptions/NotFoundException.hpp>
 #include <XM/Exceptions/MemberExceptions.hpp>
 
 using namespace xm;
 
-Constructor::Constructor(const Class& owner)
-    : Item(owner), Member(owner) {};
 
-
-void Constructor::init(Variant& var) const
+MemberException::MemberException(const Type& type,
+        const std::string& verb, const std::string& adjective) throw()
+        : type_(&type), verb_(verb), article_("a"), adjective_(adjective)
 {
-    (void)(var);
-    throw NonInstantiableException(getOwner());
+    if (adjective_.length() > 0)
+    {
+        switch (adjective_[0])
+        {
+            case 'a':
+            case 'e':
+            case 'i':
+            case 'o':
+            case 'u':
+                article_ += "n";
+        }
+    }
 }
 
 
-CopyConstructor::CopyConstructor(const Class& owner)
-    : Item(owner), Member(owner) {};
-
-
-void CopyConstructor::copy(Variant& copy, const Variant& orig) const
+const char* MemberException::what() const throw()
 {
-    (void)(copy);
-    (void)(orig);
-    throw NonCopyableException(getOwner());
+    return ("Trying to " + verb_ + " object of type\"" + type_->getName()
+        + "\" that is not " + article_ + " " + adjective_ + " type").c_str();
 }
 
 
-Destructor::Destructor(const Class& owner)
-    : Item(owner), Member(owner) {};
-
-
-void Destructor::destroy(Variant& var) const
+MemberException::~MemberException() throw()
 {
-    (void)(var);
-    throw NonDestructibleException(getOwner());
+    
 }
 
+#define _XM_DEFINE_MEMBER_EXCEPTION(_name_, _verb_, _adjective_)               \
+                                                                               \
+Non##_name_##Exception::Non##_name_##Exception(const Type& type) throw()       \
+        : MemberException(type, #_verb_, #_adjective_)                         \
+{}                                                                             \
+                                                                               \
+Non##_name_##Exception::~Non##_name_##Exception() throw()                      \
+{}
 
-RefCaster::RefCaster(const Type& dstType, const Class& owner)
-    : Item(owner), dstType_(&dstType)
-{
-}
-
-
-const Type& RefCaster::getDstType() const
-{
-    return *dstType_;
-}
-
-
-Variant RefCaster::cast(Variant& var) const
-{
-	return var.getRefVariant();
-}
+_XM_DEFINE_MEMBER_EXCEPTION(Instantiable, instantiate, instantiable)
+_XM_DEFINE_MEMBER_EXCEPTION(Copyable, copy, copyable)
+_XM_DEFINE_MEMBER_EXCEPTION(Destructible, destroy, destructible)

@@ -35,7 +35,7 @@
 
 #include <XM/Exceptions/VariantTypeException.hpp>
 #include <XM/Exceptions/VariantCostnessException.hpp>
-#include <XM/Exceptions/MembersExceptions.hpp>
+#include <XM/Exceptions/MemberExceptions.hpp>
 #include <XM/Variant.hpp>
 
 #include <cstring>

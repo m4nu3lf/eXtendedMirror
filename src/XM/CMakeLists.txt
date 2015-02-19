@@ -18,10 +18,10 @@ add_library("xMirror" STATIC
 	"Type.cpp"
 	"Variant.cpp"
 	"Variant_Gen.cpp"
-	"Exceptions/MembersExceptions.cpp"
-	"Exceptions/NotFoundExceptions.cpp"
+	"Exceptions/NotFoundException.cpp"
+	"Exceptions/MemberExceptions.cpp"
 	"Exceptions/PropertyRangeException.cpp"
 	"Exceptions/PropertySetException.cpp"
 	"Exceptions/VariantCostnessException.cpp"
 	"Exceptions/VariantTypeException.cpp"
-	"Utils/String.cpp")
+	"Utils/Names.cpp")

@@ -43,7 +43,7 @@
 
 #include <XM/Utils/Debug.hpp>
 #include <XM/Utils/Containers.hpp>
-#include <XM/Utils/String.hpp>
+#include <XM/Utils/Names.hpp>
 
 #endif	/* XM_UTILS_UTILS_HPP */
 

@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: String.cpp                                         *
+ *      Extended Mirror: NotFoundException.hpp                               *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,29 +30,31 @@
  *****************************************************************************/
 
 
-#include <XM/Utils/String.hpp>
+#ifndef XM_NOTFOUNDEXCEPTION_HPP
+#define	XM_NOTFOUNDEXCEPTION_HPP
 
 
-using namespace std;
-using namespace xm;
+namespace xm{
 
-
-pair<string, string> xm::splitName(const string& name, NameSide side)
+class NotFoundException : public std::exception
 {
-    size_t pos = min(name.find("<"), name.find("*"));
-    string cleanName = name.substr(0, pos);
-    if (side == NameHead)
-        pos = cleanName.find("::");
-    else
-        pos = cleanName.rfind("::");
-    pair<string, string> splitName;
-    if (pos != string::npos)
-    {
-        splitName.first = cleanName.substr(0, pos);
-        splitName.second = name.substr(pos+2);
-    }
-    else
-        splitName.second = name;
-    return splitName;
-}
+public:
+    NotFoundException(const std::type_info& type) throw();
+
+    NotFoundException(const Namespace& ns, const Item& item)
+            throw();
+    
+    const char* what() const throw();
+    
+    ~NotFoundException() throw();
+protected:
+    const Namespace* ns_;
+    const Item* item_;
+    const std::type_info* cppType_;
+};
+
+
+} // namespace xm
+
+#endif	/* XM_NOTFOUNDEXCEPTION_HPP */
 

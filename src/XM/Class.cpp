@@ -32,7 +32,7 @@
 
 #include <XM/Utils/Utils.hpp>
 #include <XM/xMirror.hpp>
-#include <XM/Exceptions/NotFoundExceptions.hpp>
+#include <XM/Exceptions/NotFoundException.hpp>
 
 using namespace std;
 using namespace xm;
@@ -232,32 +232,19 @@ bool Class::inheritsFrom(const Class& baseClass) const
 
 const Property& Class::getProperty(const string& propertyName) const
 {
-    const Property* property = ptrSet::findByKey(properties_, propertyName);
-    if (property)
-        return *property;
-    else
-        throw MemberNotFoundException<Property>(propertyName, getName());
+    return getItem<Property>(propertyName);
 }
 
 
 const Method& Class::getMethod(const string& methodName) const
 {
-    const Method* method = ptrSet::findByKey(methods_, methodName);
-    if (method)
-        return *method;
-    else
-        throw MemberNotFoundException<Property>(methodName, getName());
+    return getItem<Method>(methodName);
 }
 
 
 const Method& Class::getMethod(const Method& method) const
 {
-    Const_Method_Set::iterator ite;
-    ite = methods_.find(&method);
-    if (ite != methods_.end()) return **ite;
-    
-    throw MemberNotFoundException<Method>(method.getSignature(), getName(),
-            true);
+    return getItem<Method>(method);
 }
 
 

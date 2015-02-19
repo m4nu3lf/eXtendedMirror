@@ -33,8 +33,8 @@
 #ifndef XM_REGISTRATIONHELPERS_HPP
 #define	XM_REGISTRATIONHELPERS_HPP
 
-#include <XM/Exceptions/NotFoundExceptions.hpp>
-#include <XM/Utils/String.hpp>
+#include <XM/Exceptions/NotFoundException.hpp>
+#include <XM/Utils/Names.hpp>
 #include "TypeTraits.hpp"
 
 
@@ -240,7 +240,7 @@ CompoundClass& CompoundClass::create()
     {
         tempjate = &typeReg.getItem<Template>(GetTemplateName<T>()());
     }
-    catch(const ItemNotFoundException<Template>& e)
+    catch(const NotFoundException& e)
     {
         Template* ncTemplate =
                 new Template(GetTemplateName<T>()(), templateArgs.size());

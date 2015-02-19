@@ -69,7 +69,7 @@ double toDouble(T& value)
 }
 
 
-#define XM_SPECIALIZE_TO_DOUBLE(getType)                                       \
+#define _XM_SPECIALIZE_TO_DOUBLE(getType)                                       \
 template<>                                                                     \
 inline                                                                         \
 double toDouble<getType>(getType& value)                                       \
@@ -78,17 +78,17 @@ double toDouble<getType>(getType& value)                                       \
 }
 
 
-XM_SPECIALIZE_TO_DOUBLE(char);
-XM_SPECIALIZE_TO_DOUBLE(wchar_t);
-XM_SPECIALIZE_TO_DOUBLE(short);
-XM_SPECIALIZE_TO_DOUBLE(int);
-XM_SPECIALIZE_TO_DOUBLE(long);
-XM_SPECIALIZE_TO_DOUBLE(float);
-XM_SPECIALIZE_TO_DOUBLE(double);
-XM_SPECIALIZE_TO_DOUBLE(uchar);
-XM_SPECIALIZE_TO_DOUBLE(ushort);
-XM_SPECIALIZE_TO_DOUBLE(uint);
-XM_SPECIALIZE_TO_DOUBLE(ulong);
+_XM_SPECIALIZE_TO_DOUBLE(char);
+_XM_SPECIALIZE_TO_DOUBLE(wchar_t);
+_XM_SPECIALIZE_TO_DOUBLE(short);
+_XM_SPECIALIZE_TO_DOUBLE(int);
+_XM_SPECIALIZE_TO_DOUBLE(long);
+_XM_SPECIALIZE_TO_DOUBLE(float);
+_XM_SPECIALIZE_TO_DOUBLE(double);
+_XM_SPECIALIZE_TO_DOUBLE(uchar);
+_XM_SPECIALIZE_TO_DOUBLE(ushort);
+_XM_SPECIALIZE_TO_DOUBLE(uint);
+_XM_SPECIALIZE_TO_DOUBLE(ulong);
 
 
 /**

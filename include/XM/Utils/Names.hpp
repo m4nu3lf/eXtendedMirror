@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: String.hpp                                         *
+ *      Extended Mirror: Names.hpp                                            *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_UTILS_STRING_HPP
-#define	XM_UTILS_STRING_HPP
+#ifndef XM_UTILS_NAMES_HPP
+#define	XM_UTILS_NAMES_HPP
 
 #include <XM/Utils/Utils.hpp>
 
@@ -48,5 +48,5 @@ std::pair<std::string, std::string> splitName(const std::string& name,
 
 } //namespace xm
 
-#endif	/* XM_UTILS_STRING_HPP */
+#endif	/* XM_UTILS_NAMES_HPP */
 
