@@ -64,11 +64,11 @@ NotFoundException::NotFoundException(const Namespace& name_space,
     else if (dynamic_cast<const Type*>(&item))
         itemCategory = "Type";
 
-    msg = nsCategory + " with name " + name_space.getName() + " has no " +
+    msg = nsCategory + " " + name_space.getName() + " has no " +
           itemCategory;
 
     if (!method || !method->hasFullSignature())
-        msg += " with name " + item.getName();
+        msg += " with name " + item.getUnqualifiedName();
     else
         msg += " with signature " + method->getSignature();
 }

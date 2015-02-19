@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Type.cpp                                         *
+ *      Extended Mirror: Type.cpp                                             *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *

@@ -22,6 +22,7 @@ TEST(GetItem, GetProperty)
     ASSERT_STREQ(property.getName().c_str(), "::Control::name");
 }
 
+
 TEST(GetItem, GetMethod)
 {
     const xm::Class&  clazz = xm::getClass<MyButton>();

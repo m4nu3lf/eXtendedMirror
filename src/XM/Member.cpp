@@ -58,6 +58,8 @@ bool Member::before(const Item& item) const
 {
     if (dynamic_cast<const Type*>(&item))
         return false;
+    else if (dynamic_cast<const Method*>(&item))
+        return false;
     return Item::before(item);
 }
 
