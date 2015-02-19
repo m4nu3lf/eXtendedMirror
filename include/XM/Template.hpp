@@ -44,10 +44,16 @@ public:
     /**
      * A basic constructor.
      * 
-     * @param name The name of the template.
+     * @param uName The unqualified name of the template.
      */
     Template(const std::string& name, uint argN = 0); 
-    
+
+    /**
+     * A basic constructor.
+     *
+     * @param uName The unqualified name of the template.
+     */
+    Template(const std::string& uName, const Namespace& name_space);
     
     /**
      * Get the number of the template parameters.

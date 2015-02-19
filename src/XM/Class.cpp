@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Class.cpp                                         *
+ *      Extended Mirror: Class.cpp                                            *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -38,9 +38,19 @@ using namespace std;
 using namespace xm;
 
 
-Class::Class(const string& name) :
-        Item(name),
-        Type(name),
+Class::Class(const string& uName) :
+        Item(uName),
+        Type(uName),
+        constructor_(new Constructor(*this)),
+        copyConstructor_(new CopyConstructor(*this)),
+        destructor_(new Destructor(*this))
+{
+}
+
+
+Class::Class(const string& uName, const Namespace& name_space) :
+        Item(uName, name_space),
+        Type(uName, name_space),
         constructor_(new Constructor(*this)),
         copyConstructor_(new CopyConstructor(*this)),
         destructor_(new Destructor(*this))
@@ -51,7 +61,7 @@ Class::Class(const string& name) :
 Class::Class
 (
     const Namespace& name_space,
-    const string& name,
+    const string& uName,
     size_t size,
     const type_info& cppType,
     const Constructor& constructor,
@@ -59,7 +69,7 @@ Class::Class
     const Destructor& destructor,
     bool isAbstract
 ) :
-    Item(name_space, name),
+    Item(uName, name_space),
     Type(size, cppType),
     constructor_(&constructor),
     copyConstructor_(&copyConstructor),
@@ -122,10 +132,12 @@ void Class::addBaseClass(Class& baseClass)
     // insert all the base class properties into the properties set
     const Const_Property_Set& baseClassProperties = baseClass.getProperties();
     properties_.insert(baseClassProperties.begin(), baseClassProperties.end());
+    items_.insert(baseClassProperties.begin(), baseClassProperties.end());
     
     // insert all the base class method descriptors into the methods set
     const Const_Method_Set& baseClassMethods = baseClass.getMethods();
     methods_.insert(baseClassMethods.begin(), baseClassMethods.end());
+    items_.insert(baseClassMethods.begin(), baseClassMethods.end());
 }
 
 

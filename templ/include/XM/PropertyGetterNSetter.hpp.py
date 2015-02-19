@@ -100,12 +100,12 @@ public:
     
     PropertyGetterNSetter_""" + str(n_extr_param) + """_ExtrParams
     (
-        const std::string& name,
+        const std::string& uName,
         Getter getter,
         bool isConstGetter,
         Setter setter""" + gen_seq(""",
         ExtrParamT$ extrArg$""", n_extr_param) + """
-    ) : Item(xm::getClass<ClassT>(), name),
+    ) : Item(uName, xm::getClass<ClassT>()),
         getter_(getter),
         isConstGetter_(isConstGetter),
         setter_(setter)""" + gen_seq(""",

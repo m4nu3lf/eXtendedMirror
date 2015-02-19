@@ -39,15 +39,15 @@ using namespace xm;
 
 Method::Method
 (
-    const string& name,
+    const string& uName,
     const Type& retType,
     const Class& owner,""" + gen_seq("""
     const Type& paramType$""", XM_FUNCTION_PARAM_MAX - 1, ",") + """
 ) :
-    Item(owner, name),
+    Item(uName, owner),
     Function
     (
-	name,
+	uName,
 	retType,
 	owner,""" + gen_seq("""
 	paramType$""", XM_FUNCTION_PARAM_MAX - 1, ",") + """

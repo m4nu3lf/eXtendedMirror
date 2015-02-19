@@ -49,7 +49,7 @@ CompoundClass::CompoundClass
     const Template& tempjate,
     const Const_Type_Vector& templateArgs
 ) :
-    Item(name_space, name),
+    Item(name, name_space),
     Class
     (
         name_space,

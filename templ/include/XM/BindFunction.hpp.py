@@ -52,7 +52,7 @@ template
 >
 Function& bindFunction
 (
-    const std::string& name,
+    const std::string& uName,
     Namespace& name_space,
     RetT (*function)
     ( """ + gen_seq("""
@@ -70,7 +70,7 @@ Function& bindFunction
             RetT""" + gen_seq(""",
             ParamT$""", n_params) + """
         >
-        ( name, function );
+        ( uName, function );
     name_space.addItem(*xmFunction);
     return *xmFunction;
 }

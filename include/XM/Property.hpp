@@ -76,17 +76,17 @@ public:
     /**
      * Basic constructor for initialization.
      * 
-     * @param name The property name.
+     * @param uName The unqualified property name.
      */
-    Property(const std::string& name = "");
+    Property(const std::string& uName = "");
     
     /**
      * Basic constructor for initialization.
      * 
+     * @param uName The unqualified property name.
      * @param owner The property owner.
-     * @param name The property name.
      */
-    Property(const Class& owner, const std::string& name);
+    Property(const std::string& uName, const Class& owner);
     
     /**
      * Get the Type of the property type.

@@ -39,7 +39,7 @@ using namespace std;
 using namespace xm;
 
 Namespace::Namespace(const std::string& name, const Namespace& name_space)
-    : Item(name_space, name)
+    : Item(name, name_space)
 {
     
 }
@@ -52,23 +52,40 @@ Namespace::Namespace(const std::string& name)
 }
 
 
-Namespace::Namespace()
-{
-}
-
-
 template<typename T>
 T& Namespace::getItem_(const string& name)
 {
-        pair<string, string> nameParts = splitName(name, NameTail);
-        return getItem_(nameParts.first, T(nameParts.second));
+    pair<string, string> nameParts = splitName(name, NameTail);
+    return getItem_(nameParts.first, T(nameParts.second, *this));
+}
+
+
+namespace xm {
+
+template<>
+Property& Namespace::getItem_<Property>(const string& name)
+{
+    pair<string, string> nameParts = splitName(name, NameTail);
+    const Class* clazz = dynamic_cast<Class*>(this);
+    return getItem_(nameParts.first, Property(nameParts.second, *clazz));
+}
+
+
+template<>
+Method& Namespace::getItem_<Method>(const string& name)
+{
+    pair<string, string> nameParts = splitName(name, NameTail);
+    const Class* clazz = dynamic_cast<Class*>(this);
+    return getItem_(nameParts.first, Method(nameParts.second, *clazz));
+}
+
 }
 
 
 template<typename T>
 T& Namespace::getItem_(const T& keyItem)
 {
-        return getItem_("", keyItem);
+    return getItem_("", keyItem);
 }
 
 
@@ -83,10 +100,12 @@ T& Namespace::getItem_(const string& path, const T& keyItem)
 
 
     const Item* keyItemPtr = dynamic_cast<const Item*>(&keyItem);
-    Item* keyItemPtrNc = const_cast<Item*>(keyItemPtr);
-    T* found = dynamic_cast<T*>(*items_.find(keyItemPtrNc));
-    if (found)
-        return *found;
+    Const_Item_Set::iterator ite = items_.find(keyItemPtr);
+    if (ite != items_.end())
+    {
+        const T* found = dynamic_cast<const T*>(*ite);
+        return *const_cast<T*>(found);
+    }
     else
         throw NotFoundException(*this, keyItem);
     throw 0;
@@ -119,14 +138,14 @@ Namespace& Namespace::walkTo(const string& path, bool create)
 template<typename T>
 const T& Namespace::getItem(const string& name) const
 {
-    return getItem(T(name));
+    return const_cast<Namespace*>(this)->getItem_<T>(name);
 }
 
 
 template<typename T>
 const T& Namespace::getItem(const T& keyItem) const
 {
-        return getItem("", keyItem);
+    return const_cast<Namespace*>(this)->getItem_<T>(keyItem);
 }
 
 
@@ -144,6 +163,7 @@ template const Template& Namespace::getItem(const std::string& name) const;
 template const Function& Namespace::getItem(const std::string& name) const;
 template const Property& Namespace::getItem(const std::string& name) const;
 template const Method& Namespace::getItem(const std::string& name) const;
+template const Method& Namespace::getItem(const Method& method) const;
 
 
 bool Namespace::addNamespace_(Namespace& where, const string& what)
@@ -162,15 +182,16 @@ Namespace& Namespace::defineNamespace(const std::string& path)
 
 void Namespace::addItem(Item& item)
 {
+    items_.insert(&item);
     if (item.getNamespace() == *this)
-        items_.insert(&item);
+        ownItems_.insert(&item);
 }
 
 
 Namespace::~Namespace()
 {
-    Item_Set::iterator ite = items_.begin();
-    while(ite != items_.end())
+    Const_Item_Set::iterator ite = ownItems_.begin();
+    while(ite != ownItems_.end())
     {
         delete *ite;
         ite ++;

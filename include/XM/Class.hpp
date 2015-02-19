@@ -48,10 +48,16 @@ public:
     /**
      * Basic constructor for initialization.
      * 
-     * @param name The type name.
+     * @param uName The unqualified class name.
      */
-    Class(const std::string& name = "");
+    Class(const std::string& uName = "");
 
+    /**
+     * Basic constructor for initialization.
+     *
+     * @param uName The unqualified class name.
+     */
+    Class(const std::string& uName, const Namespace& name_space);
     
     /**
      * Ask if the class is abstract.
@@ -223,7 +229,7 @@ protected:
      * Constructor for full initialization.
      * 
      * @param name_space The class name_space.
-     * @param name The class name.
+     * @param uName The unqualified class name.
      * @param size The class size.
      * @param cppType The type_info struct of the class.
      * @param constructor The class constructor wrapper function.
@@ -234,7 +240,7 @@ protected:
     Class
     (
             const Namespace& name_space,
-            const std::string& name,
+            const std::string& uName,
             std::size_t size,
             const std::type_info& cppType,
             const Constructor& constructor,

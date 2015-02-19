@@ -1,14 +1,6 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project("Extended Mirror")
 
-# Build in debug mode by default
-if (NOT RELEASE)
-	set(DEBUG True)
-	set(MODE_DIR "Debug")
-else()
-	set(MODE_DIR "Release")
-endif()
-
 # Generate source files from python scripts
 if (FUNC_PARAM_MAX)
 	set(gen_options "--function-param-max" ${FUNC_PARAM_MAX})
@@ -31,12 +23,12 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 	set(warning_flags "-Wall -Wextra -Werror")
 	set(std_flags "-std=c++11")
-	if (DEBUG)
+	if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		set (debug_flags "-g")
 	endif()
 elseif ("{CMAKE_CXX_COMPIER_ID}" STREQUAL "MSVC")
 	set(warning_flags "/W4 /WX /EHsc")
-	if (DEBUG)
+	if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 		set (debug_flags "/DEBUG")
 	endif()
 endif()
@@ -49,16 +41,13 @@ endif()
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include") 
 
-if(RELEASE)
-	add_subdirectory("src/XM" "build/${MODE_DIR}")
-elseif(DEBUG)
-	add_subdirectory("src/XM" "build/${MODE_DIR}")
-endif()
+
+add_subdirectory("src/XM" "build/${CMAKE_BUILD_TYPE}")
 
 # Testing
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/test")
 enable_testing()
-add_test(all "build/${MODE_DIR}/test/tests")
+add_test(all "build/${CMAKE_BUILD_TYPE}/test/tests")
 
 set(CONFIGURED_ONCE TRUE CACHE INTERNAL
     "A flag showing that CMake has configured at least once.")

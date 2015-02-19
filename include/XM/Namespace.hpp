@@ -35,10 +35,9 @@
 
 namespace xm {
 
-typedef std::set<Item*, PtrCmpByName<Item> > Item_Set;
-typedef std::set<const Item*, PtrCmpByName<Item> > Const_Item_Set;
+typedef std::set<Item*, ::PtrCmpByVal<Item> > Item_Set;
+typedef std::set<const Item*, ::PtrCmpByVal<Item> > Const_Item_Set;
 typedef void (*ItemInspector)(const Item& item);
-typedef bool (*NotFoundHandler)(Namespace& where, const std::string& what);
 
 
 class Namespace : public virtual Item
@@ -64,9 +63,7 @@ public:
 protected:
     Namespace(const std::string& name, const Namespace& name_space);
 
-    Namespace(const std::string& name);
-   
-    Namespace();
+    Namespace(const std::string& name = "");
     
     void addItem(Item& item);
     
@@ -83,7 +80,8 @@ protected:
     
     static bool addNamespace_(Namespace& where, const std::string& what);
     
-    Item_Set items_;
+    Const_Item_Set items_;
+    Const_Item_Set ownItems_;
 };
 
 

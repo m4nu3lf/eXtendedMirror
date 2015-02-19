@@ -36,16 +36,15 @@
 using namespace std;
 using namespace xm;
 
-Method::Method(const std::string& name) :
-        Item(name),
-        Member(getClass<void>(), name),
-        Function(name)
+Method::Method(const std::string& uName) :
+        Item(uName, getClass<void>()),
+        Function(uName)
 {
 }
 
 
-Method::Method(const Class& owner, const std::string& name) :
-        Item(owner, name)
+Method::Method(const std::string& uName, const Class& owner) :
+        Item(uName, owner)
 {
 }
 
@@ -103,4 +102,10 @@ std::string Method::getSignature() const
 bool Method::isConst() const
 {
     return false;
+}
+
+
+bool Method::before(const Item& item) const
+{
+    return Function::before(item);
 }

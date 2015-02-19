@@ -40,11 +40,11 @@ using namespace xm;
 
 Function::Function
 (
-    const string& name,
+    const string& uName,
     const Type& retType,""" + gen_seq("""
     const Type& paramType$""", XM_FUNCTION_PARAM_MAX, ",") + """
 ) :
-    Item(name),
+    Item(uName),
     retType_(&retType),
     fullSignature_(true)
 {

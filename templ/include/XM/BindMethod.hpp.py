@@ -51,7 +51,7 @@ template
 >
 Method& bindMethod
 (
-    const std::string& name,
+    const std::string& uName,
     RetT (ClassT::*method)
     ( """ + gen_seq("""
         ParamT$""", (1, n_params), ",") + """
@@ -80,7 +80,7 @@ Method& bindMethod
             ParamT$""", (1, n_params)) + """
         >
         (
-            name""" + (""",
+            uName""" + (""",
             method_nc,
             true""" if is_const else """,
             method,

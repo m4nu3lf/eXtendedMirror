@@ -48,7 +48,7 @@ template<class C>
 class ConstructorImpl : public Constructor
 {
 public:
-    ConstructorImpl(const Class& owner) : Item(owner) {};
+    ConstructorImpl(const Class& owner) : Item("", owner) {};
     void init(Variant& var) const
     {
         new (&var.as<C>()) C();
@@ -68,7 +68,7 @@ template<class C>
 class CopyConstructorImpl : public CopyConstructor
 {
 public:
-    CopyConstructorImpl(const Class& owner) : Item(owner) {};
+    CopyConstructorImpl(const Class& owner) : Item("", owner) {};
     void copy(Variant& copy, const Variant& orig) const
     {
         Variant& nc_orig = const_cast<Variant&>(orig);
@@ -89,7 +89,7 @@ template<typename C>
 class DestructorImpl : public Destructor
 {
 public:
-    DestructorImpl(const Class& owner) : Item(owner) {};
+    DestructorImpl(const Class& owner) : Item("", owner) {};
     void destroy(Variant& var) const
     {
         var.as<C>().~C();
@@ -126,7 +126,7 @@ class RefCasterImpl : public RefCaster
 {
 public:
     RefCasterImpl()
-        : Item(getClass<S>()),
+        : Item("", getClass<S>()),
           RefCaster(getType<D>(), getClass<S>())
     {
     }

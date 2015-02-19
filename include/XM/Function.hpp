@@ -59,28 +59,29 @@ public:
     
     /**
      * Construct a method with just the name.
-     * 
-     * @param name The method name.
+     *
+     * @param uName The unqualified method name.
      */
-    Function(const std::string& name = "");
-    
+    Function(const std::string& uName = "");
+
     /**
      * Construct a method with just the name.
      * 
-     * @param name The method name.
+     * @param uName The unqualified method name.
+     * @param name_space The belonging namespace
      */
-    Function(const Namespace& name_space, const std::string& name);
+    Function(const std::string& uName, const Namespace& name_space);
     
     /**
      * Construct a Method with the given given signature.
      * 
-     * @param name The name of the method.
+     * @param uName The unqualified name of the method.
      * @param retType The Type of the returned value.
      * @param paramType<N> The Type of the Nth parameter.
      */
     Function
     (
-        const std::string& name,
+        const std::string& uName,
         const Type& retType,
 	_XM_FUNCTION_CONSTRUCTOR_PARAMS
     );
@@ -148,6 +149,8 @@ protected:
     (
 	_XM_FUNCTION_CALLIMPL_PARAMS
     ) const;
+
+    bool before(const Item& item) const;
     
     // The returned type
     const Type* retType_;
@@ -161,32 +164,13 @@ protected:
     
     std::vector<Variant> defaults_;
     
-    friend bool operator<(const Function& f1, const Function& f2);
+    friend bool operator < (const Function& f1, const Function& f2);
 };
 
 
-bool inline operator<(const Function& f1, const Function& f2)
+bool inline operator < (const Function& f1, const Function& f2)
 {
-    if (f1.getName() < f2.getName())
-        return true;
-    
-    if (f2.getName() < f1.getName())
-        return false;
-    
-    if (!f1.fullSignature_ || !f2.fullSignature_)
-        return false;
-    
-    ushort paramN1 = f1.params_.size();
-    ushort paramN2 = f2.params_.size();
-    ushort paramN = std::min(paramN1, paramN2);
-    for (uint i = 0; i < paramN; i++)
-    {
-        if (f1.params_[i]->type
-            < f2.params_[i]->type)
-            return true;
-    }
-    if (paramN1 < paramN2) return true;
-    return false;
+        return f1.before(f2);
 }
 
 

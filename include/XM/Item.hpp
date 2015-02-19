@@ -1,4 +1,4 @@
-/******************************************************************************      
+/******************************************************************************
  *      Extended Mirror: Item.hpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
@@ -40,10 +40,10 @@ class Namespace;
 class Item
 {
 public:
-    Item(const Namespace& name_space, const std::string& unqualifiedName = "");
-    
-    Item(const std::string& name = "");
-    
+    Item(const std::string& uName, const Namespace& name_space);
+
+    Item(const std::string& uName = "");
+
     /**
      * Get the unqualified name of the item.
      * 
@@ -64,16 +64,18 @@ public:
      * @return The namespace.
      */
     const Namespace& getNamespace() const;
-    
+
+    virtual bool before(const Item& item) const;
+
     virtual ~Item();
     
 protected:
     static std::string removeQualifier_(const std::string& name);
-    
+
     std::string unqualifiedName_;
     
     const Namespace* namespace_;
-    
+
     friend bool operator<(const Item& n1, const Item& n2);
     
     friend bool operator==(const Item& n1, const Item& n2);
@@ -86,19 +88,19 @@ protected:
 
 bool inline operator<(const Item& i1, const Item& i2)
 {
-    return i1.getName() < i2.getName();
+    return i1.before(i2);
 }
 
 
 bool inline operator==(const Item& i1, const Item& i2)
 {
-    return i1.getName() == i2.getName();
+    return !(i1 < i2) && !(i2 < i1);
 }
 
 
 bool inline operator!=(const Item& i1, const Item& i2)
 {
-    return i1.getName() != i2.getName();
+    return !(i1 == i2);
 }
 
 

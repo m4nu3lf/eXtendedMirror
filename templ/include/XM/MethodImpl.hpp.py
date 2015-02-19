@@ -67,13 +67,13 @@ public: """ + ("""
     typedef typename RemoveConst<typename RemoveReference<ParamT$>::Type>::Type
         NqParamT$;""", (1, n_params)) + """
     
-    MethodImpl_""" + str(n_params) + """_Params(const std::string& name,
+    MethodImpl_""" + str(n_params) + """_Params(const std::string& uName,
         RetT (ClassT::*method)
         (""" + gen_seq("""
             ParamT$""", (1, n_params), ",") + """
         ),
         bool constant = false) :
-        Item(getClass<ClassT>(), name),
+        Item(uName, getClass<ClassT>()),
         method_(method),
         constant_(constant)
     {

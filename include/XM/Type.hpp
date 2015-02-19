@@ -1,4 +1,4 @@
-/******************************************************************************      
+/******************************************************************************
  *      Extended Mirror: Type.hpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
@@ -82,16 +82,24 @@ public:
         /**
          *  A template instance.
          */
-        CompoundClass = 24,
+        CompoundClass = 24
     };
     
     /**
      * Basic constructor for initialization.
      * 
-     * @param name The type name.
+     * @param uName The unqualified type name.
      */
-    Type(const std::string& name = "");
-    
+    Type(const std::string& uName = "");
+
+     /**
+     * Basic constructor for initialization.
+     *
+     * @param uName The unqualified type name.
+     * @param name_space The belonging namespace.
+     */
+    Type(const std::string& uName, const Namespace& name_space);
+
     /**
      * Basic constructor for initialization.
      * 
@@ -127,7 +135,9 @@ public:
      * @return The type_info struct.
      */
     const std::type_info& getId() const;
-    
+
+    bool before(const Item& item) const;
+
     virtual ~Type();
     
 protected:

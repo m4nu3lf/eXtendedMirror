@@ -36,8 +36,13 @@
 using namespace std;
 using namespace xm;
 
-Type::Type(const string& name)
-    : Item(name), size_(0), id_(typeid(void))
+Type::Type(const string& uName)
+    : Item(uName), size_(0), id_(typeid(void))
+{}
+
+
+Type::Type(const string& uName, const Namespace& name_space)
+    : Item(uName, name_space), size_(0), id_(typeid(void))
 {}
 
 
@@ -72,6 +77,14 @@ std::size_t Type::getSize() const
 const type_info& Type::getId() const
 {
     return id_;
+}
+
+
+bool Type::before(const Item& item) const
+{
+    if (dynamic_cast<const Member*>(&item))
+        return true;
+    return Item::before(item);
 }
 
 

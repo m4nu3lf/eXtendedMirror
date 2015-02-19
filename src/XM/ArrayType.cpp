@@ -36,12 +36,12 @@ using namespace xm;
 using namespace std;
 
 
-ArrayType::ArrayType(const string& name,
+ArrayType::ArrayType(const string& uName,
                      size_t size,
                      const type_info& cppType,
                      size_t arraySize,
                      const Type& elementType = getType<void>())
-        : Item(name),
+        : Item(uName),
           Type(size, cppType),
           elementType_(&elementType),
           arraySize_(arraySize)

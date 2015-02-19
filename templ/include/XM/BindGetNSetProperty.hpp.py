@@ -56,7 +56,7 @@ template
     typename ExtrParamT$""", n_extr_params) + """
 >
 Property& bindProperty(
-    const std::string& name,
+    const std::string& uName,
     RetT (ClassT::*getter)
     ( """ + gen_seq("""
         ExtrParamT$""", n_extr_params, ",") + """
@@ -99,7 +99,7 @@ Property& bindProperty(
             ExtrParamT$""", n_extr_params) + """
         >
         (
-            name""" + (""",
+            uName""" + (""",
             getter_nc,
             true""" if has_const_getter else """,
             getter,

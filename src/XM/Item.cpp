@@ -1,4 +1,4 @@
-/******************************************************************************      
+/******************************************************************************
  *      Extended Mirror: Item.cpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
@@ -37,13 +37,13 @@
 using namespace std;
 using namespace xm;
 
-Item::Item(const Namespace& name_space, const string& unqualifiedName) :
-        unqualifiedName_(unqualifiedName), namespace_(&name_space)
+Item::Item(const string& uName, const Namespace& name_space) :
+        unqualifiedName_(uName), namespace_(&name_space)
 {
 }
 
-Item::Item(const string& name) :
-        unqualifiedName_(name),
+Item::Item(const string& uName) :
+        unqualifiedName_(uName),
         namespace_(NULL)
 {
 }
@@ -71,6 +71,11 @@ const Namespace& Item::getNamespace() const
         return Register::getSingleton();
 }
 
+
+bool Item::before(const Item& item) const
+{
+    return unqualifiedName_ < item.unqualifiedName_;
+}
 
 Item::~Item()
 {

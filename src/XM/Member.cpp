@@ -37,14 +37,13 @@ using namespace std;
 using namespace xm;
 
 
-Member::Member()
-    : Item(getClass<void>(), "")
+Member::Member() : Item()
 {
 }
 
 
-Member::Member(const Class& owner, const string& name)
-    : Item(owner, name)
+Member::Member(const string& uName, const Namespace& owner)
+    : Item(uName, owner)
 {
 }
 
@@ -52,6 +51,14 @@ Member::Member(const Class& owner, const string& name)
 const Class& Member::getOwner() const
 {
     return dynamic_cast<const Class&>(getNamespace());
+}
+
+
+bool Member::before(const Item& item) const
+{
+    if (dynamic_cast<const Type*>(&item))
+        return false;
+    return Item::before(item);
 }
 
 

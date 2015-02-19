@@ -57,28 +57,28 @@ public:
     /**
      * Construct a method with just the name.
      * 
-     * @param name The method name.
+     * @param uName The unqualified method name.
      */
-    Method(const std::string& name = "");
+    Method(const std::string& uName = "");
     
     /**
      * Construct a method with just the owner and the name.
      * 
+     * @param uName The unqualified method name.
      * @param owner The owner class.
-     * @param name The method name.
      */
-    Method(const Class& owner, const std::string& name);
+    Method(const std::string& uName, const Class &owner);
         
     /**
      * Construct a Method with the given owner and given signature.
      * 
-     * @param name The name of the method.
+     * @param uName The unqualified name of the method.
      * @param retType The Type of the returned value.
      * @param paramType<N> The Type of the Nth parameter.
      */
     Method
     (
-        const std::string& name,
+        const std::string& uName,
         const Type& retType,
         const Class& owner,
         _XM_METHOD_CONSTRUCTOR_PARAMS
@@ -97,6 +97,8 @@ public:
      * @return True if the method is constant, false otherwise.
      */
     virtual bool isConst() const;
+
+    bool before(const Item& item) const;
     
 protected:
 

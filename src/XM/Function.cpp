@@ -36,14 +36,14 @@
 using namespace std;
 using namespace xm;
 
-Function::Function(const std::string& name) :
-        Item(name), retType_(&getType<void>()), fullSignature_(false)
+Function::Function(const std::string& uName) :
+        Item(uName), retType_(&getType<void>()), fullSignature_(false)
 {
 }
 
 
-Function::Function(const Namespace& name_space, const std::string& name) :
-        Item(name_space, name), retType_(&getType<void>()),
+Function::Function(const std::string& uName, const Namespace& name_space) :
+        Item(uName, name_space), retType_(&getType<void>()),
         fullSignature_(false)
 {    
 }
@@ -70,4 +70,31 @@ Function::ReturnMode Function::getReturnMode() const
 const std::vector<const Parameter*>& Function::getParameters() const
 {
     return params_;
+}
+
+
+bool Function::before(const Item& item) const
+{
+    const Function* other = dynamic_cast<const Function*>(&item);
+    bool itemCmpBef = Item::before(item);
+    bool itemCmpAft = item.Item::before(*this);
+    if (!other || itemCmpBef)
+        return true;
+    if (itemCmpAft)
+        return false;
+
+    if (!fullSignature_ || !other->fullSignature_)
+        return false;
+
+    ushort paramN1 = params_.size();
+    ushort paramN2 = other->params_.size();
+    ushort paramN = std::min(paramN1, paramN2);
+    for (uint i = 0; i < paramN; i++)
+    {
+        if (params_[i]->type
+            < other->params_[i]->type)
+            return true;
+    }
+    if (paramN1 < paramN2) return true;
+    return false;
 }

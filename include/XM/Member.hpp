@@ -53,9 +53,9 @@ public:
     /**
      * Basic constructor for initialization.
      * 
-     * @param name The member name.
+     * @param uName The unqualified member name.
      */
-    Member(const Class& owner, const std::string& name = "");
+    Member(const std::string &uName, const Namespace &owner);
     
     /**
      * Get the owner Class of the member.
@@ -63,7 +63,8 @@ public:
      * @return The owner Class.
      */
     const Class& getOwner() const;
-    
+
+    bool before(const Item& item) const;
 
     virtual ~Member();
 };

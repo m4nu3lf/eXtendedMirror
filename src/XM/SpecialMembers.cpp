@@ -37,7 +37,7 @@
 using namespace xm;
 
 Constructor::Constructor(const Class& owner)
-    : Item(owner), Member(owner) {};
+    : Item("", owner), Member("", owner) {};
 
 
 void Constructor::init(Variant& var) const
@@ -48,7 +48,7 @@ void Constructor::init(Variant& var) const
 
 
 CopyConstructor::CopyConstructor(const Class& owner)
-    : Item(owner), Member(owner) {};
+    : Item("", owner), Member("", owner) {};
 
 
 void CopyConstructor::copy(Variant& copy, const Variant& orig) const
@@ -60,7 +60,7 @@ void CopyConstructor::copy(Variant& copy, const Variant& orig) const
 
 
 Destructor::Destructor(const Class& owner)
-    : Item(owner), Member(owner) {};
+    : Item("", owner), Member("", owner) {};
 
 
 void Destructor::destroy(Variant& var) const
@@ -71,7 +71,7 @@ void Destructor::destroy(Variant& var) const
 
 
 RefCaster::RefCaster(const Type& dstType, const Class& owner)
-    : Item(owner), dstType_(&dstType)
+    : Item("", owner), dstType_(&dstType)
 {
 }
 

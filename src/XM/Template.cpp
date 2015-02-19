@@ -40,8 +40,14 @@ using namespace xm;
 const Template Template::None("");
     
 
-Template::Template(const string& name, uint argN) :
-        Item(name), argN_(argN)
+Template::Template(const string& uName, uint argN) :
+        Item(uName), argN_(argN)
+{
+}
+
+
+Template::Template(const string& uName, const Namespace& name_space) :
+        Item(uName, name_space), argN_(0)
 {
 }
 

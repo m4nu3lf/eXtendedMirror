@@ -68,7 +68,7 @@ public:
      * @param field A member pointer to the field.
      */
     PropertyField(const std::string& name, FieldT ClassT::*field)
-    : Item(xm::getClass<ClassT>(), name)
+    : Item(name, xm::getClass<ClassT>())
     {
         
         offset_ = (size_t) &(((ClassT*)NULL)->*field);
