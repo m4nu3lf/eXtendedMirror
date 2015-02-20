@@ -72,7 +72,7 @@ Function& bindFunction
             RetT""" + gen_seq(""",
             ParamT$""", n_params) + """
         >
-        ( uName, function );
+        ( uName, name_space, function );
     name_space.addItem(*xmFunction);
     return *xmFunction;
 }

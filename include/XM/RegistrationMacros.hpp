@@ -65,7 +65,7 @@ struct GetTypeName<_primitive_type_>                                         \
  * Place this macro in the same header of the \a _class_ declaration,
  * after the class declaration.
  */
-#define XM_DECLARE_CLASS(_class_)                                             \
+#define XM_DECLARE_CLASS(_class_)                                            \
 namespace xm{                                                                \
                                                                              \
 template<>                                                                   \
@@ -78,7 +78,7 @@ struct GetTypeName<_class_ >                                                 \
 };                                                                           \
                                                                              \
 template<>                                                                   \
-struct DefineClass<_class_>                                                   \
+struct DefineClass<_class_>                                                  \
 {                                                                            \
     typedef _class_ ClassT;                                                  \
     void operator()();                                                       \
@@ -152,12 +152,23 @@ XM_ASSUME_NON_COPYABLE(_class_)
 /**
  * \def XM_REGISTER_TYPE(_type_)
  * 
- * Ensure the class will be registered at program startup, or when the shared
+ * Ensure the type will be registered at program startup, or when the shared
  * object is loaded dynamically, with no extra code.
  * \a relfected_class is the class to be registered.
  */
 #define XM_REGISTER_TYPE(_type_)                                             \
 template class xm::TypeRegisterer<_type_ >;                                  \
+
+
+#define XM_BIND_FUNCTION(_namespace_, _func_)                                \
+namespace xm {                                                               \
+struct _func_##Binder                                                        \
+{                                                                            \
+    _func_##Binder()                                                         \
+    {                                                                        \
+        bindFunction(#_func_, #_namespace_, _namespace_::_func_);            \
+    }                                                                        \
+} _func_##Binder; }
 
 
 

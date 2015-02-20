@@ -35,6 +35,7 @@
 
 namespace xm {
 
+class Function;
 
 template <typename T>
 const Type& registerType()
@@ -54,6 +55,13 @@ inline
 Namespace& defineNamespace(const std::string& path)
 {
     return Register::getSingleton().defineNamespace(path);
+}
+
+
+inline
+const Namespace& getNamespace(const std::string& path)
+{
+    return Register::getSingleton().getItem<Namespace>(path);
 }
 
 
@@ -96,6 +104,13 @@ template <typename C>
 const Class& getClassOf(C& object)
 {
     return Register::getSingleton().getClassOf<C>(object);
+}
+
+
+inline
+const Function& getFunction(const std::string& name)
+{
+    return Register::getSingleton().getItem<Function>(name);
 }
 
 

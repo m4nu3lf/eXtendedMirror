@@ -110,26 +110,38 @@ T& Namespace::getItem_(const string& path, const T& keyItem)
     throw NotFoundException(*this, keyItem);
 }
 
-
+#include <iostream>
 Namespace& Namespace::walkTo(const string& path, bool create)
 {
-    if (path.find("::") == 0)
-        Register::getSingleton().walkTo(path.substr(2, path.length()), create);
+    size_t sepPos = path.find("::");
+    pair<string, string> pathParts;
+    if (sepPos == 0)
+    {
+        string relativePath = path.substr(2, path.length());
+        return Register::getSingleton().walkTo(relativePath, create);
+    }
     else if (path == "")
         return *this;
+    else if (sepPos != string::npos)
+        pathParts = splitName(path, NameHead);
+    else
+        pathParts = make_pair<string, string>(path.c_str(), "");
 
-    pair<string, string> pathParts = splitName(path, NameHead);
     try {
         Namespace& ns = getItem_<Namespace>(pathParts.first);
-        return ns.walkTo(pathParts.second);
+        return ns.walkTo(pathParts.second, create);
     } catch (NotFoundException& e) {
         if (create)
         {
             Namespace* ns = new Namespace(pathParts.first, *this);
             items_.insert(ns);
-            return ns->walkTo(pathParts.second);
+            return ns->walkTo(pathParts.second, create);
         }
-        else throw e;
+        else
+        {
+            cout << "here" << endl;
+            throw e;
+        }
     }
 }
 
@@ -156,6 +168,7 @@ const T& Namespace::getItem(const string& path, const T& keyItem) const
 
 
 template const Item& Namespace::getItem(const std::string& name) const;
+template const Namespace& Namespace::getItem(const std::string& name) const;
 template const Type& Namespace::getItem(const std::string& name) const;
 template const Class& Namespace::getItem(const std::string& name) const;
 template const Template& Namespace::getItem(const std::string& name) const;
