@@ -47,10 +47,10 @@ Method::Method
     Item(uName, owner),
     Function
     (
-	uName,
-	retType,
-	owner,""" + gen_seq("""
-	paramType$""", XM_FUNCTION_PARAM_MAX - 1, ",") + """
+        uName,
+        retType,
+        owner,""" + gen_seq("""
+        paramType$""", XM_FUNCTION_PARAM_MAX - 1, ",") + """
     )
 {
 }

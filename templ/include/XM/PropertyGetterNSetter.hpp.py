@@ -32,8 +32,6 @@
 
 content = """
 
-""" + WARNING_MESSAGE + """
-
 #ifndef XM_PROPERTYGETTERNSETTER_HPP
 #define	XM_PROPERTYGETTERNSETTER_HPP
 

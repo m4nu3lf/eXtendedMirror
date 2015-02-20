@@ -56,10 +56,10 @@ Variant Variant::call
         const Method& callableMethod = clazz->getMethod(keyMethod);
         
         return callableMethod.call(
-				      *this,""" + gen_seq("""
-				      arg$""",
+                                      *this,""" + gen_seq("""
+                                      arg$""",
 XM_FUNCTION_PARAM_MAX - 1, ",") + """
-				  );
+        );
     }
     else
     {
@@ -75,8 +75,8 @@ Variant Variant::callV(const std::string& methodName,
     args.resize(XM_FUNCTION_PARAM_MAX, Variant::Null);
     return call
     (
-	methodName,""" + gen_seq("""
-	args[$]""", XM_FUNCTION_PARAM_MAX - 1, ",") + """
+        methodName,""" + gen_seq("""
+        args[$]""", XM_FUNCTION_PARAM_MAX - 1, ",") + """
     );
 }
 """

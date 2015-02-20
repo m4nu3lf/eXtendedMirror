@@ -74,16 +74,16 @@ for i in range(XM_FUNCTION_PARAM_MAX):
         return callImpl
         (""" + gen_seq("""
             ncArg$""", i, ",") + ("," if i!=0 else "") + gen_seq("""
-	    defaults[$]""", (i, XM_FUNCTION_PARAM_MAX), ",") + """
-	);
+            defaults[$]""", (i, XM_FUNCTION_PARAM_MAX), ",") + """
+        );
     }"""
 content += """
     else
     {
-	return callImpl
-	(""" + gen_seq("""
-	    ncArg$""", XM_FUNCTION_PARAM_MAX, ",") + """
-	);
+        return callImpl
+        (""" + gen_seq("""
+            ncArg$""", XM_FUNCTION_PARAM_MAX, ",") + """
+        );
     }
 }
 
@@ -93,7 +93,7 @@ Variant Function::callV(vector<Variant> args) const
     args.resize(XM_FUNCTION_PARAM_MAX, Variant::Null);
     return call
     (""" + gen_seq("""
-	args[$]""" , XM_FUNCTION_PARAM_MAX, ",") + """
+        args[$]""" , XM_FUNCTION_PARAM_MAX, ",") + """
     );
 }
 

@@ -41,8 +41,7 @@ template_dir = "templ"
 variables = {
     'XM_FUNCTION_PARAM_MAX': 8,
     'XM_GET_N_SET_EXTRA_PARAM_MAX': 3,
-    'XM_TEMPLATE_PARAM_MAX' : 4,
-    'WARNING_MESSAGE' : warning_message
+    'XM_TEMPLATE_PARAM_MAX' : 4
     }
 
 def gen_seq(string, count, sep = ""):
@@ -72,7 +71,7 @@ def generate_files(variables, dirname, names):
                 fullname = fullname[1:]
             fullname = fullname[:-len(".py")]
             f = open(fullname, "w")
-            f.write(variables["content"])
+            f.write(warning_message + variables["content"])
             f.close()
 
 variables["gen_seq"] = gen_seq
