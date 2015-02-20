@@ -15,5 +15,5 @@ private:
 	int width, height;
 };
 
-XM_ENABLE_CLASS(Rectangle);
+XM_DECLARE_CLASS(Rectangle);
 

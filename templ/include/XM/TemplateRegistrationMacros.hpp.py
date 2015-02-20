@@ -35,21 +35,21 @@ content = """
 #ifndef XM_BINDTEMPLATE_HPP
 #define XM_BINDTEMPLATE_HPP
 
-#define XM_TEMPLATE_PARAM_MAX """ + str(XM_TEMPLATE_PARAM_MAX) + """
+#define XM_DECLARE_TEMPLATE_PARAM_MAX """ + str(XM_DECLARE_TEMPLATE_PARAM_MAX) + """
 """
 
-for n_temp_params in range(1, XM_TEMPLATE_PARAM_MAX + 1):
+for n_temp_params in range(1, XM_DECLARE_TEMPLATE_PARAM_MAX + 1):
     content += """
 
 /**
- * \def XM_ENABLE_TEMPLATE_""" + str(n_temp_params) + """(_template_)
+ * \def XM_DECLARE_TEMPLATE_""" + str(n_temp_params) + """(_template_)
  * 
  * Use to enable instances of template class to be registered as such.
  * 
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define XM_ENABLE_TEMPLATE_""" + str(n_temp_params) + """(_template_)        \\
+#define XM_DECLARE_TEMPLATE_""" + str(n_temp_params) + """(_template_)        \\
 namespace xm{                                                                \\
                                                                              \\
 template                                                                     \\
@@ -129,7 +129,7 @@ template                                                                     \\
     typename T0""" + gen_seq(""",                                            \\
     typename T$""", (1, n_temp_params)) + """                                \\
 >                                                                            \\
-struct BuildClass                                                            \\
+struct DefineClass                                                            \\
 <                                                                            \\
     _template_                                                               \\
     <                                                                        \\

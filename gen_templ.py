@@ -41,7 +41,7 @@ template_dir = "templ"
 variables = {
     'XM_FUNCTION_PARAM_MAX': 8,
     'XM_GET_N_SET_EXTRA_PARAM_MAX': 3,
-    'XM_TEMPLATE_PARAM_MAX' : 4
+    'XM_DECLARE_TEMPLATE_PARAM_MAX' : 4
     }
 
 def gen_seq(string, count, sep = ""):
@@ -109,7 +109,7 @@ try:
         elif (sys.argv[i] == "--get-n-set-extra-param-max"):
             variables["XM_GET_N_SET_EXTRA_PARAM_MAX"] = int(sys.argv[i+1])
         elif (sys.argv[i] == "--template-param-max"):
-            variables["XM_TEMPLATE_PARAM_MAX"] = int(sys.argv[i+1])
+            variables["XM_DECLARE_TEMPLATE_PARAM_MAX"] = int(sys.argv[i+1])
         elif (sys.argv[i] == "--template-dir"):
             template_dir = sys.argv[i+1];
         else:

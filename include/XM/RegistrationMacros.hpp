@@ -36,10 +36,10 @@
 #include <XM/TemplateRegistrationMacros.hpp>
 
 /**
- * \def XM_ENABLE_PRIMITIVE(_primitive_type_)
+ * \def XM_DECLARE_PRIMITIVE(_primitive_type_)
  * Specialize the GetTypeName class for the \a _primitive_type_
  */
-#define XM_ENABLE_PRIMITIVE(_primitive_type_)                                \
+#define XM_DECLARE_PRIMITIVE(_primitive_type_)                                \
 namespace xm{                                                                \
                                                                              \
 template<>                                                                   \
@@ -55,7 +55,7 @@ struct GetTypeName<_primitive_type_>                                         \
 
 
 /**
- * \def XM_ENABLE_CLASS(_class_)
+ * \def XM_DECLARE_CLASS(_class_)
  * 
  * GetTypeName template struct is specialized in order to define the right
  * name and category for the type.
@@ -65,7 +65,7 @@ struct GetTypeName<_primitive_type_>                                         \
  * Place this macro in the same header of the \a _class_ declaration,
  * after the class declaration.
  */
-#define XM_ENABLE_CLASS(_class_)                                             \
+#define XM_DECLARE_CLASS(_class_)                                             \
 namespace xm{                                                                \
                                                                              \
 template<>                                                                   \
@@ -78,7 +78,7 @@ struct GetTypeName<_class_ >                                                 \
 };                                                                           \
                                                                              \
 template<>                                                                   \
-struct BuildClass<_class_>                                                   \
+struct DefineClass<_class_>                                                   \
 {                                                                            \
     typedef _class_ ClassT;                                                  \
     void operator()();                                                       \
@@ -146,18 +146,18 @@ XM_ASSUME_NON_INSTANTIABLE(_class_)                                          \
 XM_ASSUME_NON_COPYABLE(_class_)
 
 
-#define XM_BUILD_CLASS(...) void xm::BuildClass<__VA_ARGS__>::operator()()
+#define XM_DEFINE_CLASS(...) void xm::DefineClass<__VA_ARGS__>::operator()()
 
 
 /**
- * \def XM_AUTOREG(_class_)
+ * \def XM_REGISTER_TYPE(_type_)
  * 
  * Ensure the class will be registered at program startup, or when the shared
  * object is loaded dynamically, with no extra code.
  * \a relfected_class is the class to be registered.
  */
-#define XM_AUTOREG(_class_)                                               \
-template class xm::AutoRegisterer<_class_ >;                              \
+#define XM_REGISTER_TYPE(_type_)                                             \
+template class xm::TypeRegisterer<_type_ >;                                  \
 
 
 

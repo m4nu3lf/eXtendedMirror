@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_TEMPLATE_HPP
-#define	XM_TEMPLATE_HPP
+#ifndef XM_DECLARE_TEMPLATE_HPP
+#define	XM_DECLARE_TEMPLATE_HPP
 
 namespace xm{
 
@@ -82,5 +82,5 @@ private:
 
 } // namespace xm
 
-#endif	/* XM_TEMPLATE_HPP */
+#endif	/* XM_DECLARE_TEMPLATE_HPP */
 

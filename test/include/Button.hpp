@@ -9,5 +9,5 @@ public:
 };
 
 XM_ASSUME_ABSTRACT(Button);
-XM_ENABLE_CLASS(Button);
+XM_DECLARE_CLASS(Button);
 

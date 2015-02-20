@@ -30,67 +30,67 @@
  *****************************************************************************/
 
 
-#ifndef XM_ENABLESTD_HPP
-#define	XM_ENABLESTD_HPP
+#ifndef XM_DECLARE_STD_HPP
+#define	XM_DECLARE_STD_HPP
 
-XM_ENABLE_TEMPLATE_1(std::allocator)
+XM_DECLARE_TEMPLATE_1(std::allocator)
 template<typename T>
-XM_BUILD_CLASS(std::allocator<T>){}
+XM_DEFINE_CLASS(std::allocator<T>){}
 
 
-XM_ENABLE_TEMPLATE_1(std::char_traits)
+XM_DECLARE_TEMPLATE_1(std::char_traits)
 template<typename T>
-XM_BUILD_CLASS(std::char_traits<T>){}
+XM_DEFINE_CLASS(std::char_traits<T>){}
 
 
-XM_ENABLE_TEMPLATE_1(std::equal_to)
+XM_DECLARE_TEMPLATE_1(std::equal_to)
 template<typename T>
-XM_BUILD_CLASS(std::equal_to<T>){}
+XM_DEFINE_CLASS(std::equal_to<T>){}
 
 
-XM_ENABLE_TEMPLATE_1(std::not_equal_to)
+XM_DECLARE_TEMPLATE_1(std::not_equal_to)
 template<typename T>
-XM_BUILD_CLASS(std::not_equal_to<T>){}
+XM_DEFINE_CLASS(std::not_equal_to<T>){}
 
 
-XM_ENABLE_TEMPLATE_1(std::less)
+XM_DECLARE_TEMPLATE_1(std::less)
 template<typename T>
-XM_BUILD_CLASS(std::less<T>){}
+XM_DEFINE_CLASS(std::less<T>){}
 
 
-XM_ENABLE_TEMPLATE_1(std::less_equal)
+XM_DECLARE_TEMPLATE_1(std::less_equal)
 template<typename T>
-XM_BUILD_CLASS(std::less_equal<T>){}
+XM_DEFINE_CLASS(std::less_equal<T>){}
 
 
-XM_ENABLE_TEMPLATE_1(std::greater)
+XM_DECLARE_TEMPLATE_1(std::greater)
 template<typename T>
-XM_BUILD_CLASS(std::greater<T>){}
+XM_DEFINE_CLASS(std::greater<T>){}
 
 
-XM_ENABLE_TEMPLATE_1(std::greater_equal)
+XM_DECLARE_TEMPLATE_1(std::greater_equal)
 template<typename T>
-XM_BUILD_CLASS(std::greater_equal<T>){}
+XM_DEFINE_CLASS(std::greater_equal<T>){}
 
 
-XM_ENABLE_TEMPLATE_2(std::vector)
+XM_DECLARE_TEMPLATE_2(std::vector)
 template<typename T, typename Allocator>
-XM_BUILD_CLASS(std::vector<T, Allocator>){}
+XM_DEFINE_CLASS(std::vector<T, Allocator>){}
 
 
-XM_ENABLE_TEMPLATE_3(std::basic_string)
+XM_DECLARE_TEMPLATE_3(std::basic_string)
 template<typename CharT, typename Traits, typename Allocator>
-XM_BUILD_CLASS(std::basic_string<CharT, Traits, Allocator>){}
+XM_DEFINE_CLASS(std::basic_string<CharT, Traits, Allocator>){}
 
 
-XM_ENABLE_TEMPLATE_3(std::set)
+XM_DECLARE_TEMPLATE_3(std::set)
 template<typename Key, typename Compare, typename Allocator>
-XM_BUILD_CLASS(std::set<Key, Compare, Allocator>){}
+XM_DEFINE_CLASS(std::set<Key, Compare, Allocator>){}
 
 
-XM_ENABLE_TEMPLATE_4(std::map)
+XM_DECLARE_TEMPLATE_4(std::map)
 template<typename Key, typename T, typename Compare, typename Allocator>
-XM_BUILD_CLASS(std::map<Key, T, Compare, Allocator>){}
+XM_DEFINE_CLASS(std::map<Key, T, Compare, Allocator>){}
         
-#endif	/* XM_ENABLESTD_HPP */
+#endif	/* XM_DECLARE_STD_HPP */
 

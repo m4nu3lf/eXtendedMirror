@@ -1,6 +1,6 @@
 #include <Control.hpp>
 
-XM_BUILD_CLASS(Control)
+XM_DEFINE_CLASS(Control)
 {
     bindProperty(XM_MNP(name));
 	bindMethod(XM_MNP(onMouseClick));

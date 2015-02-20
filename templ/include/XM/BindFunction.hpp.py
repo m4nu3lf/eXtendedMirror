@@ -53,7 +53,7 @@ template
 Function& bindFunction
 (
     const std::string& uName,
-    Namespace& name_space,
+    const std::string& nsName,
     RetT (*function)
     ( """ + gen_seq("""
         ParamT$""", n_params, ",") + """
@@ -63,6 +63,8 @@ Function& bindFunction
     // ensure the types are registered
     registerType<RetT>();""" + gen_seq("""
     registerType<ParamT$>();""", n_params) + """
+    
+    Namespace& name_space = defineNamespace(nsName);
 
     // create the proper Function
     Function* xmFunction = new FunctionImpl_""" + str(n_params) + """_Params

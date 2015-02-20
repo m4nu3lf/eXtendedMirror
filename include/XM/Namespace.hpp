@@ -57,6 +57,8 @@ public:
     void walkItems(ItemInspector fnc, bool recursive = false) const;
     
     Namespace& defineNamespace(const std::string& path);
+
+    void addItem(Item& item);
     
     virtual ~Namespace();
     
@@ -64,8 +66,6 @@ protected:
     Namespace(const std::string& name, const Namespace& name_space);
 
     Namespace(const std::string& name = "");
-    
-    void addItem(Item& item);
     
     template<typename T = Item>
     T& getItem_(const std::string& name);

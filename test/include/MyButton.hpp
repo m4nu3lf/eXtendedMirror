@@ -15,4 +15,4 @@ private:
 	bool mouseOver;
 };
 
-XM_ENABLE_CLASS(MyButton);
+XM_DECLARE_CLASS(MyButton);

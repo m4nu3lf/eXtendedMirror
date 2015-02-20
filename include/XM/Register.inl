@@ -108,7 +108,7 @@ Type& Register::registerType_()
         classes_.insert(clazz);
         
         // build class members
-        BuildClass<T> buildClass;
+        DefineClass<T> buildClass;
         buildClass();
     }
     

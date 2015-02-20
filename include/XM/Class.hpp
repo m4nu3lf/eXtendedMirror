@@ -283,9 +283,9 @@ protected:
     template<typename T>
     friend class CreateType;
     
-    // The BuildClass needs to call the & operator.
+    // The DefineClass needs to call the & operator.
     template<class T>
-    friend class BuildClass;
+    friend class DefineClass;
 };
 
 } // namespace xm

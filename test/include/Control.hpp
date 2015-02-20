@@ -11,5 +11,5 @@ public:
 };
 
 XM_ASSUME_ABSTRACT(Control);
-XM_ENABLE_CLASS(Control);
+XM_DECLARE_CLASS(Control);
 

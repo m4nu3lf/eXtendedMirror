@@ -24,7 +24,7 @@ void Shape::setY(int y)
 	this->y = y;
 }
 
-XM_BUILD_CLASS(Shape)
+XM_DEFINE_CLASS(Shape)
 {
 	bindProperty("x", &ClassT::getX, &ClassT::setX);
 	bindProperty("y", &ClassT::getY, &ClassT::setY);

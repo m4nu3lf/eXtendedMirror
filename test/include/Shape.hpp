@@ -22,4 +22,4 @@ private:
 };
 
 XM_ASSUME_ABSTRACT(Shape);
-XM_ENABLE_CLASS(Shape);
+XM_DECLARE_CLASS(Shape);

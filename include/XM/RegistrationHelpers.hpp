@@ -185,7 +185,7 @@ struct IsAbstract : public FalseType {};
 
 
 template<class T>
-struct BuildClass
+struct DefineClass
 {
     void operator()(){}
 };
@@ -274,18 +274,18 @@ CompoundClass& CompoundClass::create()
  * Registration is performed by the constructor on instantiation.
  */
 template<class T>
-class AutoRegisterer
+class TypeRegisterer
 {
-    AutoRegisterer()
+    TypeRegisterer()
     {
         registerType<T>();\
     }
     
-    static AutoRegisterer autoregisterer;
+    static TypeRegisterer autoregisterer;
 };
 
 template<class T>
-AutoRegisterer<T> AutoRegisterer<T>::autoregisterer;
+TypeRegisterer<T> TypeRegisterer<T>::autoregisterer;
 
 
 } //namespace xm

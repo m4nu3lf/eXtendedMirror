@@ -50,6 +50,13 @@ const Class& registerClass()
 }
 
 
+inline
+Namespace& defineNamespace(const std::string& path)
+{
+    return Register::getSingleton().defineNamespace(path);
+}
+
+
 template <typename T>
 const Type& getType()
 {
