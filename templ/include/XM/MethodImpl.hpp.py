@@ -74,11 +74,16 @@ public: """ + ("""
         ),
         bool constant = false) :
         Item(uName, getClass<ClassT>()),
+        Method(
+            uName,
+            getType<RetT>(),
+            getClass<ClassT>()""" + ("," if n_params > 1 else """
+            """) + gen_seq("""
+            getType<ParamT$>()""", (1, n_params), ",") + """
+        ),
         method_(method),
         constant_(constant)
     {
-        addParameter(*new Parameter(getType<ClassT>())); """ + gen_seq("""
-        addParameter(*new Parameter(getType<ParamT$>()));""", (1, n_params)) + """
     }
 
     """ + ("""

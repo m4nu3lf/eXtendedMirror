@@ -31,6 +31,29 @@ TEST(GetItem, GetMethod)
 }
 
 
+TEST(GetItem, GetBaseMethod)
+{
+    const xm::Class&  clazz = xm::getClass<MyButton>();
+    const xm::Method& method1 = clazz.getMethod("Control::onMouseClick");
+    ASSERT_STREQ("::Control::onMouseClick", method1.getName().c_str());
+    const xm::Method& method2 = clazz.getMethod("Button::onMouseClick");
+    ASSERT_STREQ("::Control::onMouseClick", method2.getName().c_str());
+}
+
+
+TEST(GetItem, GetOverloadedMethod)
+{
+    const xm::Class&  clazz = xm::getClass<MyButton>();
+    const xm::Method& signature = xm::Method("onMouseClick",
+                                             xm::getType<void>(),
+                                             clazz,
+                                             xm::getType<int>(),
+                                             xm::getType<int>());
+    const xm::Method& method = clazz.getMethod(signature);
+    ASSERT_STREQ("int", method.getParameters()[1]->type.getName().c_str());
+}
+
+
 TEST(GetItem, GetFunction)
 {
     const xm::Function& func = xm::getFunction("::dgui_factories::makeButton");

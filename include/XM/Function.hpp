@@ -83,15 +83,8 @@ public:
     (
         const std::string& uName,
         const Type& retType,
-	_XM_FUNCTION_CONSTRUCTOR_PARAMS
+        _XM_FUNCTION_CONSTRUCTOR_PARAMS
     );
-    
-    /**
-     * Add an other parameter to the parameter list.
-     * 
-     * @param param The new parameter.
-     */
-    void addParameter(const Parameter& param);
     
     /**
      * Get the descriptor of the returned type of the function.

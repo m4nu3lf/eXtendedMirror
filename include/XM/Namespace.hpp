@@ -43,7 +43,7 @@ typedef void (*ItemInspector)(const Item& item);
 class Namespace : public virtual Item
 {
 public:
-    const Namespace& getNamespace(const std::string& name) const;
+    const Namespace& getNamespace(const std::string& name = "") const;
     
     template<typename T = Item>
     const T& getItem(const std::string& name) const;
@@ -76,7 +76,7 @@ protected:
     template<typename T = Item>
     T& getItem_(const std::string& path, const T& keyItem);
 
-    Namespace& walkTo(const std::string& path, bool create = false);
+    virtual Namespace& walkTo(const std::string& path, bool create = false);
     
     static bool addNamespace_(Namespace& where, const std::string& what);
     

@@ -49,12 +49,6 @@ Function::Function(const std::string& uName, const Namespace& name_space) :
 }
 
 
-void Function::addParameter(const Parameter& param)
-{
-    params_.push_back(&param);
-}
-
-
 const Type& Function::getReturnType() const
 {
     return *retType_;

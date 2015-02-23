@@ -103,9 +103,12 @@ const Destructor& Class::getDestructor() const
 }
 
 
-const Const_Class_Set& Class::getBaseClasses() const
+const Const_Class_Set& Class::getBaseClasses(bool indirect) const
 {
-    return baseClasses_;
+    if (indirect)
+        return indirectBaseClasses_;
+    else
+        return baseClasses_;
 }
 
 
@@ -128,6 +131,11 @@ void Class::addBaseClass(Class& baseClass)
     
     // put the base class into the base list of this Class
     baseClasses_.insert(&baseClass);
+    indirectBaseClasses_.insert(&baseClass);
+
+    // add indirect base classes of the base as undirect base classes
+    indirectBaseClasses_.insert(baseClass.indirectBaseClasses_.begin(),
+                                baseClass.indirectBaseClasses_.end());
     
     // insert all the base class properties into the properties set
     const Const_Property_Set& baseClassProperties = baseClass.getProperties();
@@ -230,15 +238,7 @@ bool Class::inheritsFrom(const string& baseClassName) const
 
 bool Class::inheritsFrom(const Class& baseClass) const
 {    
-    Const_Class_Set::iterator ite = baseClasses_.begin();
-    while(ite != baseClasses_.end())
-    {
-        if (**ite == baseClass || (*ite)->inheritsFrom(baseClass))
-            return true;
-        ite++;
-    }
-    
-    return false;
+    return ptrSet::findByKey(indirectBaseClasses_, baseClass);
 }
 
 
@@ -263,6 +263,30 @@ const Method& Class::getMethod(const Method& method) const
 Type::Category Class::getCategory() const
 {
     return Type::Class;
+}
+
+
+Namespace& Class::walkTo(const std::string& path, bool create)
+{
+    pair<string, string> pathParts = splitName(path, NameHead);
+    if (pathParts.first == "")
+    {
+        string name = Item::getNamespace().getName() + "::" + pathParts.second;
+        const Class* found = ptrSet::findByKey(indirectBaseClasses_, name);
+        if (found)
+            return const_cast<Class&>(*found);
+        else
+            return Namespace::walkTo(path, create);
+    }
+    else
+    {
+        string name = Item::getNamespace().getName() + "::" + pathParts.first;
+        const Class* found = ptrSet::findByKey(baseClasses_, name);
+        if (found)
+            return const_cast<Class&>(*found).walkTo(pathParts.second, create);
+        else
+            return Namespace::walkTo(path, create);
+    }
 }
 
 

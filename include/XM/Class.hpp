@@ -92,10 +92,12 @@ public:
     
      /**
      * Retrieve all the base class descriptors.
-     * 
+     *
+     * @param indirect If the indirect base classes should be included.
+     *
      * @return A set containing the pointers to the base classes.
      */
-    const Const_Class_Set& getBaseClasses() const;
+    const Const_Class_Set& getBaseClasses(bool indirect = false) const;
     
     /**
      * Retrieve all the reference casters.
@@ -248,6 +250,8 @@ protected:
             const Destructor& destructor,
             bool isAbstract
      );
+
+    Namespace& walkTo(const std::string& path, bool create = false);
     
     const Constructor* constructor_;
     
@@ -256,6 +260,8 @@ protected:
     const Destructor* destructor_;
     
     Const_Class_Set baseClasses_;
+
+    Const_Class_Set indirectBaseClasses_;
     
     Const_RefCaster_Set refCasters_;
 

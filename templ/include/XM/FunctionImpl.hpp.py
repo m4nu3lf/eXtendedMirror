@@ -72,10 +72,14 @@ public: """ + ("""
             ParamT$""", n_params, ",") + """
         )) :
         Item(uName, name_space),
-        Function(uName),
+        Function(
+            uName,
+            getType<RetT>()""" + ("," if n_params > 0 else """
+            """) + gen_seq("""
+            getType<ParamT$>()""", (0, n_params), ",") + """
+        ),
         function_(function)
-    {""" + gen_seq("""
-        addParameter(*new Parameter(getType<ParamT$>()));""", n_params) + """
+    {
     }
 
     """ + ("""

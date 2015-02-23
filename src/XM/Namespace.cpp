@@ -110,7 +110,7 @@ T& Namespace::getItem_(const string& path, const T& keyItem)
     throw NotFoundException(*this, keyItem);
 }
 
-#include <iostream>
+
 Namespace& Namespace::walkTo(const string& path, bool create)
 {
     size_t sepPos = path.find("::");
@@ -139,7 +139,6 @@ Namespace& Namespace::walkTo(const string& path, bool create)
         }
         else
         {
-            cout << "here" << endl;
             throw e;
         }
     }
