@@ -120,17 +120,6 @@ public:
     
     /**
      * Cast operator, get the data of the variant by reference.
-     * This method only works if the template parameter
-     * is either the same of the contained data or, given that the
-     * data is an object of a class or a pointer
-     * to an object of a class, then the specified type
-     * is respectively a base class of the that class or a pointer to
-     * a base class of that class.
-     * In other words this would only work if a reinterpret_cast<> from the
-     * pointer to the contained data type to a pointer of the target type would 
-     * lead to a meaningful conversion.
-     * In all other cases a VariantTypeException arises.
-     * 
      * @return The variant data.
      */
     template<typename T>

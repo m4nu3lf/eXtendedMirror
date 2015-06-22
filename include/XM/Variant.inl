@@ -84,18 +84,7 @@ void Variant::Initialize<T>::operator()(T& data)
     // ensure type is registered.
     variant_.type_ = &registerType<T>();
     
-    // If pointer, store reference
-    if (IsPointer<T>::value)
-    {
-        const PointerType* ptrType =
-            dynamic_cast<const PointerType*>(variant_.type_);
-        variant_.type_ = &ptrType->getPointedType();
-        variant_.flags_ |= Reference;
-        if (IsConst<typename RemovePointer<T>::Type>::value)
-            variant_.flags_ |= Const;
-        variant_.data_ = reinterpret_cast<void*>(data);
-    }
-    else if (variant_.flags_ & Reference)
+    if (variant_.flags_ & Reference)
     {
         // store pointer to data
         variant_.data_ = &data;

@@ -4,7 +4,6 @@
 - Non intrusive
 - No mandatory parser required
 - Variant based interface
-- Automatic pointer-to-reference conversions (and vice versa)
 - Less possible code duplication
 
 ### Supported C++ Constructs ###
@@ -21,6 +20,8 @@
 - Class Templates
 
 ## ROADMAP ##
+- General Type casters
+- Automatic pointer casters
 - Template const parameter support
       Automatic deduction is not possible
 - Constants & Enums

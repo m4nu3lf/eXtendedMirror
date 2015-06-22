@@ -89,6 +89,20 @@ TEST(PropertyFiled, GetData)
 }
 
 
+TEST(PropertyFiled, SetData)
+{
+    Button* button = new MyButton();
+    const xm::Class& clazz = xm::getClass<MyButton>();
+    const xm::Property& property = clazz.getProperty("name");
+    char* name = new char[100];
+    strcpy(name, "buttonname");
+    property.setData(button, name);
+    ASSERT_STREQ("buttonname", button->name);
+    delete name;
+    delete button;
+}
+
+
 int main(int argc, char**argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
