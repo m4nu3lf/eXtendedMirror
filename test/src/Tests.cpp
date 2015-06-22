@@ -76,6 +76,19 @@ TEST(Class, GetOverloadedMethod)
 }
 
 
+TEST(PropertyFiled, GetData)
+{
+    Button* button = new MyButton();
+    button->name = new char[100];
+    strcpy(button->name, "buttonname");
+    const xm::Class& clazz = xm::getClass<MyButton>();
+    const xm::Property& property = clazz.getProperty("name");
+    ASSERT_STREQ("buttonname", &property.getData(button).as<char>());
+    delete button->name;
+    delete button;
+}
+
+
 int main(int argc, char**argv)
 {
 	::testing::InitGoogleTest(&argc, argv);

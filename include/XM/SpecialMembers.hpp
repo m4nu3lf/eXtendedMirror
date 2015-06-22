@@ -106,7 +106,7 @@ public:
     const Type& getDstType() const;
 
     virtual
-    Variant cast(Variant& var) const;
+    Variant cast(const Variant& var) const;
 
 protected:
     const Type* dstType_;
@@ -133,7 +133,8 @@ public:
 
     Variant cast(const Variant& var) const
     {
-            return dynamic_cast<D*>(var.as<S*>());
+        Variant& nc_var = const_cast<Variant&>(var);
+        return dynamic_cast<D*>(&nc_var.as<S>());
     }
 
 };

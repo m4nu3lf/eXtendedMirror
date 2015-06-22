@@ -5,6 +5,10 @@ MyButton::MyButton(int x, int y, int w, int h)
 {
 }
 
+MyButton::~MyButton()
+{
+}
+
 void MyButton::onMouseClick()
 {
 	mouseClicks ++;

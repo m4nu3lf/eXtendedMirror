@@ -205,23 +205,6 @@ Variant::operator T&()
 
     // ensure the type of the data is registered and retrieve it
     const Type& targetType = typeReg.registerType<T>();
-    
-    if (IsPointer<T>::value)
-    {
-        const PointerType* ptrType =
-            dynamic_cast<const PointerType*>(&targetType);
-        if (!(flags_ & Reference))
-            throw VariantTypeException(targetType, *type_);
-        
-        // check for pointed type's constness correctness
-        if (flags_ & Const &&
-                !IsConst<typename RemovePointer<T>::Type>::value)
-        {
-            throw VariantCostnessException(ptrType->getPointedType());
-        }
-        
-        return static_cast<typename RemovePointer<T&>::Type>(*this);
-    }
 
     // check for constness correctness
     if (!IsConst<T>::value && flags_ & Const)
@@ -231,7 +214,7 @@ Variant::operator T&()
     if (targetType == *type_)
     {
         if ((flags_ & Reference) || (sizeof(T) > sizeof(data_)))
-            // just reinterpret pointer
+            // just reinterpret the pointer
             return *reinterpret_cast<T*>(data_);
         else
             return const_cast<T&>(reinterpret_cast<const T&>(data_));
@@ -250,12 +233,12 @@ Variant::operator T&()
         Const_RefCaster_Set casters = clazz.getRefCasters();
         const RefCaster* caster = ptrSet::findByKey(casters, targetType);
         
-        // if caster found, cast this variant and return
+        // if a caster is found, cast this variant and return
         if (caster)
         {
             try
             {
-                return caster->cast(*this).as<T>();
+                return caster->cast(*this);
             }
             catch(std::bad_cast)
             {

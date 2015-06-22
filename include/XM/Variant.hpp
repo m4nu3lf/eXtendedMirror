@@ -29,12 +29,6 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
-
-/* TODO: Add a call() method that takes the name of a method and a number of
-   variant args. This method should check if the variant is an object that
-   have such a method and call it. This method should also check for virtuality
-   (need to provide this information in Method objects) and overloads. */
-
 #ifndef XM_VARIANT_HPP
 #define	XM_VARIANT_HPP
 

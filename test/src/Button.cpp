@@ -5,6 +5,10 @@ Button::Button(int x, int y, int w, int h)
 {
 }
 
+Button::~Button()
+{
+}
+
 XM_DEFINE_CLASS(Button)
 {
 	XM_BIND_PASE(Rectangle);

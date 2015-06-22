@@ -11,6 +11,7 @@ public:
 	void onMouseExit();
 	unsigned int getClickCount();
 	bool isMouseOver();
+    virtual ~MyButton();
 private:
 	unsigned int mouseClicks;
 	bool mouseOver;
