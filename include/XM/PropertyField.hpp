@@ -41,7 +41,7 @@
 #include <XM/Exceptions/VariantCostnessException.hpp>
 
 #include "Variant.hpp"
-
+#include <iostream>
 
 namespace xm{
 

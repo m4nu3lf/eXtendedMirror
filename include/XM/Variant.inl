@@ -93,9 +93,9 @@ void Variant::Initialize<T>::operator()(T& data)
         variant_.flags_ |= Reference;
         if (IsConst<typename RemovePointer<T>::Type>::value)
             variant_.flags_ |= Const;
+        variant_.data_ = reinterpret_cast<void*>(data);
     }
-
-    if (variant_.flags_ & Reference)
+    else if (variant_.flags_ & Reference)
     {
         // store pointer to data
         variant_.data_ = &data;
