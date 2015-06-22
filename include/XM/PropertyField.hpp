@@ -168,7 +168,7 @@ public:
     void setData(const Variant& self, const Variant& data) const
     {
         // check whether the property is settable
-        if (!flags_ & Settable)
+        if (!(flags_ & Settable))
             throw PropertySetException(*this);
         
         // the pointer is retrieved from the variant and converted to a raw char

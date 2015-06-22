@@ -1,21 +1,43 @@
 #include <gtest/gtest.h>
 #include <MyButton.hpp>
 
-TEST(GetItem, GetType)
+TEST(TypeReg, GetType)
 {
     const xm::Type& type = xm::getType<MyButton>();
     ASSERT_STREQ("::MyButton", type.getName().c_str());
 }
 
 
-TEST(GetItem, GetClass)
+TEST(TypeReg, GetClass)
 {
     const xm::Class& clazz = xm::getClass<MyButton>();
     ASSERT_STREQ("::MyButton", clazz.getName().c_str());
 }
 
 
-TEST(GetItem, GetProperty)
+TEST(TypeReg, GetFunction)
+{
+    const xm::Function& func = xm::getFunction("::dgui_factories::makeButton");
+    ASSERT_STREQ("::dgui_factories::makeButton", func.getName().c_str());
+}
+
+
+TEST(TypeReg, GetNamespace)
+{
+    const xm::Namespace& ns = xm::getNamespace("::dgui_factories");
+    ASSERT_STREQ("::dgui_factories", ns.getName().c_str());
+}
+
+
+TEST(Class, GetProperty)
+{
+    const xm::Class& clazz = xm::getClass<Control>();
+    const xm::Property& property = clazz.getProperty("name");
+    ASSERT_STREQ("::Control::name", property.getName().c_str());
+}
+
+
+TEST(Class, GetBaseProperty)
 {
     const xm::Class& clazz = xm::getClass<MyButton>();
     const xm::Property& property = clazz.getProperty("name");
@@ -23,7 +45,7 @@ TEST(GetItem, GetProperty)
 }
 
 
-TEST(GetItem, GetMethod)
+TEST(Class, GetMethod)
 {
     const xm::Class&  clazz = xm::getClass<MyButton>();
     const xm::Method& method = clazz.getMethod("onMouseClick");
@@ -31,7 +53,7 @@ TEST(GetItem, GetMethod)
 }
 
 
-TEST(GetItem, GetBaseMethod)
+TEST(Class, GetBaseMethod)
 {
     const xm::Class&  clazz = xm::getClass<MyButton>();
     const xm::Method& method1 = clazz.getMethod("Control::onMouseClick");
@@ -41,7 +63,7 @@ TEST(GetItem, GetBaseMethod)
 }
 
 
-TEST(GetItem, GetOverloadedMethod)
+TEST(Class, GetOverloadedMethod)
 {
     const xm::Class&  clazz = xm::getClass<MyButton>();
     const xm::Method& signature = xm::Method("onMouseClick",
@@ -51,20 +73,6 @@ TEST(GetItem, GetOverloadedMethod)
                                              xm::getType<int>());
     const xm::Method& method = clazz.getMethod(signature);
     ASSERT_STREQ("int", method.getParameters()[1]->type.getName().c_str());
-}
-
-
-TEST(GetItem, GetFunction)
-{
-    const xm::Function& func = xm::getFunction("::dgui_factories::makeButton");
-    ASSERT_STREQ("::dgui_factories::makeButton", func.getName().c_str());
-}
-
-
-TEST(GetItem, GetNamespace)
-{
-    const xm::Namespace& ns = xm::getNamespace("::dgui_factories");
-    ASSERT_STREQ("::dgui_factories", ns.getName().c_str());
 }
 
 

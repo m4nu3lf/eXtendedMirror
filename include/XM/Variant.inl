@@ -210,7 +210,7 @@ Variant::operator T&()
     {
         const PointerType* ptrType =
             dynamic_cast<const PointerType*>(&targetType);
-        if (!flags_ & Reference)
+        if (!(flags_ & Reference))
             throw VariantTypeException(targetType, *type_);
         
         // check for pointed type's constness correctness
