@@ -8,6 +8,7 @@ public:
 	virtual void onMouseClick() = 0;
 	virtual void onMouseEnter() = 0;
 	virtual void onMouseExit() = 0;
+    Control* children[10];
 };
 
 XM_ASSUME_ABSTRACT(Control);

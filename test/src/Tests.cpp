@@ -124,6 +124,17 @@ TEST(PropertyGetNSet, SetData)
 }
 
 
+TEST(PropertyArrayField, GetData)
+{
+    Button* button = new MyButton();
+    const xm::Class& clazz = xm::getClass<MyButton>();
+    const xm::Property& property = clazz.getProperty("children");
+    ASSERT_EQ(button->children,
+              property.getData(xm::ref(*button)).as<Control**>());
+    delete button;
+}
+
+
 int main(int argc, char**argv)
 {
 	::testing::InitGoogleTest(&argc, argv);

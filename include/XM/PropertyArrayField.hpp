@@ -54,7 +54,7 @@ public:
      * @param field A member pointer to the field.
      */
     PropertyArrayField(const std::string& name, FieldT ClassT::*field)
-    : Item(xm::getClass<ClassT>(), name)
+    : Item(name, xm::getClass<ClassT>())
     {
         
         offset = (size_t) &(((ClassT*)NULL)->*field);
@@ -119,6 +119,8 @@ public:
     void setData(const Variant& self, const Variant& data) const
     {
         // cannot set an array
+        (void) self;
+        (void) data;
         throw PropertySetException(*this);
     }
     
