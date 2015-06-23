@@ -113,6 +113,17 @@ TEST(PropertyGetNSet, GetData)
 }
 
 
+TEST(PropertyGetNSet, SetData)
+{
+    Button* button = new MyButton();
+    const xm::Class& clazz = xm::getClass<MyButton>();
+    const xm::Property& property = clazz.getProperty("width");
+    property.setData(xm::ref(*button), 10);
+    ASSERT_EQ(10, button->getWidth());
+    delete button;
+}
+
+
 int main(int argc, char**argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
