@@ -294,6 +294,14 @@ protected:
     friend class DefineClass;
 };
 
+
+bool inline operator<(const RefCaster& rc1, const RefCaster& rc2)
+{
+    return dynamic_cast<const Type&>(*rc1.dstClass_) <
+        dynamic_cast<const Type&>(*rc2.dstClass_);
+}
+
+
 } // namespace xm
 #endif	/* XM_CLASS_HPP */
 

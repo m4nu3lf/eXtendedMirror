@@ -189,6 +189,13 @@ Variant::Variant(T& data, char flags)
 template<typename T>
 Variant::operator T&()
 {
+    return as<T>();
+}
+
+
+template<typename T>
+inline T& Variant::as(CastDirection castDir)
+{
     // retrieve the type register
     Register& typeReg = Register::getSingleton();
 
@@ -215,19 +222,20 @@ Variant::operator T&()
             && type_->getCategory() & Type::Class))
             throw VariantTypeException(targetType, *type_);
         
-        // cast to Class object
+        // cast type objects to class objects
         const Class& clazz = dynamic_cast<const Class&>(*type_);
+        const Class& targetClass = dynamic_cast<const Class&>(targetType);
         
         // retrieve direct caster if any
         Const_RefCaster_Set casters = clazz.getRefCasters();
-        const RefCaster* caster = ptrSet::findByKey(casters, targetType);
+        const RefCaster* caster = ptrSet::findByKey(casters, targetClass);
         
         // if a caster is found, cast this variant and return
-        if (caster)
+        if (caster && (caster->getCastDirection() & castDir))
         {
             try
             {
-                return caster->cast(*this);
+                return caster->cast(*this).as<T>();
             }
             catch(std::bad_cast)
             {
@@ -236,35 +244,35 @@ Variant::operator T&()
         }
         else
         {
-            // for every ref caster, cast to that, then try to recast to T
+            // for every ref caster, cast to that, then try to cast to T,
+            // keeping the same direction to avoid loops
             Const_RefCaster_Set::iterator ite = casters.begin();
             while(ite != casters.end())
             {
-                try
+                if (((*ite)->getCastDirection() & castDir))
                 {
-                    return (*ite)->cast(*this).as<T>();
+                    try
+                    {
+                        CastDirection castDir2 = (*ite)->getCastDirection();
+                        return (*ite)->cast(*this).as<T>(castDir2);
+                    }
+                    catch (VariantTypeException)
+                    {}
+                    catch (std::bad_cast)
+                    {}
                 }
-                catch (VariantTypeException)
-                {}
-                catch (std::bad_cast)
-                {}
                 ite ++;
             }
             throw VariantTypeException(targetType, *type_);
         }
     }
-}
 
-
-template<typename T>
-inline T& Variant::as()
-{
-    return *this;
+    return Variant::Null;
 }
 
 
 template<>
-Empty& Variant::as<Empty>();
+Empty& Variant::as<Empty>(CastDirection castDir);
 
 
 template<typename T>

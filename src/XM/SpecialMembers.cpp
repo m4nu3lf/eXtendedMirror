@@ -70,15 +70,27 @@ void Destructor::destroy(Variant& var) const
 }
 
 
-RefCaster::RefCaster(const Type& dstType, const Class& owner)
-    : Item("", owner), dstType_(&dstType)
+RefCaster::RefCaster(const Class& dstClass, const Class& owner)
+    : Item("", owner), dstClass_(&dstClass)
 {
+    if(owner.inheritsFrom(dstClass))
+        castDir_ = Variant::UpCast;
+    else if(dstClass.inheritsFrom(owner))
+        castDir_ = Variant::DownCast;
+    else
+        castDir_ = Variant::NoCast;
 }
 
 
-const Type& RefCaster::getDstType() const
+Variant::CastDirection RefCaster::getCastDirection() const
 {
-    return *dstType_;
+    return castDir_;
+}
+
+
+const Class& RefCaster::getDstClass() const
+{
+    return *dstClass_;
 }
 
 

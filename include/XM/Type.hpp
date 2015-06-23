@@ -173,7 +173,7 @@ protected:
     // The not equal operator must be a friend to access the cppType field.
     friend bool operator!=(const Type&, const Type&);
     
-    // The less operator must be a friend to access the cppType field.
+    // The less than operator must be a friend to access the id_ field.
     friend bool operator<(const Type&, const Type&);
 };
 

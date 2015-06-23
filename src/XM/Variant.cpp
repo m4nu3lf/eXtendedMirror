@@ -179,8 +179,9 @@ Variant::~Variant()
 
 // A variant can always be converted to an Empty object. 
 template<>
-Empty& Variant::as<Empty>()
+Empty& Variant::as<Empty>(CastDirection castDir)
 {
+    (void) castDir;
     static Empty empty;
     return empty;
 }

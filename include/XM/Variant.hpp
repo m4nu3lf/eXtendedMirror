@@ -56,6 +56,14 @@ public:
         // Variant get copied by ref.
         CpyByRef = 8
     };
+
+    enum CastDirection
+    {
+        NoCast = 0,
+        UpDownCast = 3,
+        UpCast = 1,
+        DownCast = 2
+    };
     
     /**
      * Build a void variant.
@@ -127,11 +135,12 @@ public:
     
     /**
      * Shortcut to static_cast<T>(*this)
+     * @param castDir allowed cast directions
      * 
      * @return The variant data.
      */
     template<typename T>
-    T& as();
+    T& as(CastDirection castDir = UpDownCast);
     
     /**
      * Copy constructor. The data is copied through the copy constructor.
@@ -230,7 +239,7 @@ protected:
         // The variant that is being initialized
         Variant& variant_;
     };
-    
+
 };
 
 

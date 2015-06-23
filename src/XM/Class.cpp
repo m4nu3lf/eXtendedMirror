@@ -237,8 +237,13 @@ bool Class::inheritsFrom(const string& baseClassName) const
 
 
 bool Class::inheritsFrom(const Class& baseClass) const
-{    
-    return ptrSet::findByKey(indirectBaseClasses_, baseClass);
+{
+    Const_Class_Set::iterator ite;
+    ite = indirectBaseClasses_.find(&baseClass);
+    if (ite == indirectBaseClasses_.end())
+        return false;
+    else
+        return true;
 }
 
 

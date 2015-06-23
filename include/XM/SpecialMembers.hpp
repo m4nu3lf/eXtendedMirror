@@ -100,25 +100,22 @@ public:
 class RefCaster : public Member
 {
 public:
-    RefCaster(const Type& dstType = getType<void>(),
+
+    explicit RefCaster(const Class& dstClass = getClass<void>(),
               const Class& owner = getClass<void>());
     
-    const Type& getDstType() const;
+    const Class& getDstClass() const;
+    Variant::CastDirection getCastDirection() const;
 
     virtual
     Variant cast(const Variant& var) const;
 
 protected:
-    const Type* dstType_;
+    const Class* dstClass_;
+    Variant::CastDirection castDir_;
         
     friend bool operator<(const RefCaster&, const RefCaster&);
 };
-
-
-bool inline operator<(const RefCaster& rc1, const RefCaster& rc2)
-{
-    return *rc1.dstType_ < *rc2.dstType_;
-}
 
 
 template<typename S, typename D>
@@ -127,7 +124,7 @@ class RefCasterImpl : public RefCaster
 public:
     RefCasterImpl()
         : Item("", getClass<S>()),
-          RefCaster(getType<D>(), getClass<S>())
+          RefCaster(getClass<D>(), getClass<S>())
     {
     }
 
