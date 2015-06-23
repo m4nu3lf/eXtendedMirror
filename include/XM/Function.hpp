@@ -136,6 +136,8 @@ public:
     (
 	_XM_FUNCTION_CALL_PARAMS
     );
+
+    ~Function();
     
 protected:
     virtual Variant callImpl

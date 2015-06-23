@@ -171,7 +171,10 @@ void Class::addMember(Member& member)
         }
         RefCaster* refCaster = dynamic_cast<RefCaster*>(&member);
         if (refCaster)
+        {
             refCasters_.insert(refCaster);
+            return;
+        }
     }
     else
         XM_DEBUG_MSG("Adding member to wrong owner");
@@ -312,5 +315,10 @@ Class::~Class()
         const_cast<Class*>(*ite)->baseClasses_.erase(this);
         ite ++;
     }
+
+    delete constructor_;
+    delete copyConstructor_;
+    delete destructor_;
+    ptrSet::deleteAll(refCasters_);
 }
 

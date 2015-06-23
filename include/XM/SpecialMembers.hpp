@@ -77,7 +77,7 @@ public:
 };
 
 
-class Destructor : Member
+class Destructor : public Member
 {
 public:
     Destructor(const Class& owner = getClass<void>());

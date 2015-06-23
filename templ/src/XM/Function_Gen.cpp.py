@@ -121,4 +121,15 @@ XM_FUNCTION_PARAM_MAX) + """
     ncArg$.setConst();
     defaults_[$] = arg$;""", XM_FUNCTION_PARAM_MAX) + """
 }
+
+
+Function::~Function()
+{
+    Const_Prameter_Vector::iterator ite = params_.begin();
+    while(ite != params_.end())
+    {
+        delete *ite;
+        ite ++;
+    }
+}
 """

@@ -135,6 +135,7 @@ Namespace& Namespace::walkTo(const string& path, bool create)
         {
             Namespace* ns = new Namespace(pathParts.first, *this);
             items_.insert(ns);
+            ownItems_.insert(ns);
             return ns->walkTo(pathParts.second, create);
         }
         else

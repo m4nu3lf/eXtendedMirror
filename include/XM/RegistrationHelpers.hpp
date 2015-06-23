@@ -278,7 +278,7 @@ class TypeRegisterer
 {
     TypeRegisterer()
     {
-        registerType<T>();\
+        registerType<T>();
     }
     
     static TypeRegisterer autoregisterer;
