@@ -1,28 +1,28 @@
 #include <gtest/gtest.h>
 #include <MyButton.hpp>
 
-TEST(Regster, GetType)
+TEST(Register, GetType)
 {
     const xm::Type& type = xm::getType<MyButton>();
     ASSERT_STREQ("::MyButton", type.getName().c_str());
 }
 
 
-TEST(Regster, GetClass)
+TEST(Register, GetClass)
 {
     const xm::Class& clazz = xm::getClass<MyButton>();
     ASSERT_STREQ("::MyButton", clazz.getName().c_str());
 }
 
 
-TEST(Regster, GetFunction)
+TEST(Register, GetFunction)
 {
     const xm::Function& func = xm::getFunction("::dgui_factories::makeButton");
     ASSERT_STREQ("::dgui_factories::makeButton", func.getName().c_str());
 }
 
 
-TEST(Regster, GetNamespace)
+TEST(Register, GetNamespace)
 {
     const xm::Namespace& ns = xm::getNamespace("::dgui_factories");
     ASSERT_STREQ("::dgui_factories", ns.getName().c_str());
@@ -131,6 +131,15 @@ TEST(PropertyArrayField, GetData)
     const xm::Property& property = clazz.getProperty("children");
     ASSERT_EQ(button->children,
               property.getData(xm::ref(*button)).as<Control**>());
+    delete button;
+}
+
+#include<iostream>
+TEST(Function, Call)
+{
+    const xm::Function& func = xm::getFunction("::dgui_factories::makeButton");
+    Button* button = func.call(10, 20, 30, 40).as<Button*>();
+    ASSERT_EQ(button->getWidth(), 30);
     delete button;
 }
 

@@ -104,7 +104,7 @@ public: """ + ("""
     
     Variant callImpl
     (   """ + gen_seq("""
-        const Variant& arg$""", XM_FUNCTION_PARAM_MAX, ",") + """
+        Variant& arg$""", XM_FUNCTION_PARAM_MAX, ",") + """
         
     ) const
     {""" + gen_seq("""
