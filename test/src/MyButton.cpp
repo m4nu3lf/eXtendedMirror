@@ -1,7 +1,7 @@
 #include <MyButton.hpp>
 
 MyButton::MyButton(int x, int y, int w, int h)
-	: Button(x, y, w, h)
+	: Button(x, y, w, h), mouseClicks(0)
 {
 }
 

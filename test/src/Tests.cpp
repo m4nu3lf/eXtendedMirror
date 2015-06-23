@@ -134,12 +134,23 @@ TEST(PropertyArrayField, GetData)
     delete button;
 }
 
-#include<iostream>
+
 TEST(Function, Call)
 {
     const xm::Function& func = xm::getFunction("::dgui_factories::makeButton");
     Button* button = func.call(10, 20, 30, 40).as<Button*>();
     ASSERT_EQ(button->getWidth(), 30);
+    delete button;
+}
+
+
+TEST(Method, Call_Void)
+{
+    MyButton* button = new MyButton();
+    const xm::Class&  clazz = xm::getClass<MyButton>();
+    const xm::Method& method = clazz.getMethod("onMouseClick");
+    method.call(xm::ref(*button));
+    ASSERT_EQ(static_cast<unsigned int>(1), button->getClickCount());
     delete button;
 }
 

@@ -113,11 +113,11 @@ public: """ + ("""
     
     Variant callImpl
     (   """ + gen_seq("""
-        const Variant& arg$""", XM_FUNCTION_PARAM_MAX, ",") + """
+        Variant& arg$""", XM_FUNCTION_PARAM_MAX, ",") + """
         
     ) const
-    {
-        ClassT& objRef = arg0.as<ClassT>();
+    {   """ + gen_seq("""
+        (void)(arg$);""", (n_params, XM_FUNCTION_PARAM_MAX)) + """
         
         // cannot call a non constant method of a constant instance
         if (arg0.isConst() && !constant_)
