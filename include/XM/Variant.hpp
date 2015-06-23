@@ -234,6 +234,13 @@ protected:
 };
 
 
+template<typename T>
+Variant ref(T& val)
+{
+    return Variant(val, Variant::Reference);
+}
+
+
 } // namespace xm
 
 #endif	/* XM_VARIANT_HPP */

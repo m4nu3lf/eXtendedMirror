@@ -76,27 +76,27 @@ TEST(Class, GetOverloadedMethod)
 }
 
 
-TEST(PropertyFiled, GetData)
+TEST(PropertyField, GetData)
 {
     Button* button = new MyButton();
     button->name = new char[100];
     strcpy(button->name, "buttonname");
     const xm::Class& clazz = xm::getClass<MyButton>();
     const xm::Property& property = clazz.getProperty("name");
-    ASSERT_STREQ("buttonname", &property.getData(button).as<char>());
+    ASSERT_STREQ("buttonname", property.getData(xm::ref(*button)).as<char*>());
     delete button->name;
     delete button;
 }
 
 
-TEST(PropertyFiled, SetData)
+TEST(PropertyField, SetData)
 {
     Button* button = new MyButton();
     const xm::Class& clazz = xm::getClass<MyButton>();
     const xm::Property& property = clazz.getProperty("name");
     char* name = new char[100];
     strcpy(name, "buttonname");
-    property.setData(button, name);
+    property.setData(xm::ref(*button), name);
     ASSERT_STREQ("buttonname", button->name);
     delete name;
     delete button;
