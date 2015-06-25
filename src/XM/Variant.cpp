@@ -126,6 +126,44 @@ const Variant& Variant::operator=(Variant other)
 }
 
 
+bool Variant::recursiveCast(Variant& src,
+                            Variant& dst,
+                            const Class& targetClass,
+                            CastDirection castDir)
+{
+    const Class& clazz = dynamic_cast<const Class&>(src.getType());
+
+    // retrieve direct caster if any
+    Const_RefCaster_Set casters = clazz.getRefCasters();
+    const RefCaster* caster = ptrSet::findByKey(casters, targetClass);
+
+    // if a caster is found, cast this variant and return
+    if (caster && (caster->getCastDirection() & castDir))
+    {
+        dst = caster->cast(src);
+        return true;
+    }
+    else
+    {
+        // for every ref caster, cast to that, then try to cast to T,
+        // keeping the same direction to avoid loops
+        Const_RefCaster_Set::iterator ite = casters.begin();
+        while(ite != casters.end())
+        {
+            if (((*ite)->getCastDirection() & castDir))
+            {
+                CastDirection castDir2 = (*ite)->getCastDirection();
+                Variant casted = (*ite)->cast(src);
+                if (recursiveCast(casted, dst, targetClass, castDir2))
+                    return true;
+            }
+            ite ++;
+        }
+        return false;
+    }
+}
+
+
 Variant::~Variant()
 {
     if(!data_) return;
@@ -150,9 +188,8 @@ Variant::~Variant()
 
 // A variant can always be converted to an Empty object. 
 template<>
-Empty& Variant::as<Empty>(CastDirection castDir)
+Empty& Variant::as<Empty>()
 {
-    (void) castDir;
     static Empty empty;
     return empty;
 }

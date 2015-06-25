@@ -74,15 +74,15 @@ RefCaster::RefCaster(const Class& dstClass, const Class& owner)
     : Item("", owner), dstClass_(&dstClass)
 {
     if(owner.inheritsFrom(dstClass))
-        castDir_ = Variant::UpCast;
+        castDir_ = UpCast;
     else if(dstClass.inheritsFrom(owner))
-        castDir_ = Variant::DownCast;
+        castDir_ = DownCast;
     else
-        castDir_ = Variant::NoCast;
+        castDir_ = NoCast;
 }
 
 
-Variant::CastDirection RefCaster::getCastDirection() const
+CastDirection RefCaster::getCastDirection() const
 {
     return castDir_;
 }

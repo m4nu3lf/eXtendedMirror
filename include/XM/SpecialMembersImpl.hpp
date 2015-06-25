@@ -54,7 +54,11 @@ public:
     Variant cast(const Variant& var) const
     {
         Variant& nc_var = const_cast<Variant&>(var);
-        return Variant(dynamic_cast<D&>(nc_var.as<S>()), Variant::Reference);
+        D* casted = dynamic_cast<D*>(&nc_var.as<S>());
+        if (casted)
+            return Variant(*casted, Variant::Reference);
+        else
+            return Variant::Null;
     }
 
 };

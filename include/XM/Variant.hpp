@@ -38,6 +38,14 @@ namespace xm{
 
 class Type;
 
+enum CastDirection
+{
+    NoCast = 0,
+    UpDownCast = 3,
+    UpCast = 1,
+    DownCast = 2
+};
+
 
 class Variant
 {
@@ -55,14 +63,6 @@ public:
         
         // Variant get copied by ref.
         CopyByRef = 8
-    };
-
-    enum CastDirection
-    {
-        NoCast = 0,
-        UpDownCast = 3,
-        UpCast = 1,
-        DownCast = 2
     };
     
     /**
@@ -140,7 +140,7 @@ public:
      * @return The variant data.
      */
     template<typename T>
-    T& as(CastDirection castDir = UpDownCast);
+    T& as();
     
     /**
      * Copy constructor. The data is copied through the copy constructor.
@@ -215,7 +215,7 @@ public:
     
     static Variant Null;
     
-protected:
+private:
     // Pointer the data / data
     void* data_;
     
@@ -240,6 +240,13 @@ protected:
         Variant& variant_;
     };
 
+    // casts recursively.
+    // If cast is not possible returns false, true otherwise
+    static
+    bool recursiveCast(Variant& src,
+                       Variant& dst,
+                       const Class& targetClass,
+                       CastDirection castDir = UpDownCast);
 };
 
 

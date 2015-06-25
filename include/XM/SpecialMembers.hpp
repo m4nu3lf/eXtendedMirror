@@ -68,14 +68,14 @@ public:
               const Class& owner = getClass<void>());
     
     const Class& getDstClass() const;
-    Variant::CastDirection getCastDirection() const;
+    CastDirection getCastDirection() const;
 
     virtual
     Variant cast(const Variant& var) const;
 
 protected:
     const Class* dstClass_;
-    Variant::CastDirection castDir_;
+    CastDirection castDir_;
         
     friend bool operator<(const RefCaster&, const RefCaster&);
 };
