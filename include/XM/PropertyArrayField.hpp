@@ -107,11 +107,11 @@ public:
         if (self.isConst())
         {
             return Variant(const_cast<const FieldT&>(fieldRef),
-                    Variant::CpyByRef);
+                    Variant::CopyByRef);
         }
         else
         {
-            return Variant(fieldRef, Variant::CpyByRef);
+            return Variant(fieldRef, Variant::CopyByRef);
         }
     }
     

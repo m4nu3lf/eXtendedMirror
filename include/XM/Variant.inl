@@ -125,7 +125,7 @@ void Variant::Initialize<T>::operator()(T& data)
         else
         {
             // copy raw data
-            std::memcpy(destPtr, &data, sizeof(data));
+            std::memcpy(destPtr, static_cast<void*>(&data), sizeof(data));
         }
     }
 

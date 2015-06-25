@@ -16,8 +16,8 @@ void MyButton::onMouseClick()
 
 void MyButton::onMouseClick(int x, int y)
 {
-    (void)(x);
-    (void)(y);
+    clickX = x;
+    clickY = y;
     mouseClicks ++;
 }
 
@@ -31,9 +31,19 @@ void MyButton::onMouseExit()
 	mouseOver = false;
 }
 
-unsigned int MyButton::getClickCount() 
+unsigned int MyButton::getClickCount() const
 {
 	return mouseClicks;
+}
+
+int MyButton::getClickX() const
+{
+    return clickX;
+}
+
+int MyButton::getClickY() const
+{
+    return clickY;
 }
 
 bool MyButton::isMouseOver()
@@ -45,6 +55,7 @@ XM_DEFINE_CLASS(MyButton)
 {
 	XM_BIND_PASE(Button);
     bindMethod<ClassT, void, int, int>("onMouseClick", &ClassT::onMouseClick);
+    bindMethod(XM_MNP(getClickCount));
 	bindProperty("clickCount", &ClassT::getClickCount);
 	bindProperty("isMouseOver", &ClassT::isMouseOver);
 }

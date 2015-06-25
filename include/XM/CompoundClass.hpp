@@ -102,7 +102,7 @@ private:
     
     // Factory class ( calls create() )
     template<typename T>
-    friend class CreateType;
+    friend struct CreateType;
 };
 
 

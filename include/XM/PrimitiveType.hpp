@@ -50,7 +50,7 @@ private:
     
     // Factory class
     template<typename T>
-    friend class CreateType;
+    friend struct CreateType;
 };
 
 

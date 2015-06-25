@@ -177,19 +177,22 @@ protected:
     friend bool operator<(const Type&, const Type&);
 };
 
-bool inline operator==(const Type& t1, const Type& t2)
+inline
+bool operator==(const Type& t1, const Type& t2)
 {
     return t1.id_ == t2.id_;
 }
 
-bool inline operator!=(const Type& t1, const Type& t2)
+inline
+bool operator!=(const Type& t1, const Type& t2)
 {
     return t1.id_ != t2.id_;
 }
 
 // type less operator compares the type_info struct with the type_info::before()
 // method.
-bool inline operator<(const Type& t1, const Type& t2)
+inline
+bool operator<(const Type& t1, const Type& t2)
 {
     return t1.id_.before(t2.id_);
 }

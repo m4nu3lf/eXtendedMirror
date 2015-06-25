@@ -161,7 +161,7 @@ public:
             flags |= Variant::Const;
         
         // the data of the field is returned as a reference Variant
-        return Variant(fieldRef, flags | Variant::CpyByRef);
+        return Variant(fieldRef, flags | Variant::CopyByRef);
     }
     
     

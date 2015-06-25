@@ -39,8 +39,8 @@ class Type;
 class Class;
 class CompoundClass;
 
-typedef std::set<Type*, PtrCmpById<Type> > Type_SetById;
-typedef std::set<Class*, PtrCmpById<Class> > Class_SetById;
+typedef std::set<Type*, PtrCmpByVal<Type> > Type_SetByVal;
+typedef std::set<Class*, PtrCmpByVal<Class> > Class_SetByVal;
 
 
 class Register : public Namespace
@@ -114,8 +114,8 @@ private:
     static void (*getRegCallBack())(const Type&);
     
     // types and classes sets sorted by type id.
-    Type_SetById types_;
-    Class_SetById classes_;
+    Type_SetByVal types_;
+    Class_SetByVal classes_;
     
     // this class needs to add Templates to the register
     friend class CompoundClass;

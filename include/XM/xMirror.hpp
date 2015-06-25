@@ -72,6 +72,7 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
 #include <XM/PropertyArrayField.hpp>
 #include <XM/PropertyGetterNSetter.hpp>
 #include <XM/Variant.inl>
+#include <XM/SpecialMembersImpl.hpp>
 #include <XM/FunctionImpl.hpp>
 #include <XM/MethodImpl.hpp>
 #include <XM/Register.inl>

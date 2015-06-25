@@ -53,7 +53,7 @@ template<typename T>
 struct ReturnVariantFlags
 {
     static const char flags =
-        (IsReference<T>::value * (Variant::Reference | Variant::CpyByRef)) |
+        (IsReference<T>::value * (Variant::Reference | Variant::CopyByRef)) |
         (IsConst<T>::value * Variant::Const);
 };
 

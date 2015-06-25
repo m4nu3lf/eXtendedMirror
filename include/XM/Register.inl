@@ -41,14 +41,14 @@ namespace xm{
 template<typename T>
 const Type& Register::getTypeOf(const T& obj) const
 {   
-    return getType<T>();
+    return getType(typeid(obj));
 }
 
 
 template<typename T>
 const Class& Register::getClassOf(const T& obj) const
 {
-    return getClass<T>();
+    return getClass(typeid(obj));
 }
 
 

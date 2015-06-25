@@ -287,11 +287,11 @@ protected:
     
     // Factory class ( calls create() )
     template<typename T>
-    friend class CreateType;
+    friend struct CreateType;
     
     // The DefineClass needs to call the & operator.
     template<class T>
-    friend class DefineClass;
+    friend struct DefineClass;
 };
 
 

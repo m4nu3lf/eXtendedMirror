@@ -75,7 +75,7 @@ private:
     
     // TypeRegister is the factory class.
     template<typename T>
-    friend class CreateType;
+    friend struct CreateType;
 };
 
 

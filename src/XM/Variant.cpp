@@ -61,11 +61,10 @@ Variant Variant::getRefVariant() const
 
 Variant::Variant(const Variant& orig) : flags_(0)
 {
-    if (orig.flags_ | CpyByRef)
+    if (orig.flags_ | CopyByRef)
     {
         // copy by reference
         data_ = orig.data_;
-        type_ = orig.type_;
         flags_ = orig.flags_;
         flags_ |= Reference;
     }
@@ -75,7 +74,9 @@ Variant::Variant(const Variant& orig) : flags_(0)
         
         //TODO: allow custom allocator
         // allocate memory
-        data_ = ::operator new(size);
+
+        if (size > sizeof(data_))
+            data_ = ::operator new(size);
         
         // if class copy with copy constructor
         const Class* clazz = dynamic_cast<const Class*>(orig.type_);
@@ -89,20 +90,26 @@ Variant::Variant(const Variant& orig) : flags_(0)
             }
             catch(NonCopyableException& e)
             {
-                ::operator delete(data_); //TODO allow custom allocator
+                if (size > sizeof(data_))
+                    ::operator delete(data_); //TODO allow custom allocator
                 throw e;
             }
         }
         else
         {
             // perform raw memory copy
-            std::memcpy(data_, orig.data_, size);
+            if (size > sizeof(data_))
+                std::memcpy(data_, orig.data_, size);
+            else
+                std::memcpy(&data_, &orig.data_, size);
         }
     }
+    type_ = orig.type_;
 }
 
 
-Variant::Variant(Variant&& orig)
+Variant::Variant(Variant&& orig) :
+    data_(NULL), type_(&::getType<void>()), flags_(0)
 {
     std::swap(data_, orig.data_);
     std::swap(flags_, orig.flags_);
@@ -110,47 +117,11 @@ Variant::Variant(Variant&& orig)
 }
 
 
-const Variant& Variant::operator=(const Variant& other)
+const Variant& Variant::operator=(Variant other)
 {
-    if (flags_ | Reference)
-    {
-        // copy reference
-        data_ = other.data_;
-        type_ = other.type_;
-        flags_ = other.flags_;
-        flags_ |= Reference;
-    }
-    else
-    {
-        std::size_t size = other.type_->getSize();
-        
-        //TODO: allow custom allocator
-        // allocate memory
-        data_ = ::operator new(size);
-        
-        // if class, assign with assign operator
-        const Class* clazz = dynamic_cast<const Class*>(other.type_);
-        if (clazz)
-        {
-            const CopyConstructor& copyConstructor =
-                clazz->getCopyConstructor();
-            
-            try
-            {
-                copyConstructor.copy(*this, other);
-            }
-            catch(NonCopyableException& e)
-            {
-                ::operator delete(data_); //TODO allow custom allocator
-                throw e;
-            }
-        }
-        else
-        {
-            // perform raw memory copy
-            std::memcpy(data_, other.data_, size);
-        }
-    }
+    std::swap(data_, other.data_);
+    std::swap(flags_, other.flags_);
+    std::swap(type_, other.type_);
     return *this;
 }
 
@@ -159,7 +130,7 @@ Variant::~Variant()
 {
     if(!data_) return;
     
-    if (!flags_ & Reference)
+    if (!(flags_ & Reference))
     {        
         const Class* clazz = dynamic_cast<const Class*>(type_);
         if (clazz)

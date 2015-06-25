@@ -39,10 +39,6 @@
 
 namespace xm{
 
-
-class Type;
-bool operator<(const Type&, const Type&);
-
 /**
  * Describes a method of a class that has been registered into the reflection
  * mechanism.

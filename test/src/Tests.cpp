@@ -148,9 +148,48 @@ TEST(Method, Call_Void)
 {
     MyButton* button = new MyButton();
     const xm::Class&  clazz = xm::getClass<MyButton>();
-    const xm::Method& method = clazz.getMethod("onMouseClick");
-    method.call(xm::ref(*button));
+    const xm::Method& signature = xm::Method("onMouseClick",
+                                             xm::getType<void>(),
+                                             clazz,
+                                             xm::getType<int>(),
+                                             xm::getType<int>());
+    const xm::Method& method = clazz.getMethod(signature);
+    method.call(xm::ref(*button), 10, 20);
     ASSERT_EQ(static_cast<unsigned int>(1), button->getClickCount());
+    ASSERT_EQ(10, button->getClickX());
+    delete button;
+}
+
+
+TEST(Method, Call)
+{
+    MyButton* button = new MyButton();
+    const xm::Class&  clazz = xm::getClass<MyButton>();
+    button->onMouseClick();
+    const xm::Method& method = clazz.getMethod("getClickCount");
+    unsigned int clicks = method.call(xm::ref(*button));
+    ASSERT_EQ(clicks, button->getClickCount());
+    delete button;
+}
+
+#include<iostream>
+TEST(Method, CallV_Void)
+{
+    MyButton* button = new MyButton();
+    const xm::Class&  clazz = xm::getClass<MyButton>();
+    const xm::Method& signature = xm::Method("onMouseClick",
+                                             xm::getType<void>(),
+                                             clazz,
+                                             xm::getType<int>(),
+                                             xm::getType<int>());
+    const xm::Method& method = clazz.getMethod(signature);
+    std::vector<xm::Variant> argV;
+    argV.push_back(xm::ref(*button));
+    argV.push_back(10);
+    argV.push_back(20);
+    method.callV(argV);
+    ASSERT_EQ(static_cast<unsigned int>(1), button->getClickCount());
+    ASSERT_EQ(10, button->getClickX());
     delete button;
 }
 

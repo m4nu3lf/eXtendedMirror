@@ -54,7 +54,7 @@ public:
         Const = 2,
         
         // Variant get copied by ref.
-        CpyByRef = 8
+        CopyByRef = 8
     };
 
     enum CastDirection
@@ -167,7 +167,7 @@ public:
      * @param other The other variant object.
      * @return The variant
      */
-    const Variant& operator=(const Variant& other);
+    const Variant& operator=(Variant other);
     
     /**
      * Operator for assignment.
