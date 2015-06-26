@@ -194,12 +194,24 @@ TEST(Method, CallV_Void)
 }
 
 
-TEST(Variant, Call)
+TEST(Variant, Call_Void)
 {
     MyButton* button = new MyButton();
     xm::Variant var = xm::ref(*button);
     var.call("onMouseClick");
     ASSERT_EQ(static_cast<unsigned int>(1), button->getClickCount());
+    delete button;
+}
+
+
+TEST(Variant, CallV)
+{
+    MyButton* button = new MyButton();
+    button->onMouseClick();
+    xm::Variant var = xm::ref(*button);
+    std::vector<xm::Variant> argV;
+    unsigned int clicks = var.callV("getClickCount", argV).as<unsigned int>();
+    ASSERT_EQ(clicks, button->getClickCount());
     delete button;
 }
 
