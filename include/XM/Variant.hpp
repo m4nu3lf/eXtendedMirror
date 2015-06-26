@@ -253,7 +253,7 @@ private:
 template<typename T>
 Variant ref(T& val)
 {
-    return Variant(val, Variant::Reference);
+    return Variant(val, Variant::Reference | Variant::CopyByRef);
 }
 
 

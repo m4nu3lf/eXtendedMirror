@@ -57,7 +57,7 @@ MemberException::MemberException(const Type& type,
 
 const char* MemberException::what() const throw()
 {
-    return ("Trying to " + verb_ + " object of type\"" + type_->getName()
+    return ("Trying to " + verb_ + " object of type \"" + type_->getName()
         + "\" that is not " + article_ + " " + adjective_ + " type").c_str();
 }
 

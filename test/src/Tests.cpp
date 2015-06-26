@@ -172,7 +172,7 @@ TEST(Method, Call)
     delete button;
 }
 
-#include<iostream>
+
 TEST(Method, CallV_Void)
 {
     MyButton* button = new MyButton();

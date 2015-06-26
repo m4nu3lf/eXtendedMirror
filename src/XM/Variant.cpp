@@ -39,10 +39,8 @@ using namespace xm;
 static void* null = NULL;
 Variant Variant::Null = Variant(null, Const);
 
-Variant::Variant() : flags_(0)
+Variant::Variant() : data_(NULL), type_(&::getType<void*>()), flags_(0)
 {
-    data_ = NULL;
-    type_ = &xm::getType<void>();
 }
 
 
@@ -59,18 +57,24 @@ Variant Variant::getRefVariant() const
 }
 
 
-Variant::Variant(const Variant& orig) : flags_(0)
+Variant::Variant(const Variant& orig)
+ : data_(NULL), type_(&::getType<void*>()), flags_(0)
 {
-    if (orig.flags_ | CopyByRef)
+    std::size_t size = orig.type_->getSize();
+
+    if (orig.flags_ & CopyByRef)
     {
         // copy by reference
-        data_ = orig.data_;
+        if (size > sizeof(data_))
+            data_ = orig.data_;
+        else
+            data_ = const_cast<void**>(&orig.data_);
+        type_ = orig.type_;
         flags_ = orig.flags_;
         flags_ |= Reference;
     }
     else
     {
-        std::size_t size = orig.type_->getSize();
         
         //TODO: allow custom allocator
         // allocate memory
@@ -86,6 +90,7 @@ Variant::Variant(const Variant& orig) : flags_(0)
             
             try
             {
+                type_ = orig.type_;
                 cpyC.copy(*this, orig);
             }
             catch(NonCopyableException& e)
@@ -97,6 +102,8 @@ Variant::Variant(const Variant& orig) : flags_(0)
         }
         else
         {
+            type_ = orig.type_;
+
             // perform raw memory copy
             if (size > sizeof(data_))
                 std::memcpy(data_, orig.data_, size);
@@ -104,12 +111,11 @@ Variant::Variant(const Variant& orig) : flags_(0)
                 std::memcpy(&data_, &orig.data_, size);
         }
     }
-    type_ = orig.type_;
 }
 
 
 Variant::Variant(Variant&& orig) :
-    data_(NULL), type_(&::getType<void>()), flags_(0)
+    data_(NULL), type_(&::getType<void*>()), flags_(0)
 {
     std::swap(data_, orig.data_);
     std::swap(flags_, orig.flags_);
