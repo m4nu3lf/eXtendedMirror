@@ -113,5 +113,25 @@ bool Method::isConst() const
 
 bool Method::before_(const Item& item) const
 {
-    return Function::before_(item);
+    const Method& other = dynamic_cast<const Method&>(item);
+    if (!fullSignature_ || !other.fullSignature_)
+        return false;
+
+    ushort paramN1 = params_.size();
+    ushort paramN2 = other.params_.size();
+    ushort paramN = std::min(paramN1, paramN2);
+    for (uint i = 1; i < paramN; i++)
+    {
+        if (params_[i]->type
+            < other.params_[i]->type)
+            return true;
+    }
+    if (paramN1 < paramN2) return true;
+    return false;
+}
+
+
+Item::Category Method::getItemCategory() const
+{
+    return MethodItem;
 }

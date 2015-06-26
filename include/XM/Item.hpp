@@ -74,7 +74,12 @@ public:
        /**
         * A property.
         */
-        PropertyItem
+        PropertyItem,
+
+       /**
+        * A method.
+        */
+        MethodItem
         
     };
 

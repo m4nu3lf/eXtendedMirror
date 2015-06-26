@@ -100,6 +100,8 @@ public:
      * @return True if the method is constant, false otherwise.
      */
     virtual bool isConst() const;
+
+    Item::Category getItemCategory() const;
     
 protected:
     bool before_(const Item& item) const;
