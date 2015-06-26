@@ -197,7 +197,7 @@ TEST(Method, CallV_Void)
 TEST(Variant, Call)
 {
     MyButton* button = new MyButton();
-    xm::Variant var = xm::ref(*button);
+    xm::Variant var = xm::ref(*static_cast<Control*>(button));
     var.call("onMouseClick");
     ASSERT_EQ(static_cast<unsigned int>(1), button->getClickCount());
     delete button;
