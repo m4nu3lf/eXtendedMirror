@@ -26,5 +26,4 @@
       Automatic deduction is not possible
 - Constants & Enums
 - Unions
-- Parser
-      With ignore-file, where to spefify what classes/members/functions ignore
+- Parser (?)
