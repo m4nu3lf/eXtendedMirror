@@ -194,6 +194,16 @@ TEST(Method, CallV_Void)
 }
 
 
+TEST(Variant, Call)
+{
+    MyButton* button = new MyButton();
+    xm::Variant var = xm::ref(*button);
+    var.call("onMouseClick");
+    ASSERT_EQ(static_cast<unsigned int>(1), button->getClickCount());
+    delete button;
+}
+
+
 int main(int argc, char**argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
