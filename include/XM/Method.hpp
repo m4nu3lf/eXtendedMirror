@@ -100,10 +100,9 @@ public:
      * @return True if the method is constant, false otherwise.
      */
     virtual bool isConst() const;
-
-    bool before(const Item& item) const;
     
 protected:
+    bool before_(const Item& item) const;
 
     std::string signature_;
     

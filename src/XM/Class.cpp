@@ -298,6 +298,12 @@ Namespace& Class::walkTo(const std::string& path, bool create)
 }
 
 
+Item::Category Class::getItemCategory() const
+{
+    return TypeItem;
+}
+
+
 Class::~Class()
 {
     Const_Class_Set::iterator ite = baseClasses_.begin();

@@ -61,7 +61,8 @@ public:
      * @return The template parameter number.
      */
     uint getArgN() const;
-    
+
+    Item::Category getItemCategory() const;
     
     /**
      * Not valid Template.

@@ -181,7 +181,9 @@ public:
      * @param data Variant containing the data to be set.
      */
     virtual void setData(const Variant& self, const Variant& data) const;
-    
+
+    Category getItemCategory() const;
+
 protected:
     // The property Type.
     const Type* type_;

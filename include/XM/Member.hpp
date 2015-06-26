@@ -64,8 +64,6 @@ public:
      */
     const Class& getOwner() const;
 
-    bool before(const Item& item) const;
-
     virtual ~Member();
 };
 

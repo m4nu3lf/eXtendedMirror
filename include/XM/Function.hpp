@@ -134,6 +134,8 @@ public:
 	_XM_FUNCTION_CALL_PARAMS
     );
 
+    Item::Category getItemCategory() const;
+
     ~Function();
     
 protected:
@@ -142,7 +144,7 @@ protected:
 	_XM_FUNCTION_CALLIMPL_PARAMS
     ) const;
 
-    bool before(const Item& item) const;
+    bool before_(const Item& item) const;
     
     // The returned type
     const Type* retType_;

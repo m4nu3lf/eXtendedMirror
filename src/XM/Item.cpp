@@ -72,10 +72,40 @@ const Namespace& Item::getNamespace() const
 }
 
 
+Item::Category Item::getItemCategory() const
+{
+    return AnyItem;
+}
+
+
 bool Item::before(const Item& item) const
 {
-    return unqualifiedName_ < item.unqualifiedName_;
+    if (unqualifiedName_ < item.unqualifiedName_)
+        return true;
+    if (unqualifiedName_ > item.unqualifiedName_)
+        return false;
+
+    // Same name, check for item category
+    if (this->getItemCategory() == AnyItem ||
+        item.getItemCategory() == AnyItem)
+        return false;
+
+    if (this->getItemCategory() < item.getItemCategory())
+        return true;
+    if (this->getItemCategory() > item.getItemCategory())
+        return false;
+
+    // Same item category, use virtual comparer
+    return before_(item);
 }
+
+
+bool Item::before_(const Item& item) const
+{
+    (void) item;
+    return false;
+}
+
 
 Item::~Item()
 {

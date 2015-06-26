@@ -119,3 +119,9 @@ void Property::setData(const Variant& self, const Variant& data) const
     (void)(data);
 };
 
+
+Item::Category Property::getItemCategory() const
+{
+    return PropertyItem;
+}
+

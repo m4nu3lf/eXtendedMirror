@@ -111,7 +111,7 @@ bool Method::isConst() const
 }
 
 
-bool Method::before(const Item& item) const
+bool Method::before_(const Item& item) const
 {
-    return Function::before(item);
+    return Function::before_(item);
 }

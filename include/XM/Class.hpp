@@ -223,6 +223,8 @@ public:
     
     void addMember(Member& member);
     
+    Item::Category getItemCategory() const;
+    
     virtual ~Class();
     
 protected:

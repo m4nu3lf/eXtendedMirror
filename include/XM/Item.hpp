@@ -40,6 +40,44 @@ class Namespace;
 class Item
 {
 public:
+
+    /**
+     * Items are subdivided into catgories.
+     */
+    enum Category {
+
+       /**
+        * No a particular category. Used as a wildcard.
+        */
+        AnyItem,
+
+       /**
+        * A namespace.
+        */
+        NamespaceItem,
+
+       /**
+        * A type.
+        */
+        TypeItem,
+
+       /**
+        * A template.
+        */
+        TemplateItem,
+
+       /**
+        * A function or a method.
+        */
+        FunctionItem,
+
+       /**
+        * A property.
+        */
+        PropertyItem
+        
+    };
+
     Item(const std::string& uName, const Namespace& name_space);
 
     Item(const std::string& uName = "");
@@ -65,11 +103,22 @@ public:
      */
     const Namespace& getNamespace() const;
 
-    virtual bool before(const Item& item) const;
+    /**
+     * Get the category of the item.
+     * 
+     * @return The namespace.
+     */
+    virtual
+    Item::Category getItemCategory() const;
+
+    bool before(const Item& item) const;
 
     virtual ~Item();
     
 protected:
+    virtual
+    bool before_(const Item& item) const;
+
     static std::string removeQualifier_(const std::string& name);
 
     std::string unqualifiedName_;

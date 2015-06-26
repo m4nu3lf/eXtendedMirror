@@ -59,6 +59,8 @@ public:
     Namespace& defineNamespace(const std::string& path);
 
     void addItem(Item& item);
+
+    Item::Category getItemCategory() const;
     
     virtual ~Namespace();
     

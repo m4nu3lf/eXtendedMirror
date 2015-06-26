@@ -94,6 +94,12 @@ void Type::addAlias(const string& alias)
 }
 
 
+Item::Category Type::getItemCategory() const
+{
+    return TypeItem;
+}
+
+
 Type::~Type()
 {
 

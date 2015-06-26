@@ -136,6 +136,8 @@ public:
      */
     const std::type_info& getId() const;
 
+    Item::Category getItemCategory() const;
+
     bool before(const Item& item) const;
 
     virtual ~Type();

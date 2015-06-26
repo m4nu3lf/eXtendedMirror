@@ -67,26 +67,25 @@ const std::vector<const Parameter*>& Function::getParameters() const
 }
 
 
-bool Function::before(const Item& item) const
+Item::Category Function::getItemCategory() const
 {
-    const Function* other = dynamic_cast<const Function*>(&item);
-    bool itemCmpBef = Item::before(item);
-    bool itemCmpAft = item.Item::before(*this);
-    if (!other || itemCmpBef)
-        return true;
-    if (itemCmpAft)
-        return false;
+    return FunctionItem;
+}
 
-    if (!fullSignature_ || !other->fullSignature_)
+
+bool Function::before_(const Item& item) const
+{
+    const Function& other = dynamic_cast<const Function&>(item);
+    if (!fullSignature_ || !other.fullSignature_)
         return false;
 
     ushort paramN1 = params_.size();
-    ushort paramN2 = other->params_.size();
+    ushort paramN2 = other.params_.size();
     ushort paramN = std::min(paramN1, paramN2);
     for (uint i = 0; i < paramN; i++)
     {
         if (params_[i]->type
-            < other->params_[i]->type)
+            < other.params_[i]->type)
             return true;
     }
     if (paramN1 < paramN2) return true;

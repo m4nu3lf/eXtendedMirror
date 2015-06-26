@@ -57,3 +57,9 @@ uint Template::getArgN() const
     return argN_;
 }
 
+
+Item::Category Template::getItemCategory() const
+{
+    return TemplateItem;
+}
+

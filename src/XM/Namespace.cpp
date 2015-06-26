@@ -200,6 +200,12 @@ void Namespace::addItem(Item& item)
 }
 
 
+Item::Category Namespace::getItemCategory() const
+{
+    return NamespaceItem;
+}
+
+
 Namespace::~Namespace()
 {
     Const_Item_Set::iterator ite = ownItems_.begin();
