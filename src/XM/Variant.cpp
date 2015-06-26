@@ -36,10 +36,9 @@
 using namespace std;
 using namespace xm;
 
-static void* null = NULL;
-Variant Variant::Null = Variant(null, Const);
+Variant Variant::Null = Variant();
 
-Variant::Variant() : data_(NULL), type_(&::getType<void*>()), flags_(0)
+Variant::Variant() : data_(NULL), type_(&::getType<void>()), flags_(Const)
 {
 }
 
@@ -58,8 +57,11 @@ Variant Variant::getRefVariant() const
 
 
 Variant::Variant(const Variant& orig)
- : data_(NULL), type_(&::getType<void*>()), flags_(0)
+ : data_(NULL), type_(&::getType<void>()), flags_(0)
 {
+    if (*orig.type_ == ::getType<void>())
+        return;
+
     std::size_t size = orig.type_->getSize();
 
     if (orig.flags_ & CopyByRef)
@@ -115,7 +117,7 @@ Variant::Variant(const Variant& orig)
 
 
 Variant::Variant(Variant&& orig) :
-    data_(NULL), type_(&::getType<void*>()), flags_(0)
+    data_(NULL), type_(&::getType<void>()), flags_(0)
 {
     std::swap(data_, orig.data_);
     std::swap(flags_, orig.flags_);
@@ -172,7 +174,8 @@ bool Variant::recursiveCast(Variant& src,
 
 Variant::~Variant()
 {
-    if(!data_) return;
+    if(!data_ || *type_ == ::getType<void>())
+        return;
     
     if (!(flags_ & Reference))
     {        
