@@ -36,7 +36,7 @@
 
 #define XM_MNP(member) #member, &ClassT::member
 #define XM_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
-#define XM_BIND_PASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base
+#define XM_BIND_PBASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base
 
 #include <XM/BindFunction.hpp>
 #include <XM/BindGetNSetProperty.hpp>

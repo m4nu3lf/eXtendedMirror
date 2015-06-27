@@ -27,7 +27,7 @@ void Rectangle::setHeight(int h)
 
 XM_DEFINE_CLASS(Rectangle)
 {
-	XM_BIND_PASE(Shape);
+	XM_BIND_PBASE(Shape);
     bindProperty("width", &ClassT::getWidth, &ClassT::setWidth);
     bindProperty("height", &ClassT::getHeight, &ClassT::setHeight);
 }

@@ -11,6 +11,6 @@ Button::~Button()
 
 XM_DEFINE_CLASS(Button)
 {
-	XM_BIND_PASE(Rectangle);
-	XM_BIND_PASE(Control);    
+	XM_BIND_PBASE(Rectangle);
+	XM_BIND_PBASE(Control);    
 }
