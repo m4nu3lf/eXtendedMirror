@@ -156,6 +156,7 @@ void Class::addMember(Member& member)
         Property* property = dynamic_cast<Property*>(&member);
         if (property)
         {
+            properties_.erase(property);
             properties_.insert(property);
             ownProperties_.insert(property);
             addItem(*property);
@@ -164,6 +165,7 @@ void Class::addMember(Member& member)
         Method* method = dynamic_cast<Method*>(&member);
         if (method)
         {
+            methods_.erase(method);
             methods_.insert(method);
             ownMethods_.insert(method);
             addItem(*method);
