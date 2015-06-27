@@ -160,15 +160,19 @@ XM_ASSUME_NON_COPYABLE(_class_)
 template class xm::TypeRegisterer<_type_ >;                                  \
 
 
-#define XM_BIND_FUNCTION(_namespace_, _func_)                                \
+#define XM_BIND_FUNCTION(_func_)                                             \
+_XM_BIND_FUNCTION(_func_, __COUNTER__)
+
+#define _XM_BIND_FUNCTION(_func_, _count_)                                   \
 namespace xm {                                                               \
-struct _func_##Binder                                                        \
+struct FuncBinder##_count_                                                   \
 {                                                                            \
-    _func_##Binder()                                                         \
+    FuncBinder##_count_()                                                    \
     {                                                                        \
-        bindFunction(#_func_, #_namespace_, _namespace_::_func_);            \
+        bindFunction(#_func_, _func_);                                       \
     }                                                                        \
-} _func_##Binder; }
+} funcBinder##_count_;                                                       \
+}
 
 
 
