@@ -120,7 +120,7 @@ public: """ + ("""
         (""" + gen_seq("""
             arg$.as<NqParamT$>()""", n_params, ",") + """
         );
-        return Variant::Null;
+        return Variant::Void;
         """) + """
     }
 

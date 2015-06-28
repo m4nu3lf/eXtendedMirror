@@ -97,5 +97,5 @@ const Class& RefCaster::getDstClass() const
 Variant RefCaster::cast(const Variant& var) const
 {
     (void) var;
-    return Variant::Null;
+    return Variant::Void;
 }

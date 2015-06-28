@@ -72,7 +72,7 @@ XM_FUNCTION_PARAM_MAX - 1, ",") + """
 Variant Variant::callV(const std::string& methodName,
         vector<Variant>& args)
 {
-    args.resize(XM_FUNCTION_PARAM_MAX, Variant::Null);
+    args.resize(XM_FUNCTION_PARAM_MAX, Variant::Void);
     return call
     (
         methodName,""" + gen_seq("""

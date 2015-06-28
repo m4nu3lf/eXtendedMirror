@@ -109,7 +109,7 @@ Property::SetMode Property::getSetMode()
 Variant Property::getData(const Variant& self) const
 {
     (void)(self);
-    return Variant::Null;
+    return Variant::Void;
 };
 
 

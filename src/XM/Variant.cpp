@@ -36,7 +36,7 @@
 using namespace std;
 using namespace xm;
 
-Variant Variant::Null = Variant();
+Variant Variant::Void = Variant();
 
 Variant::Variant() : data_(NULL), type_(&::getType<void>()), flags_(Const)
 {

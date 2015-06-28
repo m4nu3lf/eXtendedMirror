@@ -134,7 +134,7 @@ public: """ + ("""
         (""" + gen_seq("""
             arg$.as<NqParamT$>()""", (1, n_params), ",") + """
         );
-        return Variant::Null;
+        return Variant::Void;
         """) + """
     }
 

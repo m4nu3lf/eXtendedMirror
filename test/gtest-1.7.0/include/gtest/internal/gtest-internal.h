@@ -111,15 +111,15 @@ GTEST_API_ extern const char kStackTraceMarker[];
 // picked by the compiler.  These helpers have no implementations, as
 // we only need their signatures.
 //
-// Given IsNullLiteralHelper(x), the compiler will pick the first
+// Given IsVoidLiteralHelper(x), the compiler will pick the first
 // version if x can be implicitly converted to Secret*, and pick the
 // second version otherwise.  Since Secret is a secret and incomplete
 // type, the only expression a user can write that has type Secret* is
 // a null pointer literal.  Therefore, we know that x is a null
 // pointer literal if and only if the first version is picked by the
 // compiler.
-char IsNullLiteralHelper(Secret* p);
-char (&IsNullLiteralHelper(...))[2];  // NOLINT
+char IsVoidLiteralHelper(Secret* p);
+char (&IsVoidLiteralHelper(...))[2];  // NOLINT
 
 // A compile-time bool constant that is true if and only if x is a
 // null pointer literal (i.e. NULL or any 0-valued compile-time
@@ -130,7 +130,7 @@ char (&IsNullLiteralHelper(...))[2];  // NOLINT
 # define GTEST_IS_NULL_LITERAL_(x) false
 #else
 # define GTEST_IS_NULL_LITERAL_(x) \
-    (sizeof(::testing::internal::IsNullLiteralHelper(x)) == 1)
+    (sizeof(::testing::internal::IsVoidLiteralHelper(x)) == 1)
 #endif  // GTEST_ELLIPSIS_NEEDS_POD_
 
 // Appends the user-supplied message to the Google-Test-generated message.

@@ -232,7 +232,7 @@ inline T& Variant::as()
             throw VariantTypeException(targetType, *type_);
     }
 
-    return Variant::Null;
+    return Variant::Void;
 }
 
 

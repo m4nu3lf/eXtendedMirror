@@ -58,7 +58,7 @@ public:
         if (casted)
             return Variant(*casted, Variant::Reference);
         else
-            return Variant::Null;
+            return Variant::Void;
     }
 
 };

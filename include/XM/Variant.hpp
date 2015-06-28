@@ -213,7 +213,7 @@ public:
      */
     virtual ~Variant();
     
-    static Variant Null;
+    static Variant Void;
     
 private:
     // Pointer the data / data

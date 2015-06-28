@@ -40,7 +40,7 @@ const Type& paramType$ = getType<void>()""",
 XM_FUNCTION_PARAM_MAX, ", \\") + """
 
 #define _XM_FUNCTION_CALL_PARAMS \\""" + gen_seq("""
-const Variant& arg$ = Variant::Null""", XM_FUNCTION_PARAM_MAX, ", \\") + """
+const Variant& arg$ = Variant::Void""", XM_FUNCTION_PARAM_MAX, ", \\") + """
 
 #define _XM_FUNCTION_CALLIMPL_PARAMS \\""" + gen_seq("""
 Variant& arg$""", XM_FUNCTION_PARAM_MAX, ", \\") + """
@@ -49,7 +49,7 @@ Variant& arg$""", XM_FUNCTION_PARAM_MAX, ", \\") + """
 const Type& paramType$ = getType<void>()""", XM_FUNCTION_PARAM_MAX - 1, ", \\") + """
 
 #define _XM_METHOD_CALL_PARAMS \\""" + gen_seq("""
-const Variant& arg$ = Variant::Null""",
+const Variant& arg$ = Variant::Void""",
 XM_FUNCTION_PARAM_MAX - 1, ", \\") + """
 
 

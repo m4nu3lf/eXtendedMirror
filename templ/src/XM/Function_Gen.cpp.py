@@ -69,7 +69,7 @@ XM_FUNCTION_PARAM_MAX) + """
 for i in range(XM_FUNCTION_PARAM_MAX):
   if i != 0:
     content += "\n    else "
-  content +="""if (&ncArg""" + str(i) + """ == &Variant::Null)
+  content +="""if (&ncArg""" + str(i) + """ == &Variant::Void)
     {
         return callImpl
         (""" + gen_seq("""
@@ -96,7 +96,7 @@ for i in range(XM_FUNCTION_PARAM_MAX):
         return call
         (""" + gen_seq("""
            args[$]""", i, ",") + ("," if i != 0 else "") + gen_seq("""
-           Variant::Null""" , (i, XM_FUNCTION_PARAM_MAX), ",") + """
+           Variant::Void""" , (i, XM_FUNCTION_PARAM_MAX), ",") + """
         ); """
 content += """
     else
@@ -115,7 +115,7 @@ Variant Function::callImpl
 ) const
 {""" + gen_seq("""
     (void)(arg$);""", XM_FUNCTION_PARAM_MAX) + """
-    return Variant::Null;
+    return Variant::Void;
 }
 
 
