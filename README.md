@@ -22,8 +22,8 @@
 ## ROADMAP ##
 - Constants
 - Enumerators
-- Primitive types Casting
-- Pointer to reference Casting
+- Primitive types casting
+- Pointer to reference casting
 - General Type casters
 - Automatic pointer casters
 - Template value parameter support
