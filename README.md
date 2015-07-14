@@ -20,10 +20,11 @@
 - Class Templates
 
 ## ROADMAP ##
+- Constants
+- Enumerators
+- Primitive types Casting
+- Pointer to reference Casting
 - General Type casters
 - Automatic pointer casters
-- Template const parameter support
-      Automatic deduction is not possible
-- Constants & Enums
-- Unions
+- Template value parameter support
 - Parser (?)
