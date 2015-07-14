@@ -25,6 +25,7 @@
 - Primitive types casting
 - Pointer to reference casting
 - General Type casters
-- Automatic pointer casters
 - Template value parameter support
+- Multiple constructors
+- Reflect the standard library
 - Parser (?)
