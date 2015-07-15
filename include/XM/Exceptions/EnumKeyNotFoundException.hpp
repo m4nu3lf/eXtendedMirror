@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Enum.cpp                                             *
+ *      Extended Mirror: EnumKeyNotFoundException.hpp                         *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,43 +30,27 @@
  *****************************************************************************/
 
 
-#include <XM/xMirror.hpp>
-#include <XM/Exceptions/EnumKeyNotFoundException.hpp>
-
-using namespace xm;
-using namespace std;
+#ifndef XM_ENUMKEYNOTFOUNDEXCEPTION_HPP
+#define	XM_ENUMKEYNOTFOUNDEXCEPTION_HPP
 
 
-Enum::Enum(const string& uName, const Namespace& name_space)
-    : Item(uName, name_space)
+namespace xm{
+
+class EnumKeyNotFoundException : public std::exception
 {
-}
+public:
+    EnumKeyNotFoundException(const Enum& xmEnum, const std::string& key)
+            throw();
+    
+    const char* what() const throw();
+    
+    ~EnumKeyNotFoundException() throw();
+protected:
+    std::string msg;
+};
 
 
-Enum::Enum(const string& uName)
-    : Item(uName)
-{
-}
+} // namespace xm
 
+#endif	/* XM_ENUMKEYNOTFOUNDEXCEPTION_HPP */
 
-const map<string, int>& Enum::getValues() const
-{
-    return values_;
-}
-
-
-int Enum::getValue(const std::string& enumKey) const
-{
-    map<string, int>::const_iterator ite = values_.find(enumKey);
-    if (ite == values_.end())
-        throw EnumKeyNotFoundException(*this, enumKey);
-    else
-        return ite->second;
-}
-
-
-Enum& Enum::addValue(const std::string& enumKey, int val)
-{
-    values_.insert(make_pair(enumKey, val));
-    return *this;
-}

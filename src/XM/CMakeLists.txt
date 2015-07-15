@@ -20,6 +20,7 @@ add_library("xMirror" STATIC
 	"Type.cpp"
 	"Variant.cpp"
 	"Variant_Gen.cpp"
+	"Exceptions/EnumKeyNotFoundException.cpp"
 	"Exceptions/NotFoundException.cpp"
 	"Exceptions/MemberExceptions.cpp"
 	"Exceptions/PropertyRangeException.cpp"
