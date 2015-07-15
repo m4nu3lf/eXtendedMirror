@@ -34,9 +34,6 @@
 #define	XM_BIND_HPP
 
 
-#define XM_BIND_CONSTANT(constant)                                            \
-    bindConstant<decltype(constant), constant>(#constant);
-
 // Unqualified Name and Value
 #define XM_UNV(variable)                                                      \
     xm::splitName(#variable, xm::NameTail).second, variable
@@ -46,6 +43,13 @@
 
 // Member Name and Pointer
 #define XM_MNP(member) #member, &ClassT::member
+
+// Quick binding macros
+#define XM_BIND_CONSTANT(_constant_)                                          \
+    bindConstant<decltype(_constant_), _constant_>(#_constant_);
+#define XM_BIND_ENUM(_enum_) bindEnum(#_enum_)
+#define XM_BIND_FUNCTION(_function_) bindFunction(XM_FNP(_function_))
+#define XM_ADD_ENUM_VAL(_val_) addValue(XM_UNV(_val_))
 
 #define XM_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
 #define XM_BIND_PBASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base

@@ -34,10 +34,10 @@ XM_DEFINE_CLASS(Shape)
 
 XM_BIND_FREE_ITEMS
 {
-    bindEnum("Shape::Alignement")
-            .addValue(XM_UNV(Shape::Center))
-            .addValue(XM_UNV(Shape::Bottom))
-            .addValue(XM_UNV(Shape::Left))
-            .addValue(XM_UNV(Shape::Right))
-            .addValue(XM_UNV(Shape::Up));
+    XM_BIND_ENUM(Shape::Alignement)
+            .XM_ADD_ENUM_VAL(Shape::Center)
+            .XM_ADD_ENUM_VAL(Shape::Bottom)
+            .XM_ADD_ENUM_VAL(Shape::Left)
+            .XM_ADD_ENUM_VAL(Shape::Right)
+            .XM_ADD_ENUM_VAL(Shape::Up);
 }
