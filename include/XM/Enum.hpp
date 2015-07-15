@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Names.hpp                                            *
+ *      Extended Mirror: Enum.hpp                                             *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -29,27 +29,31 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
-
-#ifndef XM_UTILS_NAMES_HPP
-#define	XM_UTILS_NAMES_HPP
-
-#include <XM/Utils/Utils.hpp>
-
-#define _XM_TOKENPASTE(x, y) x ## y
-#define _XM_TOKENPASTE2(x, y) _XM_TOKENPASTE(x, y)
+#ifndef XM_ENUM_HPP
+#define	XM_ENUM_HPP
 
 namespace xm {
+
+class Enum : public Item {
+public:
+    Enum(const std::string& uName, const Namespace& name_space);
+
+    Enum(const std::string& uName);
     
-enum NameSide {
-    NameHead,
-    NameTail
+    virtual
+    const std::map<std::string, int>& getValues() const;
+
+    virtual
+    std::pair<int, bool> getValue(const std::string& enumKey) const;
+
+    void addValue(const std::string& enumKey, int val);
+
+private:
+
+    std::map<std::string, int> values_;
 };
 
-std::pair<std::string, std::string> splitName(const std::string& name,
-                                              NameSide side);
+} // namespace xm
 
-
-} //namespace xm
-
-#endif	/* XM_UTILS_NAMES_HPP */
+#endif	/* XM_ENUM_HPP*/
 

@@ -34,7 +34,7 @@
 #define	XM_UTILS_CONTAINERS_HPP
 
 
-#define DEFINE_POINTER_COMPARER_BY_METHOD(getter, ComparerName)                \
+#define _XM_DEFINE_POINTER_COMPARER_BY_METHOD(getter, ComparerName)            \
                                                                                \
 template<class T>                                                              \
 struct ComparerName                                                            \

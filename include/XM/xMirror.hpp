@@ -44,8 +44,8 @@
 #include <XM/Utils/Utils.hpp>
 
 namespace xm {    
-DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
-DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
+_XM_DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
+_XM_DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
 }
 
 
@@ -63,6 +63,7 @@ DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
 #include <XM/Member.hpp>
 #include <XM/Property.hpp>
 #include <XM/Constant.hpp>
+#include <XM/Enum.hpp>
 #include <XM/Function.hpp>
 #include <XM/Method.hpp>
 #include <XM/SpecialMembers.hpp>

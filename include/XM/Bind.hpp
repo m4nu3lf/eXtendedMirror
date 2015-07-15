@@ -34,6 +34,9 @@
 #define	XM_BIND_HPP
 
 
+#define XM_BIND_CONSTANT(constant)                                            \
+    bindConstant<decltype(constant), constant>(#constant);
+#define XM_FNP(function) #function, function
 #define XM_MNP(member) #member, &ClassT::member
 #define XM_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
 #define XM_BIND_PBASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base

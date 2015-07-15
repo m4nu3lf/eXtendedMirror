@@ -17,4 +17,7 @@ XM_DEFINE_CLASS(Button)
 	XM_BIND_PBASE(Control);    
 }
 
-XM_BIND_CONSTANT(Button::A_Const);
+XM_BIND_FREE_ITEMS
+{
+    XM_BIND_CONSTANT(Button::A_Const);
+}

@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_MACROS_HPP
-#define	XM_MACROS_HPP
+#ifndef XM_REGISTRATIONMACROS_HPP
+#define	XM_REGISTRATIONMACROS_HPP
 
 #include <XM/TemplateRegistrationMacros.hpp>
 
@@ -160,35 +160,17 @@ XM_ASSUME_NON_COPYABLE(_class_)
 template class xm::TypeRegisterer<_type_ >;                                  \
 
 
-#define XM_BIND_FUNCTION(_func_)                                             \
-_XM_BIND_FUNCTION(_func_, __COUNTER__)
+#define XM_BIND_FREE_ITEMS                                                   \
+_XM_BIND_FREE_ITEMS(__LINE__)
 
-#define _XM_BIND_FUNCTION(_func_, _count_)                                   \
+#define _XM_BIND_FREE_ITEMS(_uid_)                                           \
 namespace xm {                                                               \
-struct FuncBinder##_count_                                                   \
+struct _XM_TOKENPASTE2(FreeBinder, _uid_)                                    \
 {                                                                            \
-    FuncBinder##_count_()                                                    \
-    {                                                                        \
-        bindFunction(#_func_, _func_);                                       \
-    }                                                                        \
-} funcBinder##_count_;                                                       \
-}
+    _XM_TOKENPASTE2(FreeBinder, _uid_)();                                    \
+} _XM_TOKENPASTE2(freeBinder, _uid_);                                        \
+}                                                                            \
+xm::_XM_TOKENPASTE2(FreeBinder, _uid_)::_XM_TOKENPASTE2(FreeBinder, _uid_)()
 
 
-#define XM_BIND_CONSTANT(_const_)                                            \
-_XM_BIND_CONSTANT(_const_, __COUNTER__)
-
-#define _XM_BIND_CONSTANT(_const_, _count_)                                  \
-namespace xm {                                                               \
-struct ConstBinder##_count_                                                  \
-{                                                                            \
-    ConstBinder##_count_()                                                   \
-    {                                                                        \
-        bindConstant<decltype(_const_), _const_>(#_const_);                  \
-    }                                                                        \
-} constBinder##_count_;                                                      \
-}
-
-
-
-#endif	/* XM_MACROS_HPP */
+#endif	/* XM_REGISTRATIONMACROS_HPP */
