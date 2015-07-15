@@ -36,11 +36,12 @@ namespace xm{
 
 class Constant : public Item 
 {
+public:
     Constant(const std::string& uName, const Namespace& name_space);
 
     Constant(const std::string& uName);
     
-    virtual Variant getValue();
+    virtual Variant getValue() const;
 };
 
 } // namespace xm

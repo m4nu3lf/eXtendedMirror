@@ -104,7 +104,8 @@ T& Namespace::getItem_(const string& path, const T& keyItem)
     if (ite != items_.end())
     {
         const T* found = dynamic_cast<const T*>(*ite);
-        return *const_cast<T*>(found);
+        if (found)
+            return *const_cast<T*>(found);
     }
 
     throw NotFoundException(*this, keyItem);
@@ -172,6 +173,7 @@ template const Namespace& Namespace::getItem(const std::string& name) const;
 template const Type& Namespace::getItem(const std::string& name) const;
 template const Class& Namespace::getItem(const std::string& name) const;
 template const Template& Namespace::getItem(const std::string& name) const;
+template const Constant& Namespace::getItem(const std::string& name) const;
 template const Function& Namespace::getItem(const std::string& name) const;
 template const Property& Namespace::getItem(const std::string& name) const;
 template const Method& Namespace::getItem(const std::string& name) const;

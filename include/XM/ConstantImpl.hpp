@@ -37,15 +37,15 @@ namespace xm{
 template<typename T, T val>
 class ConstantImpl : public Constant
 {
+public:
     ConstantImpl(const std::string& uName, const Namespace& name_space)
         : Constant(uName, name_space)
     {
     }
 
-    virtual Variant getValue()
+    virtual Variant getValue() const
     {
-        return Variant(val, Variant::Reference
-                | Variant::CopyByRef | Variant::Const);
+        return Variant(val, Variant::Const);
     }
 };
 

@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_MISC_HPP
-#define	XM_MISC_HPP
+#ifndef XM_EMPTY_HPP
+#define	XM_EMPTY_HPP
 
 namespace xm{
 
@@ -54,5 +54,5 @@ struct Empty
 
 } // namespace xm
 
-#endif	/* XM_MISC_HPP */
+#endif	/* XM_EMPTY_HPP */
 

@@ -45,6 +45,23 @@
 namespace xm{
 
 
+template<typename T, T val>
+Constant& bindConstant(const std::string& name)
+{
+    // ensure the types are registered
+    registerType<T>();
+
+    std::pair<std::string, std::string> nameParts = splitName(name, NameTail);
+    Namespace& name_space = defineNamespace(nameParts.first);
+
+    // create the proper Constant
+    Constant* xmConstant =
+            new ConstantImpl<T, val>(nameParts.second, name_space);
+    name_space.addItem(*xmConstant);
+    return *xmConstant;
+}
+
+
 template<class ClassT, class BaseT>
 void bindBase()
 {

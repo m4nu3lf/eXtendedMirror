@@ -15,6 +15,14 @@ TEST(Register, GetClass)
 }
 
 
+TEST(Register, GetConstant)
+{
+    const xm::Constant& const_ = xm::getConstant("::Button::A_Const");
+    ASSERT_STREQ("::Button::A_Const", const_.getName().c_str());
+    ASSERT_EQ(::Button::A_Const, static_cast<const int&>(const_.getValue()));
+}
+
+
 TEST(Register, GetFunction)
 {
     const xm::Function& func = xm::getFunction("::dgui_factories::makeButton");

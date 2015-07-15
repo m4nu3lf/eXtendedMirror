@@ -175,5 +175,20 @@ struct FuncBinder##_count_                                                   \
 }
 
 
+#define XM_BIND_CONSTANT(_const_)                                            \
+_XM_BIND_CONSTANT(_const_, __COUNTER__)
+
+#define _XM_BIND_CONSTANT(_const_, _count_)                                  \
+namespace xm {                                                               \
+struct ConstBinder##_count_                                                  \
+{                                                                            \
+    ConstBinder##_count_()                                                   \
+    {                                                                        \
+        bindConstant<decltype(_const_), _const_>(#_const_);                  \
+    }                                                                        \
+} constBinder##_count_;                                                      \
+}
+
+
 
 #endif	/* XM_MACROS_HPP */

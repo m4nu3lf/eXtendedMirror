@@ -48,7 +48,7 @@ Constant::Constant(const std::string& uName, const Namespace& name_space)
 }
 
 
-Variant Constant::getValue()
+Variant Constant::getValue() const
 {
     return Variant::Void;
 }

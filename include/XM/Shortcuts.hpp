@@ -35,6 +35,7 @@
 
 namespace xm {
 
+class Constant;
 class Function;
 
 template <typename T>
@@ -104,6 +105,13 @@ template <typename C>
 const Class& getClassOf(C& object)
 {
     return Register::getSingleton().getClassOf<C>(object);
+}
+
+
+inline
+const Constant& getConstant(const std::string& name)
+{
+    return Register::getSingleton().getItem<Constant>(name);
 }
 
 

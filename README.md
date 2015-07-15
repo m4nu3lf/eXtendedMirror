@@ -18,9 +18,9 @@
 - Static Functions
 - Namespaces
 - Class Templates
+- Constants
 
 ## ROADMAP ##
-- Constants
 - Enumerators
 - Primitive types casting
 - Pointer to reference casting

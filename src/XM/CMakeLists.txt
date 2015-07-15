@@ -2,6 +2,7 @@ add_library("xMirror" STATIC
 	"ArrayType.cpp"
 	"Class.cpp"
 	"CompoundClass.cpp"
+    "Constant.cpp"
 	"Function.cpp"
 	"Function_Gen.cpp"
 	"Item.cpp"
