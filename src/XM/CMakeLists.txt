@@ -3,6 +3,7 @@ add_library("xMirror" STATIC
 	"Class.cpp"
 	"CompoundClass.cpp"
     "Constant.cpp"
+    "Enum.cpp"
 	"Function.cpp"
 	"Function_Gen.cpp"
 	"Item.cpp"

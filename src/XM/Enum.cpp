@@ -59,13 +59,14 @@ int Enum::getValue(const std::string& enumKey) const
     map<string, int>::const_iterator ite = values_.find(enumKey);
     if (ite == values_.end())
         return -1;
-        throw EnumKeyNotFoundException(*this, enumKey);
+        //throw EnumKeyNotFoundException(*this, enumKey);
     else
         return ite->second;
 }
 
 
-void Enum::addValue(const std::string& enumKey, int val)
+Enum& Enum::addValue(const std::string& enumKey, int val)
 {
     values_.insert(make_pair(enumKey, val));
+    return *this;
 }

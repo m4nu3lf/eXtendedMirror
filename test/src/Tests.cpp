@@ -23,6 +23,14 @@ TEST(Register, GetConstant)
 }
 
 
+TEST(Register, GetEnum)
+{
+    const xm::Enum& enum_ = xm::getEnum("::Shape::Alignement");
+    ASSERT_STREQ("::Shape::Alignement", enum_.getName().c_str());
+    ASSERT_EQ(::Shape::Up, enum_.getValue("Up"));
+}
+
+
 TEST(Register, GetFunction)
 {
     const xm::Function& func = xm::getFunction("::dgui_factories::makeButton");

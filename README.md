@@ -19,9 +19,9 @@
 - Namespaces
 - Class Templates
 - Constants
+- Enumerators
 
 ## ROADMAP ##
-- Enumerators
 - Primitive types casting
 - Pointer to reference casting
 - General Type casters

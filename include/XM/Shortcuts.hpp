@@ -36,6 +36,7 @@
 namespace xm {
 
 class Constant;
+class Enum;
 class Function;
 
 template <typename T>
@@ -112,6 +113,13 @@ inline
 const Constant& getConstant(const std::string& name)
 {
     return Register::getSingleton().getItem<Constant>(name);
+}
+
+
+inline
+const Enum& getEnum(const std::string& name)
+{
+    return Register::getSingleton().getItem<Enum>(name);
 }
 
 

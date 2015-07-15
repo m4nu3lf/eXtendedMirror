@@ -36,8 +36,17 @@
 
 #define XM_BIND_CONSTANT(constant)                                            \
     bindConstant<decltype(constant), constant>(#constant);
+
+// Unqualified Name and Value
+#define XM_UNV(variable)                                                      \
+    xm::splitName(#variable, xm::NameTail).second, variable
+
+// Function Name and Pointer
 #define XM_FNP(function) #function, function
+
+// Member Name and Pointer
 #define XM_MNP(member) #member, &ClassT::member
+
 #define XM_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
 #define XM_BIND_PBASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base
 
@@ -62,6 +71,19 @@ Constant& bindConstant(const std::string& name)
             new ConstantImpl<T, val>(nameParts.second, name_space);
     name_space.addItem(*xmConstant);
     return *xmConstant;
+}
+
+
+inline
+Enum& bindEnum(const std::string& name)
+{
+    std::pair<std::string, std::string> nameParts = splitName(name, NameTail);
+    Namespace& name_space = defineNamespace(nameParts.first);
+
+    // create the proper Enum
+    Enum* xmEnum = new Enum(nameParts.second, name_space);
+    name_space.addItem(*xmEnum);
+    return *xmEnum;
 }
 
 

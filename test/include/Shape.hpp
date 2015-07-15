@@ -3,6 +3,14 @@
 class Shape
 {
 public:
+    enum Alignement {
+        Center,
+        Left,
+        Right,
+        Bottom,
+        Up
+    };
+
 	Shape(int x = 0, int y = 0);
 
 	int getX();

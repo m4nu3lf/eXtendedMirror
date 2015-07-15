@@ -44,9 +44,9 @@ public:
     const std::map<std::string, int>& getValues() const;
 
     virtual
-    std::pair<int, bool> getValue(const std::string& enumKey) const;
+    int getValue(const std::string& enumKey) const;
 
-    void addValue(const std::string& enumKey, int val);
+    Enum& addValue(const std::string& enumKey, int val);
 
 private:
 

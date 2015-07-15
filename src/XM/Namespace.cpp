@@ -174,6 +174,7 @@ template const Type& Namespace::getItem(const std::string& name) const;
 template const Class& Namespace::getItem(const std::string& name) const;
 template const Template& Namespace::getItem(const std::string& name) const;
 template const Constant& Namespace::getItem(const std::string& name) const;
+template const Enum& Namespace::getItem(const std::string& name) const;
 template const Function& Namespace::getItem(const std::string& name) const;
 template const Property& Namespace::getItem(const std::string& name) const;
 template const Method& Namespace::getItem(const std::string& name) const;
