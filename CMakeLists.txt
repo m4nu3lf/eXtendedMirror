@@ -41,8 +41,11 @@ endif()
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include") 
 
-
 add_subdirectory("src/XM" "build/${CMAKE_BUILD_TYPE}")
+
+# Installing
+install(DIRECTORY include/XM DESTINATION include
+        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
 
 # Testing
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/test")

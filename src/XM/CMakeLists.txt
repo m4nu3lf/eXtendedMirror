@@ -28,3 +28,6 @@ add_library("xMirror" STATIC
 	"Exceptions/VariantCostnessException.cpp"
 	"Exceptions/VariantTypeException.cpp"
 	"Utils/Names.cpp")
+
+#Installing
+install(TARGETS xMirror ARCHIVE DESTINATION lib)
