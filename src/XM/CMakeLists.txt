@@ -1,4 +1,4 @@
-add_library("xMirror" STATIC
+add_library("xMirror" SHARED
 	"ArrayType.cpp"
 	"Class.cpp"
 	"CompoundClass.cpp"
@@ -30,4 +30,4 @@ add_library("xMirror" STATIC
 	"Utils/Names.cpp")
 
 #Installing
-install(TARGETS xMirror ARCHIVE DESTINATION lib)
+install(TARGETS xMirror LIBRARY DESTINATION lib)
