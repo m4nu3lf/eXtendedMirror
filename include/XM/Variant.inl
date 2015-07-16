@@ -212,8 +212,10 @@ inline T& Variant::as()
         if ((flags_ & Reference) || (sizeof(T) > sizeof(data_)))
             // just reinterpret the pointer
             return *reinterpret_cast<T*>(data_);
-        else
-            return const_cast<T&>(reinterpret_cast<const T&>(data_));
+        else {
+            void* dataPtr_ = &data_;
+            return *reinterpret_cast<T*>(dataPtr_);
+        }
     }
     else
     {

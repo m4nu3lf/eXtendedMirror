@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-project("Extended Mirror")
+project("eXtendedMirror")
 
 # Generate source files from python scripts
 if (FUNC_PARAM_MAX)
