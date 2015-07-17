@@ -65,7 +65,49 @@ make install
 
 ## Using the library ##
 
-To use the library include the header XM/xMirror.hpp in your compile units and link to the libxMirror library
+To use the library include the header XM/xMirror.hpp in your compile units and link to the libxMirror library.
+You can get more info [here](http://www.codeproject.com/Tips/1004661/An-Awful-Still-Useful-Cplusplus-Reflection-System?msg=5093181#xx5093181xx) 
+###MyClass.hpp###
+
+```
+#!c++
+#include<XM/xMirror.h>
+
+class MyClass {
+public:
+    int myMethod(int a, int b);
+    int myField;
+
+    int getMyField2();
+    void setMyField2(int val);
+
+private:
+    int myField2;
+};
+XM_DECLARE_CLASS(MyClass);
+```
+###MyClass.cpp###
+
+```
+#!c++
+
+// Methods definition here
+
+XM_DEFINE_CLASS(MyClass)
+{
+    // Binds a method with automatic name extrapolation
+    bindMethod(XM_MNP(myMethod));
+  
+    // Binds a property from a field
+    bindProperty(XM_MNP(myField));
+
+    // Binds a property from get and set methods
+    bindProperty("myField2", &MyClass::getMyField2, &MyClass::setMyField2);
+}
+
+XM_REGISTER_TYPE(MyClass);
+```
+
 
 ## Roadmap ##
 - Primitive types casting
