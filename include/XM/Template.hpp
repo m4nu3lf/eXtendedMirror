@@ -45,15 +45,12 @@ public:
      * A basic constructor.
      * 
      * @param uName The unqualified name of the template.
+     * @param name_space The namespace of the template.
+     * @param argN The number of template arguments.
      */
-    Template(const std::string& name, uint argN = 0); 
-
-    /**
-     * A basic constructor.
-     *
-     * @param uName The unqualified name of the template.
-     */
-    Template(const std::string& uName, const Namespace& name_space);
+    Template(const std::string& name,
+             const Namespace& name_space,
+             uint argN = 0);
     
     /**
      * Get the number of the template parameters.
@@ -63,13 +60,6 @@ public:
     uint getArgN() const;
 
     Item::Category getItemCategory() const;
-    
-    /**
-     * Not valid Template.
-     * This template is used wherever reference to a non valid template is 
-     * needed.
-     */
-    static const Template None;
     
 private:
     

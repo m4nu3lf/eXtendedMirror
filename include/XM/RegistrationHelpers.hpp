@@ -235,15 +235,20 @@ CompoundClass& CompoundClass::create()
     Const_Type_Vector templateArgs = GetTemplateArgs<T>()();
     
     const Template* tempjate;
+    const std::string tempjateName = GetTemplateName<T>()();
     
     try
     {
-        tempjate = &typeReg.getItem<Template>(GetTemplateName<T>()());
+        tempjate = &typeReg.getItem<Template>(tempjateName);
     }
     catch(const NotFoundException& e)
     {
+        std::pair<std::string, std::string> nameParts
+                = splitName(tempjateName, NameTail);
+        Namespace& name_space = xm::defineNamespace(nameParts.first);
+
         Template* ncTemplate =
-                new Template(GetTemplateName<T>()(), templateArgs.size());
+                new Template(nameParts.second, name_space, templateArgs.size());
         
         typeReg.addItem(*ncTemplate);
         tempjate = ncTemplate;

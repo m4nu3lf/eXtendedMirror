@@ -23,6 +23,7 @@ It supports almost all the construct of the language (with some limitations) suc
 - Class Templates
 - Constants
 - Enumerators
+- Static and Global Variables
 
 ## Dependencies ##
 

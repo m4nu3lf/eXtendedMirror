@@ -8,5 +8,5 @@ Button* dgui_factories::makeButton(int x, int y, int width, int height)
 
 XM_BIND_FREE_ITEMS
 {
-    bindFunction(XM_FNP(::dgui_factories::makeButton));
+    XM_BIND_FUNCTION(::dgui_factories::makeButton);
 }

@@ -38,6 +38,13 @@ TEST(Register, GetFunction)
 }
 
 
+TEST(Register, GetTemplate)
+{
+    const xm::Template& temp1ate = xm::getTemplate("MyTemplate");
+    ASSERT_STREQ("::MyTemplate", temp1ate.getName().c_str());
+}
+
+
 TEST(Register, GetVariable)
 {
     const xm::Variable& var = xm::getVariable("::Button::aVar");

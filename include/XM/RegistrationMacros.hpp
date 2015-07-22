@@ -156,8 +156,8 @@ XM_ASSUME_NON_COPYABLE(_class_)
  * object is loaded dynamically, with no extra code.
  * \a relfected_class is the class to be registered.
  */
-#define XM_REGISTER_TYPE(_type_)                                             \
-template class xm::TypeRegisterer<_type_ >;                                  \
+#define XM_REGISTER_TYPE(...)                                                \
+template class xm::TypeRegisterer<__VA_ARGS__>;                              \
 
 
 #define XM_BIND_FREE_ITEMS                                                   \
