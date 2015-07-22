@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: Shortcuts.hpp                                        *
+ *      Extended Mirror: VariableImpl.hpp                                     *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -29,131 +29,29 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
+#ifndef XM_VARIABLEIMPL_HPP
+#define	XM_VARIABLEIMPL_HPP
 
-#ifndef XM_SHORTCUTS_HPP
-#define	XM_SHORTCUTS_HPP
+namespace xm{
 
-namespace xm {
-
-class Constant;
-class Enum;
-class Function;
-class Variable;
-
-template <typename T>
-const Type& registerType()
+template<typename T>
+class VariableImpl: public Variable
 {
-    return Register::getSingleton().registerType<T>();
-}
+public:
+    VariableImpl(const std::string& uName, const Namespace& name_space, const T& var)
+        : Constant(uName, name_space)
+    {
+    }
 
+    virtual Variant getValue() const
+    {
+        return Variant(xm::ref(var));
+    }
+private:
+    T& var;
+};
 
-template <class C>
-const Class& registerClass()
-{
-    return Register::getSingleton().registerClass<C>();
-}
+} // namespace xm
 
-
-inline
-Namespace& defineNamespace(const std::string& path)
-{
-    return Register::getSingleton().defineNamespace(path);
-}
-
-
-inline
-const Namespace& getNamespace(const std::string& path)
-{
-    return Register::getSingleton().getItem<Namespace>(path);
-}
-
-
-template <typename T>
-const Type& getType()
-{
-    return Register::getSingleton().getType<T>();
-}
-
-
-inline
-const Type& getType(const std::string& name)
-{
-    return Register::getSingleton().getItem<Type>(name);
-}
-
-
-template <typename C>
-const Class& getClass()
-{
-    return Register::getSingleton().registerClass<C>();
-}
-
-
-inline
-const Class& getClass(const std::string& name)
-{
-    return Register::getSingleton().getItem<Class>(name);
-}
-
-
-template <typename T>
-const Type& getTypeOf(T& var)
-{
-    return getTypeOf<T>(var);
-}
-
-
-template <typename C>
-const Class& getClassOf(C& object)
-{
-    return Register::getSingleton().getClassOf<C>(object);
-}
-
-
-inline
-const Constant& getConstant(const std::string& name)
-{
-    return Register::getSingleton().getItem<Constant>(name);
-}
-
-
-inline
-const Enum& getEnum(const std::string& name)
-{
-    return Register::getSingleton().getItem<Enum>(name);
-}
-
-
-inline
-const Function& getFunction(const std::string& name)
-{
-    return Register::getSingleton().getItem<Function>(name);
-}
-
-
-inline
-const Variable& getVariable(const std::string& name)
-{
-    return Register::getSingleton().getItem<Variable>(name);
-}
-
-
-inline
-void unregisterType(const std::string& name)
-{
-    return Register::getSingleton().unregisterType(name);
-}
-
-
-inline
-void unregisterType(const std::type_info& typeId)
-{
-    return Register::getSingleton().unregisterType(typeId);
-}
-
-
-} //namespace xm
-
-
-#endif	/* XM_SHORTCUTS_HPP */
+#endif	/* XM_VARIABLE_IMPL*/
 

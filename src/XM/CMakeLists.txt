@@ -18,6 +18,7 @@ add_library("xMirror" SHARED
 	"SpecialMembers.cpp"
 	"Template.cpp"
 	"Type.cpp"
+    "Variable.cpp"
 	"Variant.cpp"
 	"Variant_Gen.cpp"
 	"Exceptions/EnumKeyNotFoundException.cpp"

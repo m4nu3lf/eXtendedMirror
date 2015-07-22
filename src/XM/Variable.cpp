@@ -1,5 +1,5 @@
-/******************************************************************************      
- *      Extended Mirror: xMirror.hpp                                   *
+/******************************************************************************
+ *      Extended Mirror: Variable.cpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -16,7 +16,7 @@
  *       the documentation and/or other materials provided with the           *
  *       distribution.                                                        *
  *                                                                            *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"* 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"*
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE  *
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE *
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE  *
@@ -29,75 +29,27 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
+#include <XM/xMirror.hpp>
 
-#ifndef EXTENDEDMIRROR_HPP
-#define	EXTENDEDMIRROR_HPP
 
-#include <typeinfo>
-#include <limits>
-#include <set>
-#include <map>
-#include <vector>
-#include <utility>
+using namespace std;
+using namespace xm;
 
-#include <XM/Typedefs.hpp>
-#include <XM/Utils/Utils.hpp>
 
-namespace xm {    
-_XM_DEFINE_POINTER_COMPARER_BY_METHOD(getName, PtrCmpByName)
-_XM_DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
+Variable::Variable(const std::string& uName)
+    : Item(uName)
+{
 }
 
 
-#include <XM/Item.hpp>
-#include <XM/Namespace.hpp>
-#include <XM/Register.hpp>
-#include <XM/Shortcuts.hpp>
-#include <XM/TypeTraits.hpp>
-#include <XM/Empty.hpp>
-#include <XM/Variant.hpp>
-#include <XM/Type.hpp>
-#include <XM/PrimitiveType.hpp>
-#include <XM/PointerType.hpp>
-#include <XM/ArrayType.hpp>
-#include <XM/Member.hpp>
-#include <XM/Property.hpp>
-#include <XM/Constant.hpp>
-#include <XM/Enum.hpp>
-#include <XM/Function.hpp>
-#include <XM/Variable.hpp>
-#include <XM/Method.hpp>
-#include <XM/SpecialMembers.hpp>
-#include <XM/Template.hpp>
-#include <XM/Class.hpp>
-#include <XM/CompoundClass.hpp>
-#include <XM/PropertyField.hpp>
-#include <XM/PropertyArrayField.hpp>
-#include <XM/PropertyGetterNSetter.hpp>
-#include <XM/Variant.inl>
-#include <XM/SpecialMembersImpl.hpp>
-#include <XM/ConstantImpl.hpp>
-#include <XM/FunctionImpl.hpp>
-#include <XM/VariableImpl.hpp>
-#include <XM/MethodImpl.hpp>
-#include <XM/Register.inl>
-#include <XM/Bind.hpp>
-#include <XM/RegistrationMacros.hpp>
+Variable::Variable(const std::string& uName, const Namespace& name_space)
+    : Item(uName, name_space)
+{
+}
 
 
-// Specialize the type recognizer for each primitive type
-XM_DECLARE_PRIMITIVE(char);
-XM_DECLARE_PRIMITIVE(wchar_t);
-XM_DECLARE_PRIMITIVE(short);
-XM_DECLARE_PRIMITIVE(int);
-XM_DECLARE_PRIMITIVE(long);
-XM_DECLARE_PRIMITIVE(float);
-XM_DECLARE_PRIMITIVE(double);
-XM_DECLARE_PRIMITIVE(uchar);
-XM_DECLARE_PRIMITIVE(ushort);
-XM_DECLARE_PRIMITIVE(uint);
-XM_DECLARE_PRIMITIVE(ulong);
-XM_DECLARE_PRIMITIVE(bool);
-
-#endif	/* EXTENDEDMIRROR_HPP */
+Variant Variable::getReference() const
+{
+    return Variant::Void;
+}
 
