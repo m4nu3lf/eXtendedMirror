@@ -38,6 +38,14 @@ TEST(Register, GetFunction)
 }
 
 
+TEST(Register, GetVariable)
+{
+    const xm::Variable& var = xm::getVariable("::Button::aVar");
+    ASSERT_STREQ("::Button::aVar", var.getName().c_str());
+    ASSERT_EQ(::Button::aVar, static_cast<int>(var.getReference()));
+}
+
+
 TEST(Register, GetNamespace)
 {
     const xm::Namespace& ns = xm::getNamespace("::dgui_factories");

@@ -44,12 +44,16 @@
 // Member Name and Pointer
 #define XM_MNP(member) #member, &ClassT::member
 
+// Variable Name and Value
+#define XM_VNV(function) #function, function
+
 // Quick binding macros
 #define XM_BIND_CONSTANT(_constant_)                                          \
     bindConstant<decltype(_constant_), _constant_>(#_constant_);
 #define XM_BIND_ENUM(_enum_) bindEnum(#_enum_)
-#define XM_BIND_FUNCTION(_function_) bindFunction(XM_FNP(_function_))
 #define XM_ADD_ENUM_VAL(_val_) addValue(XM_UNV(_val_))
+#define XM_BIND_FUNCTION(_function_) bindFunction(XM_FNP(_function_))
+#define XM_BIND_VARIABLE(_variable_) bindVariable(XM_VNV(_variable_))
 
 #define XM_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
 #define XM_BIND_PBASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base
@@ -59,6 +63,23 @@
 #include <XM/BindMethod.hpp>
 
 namespace xm{
+
+
+template<typename T>
+Variable& bindVariable(const std::string& name, T& var)
+{
+    // ensure the types are registered
+    registerType<T>();
+
+    std::pair<std::string, std::string> nameParts = splitName(name, NameTail);
+    Namespace& name_space = defineNamespace(nameParts.first);
+
+    // create the proper Variable
+    Variable* xmVariable =
+            new VariableImpl<T>(nameParts.second, name_space, var);
+    name_space.addItem(*xmVariable);
+    return *xmVariable;
+}
 
 
 template<typename T, T val>

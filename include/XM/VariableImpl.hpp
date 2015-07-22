@@ -38,12 +38,12 @@ template<typename T>
 class VariableImpl: public Variable
 {
 public:
-    VariableImpl(const std::string& uName, const Namespace& name_space, const T& var)
-        : Constant(uName, name_space)
+    VariableImpl(const std::string& uName, const Namespace& name_space, T& var)
+        : Variable(uName, name_space), var(var)
     {
     }
 
-    virtual Variant getValue() const
+    virtual Variant getReference() const
     {
         return Variant(xm::ref(var));
     }
