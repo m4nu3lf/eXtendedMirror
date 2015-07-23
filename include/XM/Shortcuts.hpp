@@ -147,6 +147,13 @@ const Function& getFunction(const std::string& name)
 
 
 inline
+const Function& getFunction(const Function& function)
+{
+    return Register::getSingleton().getItem<Function>(function);
+}
+
+
+inline
 const Template& getTemplate(const std::string& name)
 {
     return Register::getSingleton().getItem<Template>(name);
