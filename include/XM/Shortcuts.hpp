@@ -90,10 +90,24 @@ const Class& getClass()
 }
 
 
+template <typename C>
+const CompoundClass& getCompoundClass()
+{
+    return Register::getSingleton().registerClass<C>();
+}
+
+
 inline
 const Class& getClass(const std::string& name)
 {
     return Register::getSingleton().getItem<Class>(name);
+}
+
+
+inline
+const CompoundClass& getCompoundClass(const std::string& name)
+{
+    return Register::getSingleton().getItem<CompoundClass>(name);
 }
 
 

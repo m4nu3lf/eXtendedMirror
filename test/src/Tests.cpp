@@ -15,6 +15,15 @@ TEST(Register, GetClass)
 }
 
 
+TEST(Register, GetCompoundClass)
+{
+    const xm::CompoundClass& clazz
+            = xm::getCompoundClass("MyTemplate<int,float>");
+    ASSERT_STREQ("::MyTemplate<int, float>", clazz.getName().c_str());
+    ASSERT_STREQ("::MyTemplate", clazz.getTemplate().getName().c_str());
+}
+
+
 TEST(Register, GetConstant)
 {
     const xm::Constant& const_ = xm::getConstant("::Button::A_Const");

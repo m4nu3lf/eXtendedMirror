@@ -36,6 +36,12 @@ using namespace xm;
 using namespace std;
 
 
+CompoundClass::CompoundClass(const std::string& name,
+                             const Namespace& name_space)
+    : Item(name, name_space), Class(name, name_space)
+{}
+
+
 CompoundClass::CompoundClass
 (
     const Namespace& name_space,

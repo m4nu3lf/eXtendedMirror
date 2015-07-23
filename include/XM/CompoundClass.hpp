@@ -40,6 +40,14 @@ class CompoundClass : public Class
 {
 public:
     /**
+     * Constructor for full initialization.
+     *
+     * @param name The class name.
+     * @param name_space The class namespace.
+     */
+    CompoundClass(const std::string& name, const Namespace& name_space);
+
+    /**
      * Get the type Category.
      * 
      * @return The type category of this type.

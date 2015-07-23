@@ -71,10 +71,6 @@ struct GetTypeName                                                           \\
         std::string str = std::string(#_template_) + "<";                    \\
         str += GetTypeName<T0>()();""" + gen_seq("""                         \\
         str += ", " + GetTypeName<T$>()();""", (1, n_temp_params)) + """     \\
-        if (str[str.length() - 1] == '>')                                    \\
-        {                                                                    \\
-            str += " ";                                                      \\
-        }                                                                    \\
         str += ">";                                                          \\
         return str;                                                          \\
     }                                                                        \\

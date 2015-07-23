@@ -56,6 +56,20 @@ template<typename T>
 T& Namespace::getItem_(const string& name)
 {
     pair<string, string> nameParts = splitName(name, NameTail);
+
+    // Normalizes name
+    for (size_t i = 1; i < nameParts.second.size(); i++) {
+        if (nameParts.second[i] == ' '
+            && nameParts.second[i - 1] != ',') {
+            nameParts.second.erase(i, 1);
+            i--;
+        } else if(nameParts.second[i] != ' '
+                  && nameParts.second[i - 1] == ',') {
+            nameParts.second.insert(i, " ");
+            i++;
+        }
+    }
+
     return getItem_(nameParts.first, T(nameParts.second, *this));
 }
 
@@ -172,6 +186,8 @@ template const Item& Namespace::getItem(const std::string& name) const;
 template const Namespace& Namespace::getItem(const std::string& name) const;
 template const Type& Namespace::getItem(const std::string& name) const;
 template const Class& Namespace::getItem(const std::string& name) const;
+template const CompoundClass& Namespace::getItem(const std::string& name)
+    const;
 template const Template& Namespace::getItem(const std::string& name) const;
 template const Constant& Namespace::getItem(const std::string& name) const;
 template const Enum& Namespace::getItem(const std::string& name) const;
