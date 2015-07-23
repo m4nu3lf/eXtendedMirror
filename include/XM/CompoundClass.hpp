@@ -71,6 +71,16 @@ public:
      * @return The type descriptors vector.
      */
     const TemplArg_Vector& getTemplateArgs() const;
+
+    /**
+     * Add a template argument.
+     */
+    void addTemplateArg(const TemplArg& arg);
+
+    /**
+     * Set the template arguments.
+     */
+    void setTemplateArgs(const TemplArg_Vector& templateArgs);
         
 private:
     /**
@@ -97,8 +107,7 @@ private:
             const CopyConstructor& copyConstructor,
             const Destructor& destructor,
             bool isAbstract,
-            const Template& tempjate,
-            const TemplArg_Vector& templateArgs
+            const Template& tempjate
      );
     
     // The template descriptor of the template this class is an instance of.
@@ -107,13 +116,11 @@ private:
     // The the template arguments.
     TemplArg_Vector templateArgs_;
     
-    // Factory function
+    // Factory functions
     template<class T>
-    static CompoundClass& create();
-    
-    // Factory class ( calls create() )
-    template<typename T>
-    friend struct CreateType;
+    friend Class& createClass();
+    template<class T>
+    friend CompoundClass& createCompoundClass();
 };
 
 

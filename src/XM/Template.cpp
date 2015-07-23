@@ -38,15 +38,9 @@ using namespace xm;
     
 
 Template::Template(const string& uName,
-                   const Namespace& name_space,
-                   uint argN)
-    : Item(uName, name_space), argN_(argN)
+                   const Namespace& name_space)
+    : Item(uName, name_space)
 {
-}
-
-uint Template::getArgN() const
-{
-    return argN_;
 }
 
 

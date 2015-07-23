@@ -52,8 +52,7 @@ CompoundClass::CompoundClass
     const CopyConstructor& copyConstructor,
     const Destructor& destructor,
     bool isAbstract,
-    const Template& tempjate,
-    const TemplArg_Vector& templateArgs
+    const Template& tempjate
 ) :
     Item(name, name_space),
     Class
@@ -67,9 +66,20 @@ CompoundClass::CompoundClass
         destructor,
         isAbstract
     ),
-    tempjate_(&tempjate),
-    templateArgs_(templateArgs)
+    tempjate_(&tempjate)
 {
+}
+
+
+void CompoundClass::addTemplateArg(const TemplArg& arg)
+{
+    templateArgs_.push_back(arg);
+}
+
+
+void CompoundClass::setTemplateArgs(const TemplArg_Vector& templateArgs)
+{
+    templateArgs_ = templateArgs;
 }
 
 

@@ -50,6 +50,32 @@ TemplArg::TemplArg(const Type& type)
 }
 
 
+TemplArg::TemplArg(const TemplArg& other)
+{
+    category_ = other.category_;
+    if (category_ == ValueArg) {
+        ptr_.value_ = new Variant(*other.ptr_.value_);
+    } else {
+        ptr_.type_ = other.ptr_.type_;
+    }
+}
+
+
+TemplArg::TemplArg(TemplArg&& other)
+{
+    std::swap(category_, other.category_);
+    std::swap(ptr_, other.ptr_);
+}
+
+
+const TemplArg& TemplArg::operator=(TemplArg other)
+{
+    std::swap(category_, other.category_);
+    std::swap(ptr_, other.ptr_);
+    return *this;
+}
+
+
 TemplArg::Category TemplArg::getCategory()
 {
     return category_;

@@ -49,7 +49,7 @@ for n_temp_params in range(1, XM_DECLARE_TEMPLATE_PARAM_MAX + 1):
  * Works only with two type parameters template classes.
  * After this macro, specify the body of the building function.
  */
-#define XM_DECLARE_TEMPLATE_""" + str(n_temp_params) + """(_template_)        \\
+#define XM_DECLARE_TEMPLATE_""" + str(n_temp_params) + """(_template_)       \\
 namespace xm{                                                                \\
                                                                              \\
 template                                                                     \\
@@ -73,26 +73,6 @@ struct GetTypeName                                                           \\
         str += ", " + GetTypeName<T$>()();""", (1, n_temp_params)) + """     \\
         str += ">";                                                          \\
         return str;                                                          \\
-    }                                                                        \\
-};                                                                           \\
-                                                                             \\
-template                                                                     \\
-<                                                                            \\
-    typename T0""" + gen_seq(""",                                            \\
-    typename T$""", (1, n_temp_params)) + """                                \\
->                                                                            \\
-struct GetTemplateName                                                       \\
-<                                                                            \\
-    _template_                                                               \\
-    <                                                                        \\
-        T0""" + gen_seq(""",                                                 \\
-        T$""", (1, n_temp_params)) + """                                     \\
-    >                                                                        \\
->                                                                            \\
-{                                                                            \\
-    std::string operator()()                                                 \\
-    {                                                                        \\
-        return #_template_;                                                  \\
     }                                                                        \\
 };                                                                           \\
                                                                              \\
@@ -158,7 +138,7 @@ struct CreateType                                                            \\
 {                                                                            \\
     Type& operator()()                                                       \\
     {                                                                        \\
-        return CompoundClass::create                                         \\
+        return createCompoundClass                                           \\
             <                                                                \\
                 _template_                                                   \\
                 <                                                            \\

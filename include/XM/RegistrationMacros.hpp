@@ -65,31 +65,31 @@ struct GetTypeName<_primitive_type_>                                         \
  * Place this macro in the same header of the \a _class_ declaration,
  * after the class declaration.
  */
-#define XM_DECLARE_CLASS(_class_)                                            \
+#define XM_DECLARE_CLASS(...)                                                \
 namespace xm{                                                                \
                                                                              \
 template<>                                                                   \
-struct GetTypeName<_class_ >                                                 \
+struct GetTypeName<__VA_ARGS__>                                              \
 {                                                                            \
     std::string operator()()                                                 \
     {                                                                        \
-        return #_class_;                                                     \
+        return #__VA_ARGS__;                                                 \
     }                                                                        \
 };                                                                           \
                                                                              \
 template<>                                                                   \
-struct DefineClass<_class_>                                                  \
+struct DefineClass<__VA_ARGS__>                                              \
 {                                                                            \
-    typedef _class_ ClassT;                                                  \
+    typedef __VA_ARGS__ ClassT;                                              \
     void operator()();                                                       \
 };                                                                           \
                                                                              \
 template<>                                                                   \
-struct CreateType<_class_>                                                   \
+struct CreateType<__VA_ARGS__>                                               \
 {                                                                            \
     Type& operator()()                                                       \
     {                                                                        \
-        return Class::create<_class_ >();                                    \
+        return createClass<__VA_ARGS__ >();                                  \
     }                                                                        \
 };                                                                           \
                                                                              \

@@ -47,6 +47,9 @@ public:
 
     TemplArg(const Variant& constant);
     TemplArg(const Type& type);
+    TemplArg(const TemplArg& other);
+    TemplArg(TemplArg&& other);
+    const TemplArg& operator=(TemplArg other);
 
     Category getCategory();
     const Variant& getValue();

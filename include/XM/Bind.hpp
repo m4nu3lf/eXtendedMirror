@@ -48,15 +48,18 @@
 #define XM_VNV(function) #function, function
 
 // Quick binding macros
-#define XM_BIND_CONSTANT(_constant_)                                          \
-    bindConstant<decltype(_constant_), _constant_>(#_constant_);
-#define XM_BIND_ENUM(_enum_) bindEnum(#_enum_)
-#define XM_ADD_ENUM_VAL(_val_) addValue(XM_UNV(_val_))
-#define XM_BIND_FUNCTION(_function_) bindFunction(XM_FNP(_function_))
-#define XM_BIND_VARIABLE(_variable_) bindVariable(XM_VNV(_variable_))
+#define XM_BIND_CONSTANT(constant)                                            \
+    bindConstant<decltype(constant), constant>(#constant);
+#define XM_BIND_ENUM(enum_) bindEnum(#enum_)
+#define XM_ADD_ENUM_VAL(val) addValue(XM_UNV(val))
+#define XM_BIND_FUNCTION(function) bindFunction(XM_FNP(function))
+#define XM_BIND_VARIABLE(variable) bindVariable(XM_VNV(variable))
 
 #define XM_BIND_BASE(BaseT) bindBase<ClassT, BaseT>();
 #define XM_BIND_PBASE(BaseT) bindPmBase<ClassT, BaseT>(); // polymorphic base
+
+#define XM_ADD_TEMPL_ARG(arg)                                                 \
+    addTemplArg<ClassT, decltype(arg)>(arg);
 
 #include <XM/BindFunction.hpp>
 #include <XM/BindGetNSetProperty.hpp>
@@ -165,6 +168,17 @@ Property& bindProperty(const std::string& name,
             new PropertyArrayField<ClassT, FieldT[size]>(name, field);
     const_cast<Class&>(getClass<ClassT>()).addMember(*xmProperty);
     return *xmProperty;
+}
+
+
+template<class ClassT, typename T>
+void addTemplArg(T arg)
+{
+    Class& clazz = const_cast<Class&>(getClass<ClassT>());
+    CompoundClass* compClass = dynamic_cast<CompoundClass*>(&clazz);
+    if (compClass) {
+        compClass->addTemplateArg(TemplArg(arg));
+    }
 }
 
 

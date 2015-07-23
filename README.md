@@ -115,7 +115,6 @@ XM_REGISTER_TYPE(MyClass);
 - Primitive types casting
 - Pointer to reference casting
 - General Type casters
-- Template value parameter support
 - Multiple constructors
 - Reflect the standard library
 - Parser (?)

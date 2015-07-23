@@ -55,4 +55,3 @@ pair<string, string> xm::splitName(const string& name, NameSide side)
         splitName.second = name;
     return splitName;
 }
-

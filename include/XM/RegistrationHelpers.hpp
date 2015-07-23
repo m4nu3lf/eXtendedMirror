@@ -191,35 +191,73 @@ struct DefineClass
 };
 
 
-
-
-
 /**
  * This helper function is called from the CreateType functor when registering
- * a non compound class. This function is provided to keep the all the possible
+ * a class. This function is provided to keep the all the possible
  * code outside of macros.
  */
 
 template<class T>
-Class& Class::create()
+Class& createClass()
 {
-    // Allocate memory for class
-    Class* clazz = reinterpret_cast<Class*>(::operator new(sizeof(Class)));
-    
+    // Get the typename
+    std::string typeName = GetTypeName<T>()();
+
     // Split namespace from unqualified name
     std::pair<std::string, std::string> nameParts =
-            splitName(GetTypeName<T>()(), NameTail);
-    
+            splitName(typeName, NameTail);
+
     // Define namespace
     Namespace& name_space =
         Register::getSingleton().defineNamespace(nameParts.first);
-    
-    // Call constructor
-    return *new (clazz) Class(name_space, nameParts.second, sizeof(T),
-            typeid(T), *new ConstructorImpl<T>(*clazz),
-            *new CopyConstructorImpl<T>(*clazz),
-            *new DestructorImpl<T>(*clazz), IsAbstract<T>::value);
-};
+
+    size_t templArgListPos = nameParts.second.find('<');
+
+    if (templArgListPos == std::string::npos) {
+
+        // Allocate memory for class
+        Class* clazz = reinterpret_cast<Class*>(::operator new(sizeof(Class)));
+
+        // Call constructor
+        return *new (clazz) Class(name_space, nameParts.second, sizeof(T),
+                typeid(T), *new ConstructorImpl<T>(*clazz),
+                *new CopyConstructorImpl<T>(*clazz),
+                *new DestructorImpl<T>(*clazz), IsAbstract<T>::value);
+    } else {
+
+        // Allocate memory for class
+        CompoundClass* clazz = reinterpret_cast<CompoundClass*>(
+                ::operator new(sizeof(CompoundClass)));
+
+        // Get the template name
+        const std::string tempjateName = typeName.substr(0, templArgListPos);
+
+        // Get or create template
+        const Template* tempjate;
+        Register& typeReg = Register::getSingleton();
+        try
+        {
+            tempjate = &typeReg.getItem<Template>(tempjateName);
+        }
+        catch(const NotFoundException& e)
+        {
+            std::pair<std::string, std::string> nameParts
+                    = splitName(tempjateName, NameTail);
+            Namespace& name_space = xm::defineNamespace(nameParts.first);
+
+            Template* ncTemplate = new Template(nameParts.second, name_space);
+
+            typeReg.addItem(*ncTemplate);
+            tempjate = ncTemplate;
+        }
+
+        return *new (clazz) CompoundClass(name_space, nameParts.second, sizeof(T),
+                typeid(T), *new ConstructorImpl<T>(*clazz),
+                *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
+                IsAbstract<T>::value, *tempjate);
+
+    }
+}
 
 
 /**
@@ -228,48 +266,13 @@ Class& Class::create()
  * code outside of macros.
  */
 template<class T>
-CompoundClass& CompoundClass::create()
+CompoundClass& createCompoundClass()
 {
-    Register& typeReg = Register::getSingleton();
-                
-    TemplArg_Vector templateArgs = GetTemplateArgs<T>()();
-    
-    const Template* tempjate;
-    const std::string tempjateName = GetTemplateName<T>()();
-    
-    try
-    {
-        tempjate = &typeReg.getItem<Template>(tempjateName);
-    }
-    catch(const NotFoundException& e)
-    {
-        std::pair<std::string, std::string> nameParts
-                = splitName(tempjateName, NameTail);
-        Namespace& name_space = xm::defineNamespace(nameParts.first);
+    CompoundClass& clazz = dynamic_cast<CompoundClass&>(createClass<T>());
 
-        Template* ncTemplate =
-                new Template(nameParts.second, name_space, templateArgs.size());
-        
-        typeReg.addItem(*ncTemplate);
-        tempjate = ncTemplate;
-    }
-    
-    // Allocate memory for class
-    CompoundClass* clazz = reinterpret_cast<CompoundClass*>(
-            ::operator new(sizeof(CompoundClass)));
-    
-    // Split namespace from unqualified name
-    std::pair<std::string, std::string> nameParts =
-            splitName(GetTypeName<T>()(), NameTail);
-    
-    // Define namespace
-    Namespace& name_space =
-        Register::getSingleton().defineNamespace(nameParts.first);
-    
-    return *new (clazz) CompoundClass(name_space, nameParts.second, sizeof(T),
-            typeid(T), *new ConstructorImpl<T>(*clazz),
-            *new CopyConstructorImpl<T>(*clazz), *new DestructorImpl<T>(*clazz),
-            IsAbstract<T>::value, *tempjate, templateArgs);
+    clazz.setTemplateArgs(GetTemplateArgs<T>()());
+
+    return clazz;
 };
 
 

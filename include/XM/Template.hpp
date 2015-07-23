@@ -50,25 +50,15 @@ public:
      * @param argN The number of template arguments.
      */
     Template(const std::string& name,
-             const Namespace& name_space,
-             uint argN = 0);
+             const Namespace& name_space);
     
     /**
      * Get the number of the template parameters.
      * 
      * @return The template parameter number.
      */
-    uint getArgN() const;
 
     Item::Category getItemCategory() const;
-    
-private:
-    
-    // The name of the template.
-    std::string name_;
-    
-    // The number of arguments.
-    uint argN_;
 };
 
 
