@@ -47,6 +47,15 @@ add_subdirectory("src/XM" "build/${CMAKE_BUILD_TYPE}")
 install(DIRECTORY include/XM DESTINATION include
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
 
+# add a target to generate API documentation with Doxygen
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+    add_custom_target(doc
+        ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMENT "Generating API documentation with Doxygen" VERBATIM)
+endif(DOXYGEN_FOUND)
+
 # Testing
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/test")
 enable_testing()

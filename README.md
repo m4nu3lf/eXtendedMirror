@@ -28,6 +28,7 @@ It supports almost all the construct of the language (with some limitations) suc
 ## Dependencies ##
 
 The code only depends on the c++11 standard library, but the build system depends on [CMake](http://www.cmake.org/) and [Python](https://www.python.org/)
+To generate the documentation you need [Doxygen](http://www.doxygen.org/)
 
 ## Building ##
 
