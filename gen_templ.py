@@ -72,6 +72,7 @@ def generate_files(variables, dirname, names):
             fullname = fullname[:-len(".py")]
             f = open(fullname, "w")
             f.write(warning_message + variables["content"])
+            del variables["content"]
             f.close()
 
 variables["gen_seq"] = gen_seq
