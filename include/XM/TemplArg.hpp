@@ -51,9 +51,9 @@ public:
     TemplArg(TemplArg&& other);
     const TemplArg& operator=(TemplArg other);
 
-    Category getCategory();
-    const Variant& getValue();
-    const Type& getType();
+    Category getCategory() const;
+    Variant getValue() const;
+    const Type& getType() const;
 
     ~TemplArg();
     

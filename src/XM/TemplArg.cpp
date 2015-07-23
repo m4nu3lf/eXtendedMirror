@@ -76,13 +76,13 @@ const TemplArg& TemplArg::operator=(TemplArg other)
 }
 
 
-TemplArg::Category TemplArg::getCategory()
+TemplArg::Category TemplArg::getCategory() const
 {
     return category_;
 }
 
 
-const Variant& TemplArg::getValue()
+Variant TemplArg::getValue() const
 {
     if (category_ == ValueArg) {
         return *ptr_.value_;
@@ -92,7 +92,7 @@ const Variant& TemplArg::getValue()
 }
 
 
-const Type& TemplArg::getType()
+const Type& TemplArg::getType() const
 {
     if (category_ == TypeArg) {
         return *ptr_.type_;

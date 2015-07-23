@@ -54,6 +54,15 @@ TEST(Register, GetTemplate)
 }
 
 
+TEST(Register, GetTemplArgs)
+{
+    const xm::CompoundClass& clazz
+            = xm::getCompoundClass("MyTemplate2<int, int, 10>");
+    ASSERT_STREQ("int", clazz.getTemplateArgs()[0].getType().getName().c_str());
+    ASSERT_EQ(10, clazz.getTemplateArgs()[2].getValue().as<int>());
+}
+
+
 TEST(Register, GetVariable)
 {
     const xm::Variable& var = xm::getVariable("::Button::aVar");
