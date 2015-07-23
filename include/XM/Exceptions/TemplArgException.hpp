@@ -1,5 +1,5 @@
-/******************************************************************************      
- *      Extended Mirror: CompoundClass.cpp                                    *
+/******************************************************************************
+ *      Extended Mirror: TemplArgException.hpp                                *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -16,7 +16,7 @@
  *       the documentation and/or other materials provided with the           *
  *       distribution.                                                        *
  *                                                                            *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"* 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"*
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE  *
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE *
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE  *
@@ -30,62 +30,20 @@
  *****************************************************************************/
 
 
-#include <XM/xMirror.hpp>
+#ifndef XM_TEMPLARGEXCEPTION_HPP
+#define	XM_TEMPLARGEXCEPTION_HPP
 
-using namespace xm;
-using namespace std;
+namespace xm{
 
-
-CompoundClass::CompoundClass(const std::string& name,
-                             const Namespace& name_space)
-    : Item(name, name_space), Class(name, name_space)
-{}
-
-
-CompoundClass::CompoundClass
-(
-    const Namespace& name_space,
-    const string& name,
-    uint size,
-    const type_info& cppType,
-    const Constructor& constructor,
-    const CopyConstructor& copyConstructor,
-    const Destructor& destructor,
-    bool isAbstract,
-    const Template& tempjate,
-    const TemplArg_Vector& templateArgs
-) :
-    Item(name, name_space),
-    Class
-    (
-        name_space,
-        name,
-        size,
-        cppType,
-        constructor,
-        copyConstructor,
-        destructor,
-        isAbstract
-    ),
-    tempjate_(&tempjate),
-    templateArgs_(templateArgs)
+class TemplArgException : public std::exception
 {
+public:
+    TemplArgException(TemplArg::Category category) throw();
+    const char* what() const throw();
+private:
+    const TemplArg::Category category_;
+};
+
 }
 
-
-Type::Category CompoundClass::getCategory() const
-{
-    return Type::CompoundClass;
-}
-
-
-const Template& CompoundClass::getTemplate() const
-{
-    return *tempjate_;
-}
-
-
-const TemplArg_Vector& CompoundClass::getTemplateArgs() const
-{
-    return templateArgs_;
-}
+#endif /* XM_TEMPLARGEXCEPTION_HPP */

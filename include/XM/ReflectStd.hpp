@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: CompoundClass.cpp                                    *
+ *      Extended Mirror: ReflectStd.hpp                                       *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,62 +30,67 @@
  *****************************************************************************/
 
 
-#include <XM/xMirror.hpp>
+#ifndef XM_REFLECTSTD_HPP
+#define	XM_REFLECTSTD_HPP
 
-using namespace xm;
-using namespace std;
-
-
-CompoundClass::CompoundClass(const std::string& name,
-                             const Namespace& name_space)
-    : Item(name, name_space), Class(name, name_space)
-{}
+XM_DECLARE_TEMPLATE_1(std::allocator)
+template<typename T>
+XM_DEFINE_CLASS(std::allocator<T>){}
 
 
-CompoundClass::CompoundClass
-(
-    const Namespace& name_space,
-    const string& name,
-    uint size,
-    const type_info& cppType,
-    const Constructor& constructor,
-    const CopyConstructor& copyConstructor,
-    const Destructor& destructor,
-    bool isAbstract,
-    const Template& tempjate,
-    const TemplArg_Vector& templateArgs
-) :
-    Item(name, name_space),
-    Class
-    (
-        name_space,
-        name,
-        size,
-        cppType,
-        constructor,
-        copyConstructor,
-        destructor,
-        isAbstract
-    ),
-    tempjate_(&tempjate),
-    templateArgs_(templateArgs)
-{
-}
+XM_DECLARE_TEMPLATE_1(std::char_traits)
+template<typename T>
+XM_DEFINE_CLASS(std::char_traits<T>){}
 
 
-Type::Category CompoundClass::getCategory() const
-{
-    return Type::CompoundClass;
-}
+XM_DECLARE_TEMPLATE_1(std::equal_to)
+template<typename T>
+XM_DEFINE_CLASS(std::equal_to<T>){}
 
 
-const Template& CompoundClass::getTemplate() const
-{
-    return *tempjate_;
-}
+XM_DECLARE_TEMPLATE_1(std::not_equal_to)
+template<typename T>
+XM_DEFINE_CLASS(std::not_equal_to<T>){}
 
 
-const TemplArg_Vector& CompoundClass::getTemplateArgs() const
-{
-    return templateArgs_;
-}
+XM_DECLARE_TEMPLATE_1(std::less)
+template<typename T>
+XM_DEFINE_CLASS(std::less<T>){}
+
+
+XM_DECLARE_TEMPLATE_1(std::less_equal)
+template<typename T>
+XM_DEFINE_CLASS(std::less_equal<T>){}
+
+
+XM_DECLARE_TEMPLATE_1(std::greater)
+template<typename T>
+XM_DEFINE_CLASS(std::greater<T>){}
+
+
+XM_DECLARE_TEMPLATE_1(std::greater_equal)
+template<typename T>
+XM_DEFINE_CLASS(std::greater_equal<T>){}
+
+
+XM_DECLARE_TEMPLATE_2(std::vector)
+template<typename T, typename Allocator>
+XM_DEFINE_CLASS(std::vector<T, Allocator>){}
+
+
+XM_DECLARE_TEMPLATE_3(std::basic_string)
+template<typename CharT, typename Traits, typename Allocator>
+XM_DEFINE_CLASS(std::basic_string<CharT, Traits, Allocator>){}
+
+
+XM_DECLARE_TEMPLATE_3(std::set)
+template<typename Key, typename Compare, typename Allocator>
+XM_DEFINE_CLASS(std::set<Key, Compare, Allocator>){}
+
+
+XM_DECLARE_TEMPLATE_4(std::map)
+template<typename Key, typename T, typename Compare, typename Allocator>
+XM_DEFINE_CLASS(std::map<Key, T, Compare, Allocator>){}
+        
+#endif	/* XM_REFLECTSTD_HPP */
+

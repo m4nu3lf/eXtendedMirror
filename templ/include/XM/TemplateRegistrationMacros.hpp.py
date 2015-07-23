@@ -110,11 +110,11 @@ struct GetTemplateArgs                                                       \\
     >                                                                        \\
 >                                                                            \\
 {                                                                            \\
-    Const_Type_Vector operator()()                                           \\
+    TemplArg_Vector operator()()                                             \\
     {                                                                        \\
-        Const_Type_Vector templateArgs;                                      \\
-        templateArgs.push_back(&registerType<T0>());""" + gen_seq("""        \\
-        templateArgs.push_back(&registerType<T$>());""", \
+        TemplArg_Vector templateArgs;                                        \\
+        templateArgs.push_back(registerType<T0>());""" + gen_seq("""         \\
+        templateArgs.push_back(registerType<T$>());""", \
         (1, n_temp_params)) + """ \\
         return templateArgs;                                                 \\
     }                                                                        \\
@@ -125,7 +125,7 @@ template                                                                     \\
     typename T0""" + gen_seq(""",                                            \\
     typename T$""", (1, n_temp_params)) + """                                \\
 >                                                                            \\
-struct DefineClass                                                            \\
+struct DefineClass                                                           \\
 <                                                                            \\
     _template_                                                               \\
     <                                                                        \\

@@ -232,7 +232,7 @@ CompoundClass& CompoundClass::create()
 {
     Register& typeReg = Register::getSingleton();
                 
-    Const_Type_Vector templateArgs = GetTemplateArgs<T>()();
+    TemplArg_Vector templateArgs = GetTemplateArgs<T>()();
     
     const Template* tempjate;
     const std::string tempjateName = GetTemplateName<T>()();

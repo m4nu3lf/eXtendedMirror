@@ -35,7 +35,10 @@
 
 namespace xm {
 
-    
+
+typedef std::vector<TemplArg> TemplArg_Vector;
+
+
 class CompoundClass : public Class
 {
 public:
@@ -62,12 +65,12 @@ public:
     const Template& getTemplate() const;
     
     /**
-     * Get a vector containing the Type objects of the type arguments of the
+     * Get a vector containing the arguments of the
      * template.
      * 
      * @return The type descriptors vector.
      */
-    const Const_Type_Vector& getTemplateArgs() const;
+    const TemplArg_Vector& getTemplateArgs() const;
         
 private:
     /**
@@ -95,14 +98,14 @@ private:
             const Destructor& destructor,
             bool isAbstract,
             const Template& tempjate,
-            const Const_Type_Vector& templateArgs
+            const TemplArg_Vector& templateArgs
      );
     
     // The template descriptor of the template this class is an instance of.
     const Template* tempjate_;
     
-    // The type descriptors of the template arguments.
-    Const_Type_Vector templateArgs_;
+    // The the template arguments.
+    TemplArg_Vector templateArgs_;
     
     // Factory function
     template<class T>

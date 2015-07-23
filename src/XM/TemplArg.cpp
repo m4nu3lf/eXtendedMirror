@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: EnableStd.hpp                                        *
+ *      Extended Mirror: TemplArg.cpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -29,68 +29,59 @@
  * THE POSSIBILITY OF SUCH DAMAGE.                                            *
  *****************************************************************************/
 
+#include <XM/xMirror.hpp>
+#include <XM/Exceptions/TemplArgException.hpp>
 
-#ifndef XM_DECLARE_STD_HPP
-#define	XM_DECLARE_STD_HPP
+using namespace std;
+using namespace xm;
+    
 
-XM_DECLARE_TEMPLATE_1(std::allocator)
-template<typename T>
-XM_DEFINE_CLASS(std::allocator<T>){}
-
-
-XM_DECLARE_TEMPLATE_1(std::char_traits)
-template<typename T>
-XM_DEFINE_CLASS(std::char_traits<T>){}
-
-
-XM_DECLARE_TEMPLATE_1(std::equal_to)
-template<typename T>
-XM_DEFINE_CLASS(std::equal_to<T>){}
+TemplArg::TemplArg(const Variant& value)
+{
+    ptr_.value_ = new Variant(value);
+    category_ = ValueArg;
+}
 
 
-XM_DECLARE_TEMPLATE_1(std::not_equal_to)
-template<typename T>
-XM_DEFINE_CLASS(std::not_equal_to<T>){}
+TemplArg::TemplArg(const Type& type)
+{
+    ptr_.type_ = &type;
+    category_ = TypeArg;
+}
 
 
-XM_DECLARE_TEMPLATE_1(std::less)
-template<typename T>
-XM_DEFINE_CLASS(std::less<T>){}
+TemplArg::Category TemplArg::getCategory()
+{
+    return category_;
+}
 
 
-XM_DECLARE_TEMPLATE_1(std::less_equal)
-template<typename T>
-XM_DEFINE_CLASS(std::less_equal<T>){}
+const Variant& TemplArg::getValue()
+{
+    if (category_ == ValueArg) {
+        return *ptr_.value_;
+    } else {
+        throw TemplArgException(category_);
+    }
+}
 
 
-XM_DECLARE_TEMPLATE_1(std::greater)
-template<typename T>
-XM_DEFINE_CLASS(std::greater<T>){}
+const Type& TemplArg::getType()
+{
+    if (category_ == TypeArg) {
+        return *ptr_.type_;
+    } else {
+        throw TemplArgException(category_);
+    }
+}
 
 
-XM_DECLARE_TEMPLATE_1(std::greater_equal)
-template<typename T>
-XM_DEFINE_CLASS(std::greater_equal<T>){}
+TemplArg::~TemplArg()
+{
+    if (category_ == ValueArg) {
+        delete ptr_.value_;
+    }
+}
 
 
-XM_DECLARE_TEMPLATE_2(std::vector)
-template<typename T, typename Allocator>
-XM_DEFINE_CLASS(std::vector<T, Allocator>){}
-
-
-XM_DECLARE_TEMPLATE_3(std::basic_string)
-template<typename CharT, typename Traits, typename Allocator>
-XM_DEFINE_CLASS(std::basic_string<CharT, Traits, Allocator>){}
-
-
-XM_DECLARE_TEMPLATE_3(std::set)
-template<typename Key, typename Compare, typename Allocator>
-XM_DEFINE_CLASS(std::set<Key, Compare, Allocator>){}
-
-
-XM_DECLARE_TEMPLATE_4(std::map)
-template<typename Key, typename T, typename Compare, typename Allocator>
-XM_DEFINE_CLASS(std::map<Key, T, Compare, Allocator>){}
-        
-#endif	/* XM_DECLARE_STD_HPP */
 

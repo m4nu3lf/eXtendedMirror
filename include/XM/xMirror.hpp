@@ -70,6 +70,7 @@ _XM_DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
 #include <XM/SpecialMembers.hpp>
 #include <XM/Template.hpp>
 #include <XM/Class.hpp>
+#include <XM/TemplArg.hpp>
 #include <XM/CompoundClass.hpp>
 #include <XM/PropertyField.hpp>
 #include <XM/PropertyArrayField.hpp>

@@ -17,6 +17,7 @@ add_library("xMirror" SHARED
 	"Register.cpp"
 	"SpecialMembers.cpp"
 	"Template.cpp"
+    "TemplArg.cpp"
 	"Type.cpp"
     "Variable.cpp"
 	"Variant.cpp"
@@ -28,6 +29,7 @@ add_library("xMirror" SHARED
 	"Exceptions/PropertySetException.cpp"
 	"Exceptions/VariantCostnessException.cpp"
 	"Exceptions/VariantTypeException.cpp"
+	"Exceptions/TemplArgException.cpp"
 	"Utils/Names.cpp")
 
 #Installing

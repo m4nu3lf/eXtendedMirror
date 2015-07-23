@@ -1,5 +1,5 @@
 /******************************************************************************      
- *      Extended Mirror: CompoundClass.cpp                                    *
+ *      Extended Mirror: TemplArg.hpp                                         *
  ******************************************************************************
  *      Copyright (c) 2012-2015, Manuele Finocchiaro                          *
  *      All rights reserved.                                                  *
@@ -30,62 +30,40 @@
  *****************************************************************************/
 
 
-#include <XM/xMirror.hpp>
+#ifndef XM_TEMPLARG_HPP
+#define	XM_TEMPLARG_HPP
 
-using namespace xm;
-using namespace std;
-
-
-CompoundClass::CompoundClass(const std::string& name,
-                             const Namespace& name_space)
-    : Item(name, name_space), Class(name, name_space)
-{}
+namespace xm{
 
 
-CompoundClass::CompoundClass
-(
-    const Namespace& name_space,
-    const string& name,
-    uint size,
-    const type_info& cppType,
-    const Constructor& constructor,
-    const CopyConstructor& copyConstructor,
-    const Destructor& destructor,
-    bool isAbstract,
-    const Template& tempjate,
-    const TemplArg_Vector& templateArgs
-) :
-    Item(name, name_space),
-    Class
-    (
-        name_space,
-        name,
-        size,
-        cppType,
-        constructor,
-        copyConstructor,
-        destructor,
-        isAbstract
-    ),
-    tempjate_(&tempjate),
-    templateArgs_(templateArgs)
+class TemplArg
 {
-}
+public:
+
+    enum Category {
+        ValueArg,
+        TypeArg
+    };
+
+    TemplArg(const Variant& constant);
+    TemplArg(const Type& type);
+
+    Category getCategory();
+    const Variant& getValue();
+    const Type& getType();
+
+    ~TemplArg();
+    
+private:
+    Category category_;
+    union {
+        const Variant* value_;
+        const Type* type_;
+    } ptr_;
+};
 
 
-Type::Category CompoundClass::getCategory() const
-{
-    return Type::CompoundClass;
-}
+} // namespace xm
 
+#endif	/* XM_TEMPLARG_HPP */
 
-const Template& CompoundClass::getTemplate() const
-{
-    return *tempjate_;
-}
-
-
-const TemplArg_Vector& CompoundClass::getTemplateArgs() const
-{
-    return templateArgs_;
-}

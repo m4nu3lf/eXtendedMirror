@@ -30,8 +30,8 @@
  *****************************************************************************/
 
 
-#ifndef XM_CONSTNESSBREAK_HPP
-#define	XM_CONSTNESSBREAK_HPP
+#ifndef XM_VARIANTCONSTNESSEXCEPTION_HPP
+#define	XM_VARIANTCONSTNESSEXCEPTION_HPP
 
 namespace xm{
 
@@ -46,5 +46,5 @@ private:
 
 } // namespace xm
 
-#endif	/* XM_CONSTNESSBREAK_HPP */
+#endif	/* XM_VARIANTCONSTNESSEXCEPTION_HPP */
 
