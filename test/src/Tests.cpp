@@ -115,12 +115,8 @@ TEST(Class, GetBaseMethod)
 TEST(Class, GetOverloadedMethod)
 {
     const xm::Class&  clazz = xm::getClass<MyButton>();
-    const xm::Method& signature = xm::Method("onMouseClick",
-                                             xm::getType<void>(),
-                                             clazz,
-                                             xm::getType<int>(),
-                                             xm::getType<int>());
-    const xm::Method& method = clazz.getMethod(signature);
+    const xm::Method& method = clazz.getMethod(
+                xm::methodSign<MyButton, int, int>("onMouseClick"));
     ASSERT_STREQ("int", method.getParameters()[1]->type.getName().c_str());
 }
 

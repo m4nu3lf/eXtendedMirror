@@ -84,6 +84,7 @@ _XM_DEFINE_POINTER_COMPARER_BY_METHOD(getId, PtrCmpById)
 #include <XM/Register.inl>
 #include <XM/Bind.hpp>
 #include <XM/RegistrationMacros.hpp>
+#include <XM/MakeSign.hpp>
 
 
 // Specialize the type recognizer for each primitive type

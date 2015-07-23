@@ -1,5 +1,5 @@
 ##############################################################################
-#      Extended Mirror: ParamLists.hpp.py                                    #
+#      Extended Mirror: MakeSign.hpp.py                                      #
 ##############################################################################
 #      Copyright (c) 2012-2015, Manuele Finocchiaro                          #
 #      All rights reserved.                                                  #
@@ -32,26 +32,37 @@
 
 content = """
 
-#ifndef XM_PARAMLISTS_HPP
-#define XM_PARAMLISTS_HPP
+#ifndef XM_FACTORYFUNCTIONS_HPP
+#define XM_FACTORYFUNCTIONS_HPP
 
-#define _XM_FUNCTION_CONSTRUCTOR_PARAMS \\""" + gen_seq("""
-const Type& paramType$ = getType<void>()""",
-XM_FUNCTION_PARAM_MAX, ", \\") + """
+namespace xm {
 
-#define _XM_FUNCTION_CALL_PARAMS \\""" + gen_seq("""
-const Variant& arg$ = Variant::Void""", XM_FUNCTION_PARAM_MAX, ", \\") + """
+template
+<""" + gen_seq("""
+    typename ParamT$ = void""", XM_FUNCTION_PARAM_MAX, ",") + """
+>
+Function functionSign(const std::string& name)
+{
+    return Function(name,
+                    getType<void>()""" + gen_seq(""",
+                    getType<ParamT$>()""", XM_FUNCTION_PARAM_MAX) + """);
+}
 
-#define _XM_FUNCTION_CALLIMPL_PARAMS \\""" + gen_seq("""
-Variant& arg$""", XM_FUNCTION_PARAM_MAX, ", \\") + """
 
-#define _XM_METHOD_CONSTRUCTOR_PARAMS \\""" + gen_seq("""
-const Type& paramType$ = getType<void>()""", XM_FUNCTION_PARAM_MAX - 1, ", \\") + """
+template
+<
+    typename ClassT""" + gen_seq(""",
+    typename ParamT$ = void""", XM_FUNCTION_PARAM_MAX - 1) + """
+>
+Method methodSign(const std::string& name)
+{
+    return Method(name,
+                  getType<void>(),
+                  getClass<ClassT>()""" + gen_seq(""",
+                  getType<ParamT$>()""", XM_FUNCTION_PARAM_MAX - 1) + """);
+}
 
-#define _XM_METHOD_CALL_PARAMS \\""" + gen_seq("""
-const Variant& arg$ = Variant::Void""",
-XM_FUNCTION_PARAM_MAX - 1, ", \\") + """
+} // namespace xm
 
-#endif /*XM_PARAMLISTS_HPP*/
-
+#endif /* XM_FACTORYFUNCTIONS_HPP */
 """
