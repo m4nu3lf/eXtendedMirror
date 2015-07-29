@@ -65,10 +65,19 @@ To install on your system type
 make install
 ```
 
+To build the documentation
+
+
+```
+#!bash
+
+make doc
+```
+
 ## Using the library ##
 
 To use the library include the header XM/xMirror.hpp in your compile units and link to the libxMirror library.
-You can get more info [here](http://www.codeproject.com/Tips/1004661/An-Awful-Still-Useful-Cplusplus-Reflection-System?msg=5093181#xx5093181xx) 
+You can get more info [here](http://www.codeproject.com/Articles/1013256/An-Awful-Still-Useful-Cplusplus-Reflection-Syste) 
 ###MyClass.hpp###
 
 ```
