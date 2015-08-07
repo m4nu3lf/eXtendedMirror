@@ -38,8 +38,6 @@ To build the library you first have to run CMake from the project directory
 
 
 ```
-#!bash
-
 cmake -DCMAKE_BUILD_TYPE=Debug .
 ```
 
@@ -54,16 +52,12 @@ After running CMake, you can build the library and the tests by running
 
 
 ```
-#!bash
-
 make
 ```
 To install on your system type
 
 
 ```
-#!bash
-
 make install
 ```
 
@@ -71,8 +65,6 @@ To build the documentation
 
 
 ```
-#!bash
-
 make doc
 ```
 
@@ -83,7 +75,6 @@ You can get more info [here](http://www.codeproject.com/Articles/1013256/An-Awfu
 ###MyClass.hpp###
 
 ```
-#!c++
 #include<XM/xMirror.h>
 
 class MyClass {
@@ -102,8 +93,6 @@ XM_DECLARE_CLASS(MyClass);
 ###MyClass.cpp###
 
 ```
-#!c++
-
 // Methods definition here
 
 XM_DEFINE_CLASS(MyClass)
@@ -123,9 +112,9 @@ XM_REGISTER_TYPE(MyClass);
 
 
 ## Roadmap ##
+- Reflect the standard library
 - Primitive types casting
 - Pointer to reference casting
 - General Type casters
 - Multiple constructors
-- Reflect the standard library
 - Parser (?)
