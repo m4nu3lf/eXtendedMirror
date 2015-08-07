@@ -25,6 +25,8 @@ It supports almost all the construct of the language (with some limitations) suc
 - Enumerators
 - Static and Global Variables
 
+You can find a lot of useful information in   [this](http://www.codeproject.com/Articles/1013256/An-Awful-Still-Useful-Cplusplus-Reflection-Syste) article.
+
 ## Dependencies ##
 
 The code only depends on the c++11 standard library, but the build system depends on [CMake](http://www.cmake.org/) and [Python](https://www.python.org/)
